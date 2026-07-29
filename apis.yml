@@ -1,0 +1,86 @@
+name: APIFreaks - API Hub for Developers
+description: >-
+  APIFreaks is a first-party REST API platform by JFreaks Software Solutions offering 60+ production-ready APIs across
+  IP intelligence, WHOIS, DNS, geocoding, email/phone validation, SSL, web scraping, screenshots, PDF, currency/forex,
+  commodities, weather, timezones, and more. Uses a single API key with a shared credit pool and a free tier.
+url: https://apifreaks-api-hub-for-developers.apievangelist.com/apis.yml
+created: '2026-07-29'
+modified: '2026-07-29'
+specificationVersion: '0.21'
+tags:
+  - IP intelligence
+  - geolocation
+  - WHOIS
+  - domain intelligence
+  - DNS
+  - geocoding
+  - email validation
+  - phone validation
+  - SSL
+  - web scraping
+  - screenshots
+  - PDF processing
+  - currency
+  - forex
+  - commodities
+  - financial validation
+  - ZIP codes
+  - weather
+  - timezone
+  - GeoDB
+  - user-agent parsing
+  - astronomy
+  - developer tools
+  - MCP
+  - agent-ready
+  - OCR
+apis:
+  - name: APIFreaks REST API
+    description: >-
+      RESTful API platform providing 60+ APIs across IP intelligence, WHOIS, DNS, geocoding, validation, web scraping,
+      currency, weather and more. API-key auth via X-apiKey header or apiKey query parameter; credit-based billing
+      charged only on successful responses.
+    humanURL: https://apifreaks.com/api
+    baseURL: https://api.apifreaks.com/v1.0/
+    tags:
+      - IP intelligence
+      - geolocation
+      - WHOIS
+      - domain intelligence
+      - DNS
+      - geocoding
+      - email validation
+      - phone validation
+      - SSL
+      - web scraping
+      - screenshots
+      - PDF processing
+      - currency
+      - forex
+      - commodities
+      - financial validation
+      - ZIP codes
+      - weather
+      - timezone
+      - GeoDB
+      - user-agent parsing
+      - astronomy
+      - developer tools
+      - MCP
+      - agent-ready
+      - OCR
+    properties:
+      - type: Documentation
+        url: https://apifreaks.com/docs
+      - type: OpenAPI
+        url: https://apifreaks.com/api/swagger
+      - type: LLMSTxt
+        url: https://apifreaks.com/llms.txt
+maintainers:
+  - FN: JFreaks Software Solutions
+    url: https://apifreaks.com
+generated:
+  by: apis.io/add
+  model: claude-opus-4-8
+  confidence: 95
+  at: '2026-07-29T05:10:30.144Z'
