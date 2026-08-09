@@ -1,0 +1,89 @@
+generated: '2026-08-09'
+method: derived
+spec_type: Webhooks
+asyncapi_published: false
+source: openapi/ (18 PDF operations declaring webhook_url / webhook_failure_notification / X-Webhook-Authorization)
+docs: https://apifreaks.com/api/merge-pdf
+summary: >-
+  APIFreaks has exactly one event surface, and it is outbound webhooks on the asynchronous PDF pipeline.
+  Every long-running PDF operation returns a taskId immediately and will POST a completion notification to a
+  caller-supplied webhook_url. There is no streaming API, no event bus, no subscription management endpoint,
+  and no published AsyncAPI document — the whole contract lives as three query/header parameters repeated
+  across 18 operations in the OpenAPI. The rest of the platform (IP, WHOIS, DNS, currency, weather, GeoDB,
+  validation) is synchronous request/response only and has no event surface at all.
+model:
+  style: caller-supplied-url
+  direction: outbound
+  subscription: per-request
+  registration_endpoint: null
+  notes: >-
+    There is no webhook-registration API and no dashboard endpoint catalog. The destination URL is passed on
+    the request that starts the task, so each task carries its own callback.
+parameters:
+  - name: webhook_url
+    in: query
+    type: string
+    required: false
+    description: The URL to which the webhook notification will be sent after the task is completed.
+  - name: webhook_failure_notification
+    in: query
+    type: boolean
+    required: false
+    description: >-
+      If true, an email notification is also sent when the webhook request fails all retries. The email goes
+      to the requesting user, or to their organization's admin if they belong to one.
+  - name: X-Webhook-Authorization
+    in: header
+    type: string
+    required: false
+    description: >-
+      Optional custom header forwarded on the webhook call. Format `Key:Value`
+      (e.g. `Authorization:Bearer <token>`).
+delivery:
+  retries: true
+  retry_policy_published: false
+  failure_fallback: email notification (opt-in via webhook_failure_notification)
+  signature_scheme: null
+  signature_note: >-
+    No HMAC signature, no timestamp, no replay-protection header is documented. Receiver-side
+    authentication is delegated entirely to whatever static value the caller puts in X-Webhook-Authorization,
+    which is a shared secret echoed on every call rather than a per-payload signature.
+producers:
+  - {operationId: mergePdf, http: 'POST /v1.0/pdf/merge', spec: apifreaks-api-hub-for-developers-merge-pdf-openapi.json}
+  - {operationId: splitPdf, http: 'POST /v1.0/pdf/split', spec: apifreaks-api-hub-for-developers-pdf-split-pages-openapi.json}
+  - {operationId: extractPdfPages, http: 'POST /v1.0/pdf/extract-pages', spec: apifreaks-api-hub-for-developers-pdf-extract-pages-openapi.json}
+  - {operationId: deletePdfPage, http: 'POST /v1.0/pdf/remove-pages', spec: apifreaks-api-hub-for-developers-delete-pdf-page-openapi.json}
+  - {operationId: rotatePdfPages, http: 'POST /v1.0/pdf/rotate', spec: apifreaks-api-hub-for-developers-rotate-pdf-pages-openapi.json}
+  - {operationId: compressPdf, http: 'POST /v1.0/pdf/compress', spec: apifreaks-api-hub-for-developers-pdf-compress-openapi.json}
+  - {operationId: linearizePdf, http: 'POST /v1.0/pdf/linearize', spec: apifreaks-api-hub-for-developers-linearize-pdf-openapi.json}
+  - {operationId: encryptPdf, http: 'POST /v1.0/pdf/encrypt', spec: apifreaks-api-hub-for-developers-pdf-encrypt-openapi.json}
+  - {operationId: decryptPdf, http: 'POST /v1.0/pdf/decrypt', spec: apifreaks-api-hub-for-developers-pdf-decrypt-openapi.json}
+  - {operationId: restrictPdf, http: 'POST /v1.0/pdf/restrict', spec: apifreaks-api-hub-for-developers-pdf-restrict-openapi.json}
+  - {operationId: unrestrictPdf, http: 'POST /v1.0/pdf/unrestrict', spec: apifreaks-api-hub-for-developers-pdf-unrestrict-openapi.json}
+  - {operationId: pdfToImage, http: 'POST /v1.0/pdf/png', spec: apifreaks-api-hub-for-developers-pdf-to-image-openapi.json}
+  - {operationId: null, http: 'POST /v1.0/pdf/jpg', spec: apifreaks-api-hub-for-developers-pdf-to-image-openapi.json, note: no operationId in the published spec}
+  - {operationId: null, http: 'POST /v1.0/pdf/tif', spec: apifreaks-api-hub-for-developers-pdf-to-image-openapi.json, note: no operationId in the published spec}
+  - {operationId: null, http: 'POST /v1.0/pdf/bmp', spec: apifreaks-api-hub-for-developers-pdf-to-image-openapi.json, note: no operationId in the published spec}
+  - {operationId: null, http: 'POST /v1.0/pdf/gif', spec: apifreaks-api-hub-for-developers-pdf-to-image-openapi.json, note: no operationId in the published spec}
+polling_alternative:
+  operationId: getTaskStatus
+  http: 'GET /v1.0/pdf/task-status'
+  spec: apifreaks-api-hub-for-developers-pdf-task-status-openapi.json
+  states: [completed, failed]
+  payload_shape:
+    source: components.schemas.TaskStatusResponse (published example)
+    fields: [taskId, status, createdAt, outputUrls, outputIds, inputIds, expiresAt, error, message]
+  retention: >-
+    The published example shows expiresAt exactly 7 days after createdAt, i.e. generated output resources
+    are retained for one week.
+gaps:
+  - >-
+    No AsyncAPI document is published for the webhook surface, so the event payload has no machine-readable
+    schema of its own. The closest thing is the TaskStatusResponse schema on the polling endpoint; whether
+    the webhook body is identical is not documented.
+  - >-
+    No webhook signature scheme. A receiver cannot verify that a completion callback came from APIFreaks
+    other than by checking a static header it supplied itself.
+  - >-
+    No published retry schedule or maximum attempt count, only "all the retries" in the parameter
+    description.

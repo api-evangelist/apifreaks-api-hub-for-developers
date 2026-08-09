@@ -1,0 +1,110 @@
+generated: '2026-08-09'
+method: searched
+source: https://apifreaks.com/docs + https://apifreaks.com/llms.txt + openapi/ (102 specs)
+summary: >-
+  Cross-cutting request/response semantics for the APIFreaks platform, captured from the published platform
+  docs and confirmed against the 102 published OpenAPI 3.1 specs. The platform is deliberately uniform: one
+  key, one credit pool, one error envelope, one content-negotiation mechanism across every product. It is
+  also almost entirely read-only lookup traffic — which is why there is no idempotency contract and no
+  pagination contract to capture.
+authentication:
+  styles: [api_key_header, api_key_query]
+  api_key_header: X-apiKey
+  api_key_query: apiKey
+  oauth2: false
+  scopes: false
+  see: authentication/apifreaks-api-hub-for-developers-authentication.yml
+protocols:
+  required: [HTTP/1.1, HTTP/2]
+  note: The docs state all APIs require HTTP/1.x or HTTP/2.
+methods:
+  supported: [GET, POST, DELETE]
+  post_content_types: [application/json]
+  note: >-
+    Single-item lookups are GET; bulk/batch variants are POST with a JSON body. PDF operations are POST
+    (multipart/form-data for uploads). One DELETE exists (/v1.0/pdf/file).
+content_negotiation:
+  formats: [json, xml]
+  default: json
+  query_parameter: format
+  header: Accept
+  note: Every operation exposes a `format` query parameter with enum [json, xml] and default json.
+idempotency:
+  documented: false
+  idempotency_key_header: null
+  notes: >-
+    No Idempotency-Key mechanism is documented and none appears as a parameter in any of the 102 specs. In
+    practice most of the surface is safe to retry because it is read-only lookup (the official MCP server
+    annotates every tool readOnlyHint/idempotentHint true), but the write-bearing PDF pipeline
+    (upload -> transform -> task) has NO replay-protection contract: a retried POST /v1.0/pdf/merge creates a
+    second task and consumes credits again. Do not assume idempotency on PDF operations.
+pagination:
+  style: none
+  notes: >-
+    No cursor or offset pagination is documented or present in the specs. Bulk operations are bounded by hard
+    batch caps instead of pages.
+batch_limits:
+  - {api: Bulk WHOIS Lookup, max: 100, unit: domains}
+  - {api: Bulk DNS Lookup, max: 100, unit: hostnames}
+  - {api: Bulk Domain Checker, max: 100, unit: domains}
+  - {api: Bulk Email Validation, max: 100, unit: emails}
+  - {api: Bulk Phone Validation, max: 100, unit: numbers}
+  - {api: Bulk User Agent Parser, max: 100, unit: strings}
+  - {api: Bulk Screenshot, max: 50, unit: urls}
+  - {api: Merge PDF, max: 100, unit: files}
+  - {api: IP Threat Intelligence (bulk), max: 50000, unit: ips}
+batch_limit_exceeded: HTTP 413 Payload Too Large
+field_selection:
+  supported: true
+  parameters:
+    - {name: fields, semantics: 'comma-separated dot-path allowlist, e.g. location.city,asn.organization'}
+    - {name: excludes, semantics: 'comma-separated dot-path denylist'}
+    - {name: include, semantics: 'opt-in response modules on IP geolocation (security, hostname, liveHostname, hostnameFallbackLive, user_agent, abuse, dma_code, geo_accuracy, or *)'}
+  billing_note: On IP geolocation, the `security` and `abuse` modules cost extra credits.
+localization:
+  parameter: lang
+  values: [en, de, ru, ja, fr, cn, es, cs, it, ko, fa, pt]
+  applies_to: location name fields on geolocation-family endpoints
+metering:
+  model: credit-pool
+  scope: one shared credit pool across every API
+  charged_on: 2xx responses only
+  refund: credits already charged for a failed request are refunded
+  response_header: X-AF-Credits-Cost
+  balance_api: https://apifreaks.com/api/usage-credits
+  free_tier: 10,000 credits on signup, no credit card
+rate_limit_signalling:
+  model: concurrency, not requests-per-second
+  headers:
+    - {name: X-Concurrent-Threads, meaning: maximum concurrent requests allowed}
+    - {name: X-Concurrent-Threads-Active, meaning: concurrent requests currently being processed}
+  exceeded: HTTP 429 "Please slow down. Allowed Maximum concurrent request limit has been reached."
+  see: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
+request_tracing:
+  request_id_header: null
+  documented: false
+  note: >-
+    No request-id / correlation header is documented or returned. The error envelope carries `timestamp` and
+    `path` but no trace identifier, so a support escalation cannot reference a single request.
+versioning:
+  style: uri-path
+  see: lifecycle/apifreaks-api-hub-for-developers-lifecycle.yml
+error_envelope:
+  media_type: application/json
+  fields: [timestamp, path, status, error, message]
+  rfc9457: false
+  see: errors/apifreaks-api-hub-for-developers-problem-types.yml
+async_operations:
+  applies_to: PDF APIs
+  model: task-based
+  flow: >-
+    POST a PDF operation -> receive {taskId, inputIds} -> poll GET /v1.0/pdf/task-status, or supply
+    webhook_url to be notified on completion.
+  webhooks: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
+cross_links:
+  authentication: authentication/apifreaks-api-hub-for-developers-authentication.yml
+  errors: errors/apifreaks-api-hub-for-developers-problem-types.yml
+  lifecycle: lifecycle/apifreaks-api-hub-for-developers-lifecycle.yml
+  rate_limits: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
+  mcp: mcp/apifreaks-api-hub-for-developers-mcp.yml
+  webhooks: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml

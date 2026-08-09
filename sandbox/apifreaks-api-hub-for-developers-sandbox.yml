@@ -1,0 +1,60 @@
+generated: '2026-08-09'
+method: searched
+source: https://apifreaks.com/api/playground + https://apifreaks.com/api/swagger + https://apifreaks.com/docs
+summary: >-
+  APIFreaks has no sandbox in the payments sense — there is no test mode, no test-vs-live key prefix, and no
+  magic test identifiers. What it does publish is a per-endpoint interactive Playground and a per-category
+  Swagger UI console, both backed by the LIVE API. The trial mechanism is the free credit grant rather than
+  a simulated environment: every call from the playground is a real call against production and spends real
+  credits.
+test_live_separation:
+  exists: false
+  key_prefixes: null
+  modes: null
+  note: >-
+    One API key, one credit pool, one environment. Nothing in the docs, the 102 OpenAPI specs or the MCP
+    server distinguishes a test key from a live key.
+console:
+  playground_hub: https://apifreaks.com/api/playground
+  status: 200
+  coverage: one playground page per API product, grouped by category
+  description: >-
+    Each endpoint has its own "Playground to test <API>" page with the request form for that operation.
+  backing_environment: production
+swagger_ui:
+  hub: https://apifreaks.com/api/swagger
+  status: 200
+  form: per-category Swagger UI pages rendered client-side
+  note: >-
+    The hub is a Next.js page listing every API; it does not expose a downloadable spec URL. The actual
+    machine-readable specs are published separately at github.com/api-freaks/af-openapi-specs and mirrored
+    verbatim into openapi/ in this repo.
+free_tier:
+  credits: 10000
+  card_required: false
+  signup: https://apifreaks.com/signup
+  billing_rule: credits charged only on 2xx; 4xx/5xx refunded
+  note: This is the de-facto trial path — real endpoints, real data, granted credits.
+test_values:
+  published: false
+  note: >-
+    No test card numbers, test IBANs, magic phone numbers or reserved test IPs are published. Reserved and
+    bogon IPs are rejected with HTTP 423 rather than returning canned fixtures.
+free_tools:
+  note: >-
+    APIFreaks also publishes browser-based free tools that require no API key, useful for eyeballing the
+    shape of a result before integrating.
+  urls:
+    - https://apifreaks.com/tools
+    - https://apifreaks.com/tools/pdf
+    - https://apifreaks.com/utilities
+gaps:
+  - >-
+    No test mode means an agent or CI pipeline cannot exercise the write-bearing PDF operations without
+    consuming credits and creating real server-side resources (which are retained 7 days).
+x-evidence:
+  fetched: '2026-08-09'
+  urls:
+    - {url: 'https://apifreaks.com/api/playground', http_status: 200}
+    - {url: 'https://apifreaks.com/api/swagger', http_status: 200}
+    - {url: 'https://apifreaks.com/tools', http_status: 200}

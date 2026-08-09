@@ -1,0 +1,160 @@
+generated: '2026-08-09'
+method: searched
+source: https://apifreaks.com/docs (HTTP Errors / HTTP Error Codes reference)
+derived_from: openapi/ (102 specs, 106 operations, 190 non-2xx responses)
+format: custom-envelope
+rfc9457: false
+summary: >-
+  APIFreaks publishes a single error envelope used by every endpoint, documented in the platform docs and
+  declared as components.schemas.ErrorResponse in the published OpenAPI. It is NOT RFC 9457
+  application/problem+json — the media type is application/json and the fields are timestamp/path/status/
+  error/message. The docs carry an authoritative HTTP-status table including the 401/402/403 account and
+  credit failures; those statuses are NOT declared in any of the 102 OpenAPI specs, so a code generator or
+  agent reading only the machine-readable contract will not know they exist.
+envelope:
+  media_type: application/json
+  schema: components.schemas.ErrorResponse
+  fields:
+    - {name: timestamp, type: string, format: date-time, description: 'ISO 8601 timestamp of the request (YYYY-MM-DDTHH:MM:SS.sssZ)'}
+    - {name: path, type: string, description: Path of the request}
+    - {name: status, type: integer, description: HTTP status code}
+    - {name: error, type: string, description: Short error category or exception type}
+    - {name: message, type: string, description: Instructions to resolve the error}
+  required: [message]
+  example:
+    timestamp: '2026-07-27T10:49:41.973Z'
+    path: /v1.0/pdf/merge
+    status: 400
+    error: Invalid File ID Provided
+    message: Please provide a valid file ID
+billing_semantics: >-
+  Credits are charged only on a 2xx. 4xx and 5xx responses are never billed, and any credits already
+  charged for a failed request are refunded. Successful responses carry X-AF-Credits-Cost.
+problems:
+  - status: 400
+    title: Bad Request
+    in_openapi: true
+    occurrences_in_spec: 97
+    documented_causes:
+      - Please provide apikey.
+      - Please pass correct parameters.
+      - Please provide data in required format in request body (HTTP POST requests).
+      - Please provide correct headers.
+    remediation: Check required query parameters, request-body shape and headers against the endpoint's OpenAPI.
+  - status: 401
+    title: Unauthorized
+    in_openapi: false
+    documented_causes:
+      - 'Provided API key is invalid. [For Technical Support: support@apifreaks.com]'
+      - The Request IP is blocked to access this API.
+    remediation: Verify the X-apiKey header or apiKey query parameter; reset the key from the dashboard if compromised.
+    gap: Not declared as a response in any of the 102 published OpenAPI specs.
+  - status: 402
+    title: Payment Required — credit exhaustion
+    in_openapi: false
+    documented_causes:
+      - Credits subscription is deactivated. Please buy new plan or add one-off credits.
+      - Subscription credits allowed limit exceeded.
+      - One-off Credits limit reached.
+      - Subscription surcharge credits limit exceeded.
+    remediation: Top up one-off credits or upgrade the subscription plan; check balance with the Credits Usage API.
+    gap: Not declared as a response in any of the 102 published OpenAPI specs.
+  - status: 403
+    title: Forbidden
+    in_openapi: true
+    occurrences_in_spec: 4
+    documented_causes:
+      - Your account is not active.
+      - Your request has been blocked due to unusual activity.
+      - One-off Credits are not active.
+      - Credits subscription is not active.
+      - Subscription surcharge credits is inactive.
+      - You need to be organization admin to access this endpoint.
+      - Organization admin restricted you to use this API endpoint.
+      - Your current account role does not have permission to access this endpoint.
+      - Domain extension unavailable / not supported for live WHOIS.
+    remediation: Contact the organization admin or support@apifreaks.com; for WHOIS, check TLD support.
+  - status: 404
+    title: Not Found
+    in_openapi: true
+    occurrences_in_spec: 52
+    documented_causes:
+      - The requested resource could not be found. Please verify the URL and try again.
+      - Wrong HTTP method used on the endpoint (e.g. GET instead of POST).
+      - Recognized ISO 3166-1 alpha-2 country with no published data (e.g. Vatican City).
+      - Location / ASN could not be resolved.
+    remediation: Verify path, HTTP method and lookup key.
+  - status: 406
+    title: Not Acceptable
+    in_openapi: true
+    occurrences_in_spec: 3
+    documented_causes:
+      - The media type specified in the request is not supported.
+      - format is not json or xml.
+    remediation: Use format=json|xml or an Accept header of application/json or application/xml.
+  - status: 408
+    title: Request Timeout
+    in_openapi: true
+    occurrences_in_spec: 8
+    documented_causes:
+      - Timed out while connecting to the remote server.
+      - Unable to fetch WHOIS data.
+      - Screenshot capture exceeded the configured timeout.
+    remediation: Retry; these are upstream-dependent lookups (WHOIS, screenshot, scraper).
+  - status: 413
+    title: Payload Too Large
+    in_openapi: true
+    occurrences_in_spec: 7
+    documented_causes:
+      - Maximum request body size limit exceeded (HTTP POST).
+      - Request exceeds the 100-hostname / 100-domain batch limit.
+    remediation: Split the batch; most bulk endpoints cap at 100 items (50 for bulk screenshot).
+  - status: 415
+    title: Unsupported Media Type
+    in_openapi: true
+    occurrences_in_spec: 13
+    documented_causes:
+      - File type not supported.
+      - File extension not supported.
+    remediation: PDF endpoints accept PDF uploads only; check the endpoint's requestBody.
+  - status: 423
+    title: Locked
+    in_openapi: true
+    occurrences_in_spec: 2
+    documented_causes:
+      - Bogon or reserved IP address.
+    remediation: Reserved, bogon or unrecognized IPs return 423 instead of partial location data.
+  - status: 429
+    title: Too Many Requests — concurrency limit
+    in_openapi: true
+    occurrences_in_spec: 4
+    documented_causes:
+      - Please slow down. Allowed Maximum concurrent request limit has been reached.
+    remediation: >-
+      This is a CONCURRENCY cap, not a requests-per-second quota. Read X-Concurrent-Threads and
+      X-Concurrent-Threads-Active and keep in-flight requests under the plan limit. See
+      rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml.
+  - status: 500
+    title: Internal Server Error
+    in_openapi: false
+    documented_causes: ['Internal Server Error occurred [For Technical Support: support@apifreaks.com]']
+  - status: 502
+    title: Bad Gateway
+    in_openapi: false
+    documented_causes: ['Bad Gateway. We are having trouble reaching an upstream service. Please try again in a moment.']
+  - status: 503
+    title: Service Unavailable
+    in_openapi: false
+    documented_causes: ['Service is unavailable. Please try after some time or contact support@apifreaks.com.']
+  - status: 504
+    title: Gateway Timeout
+    in_openapi: false
+    documented_causes: ['Request is timed-out. Please contact at support@apifreaks.com.']
+gaps:
+  - >-
+    401, 402, 500, 502, 503 and 504 are documented in HTML but declared in ZERO of the 102 OpenAPI specs.
+    Every generated SDK and every agent that reads the contract is blind to the credit-exhaustion (402)
+    and invalid-key (401) paths — the two failures an unattended agent is most likely to hit.
+  - >-
+    The envelope is not RFC 9457 (no type URI, no application/problem+json). Adding `type` and serving
+    application/problem+json would make the errors machine-classifiable without changing the fields.

@@ -1,0 +1,61 @@
+generated: '2026-08-09'
+method: searched
+source: https://apifreaks.com/announcements
+summary: >-
+  APIFreaks publishes a dated Announcements feed covering product releases, new API categories, credit-cost
+  changes and platform features. It is the de-facto changelog; there is no separate /changelog path and no
+  RSS/Atom feed was advertised. Entries below are the recent window captured on 2026-08-09 (the page paginates
+  behind a "See more" control, so this is not the full history).
+scheme: dated-announcements
+url: https://apifreaks.com/announcements
+feed: null
+current_api_versions: ['v1.0', 'v2.0']
+entries:
+  - date: '2026-07-31'
+    title: 'New Credit Update: Zip Codes Radius Search API'
+    type: pricing-change
+    breaking: false
+    highlights:
+      - Credit cost for the ZIP Codes Radius Search API raised from 3 credits to 5 credits per request.
+  - date: '2026-07-21'
+    title: 'Template Builder: Design and Generate PDFs Right in Your Browser'
+    type: feature
+    breaking: false
+    highlights:
+      - Visual drag-and-drop PDF template designer with 6 element types (Text, Image, Shape, QR Code, Barcode, Table).
+      - 20+ barcode formats, 31 font families, header/body/footer section layout.
+      - 10 pre-built templates (invoice, certificate, resume, purchase order, meeting minutes).
+      - Version history per template; generate PDFs from any app with a single API call and a JSON payload.
+  - date: '2026-07-09'
+    title: 'API Release: V2.0 Endpoints Now Live'
+    type: version-release
+    breaking: false
+    deprecation_notice: true
+    highlights:
+      - Six endpoints migrated to /v2.0 paths with optimized upstream routing.
+      - All existing V1.0 endpoints continue to function normally.
+      - V1.0 announced for future retirement with no date given.
+    see: lifecycle/apifreaks-api-hub-for-developers-lifecycle.yml
+  - date: '2026-06-26'
+    title: APIFreaks MCP Server is Now Live
+    type: feature
+    breaking: false
+    highlights:
+      - Official MCP server connecting Claude, Cursor, VS Code, Windsurf, Gemini CLI and Codex CLI to the API catalog.
+      - Installed with `npx -y @apifreaks/mcp`; runs locally so the API key stays in the operator's config.
+      - One key covers every API exposed through the server.
+    see: mcp/apifreaks-api-hub-for-developers-mcp.yml
+  - date: '2026-06-18'
+    title: GeoDB APIs — Now Available
+    type: new-apis
+    breaking: false
+    highlights:
+      - Five new APIs under a new GeoDB category — Administrative Units, Countries, Regions, Cities, Flags.
+      - Flags served as PNG, WEBP and SVG in flat or round styles at multiple sizes.
+x-evidence:
+  fetched: '2026-08-09'
+  url: https://apifreaks.com/announcements
+  http_status: 200
+  note: >-
+    Page is server-rendered Next.js; entries were read from the rendered HTML. Older entries sit behind a
+    "See more" control and were not captured.

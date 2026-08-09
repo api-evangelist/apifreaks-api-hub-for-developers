@@ -1,0 +1,33 @@
+generated: '2026-08-09'
+method: searched
+source: https://www.postman.com/apifreaks-official/apifreaks/overview
+summary: >-
+  A public Postman workspace exists under the team handle `apifreaks-official` ("APIFreaks Official"),
+  holding 22 collections. It is NOT linked from apifreaks.com, is not mentioned in the provider's llms.txt,
+  and is not Postman-verified — so ownership is inferred from the team name and handle rather than confirmed
+  by the provider. Recorded with that caveat rather than silently credited or silently dropped.
+workspace:
+  name: APIFreaks
+  slug: apifreaks
+  url: https://www.postman.com/apifreaks-official/apifreaks/overview
+  visibility: public
+  status: 200
+publisher:
+  team: APIFreaks Official
+  handle: apifreaks-official
+  postman_verified: false
+  team_created: '2026-07-11'
+  last_updated: '2026-08-06'
+  collection_count: 22
+other_matches:
+  note: >-
+    Postman search also returns third-party and machine-generated entries for "apifreaks" — a
+    `postman-atlas` crawler workspace, a `furqan7jfreaks-1919799` personal workspace holding an
+    "apifreaks-openapi-spec", and an unrelated 2024 team `team4apifreaks`. None of those are treated as
+    provider-published.
+confidence: medium
+x-evidence:
+  fetched: '2026-08-09'
+  urls:
+    - {url: 'https://www.postman.com/apifreaks-official/apifreaks/overview', http_status: 200}
+    - {url: 'https://www.postman.com/_api/ws/proxy (search-all queryText=apifreaks)', http_status: 200}

@@ -1,0 +1,69 @@
+generated: '2026-08-09'
+method: searched
+source: https://apifreaks.com/announcements + https://status.apifreaks.com/ + openapi/ servers[]
+summary: >-
+  APIFreaks versions in the URI path. A V2.0 generation went live on 9 July 2026 for six endpoints, with
+  V1.0 explicitly kept active and an announced but UNDATED future retirement. There is no published
+  deprecation policy document, no Sunset/Deprecation header support advertised, and no SLA page; the
+  operational commitment visible in public is a third-party updown.io status page.
+versioning:
+  scheme: uri-path
+  current: ['v1.0', 'v2.0']
+  docs: https://apifreaks.com/announcements
+  notes: >-
+    Both generations are live concurrently. v2.0 exists only for six migrated endpoints (domain WHOIS live,
+    bulk domain WHOIS, IP geolocation, bulk IP geolocation, timezone, astronomy); everything else remains on
+    v1.0. The published OpenAPI reflects this split: 88 specs declare servers[0] = https://api.apifreaks.com/v1.0,
+    8 weather specs declare .../v1.0/weather, and 6 declare .../v2.0.
+  migration_announcement:
+    date: '2026-07-09'
+    title: 'API Release: V2.0 Endpoints Now Live'
+    url: https://apifreaks.com/announcements
+    endpoint_moves:
+      - {from: /v1.0/domain/whois/live, to: /v2.0/domain/whois/live, api: Domain WHOIS Lookup}
+      - {from: /v1.0/domain/whois/live (POST), to: /v2.0/domain/whois/live (POST), api: Bulk Domain WHOIS}
+      - {from: /v1.0/geolocation/lookup, to: /v2.0/geolocation/lookup, api: IP Geolocation}
+      - {from: /v1.0/geolocation/lookup (POST), to: /v2.0/geolocation/lookup (POST), api: Bulk IP Geolocation}
+      - {from: /v1.0/geolocation/timezone, to: /v2.0/geolocation/timezone, api: Timezone}
+      - {from: /v1.0/geolocation/astronomy, to: /v2.0/geolocation/astronomy, api: Astronomy}
+deprecation:
+  policy_url: https://apifreaks.com/announcements
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  announced: true
+  statement: >-
+    "V1 Remains Active: All existing V1.0 endpoints continue to function normally to support active users.
+    Future Deprecation: V1.0 will eventually be retired. Plan your migration early to avoid disruption."
+  notice_period: unspecified
+  gap: >-
+    A retirement is announced with no date, no notice window, and no machine-readable signal. Neither
+    RFC 8594 Sunset nor the Deprecation header is emitted, and no operation in the 102 published specs
+    carries `deprecated: true` — including the six v1.0 paths superseded on 2026-07-09. An agent calling
+    a v1.0 endpoint has no way to learn it is on the retirement path.
+sla:
+  url: null
+  uptime_target: null
+  published: false
+status_page:
+  url: https://status.apifreaks.com/
+  provider: updown.io
+  monitored_target: https://api.apifreaks.com/
+  status: 200
+  observed_metrics:
+    note: >-
+      Values shown on the status page at probe time (09 Aug 2026, 19:54 UTC indexing) — a live third-party
+      measurement, not a provider commitment.
+    uptime_1_month: '99.98%'
+    average_response_time: '140 ms'
+    apdex: '1.0 (1.0s)'
+  caveat: >-
+    The status host answers HTTP 200 with the same HTML page for every path, including every /.well-known/*
+    probe. Treat any 200 from status.apifreaks.com as a soft-404 unless the body is inspected.
+deprecated_operations: []
+x-evidence:
+  fetched: '2026-08-09'
+  urls:
+    - {url: 'https://apifreaks.com/announcements', http_status: 200}
+    - {url: 'https://status.apifreaks.com/', http_status: 200}
+    - {url: 'https://apifreaks.com/sla', http_status: 404}

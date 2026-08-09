@@ -1,0 +1,183 @@
+# APIFreaks
+
+> APIFreaks (apifreaks.com) is a first-party REST API platform built by JFreaks Software Solutions (Lahore, Pakistan). It offers 60+ production-ready APIs across IP intelligence, WHOIS, DNS, geocoding, domain tools, email and phone validation, SSL, web scraping, screenshots, PDF processing, currency and commodity data, financial validation, ZIP codes, weather, timezones, GeoDB, user-agent parsing, and astronomy. One API key and one shared credit pool cover every API, and credits are charged only on successful (2xx) responses — 4xx/5xx errors are never billed and any credits already charged are refunded. New accounts get 10,000 free credits with no credit card. APIFreaks is agent-ready: the official @apifreaks/mcp MCP server (Apache-2.0) exposes 57 callable tools across 13 categories to Claude, Cursor, Windsurf, Cline, VS Code, Gemini CLI, and Codex.
+
+## Quick integration
+
+- Site: https://apifreaks.com
+- API base: `https://api.apifreaks.com/v1.0/` + endpoint path
+- Auth: `X-apiKey: YOUR_KEY` header, or `?apiKey=YOUR_KEY` query parameter
+- Methods: GET or POST; JSON by default; XML via `?format=xml` or `Accept: application/xml`
+- Billing: credits per call; charged only on 2xx; `X-AF-Credits-Cost` header shows cost
+- Free tier: 10,000 credits on signup, no credit card
+- Support: support@apifreaks.com — Status: https://status.apifreaks.com/
+
+## Docs
+
+- [Platform documentation](https://apifreaks.com/docs): Authentication, content formats, custom response headers, HTTP error reference
+- [Pricing & credits](https://apifreaks.com/docs/pricing): Credit model, pricing calculator, plan estimator
+- [API catalog](https://apifreaks.com/api): Browse all APIs by category
+- [Playground hub](https://apifreaks.com/api/playground): Interactive test environments
+- [Credits Usage API](https://apifreaks.com/api/usage-credits): Check credit balance and usage programmatically
+
+## APIs
+
+### IP Intelligence
+
+- [IP Geolocation API](https://apifreaks.com/api/ip-locator): Country, city, coordinates, ISP, ASN, and threat data for any IPv4/IPv6
+- [Bulk IP Geolocation Lookup API](https://apifreaks.com/api/bulk-ip-lookup): Geolocate thousands of IPs per request
+- [IP Threat Intelligence API](https://apifreaks.com/api/ip-threat-intelligence): VPN/proxy/Tor/bot detection with a 0-100 threat score; bulk up to 50,000 IPs
+
+### Geocoding
+
+- [Forward Geocoding API](https://apifreaks.com/api/forward-geocoding): Address or place to WGS84 coordinates with full components
+- [Reverse Geocoding API](https://apifreaks.com/api/reverse-geocoding): Coordinates to structured street address
+
+### WHOIS
+
+- [Domain WHOIS Lookup API](https://apifreaks.com/api/whois-domain-lookup): Live WHOIS for any ICANN TLD/SLD
+- [IP WHOIS Lookup API](https://apifreaks.com/api/whois-ip-lookup): Network allocation, organization, routing, contacts
+- [ASN Lookup API](https://apifreaks.com/api/asn-lookup): RIR-sourced ASN data, IP ranges, BGP peering, routing policies
+- [WHOIS History API](https://apifreaks.com/api/domain-whois-history-lookup): Full WHOIS history back to 1986
+- [Reverse WHOIS API](https://apifreaks.com/api/reverse-whois): Find domains by owner, company, email, or keyword across 1B+ domains and 3.5B+ WHOIS records
+- [Bulk WHOIS Lookup API](https://apifreaks.com/api/bulk-whois-lookup): Up to 100 domains per request
+
+### DNS
+
+- [DNS Lookup API](https://apifreaks.com/api/dns-lookup): Live A, AAAA, MX, NS, SOA, SPF, TXT, CNAME records
+- [DNS History API](https://apifreaks.com/api/dns-history-lookup): DNS configuration change history
+- [Reverse DNS Lookup API](https://apifreaks.com/api/reverse-dns-lookup): Hostnames by record, IP, CIDR, or provider (wildcards supported)
+- [Bulk DNS Lookup API](https://apifreaks.com/api/bulk-dns-lookup): Up to 100 hostnames per request
+
+### Scraper API
+
+- [Web Scraper API](https://apifreaks.com/api/web-scraper): Structured extraction with JS rendering, proxy rotation, CAPTCHA solving, browser interactions
+
+### Email Validation
+
+- [Email Checker API](https://apifreaks.com/api/email-checker): Syntax, MX, disposable, catch-all, role-based, deliverability
+- [Bulk Email Validation API](https://apifreaks.com/api/bulk-email-validation): Up to 100 emails per request with per-address errors
+
+### Phone Validation
+
+- [Phone Validation API](https://apifreaks.com/api/phone-validation): Carrier, line type, location, E.164/RFC3966; 200+ countries
+- [Bulk Phone Validation API](https://apifreaks.com/api/bulk-phone-number-validation): Batch phone verification with per-number errors
+
+### SSL
+
+- [SSL Lookup API](https://apifreaks.com/api/ssl-certificate-lookup): Issuer, validity, SANs, and full certificate chain
+
+### Domain
+
+- [Domain Availability API](https://apifreaks.com/api/domain-search): Instant availability across major TLDs/SLDs with suggestions
+- [Subdomain Finder API](https://apifreaks.com/api/subdomain-lookup): Subdomain discovery with first-seen/last-seen and activity status
+- [Bulk Domain Checker API](https://apifreaks.com/api/bulk-domain-checker): Up to 100 domains per request
+
+### Screenshot
+
+- [Website Screenshot API](https://apifreaks.com/api/website-screenshot): Full-page/scrolling capture and video (PNG, JPG, WebP, PDF, MP4, GIF, WebM)
+- [Bulk Screenshot API](https://apifreaks.com/api/bulk-screenshot): Up to 50 URLs per request
+
+### PDF
+
+- [Merge PDF API](https://apifreaks.com/api/merge-pdf): Combine PDFs; async + webhooks
+- [PDF Split & Extract Page API](https://apifreaks.com/api/pdf-split-extract-pages): Split or extract by custom page ranges
+- [PDF Remove Pages API](https://apifreaks.com/api/delete-pdf-page): Remove pages, ranges, or even/odd pages
+- [PDF to Image APIs](https://apifreaks.com/api/pdf-to-image): JPG, PNG, TIFF, BMP, GIF up to 1200 DPI
+- [PDF Compress API](https://apifreaks.com/api/pdf-compress): Up to 95% size reduction, four levels
+- [PDF Rotate API](https://apifreaks.com/api/rotate-pdf-pages): Rotate all or specific pages
+- [PDF Protect APIs](https://apifreaks.com/api/protect-pdf): AES-256 encryption and permission controls
+- [Unlock PDF APIs](https://apifreaks.com/api/unlock-pdf): Remove passwords and restrictions
+- [PDF Linearize API](https://apifreaks.com/api/linearize-pdf): Optimize for Fast Web View
+
+### Currency
+
+- [Exchange Rate API](https://apifreaks.com/api/currency-rate): 171+ fiat and 830+ crypto; 60-second updates
+- [Currency Converter API](https://apifreaks.com/api/currency-converter): Convert between 170+ fiat and 800+ crypto
+- [Currency Time Series](https://apifreaks.com/api/currency-time-series): Historical rates over a date range
+- [Currency Fluctuation API](https://apifreaks.com/api/currency-fluctuation): Percentage/absolute change over a period
+- [IP Currency API](https://apifreaks.com/api/geolocalized-currency-conversion): Convert to a visitor's local currency by IP
+
+### Commodity
+
+- [Live Commodity Prices API](https://apifreaks.com/api/commodity-prices): 130+ commodities across agriculture, energy, metals
+- [Historical Commodity Prices API](https://apifreaks.com/api/historical-commodity-prices): OHLC data from 1990 to present
+- [Commodity Fluctuation API](https://apifreaks.com/api/commodity-fluctuation): Price change over a date range
+- [Commodities Time Series API](https://apifreaks.com/api/commodity-time-series): Daily OHLC (up to one year per request)
+
+### Financial
+
+- [VAT Rates API](https://apifreaks.com/api/vat-rates): VAT/GST for 125+ countries
+- [VAT Number Validation API](https://apifreaks.com/api/vat-number-validation): EU (VIES) and UK (HMRC) validation
+- [IBAN Validation API](https://apifreaks.com/api/iban-validation): Format, SEPA, bank details
+- [SWIFT/BIC Code API](https://apifreaks.com/api/swift-code-lookup): Validate or search SWIFT/BIC codes
+
+### ZIP Code
+
+- [ZIP Code API](https://apifreaks.com/api/zip-code-api): Global postal-code lookup (location, timezone, population); bulk supported
+- [ZIP Codes Radius Search API](https://apifreaks.com/api/zip-codes-radius-search): All ZIP codes within a radius
+- [ZIP Code Distance API](https://apifreaks.com/api/zip-code-distance): Distance between ZIP/postal codes
+- [ZIP Codes Search by City API](https://apifreaks.com/api/zip-codes-by-city): All codes for a city/state/region
+
+### Weather
+
+- [Live Weather API](https://apifreaks.com/api/live-weather): Real-time weather by location, coordinates, or IP; bulk supported
+- [Weather Forecast API](https://apifreaks.com/api/weather-forecast): Hourly/daily/minutely up to 16 days
+- [Historical Weather APIs](https://apifreaks.com/api/historical-weather): Records back to 1940
+- [Air Quality API](https://apifreaks.com/api/air-quality): AQI and pollutant breakdown
+- [Marine Weather API](https://apifreaks.com/api/marine-weather): Wave, swell, wind up to 16 days
+- [Flood Forecast API](https://apifreaks.com/api/flood-forecast): River discharge and flood risk up to 16 days
+
+### GeoDB
+
+- [Administrative Units API](https://apifreaks.com/api/administrative-units): States/provinces/districts by country
+- [Countries API](https://apifreaks.com/api/countries): ISO codes, currencies, calling codes, capitals
+- [Cities API](https://apifreaks.com/api/cities): City coordinates and admin context
+- [Regions API](https://apifreaks.com/api/regions): World regions and subregions
+- [Flags API](https://apifreaks.com/api/flags): Country/organization flags (PNG, WEBP, SVG)
+
+### Timezone
+
+- [Timezone Lookup API](https://apifreaks.com/api/timezone-lookup): Time/offset by IP, coordinates, address, TZ name, IATA/ICAO, UN/LOCODE
+
+### User Agent
+
+- [User Agent Parser](https://apifreaks.com/api/user-agent-parser): Browser, device, OS, engine, bot detection
+- [Bulk User Agent Parser](https://apifreaks.com/api/bulk-user-agent-parser): Up to 100 strings per request
+
+### Other
+
+- [Astronomy API](https://apifreaks.com/api/astronomy-data): Sun/moon times, moon phase, twilight for any location and date
+
+## MCP & Agent Integration
+
+- [MCP Server](https://apifreaks.com/integrations/mcp-server): Official server; runs locally over stdio; `npx -y @apifreaks/mcp` with `APIFREAKS_API_KEY`
+- [MCP Supported Tools](https://apifreaks.com/integrations/mcp-server/supported-tools): All 57 tools across 13 categories with example prompts
+- [npm: @apifreaks/mcp](https://www.npmjs.com/package/@apifreaks/mcp): Apache-2.0, Node.js v20+
+- [GitHub: api-freaks/apifreaks-mcp](https://github.com/api-freaks/apifreaks-mcp)
+
+## Free Tools
+
+- [Free online tools](https://apifreaks.com/tools): Email, DNS, domain/network, IP, converters, financial, ZIP, code formatters, data/query, text, viewers (no API key required)
+- [PDF tools](https://apifreaks.com/tools/pdf): Browser-based merge, split, rotate, compress, PDF-to-image
+- [Utilities](https://apifreaks.com/utilities): ZIP-in-radius CSV, website screenshot generator, IP-to-domain lookup
+
+## Pricing
+
+- [Pricing calculator](https://apifreaks.com/pricing/calculator): Estimate credit cost per endpoint and get a plan recommendation
+- [Pricing](https://apifreaks.com/pricing): Compare one-off, monthly, and yearly plans; organization and team plans
+
+## Optional
+
+- [About](https://apifreaks.com/about): Built by JFreaks Software Solutions, Lahore, Pakistan; sibling products IPGeolocation.io, CurrencyFreaks, WhoisFreaks
+- [Resources](https://apifreaks.com/resources): Blogs, tutorials, guides
+- [API status](https://status.apifreaks.com/)
+- [Sign up](https://apifreaks.com/signup)
+- [Log in](https://apifreaks.com/login)
+- [Terms](https://apifreaks.com/terms)
+- [Privacy policy](https://apifreaks.com/privacy-policy)
+- [LinkedIn](https://www.linkedin.com/company/apifreaks/)
+- [X/Twitter](https://x.com/api_freaks)
+- [GitHub](https://github.com/api-freaks)
+
+_Generated: 2026-08-07T07:19:22.958Z - built from full sitemap crawl of apifreaks.com_

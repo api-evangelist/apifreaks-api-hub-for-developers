@@ -1,0 +1,24 @@
+generated: '2026-08-09'
+method: generated
+source: openapi/ (102 APIFreaks OpenAPI 3.1 specs) + conventions/ + errors/ + rate-limits/
+note: >-
+  APIFreaks publishes no AGENTS.md and no first-party agent skills; these are generated from the provider's
+  own machine-readable contract. Every operationId referenced was verified to exist verbatim in the
+  published specs.
+skills:
+  - file: apifreaks-api-hub-for-developers-ip-enrichment.md
+    name: Enrich an IP address with location and threat signal
+    api: openapi/apifreaks-api-hub-for-developers-ip-locator-openapi.json
+    operations: [ipLookup, bulkIpLookup, ipSecurityLookup, bulkIpSecurityLookup, getCreditsUsage]
+  - file: apifreaks-api-hub-for-developers-domain-due-diligence.md
+    name: Run domain due diligence — WHOIS, DNS, SSL and subdomains
+    api: openapi/apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json
+    operations: [lookupDomainWhois, whoisHistoryLookup, reverseWhoisLookup, dnsLookup, sslCertificateLookup, lookupSubdomains, asnLookup]
+  - file: apifreaks-api-hub-for-developers-async-pdf-pipeline.md
+    name: Run an asynchronous PDF job and collect the result
+    api: openapi/apifreaks-api-hub-for-developers-merge-pdf-openapi.json
+    operations: [uploadResource, mergePdf, getTaskStatus, downloadResource, getFiles, deleteFile]
+  - file: apifreaks-api-hub-for-developers-contact-data-validation.md
+    name: Validate a list of emails and phone numbers
+    api: openapi/apifreaks-api-hub-for-developers-bulk-email-validation-openapi.json
+    operations: [checkEmail, bulkCheckEmail, validatePhoneNumber, bulkValidatePhoneNumbers, getCreditsUsage]

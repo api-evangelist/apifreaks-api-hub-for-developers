@@ -1,0 +1,102 @@
+generated: '2026-08-09'
+method: derived
+source: openapi/ (102 OpenAPI 3.1.1 specs) + https://apifreaks.com/docs + live /.well-known probes
+summary: >-
+  APIFreaks conforms strongly to the machine-readable-contract standards (OpenAPI 3.1, MCP) and weakly to the
+  operational and security-discovery standards. There is no published compliance program — no SOC 2, ISO
+  27001, PCI DSS, HIPAA or FedRAMP claim appears anywhere on the site, and no trust centre exists — so no
+  Compliance pointer is emitted.
+standards:
+  - id: openapi-3.1
+    conforms: true
+    evidence: >-
+      102 specs published at github.com/api-freaks/af-openapi-specs and on npm as
+      @apifreaks/openapi-specs, all declaring openapi 3.1.1, with operationIds, tags, summaries,
+      descriptions, request/response examples and components.schemas reuse.
+  - id: mcp
+    conforms: true
+    evidence: >-
+      Official Apache-2.0 MCP server @apifreaks/mcp v1.1.2 with a server.json manifest against the
+      2025-12-11 MCP server schema; 59 tools, stdio transport.
+  - id: mcp-remote-http
+    conforms: false
+    evidence: stdio only — no hosted or remote HTTP/SSE MCP endpoint is published.
+  - id: llms-txt
+    conforms: true
+    evidence: 'https://apifreaks.com/llms.txt returns 200 text/plain, 11.7KB, structured per the llms.txt convention.'
+  - id: apikey-auth
+    conforms: true
+    evidence: components.securitySchemes declares ApiKeyAuthHeader (X-apiKey) and ApiKeyAuthQuery (apiKey) in every spec.
+  - id: oauth2
+    conforms: false
+    evidence: No OAuth 2.0 anywhere; no /.well-known/oauth-authorization-server (404 on apifreaks.com and api.apifreaks.com).
+  - id: oidc
+    conforms: false
+    evidence: '/.well-known/openid-configuration returns 404 on every APIFreaks host.'
+  - id: rfc8414-authorization-server-metadata
+    conforms: false
+    evidence: 404 on apifreaks.com and api.apifreaks.com.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a custom application/json envelope (timestamp/path/status/error/message), not
+      application/problem+json and with no type URI.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: '/.well-known/security.txt returns 404 on apifreaks.com and api.apifreaks.com.'
+  - id: rfc9727-api-catalog
+    conforms: false
+    evidence: '/.well-known/api-catalog returns 404, despite 102 machine-readable specs existing on GitHub.'
+  - id: a2a-agent-card
+    conforms: false
+    evidence: >-
+      /.well-known/agent-card.json and /.well-known/agent.json both 404 on apifreaks.com and
+      api.apifreaks.com. status.apifreaks.com answers 200 for both but serves the updown.io HTML status
+      page, which is a soft-404 and not an agent card.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: >-
+      V1.0 retirement announced 2026-07-09 with no date; no Sunset or Deprecation header advertised and no
+      operation marked deprecated in any spec.
+  - id: rfc9116-http-content-negotiation
+    conforms: true
+    evidence: Accept header and `format` query parameter both supported for application/json and application/xml.
+  - id: http2
+    conforms: true
+    evidence: Docs state all APIs require HTTP/1.x or HTTP/2.
+  - id: hsts
+    conforms: true
+    evidence: 'apifreaks.com and api.apifreaks.com both return HSTS with max-age=31536000 (see security/).'
+  - id: dnssec
+    conforms: false
+    evidence: apifreaks.com is not DNSSEC-signed.
+  - id: caa
+    conforms: true
+    evidence: 'apifreaks.com publishes CAA records for ssl.com, comodoca.com, digicert.com, letsencrypt.org, pki.goog.'
+  - id: dmarc
+    conforms: true
+    evidence: apifreaks.com publishes SPF and DMARC with policy p=reject.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      An event surface exists (PDF task-completion webhooks on 18 operations) but no AsyncAPI document is
+      published. See asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml.
+  - id: graphql
+    conforms: false
+    evidence: No GraphQL endpoint is published or advertised.
+  - id: grpc
+    conforms: false
+    evidence: No .proto definitions in the github.com/api-freaks organization.
+  - id: idempotency-key
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header is documented and none appears as a parameter in any of the 102 specs,
+      including the write-bearing PDF pipeline.
+compliance_program:
+  published: false
+  certifications: []
+  trust_center: null
+  note: >-
+    probe-security-programs.py returned vdp=none trust=none. No SOC 2 / ISO 27001 / PCI DSS / HIPAA /
+    FedRAMP / GDPR certification page was found on apifreaks.com, and trust.apifreaks.com does not resolve
+    to a trust centre. No Compliance or TrustCenter pointer is emitted.

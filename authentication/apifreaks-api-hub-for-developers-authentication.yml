@@ -1,0 +1,269 @@
+generated: '2026-08-09'
+method: searched
+source: openapi/apifreaks-api-hub-for-developers-administrative-units-details-openapi.json,
+  openapi/apifreaks-api-hub-for-developers-administrative-units-levels-openapi.json, openapi/apifreaks-api-hub-for-developers-administrative-units-openapi.json,
+  openapi/apifreaks-api-hub-for-developers-air-quality-openapi.json, openapi/apifreaks-api-hub-for-developers-asn-lookup-openapi.json,
+  openapi/apifreaks-api-hub-for-developers-astronomy-data-openapi.json, openapi/apifreaks-api-hub-for-developers-bulk-dns-lookup-openapi.json,
+  openapi/apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json, openapi/apifreaks-api-hub-for-developers-bulk-email-validation-openapi.json,
+  openapi/apifreaks-api-hub-for-developers-bulk-ip-lookup-openapi.json, openapi/apifreaks-api-hub-for-developers-bulk-ip-threat-intelligence-openapi.json,
+  openapi/apifreaks-api-hub-for-developers-bulk-live-weather-openapi.json ...
+docs: https://apifreaks.com/docs
+docs_section: Authorization — Passing API Key in the Header / Passing API Key in the Query Parameter
+model:
+  style: single-key
+  key_scope: >-
+    One API key covers every APIFreaks product. There are no per-product keys, no OAuth, no OIDC, no
+    scopes and no per-key permission model documented; access is governed by the account's credit balance,
+    plan and organization role rather than by token scope.
+  key_length: 32 characters
+  obtain: https://apifreaks.com/signup (dashboard issues the key; 10,000 free credits, no card)
+  rotation: >-
+    Self-service reset from the dashboard — the docs state "If your API key has been compromised, you can
+    reset it by clicking the reset button on the dashboard."
+  transport:
+    - mechanism: header
+      name: X-apiKey
+      preferred: true
+    - mechanism: query
+      name: apiKey
+      preferred: false
+      caution: >-
+        Keys placed in the query string are routinely written to proxy, CDN and server access logs. The
+        official @apifreaks/mcp server uses this form (src/client.ts appends apiKey to every request).
+  organization_roles: >-
+    Org admins can restrict which endpoints a member may call — the docs list 403 responses for
+    "You need to be organization admin to access this endpoint" and "Organization admin restricted you to
+    use this API endpoint". This is an account-level authorization layer, not an OAuth scope layer.
+auth_failure_codes:
+  - {status: 401, meaning: Provided API key is invalid}
+  - {status: 401, meaning: The request IP is blocked from accessing this API}
+  - {status: 403, meaning: Account not active / blocked for unusual activity / role lacks permission}
+  - {status: 402, meaning: Credit subscription deactivated or credit limit exceeded}
+gaps:
+  - >-
+    The 102 published OpenAPI specs declare the two apiKey schemes but document no 401/402/403 responses —
+    only 400/404/406/408/413/415/423/429. The auth-failure contract lives only in the HTML docs, so a
+    generated client or agent cannot see it. Adding 401/402/403 responses to the specs would close this.
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  - query
+schemes:
+- name: ApiKeyAuthHeader
+  type: apiKey
+  in: header
+  parameter: X-apiKey
+  description: Pass your API key via the X-apiKey request header.
+  sources:
+  - openapi/apifreaks-api-hub-for-developers-administrative-units-details-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-administrative-units-levels-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-administrative-units-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-air-quality-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-asn-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-astronomy-data-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-dns-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-email-validation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-ip-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-ip-threat-intelligence-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-live-weather-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-phone-number-validation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-screenshot-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-user-agent-parser-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-vat-rates-country-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-whois-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-zip-code-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-cities-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-commodity-prices-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-commodity-symbols-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-commodity-time-series-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-countries-details-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-countries-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-converter-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-historical-data-limit-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-rate-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-supported-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-symbols-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-time-series-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-delete-pdf-page-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-dns-history-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-dns-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-domain-search-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-email-checker-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-financial-apis-supported-countries-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-flags-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-flags-supported-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-flood-forecast-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-forward-geocoding-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-historical-weather-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-iban-validation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-ip-locator-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-ip-threat-intelligence-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-linearize-pdf-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-live-weather-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-marine-weather-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-merge-pdf-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-compress-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-decrypt-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-encrypt-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-extract-pages-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-file-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-file-status-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-files-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-resource-download-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-resource-upload-binary-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-resource-upload-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-restrict-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-split-pages-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-task-status-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-to-image-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-unrestrict-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-phone-number-validation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-regions-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-reverse-dns-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-reverse-geocoding-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-reverse-whois-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-rotate-pdf-pages-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-ssl-certificate-chain-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-ssl-certificate-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-subdomain-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-subregions-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-swift-code-finder-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-swift-code-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-time-series-weather-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-timezone-converter-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-timezone-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-usage-credits-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-user-agent-parser-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-vat-number-validation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-vat-rates-by-ip-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-vat-rates-country-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-weather-forecast-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-web-scraper-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-website-screenshot-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-whois-ip-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-code-api-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-code-distance-match-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-code-distance-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-codes-by-city-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-codes-by-region-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-codes-radius-search-openapi.json
+- name: ApiKeyAuthQuery
+  type: apiKey
+  in: query
+  parameter: apiKey
+  description: Pass your API key via the apiKey query parameter.
+  sources:
+  - openapi/apifreaks-api-hub-for-developers-administrative-units-details-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-administrative-units-levels-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-administrative-units-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-air-quality-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-asn-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-astronomy-data-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-dns-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-email-validation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-ip-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-ip-threat-intelligence-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-live-weather-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-phone-number-validation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-screenshot-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-user-agent-parser-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-vat-rates-country-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-whois-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-bulk-zip-code-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-cities-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-commodity-prices-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-commodity-symbols-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-commodity-time-series-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-countries-details-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-countries-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-converter-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-historical-data-limit-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-rate-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-supported-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-symbols-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-currency-time-series-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-delete-pdf-page-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-dns-history-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-dns-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-domain-search-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-email-checker-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-financial-apis-supported-countries-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-flags-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-flags-supported-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-flood-forecast-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-forward-geocoding-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-historical-weather-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-iban-validation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-ip-locator-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-ip-threat-intelligence-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-linearize-pdf-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-live-weather-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-marine-weather-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-merge-pdf-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-compress-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-decrypt-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-encrypt-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-extract-pages-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-file-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-file-status-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-files-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-resource-download-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-resource-upload-binary-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-resource-upload-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-restrict-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-split-pages-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-task-status-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-to-image-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-pdf-unrestrict-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-phone-number-validation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-regions-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-reverse-dns-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-reverse-geocoding-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-reverse-whois-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-rotate-pdf-pages-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-ssl-certificate-chain-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-ssl-certificate-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-subdomain-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-subregions-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-swift-code-finder-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-swift-code-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-time-series-weather-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-timezone-converter-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-timezone-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-usage-credits-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-user-agent-parser-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-vat-number-validation-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-vat-rates-by-ip-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-vat-rates-country-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-weather-forecast-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-web-scraper-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-website-screenshot-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-whois-ip-lookup-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-code-api-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-code-distance-match-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-code-distance-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-codes-by-city-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-codes-by-region-openapi.json
+  - openapi/apifreaks-api-hub-for-developers-zip-codes-radius-search-openapi.json

@@ -1,0 +1,675 @@
+generated: '2026-08-09'
+method: derived
+source: >-
+  github.com/api-freaks/apifreaks-mcp (src/tools/*.ts + src/endpoints.ts, v1.1.2) bound to
+  github.com/api-freaks/af-openapi-specs (102 OpenAPI 3.1 specs, mirrored verbatim into openapi/)
+summary: >-
+  Every one of the 59 tools the official @apifreaks/mcp server registers resolves to a real APIFreaks REST
+  operation. The binding is exact rather than semantic: the MCP server is a thin typed wrapper whose
+  src/endpoints.ts maps each tool to a literal path, and every one of those paths appears in the published
+  OpenAPI as a concrete operationId, so each tool inherits that operation's parameters as its real input
+  contract. The divergence runs the other way: ten capability groups of the REST surface — PDF processing,
+  GeoDB reference data, financial validation, email and phone validation, geocoding, web scraping, domain
+  suggestions, currency limits and the credits endpoint — have no MCP tool at all. The agent surface is a
+  55-of-106 operation subset of the API.
+surfaces:
+  openapi:
+    location: openapi/
+    specs: 102
+    operations: 106
+    source: https://github.com/api-freaks/af-openapi-specs
+    gated: false
+  mcp:
+    server: '@apifreaks/mcp'
+    version: 1.1.2
+    transport: stdio
+    hosted: false
+    tools_list_probe: not-applicable
+    note: >-
+      Local stdio server launched with `npx -y @apifreaks/mcp`; there is no hosted HTTP endpoint to POST
+      tools/list against, so the tool set was read from the Apache-2.0 source rather than from a live
+      introspection call. Tool names, titles and endpoint bindings are verbatim from src/tools/*.ts.
+    gated: false
+  graphql:
+    present: false
+coverage:
+  tools_named: 59
+  tools_bound: 59
+  tools_unbound: 0
+  mcp_only: 0
+  rest_operations_total: 106
+  rest_operations_with_a_tool: 55
+  rest_operations_without_a_tool: 51
+crosswalk:
+  - tool: astronomy_lookup
+    tool_title: "Astronomy Lookup"
+    category: astronomy
+    http: GET /v2.0/geolocation/astronomy
+    rest: [getAstronomyData]
+    operation_summary: "Returns sunrise, sunset, moon phase, and celestial positions for a given location and date."
+    spec: apifreaks-api-hub-for-developers-astronomy-data-openapi.json
+    binding: rest
+    confidence: high
+  - tool: commodity_symbols
+    tool_title: "Commodity Symbols"
+    category: commodity
+    http: GET /v1.0/commodity/symbols
+    rest: [getCommoditySymbols]
+    operation_summary: "Get all supported commodity symbols"
+    spec: apifreaks-api-hub-for-developers-commodity-symbols-openapi.json
+    binding: rest
+    confidence: high
+    note: "shares operation getCommoditySymbols with 1 sibling tools that narrow it with different parameters"
+  - tool: commodity_symbol_info
+    tool_title: "Commodity Symbol Info"
+    category: commodity
+    http: GET /v1.0/commodity/symbols
+    rest: [getCommoditySymbols]
+    operation_summary: "Get all supported commodity symbols"
+    spec: apifreaks-api-hub-for-developers-commodity-symbols-openapi.json
+    binding: rest
+    confidence: high
+    note: "shares operation getCommoditySymbols with 1 sibling tools that narrow it with different parameters"
+  - tool: commodity_quotes
+    tool_title: "Commodity Quote Currencies"
+    category: commodity
+    http: GET /v1.0/currency/supported
+    rest: [getSupportedCurrencies]
+    operation_summary: "Get all supported currencies"
+    spec: apifreaks-api-hub-for-developers-currency-supported-openapi.json
+    binding: rest
+    confidence: high
+    note: "shares operation getSupportedCurrencies with 1 sibling tools that narrow it with different parameters"
+  - tool: commodity_latest_rates
+    tool_title: "Commodity Latest Rates"
+    category: commodity
+    http: GET /v1.0/commodity/rates/latest
+    rest: [getLatestCommodityPrices]
+    operation_summary: "Get latest commodity prices"
+    spec: apifreaks-api-hub-for-developers-commodity-prices-openapi.json
+    binding: rest
+    confidence: high
+  - tool: commodity_historical_rates
+    tool_title: "Commodity Historical Rates"
+    category: commodity
+    http: GET /v1.0/commodity/rates/historical
+    rest: [getHistoricalCommodityPrices]
+    operation_summary: "Get historical commodity prices"
+    spec: apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json
+    binding: rest
+    confidence: high
+  - tool: commodity_fluctuation
+    tool_title: "Commodity Fluctuation"
+    category: commodity
+    http: GET /v1.0/commodity/fluctuation
+    rest: [getCommodityFluctuation]
+    operation_summary: "Get commodity price fluctuations"
+    spec: apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json
+    binding: rest
+    confidence: high
+  - tool: commodity_time_series
+    tool_title: "Commodity Time Series"
+    category: commodity
+    http: GET /v1.0/commodity/time-series
+    rest: [getCommodityTimeSeries]
+    operation_summary: "Get commodity price time series"
+    spec: apifreaks-api-hub-for-developers-commodity-time-series-openapi.json
+    binding: rest
+    confidence: high
+  - tool: currency_latest_rates
+    tool_title: "Currency Latest Rates"
+    category: currency
+    http: GET /v1.0/currency/rates/latest
+    rest: [getLatestExchangeRates]
+    operation_summary: "Get the latest exchange rates"
+    spec: apifreaks-api-hub-for-developers-currency-rate-openapi.json
+    binding: rest
+    confidence: high
+  - tool: currency_historical_rates
+    tool_title: "Currency Historical Rates"
+    category: currency
+    http: GET /v1.0/currency/rates/historical
+    rest: [getHistoricalExchangeRates]
+    operation_summary: "Get historical exchange rates"
+    spec: apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json
+    binding: rest
+    confidence: high
+  - tool: currency_latest_converter
+    tool_title: "Currency Latest Converter"
+    category: currency
+    http: GET /v1.0/currency/converter/latest/prices
+    rest: [convertLatest]
+    operation_summary: "Convert currency with latest rates"
+    spec: apifreaks-api-hub-for-developers-currency-converter-openapi.json
+    binding: rest
+    confidence: high
+  - tool: currency_historical_converter
+    tool_title: "Currency Historical Converter"
+    category: currency
+    http: GET /v1.0/currency/converter/historical/prices
+    rest: [convertHistorical]
+    operation_summary: "Convert currency with historical rates"
+    spec: apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json
+    binding: rest
+    confidence: high
+  - tool: currency_time_series
+    tool_title: "Currency Time Series"
+    category: currency
+    http: GET /v1.0/currency/time-series
+    rest: [getTimeSeries]
+    operation_summary: "Get time series of exchange rates"
+    spec: apifreaks-api-hub-for-developers-currency-time-series-openapi.json
+    binding: rest
+    confidence: high
+  - tool: currency_fluctuation
+    tool_title: "Currency Fluctuation"
+    category: currency
+    http: GET /v1.0/currency/fluctuation
+    rest: [getFluctuation]
+    operation_summary: "Get exchange rate fluctuations"
+    spec: apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json
+    binding: rest
+    confidence: high
+  - tool: currency_geo_convert
+    tool_title: "Currency Geo Convert"
+    category: currency
+    http: GET /v1.0/currency/converter/ip-to-currency
+    rest: [convertByIp]
+    operation_summary: "Convert currency based on IP geolocation"
+    spec: apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json
+    binding: rest
+    confidence: high
+  - tool: currency_supported
+    tool_title: "Currency Supported"
+    category: currency
+    http: GET /v1.0/currency/supported
+    rest: [getSupportedCurrencies]
+    operation_summary: "Get all supported currencies"
+    spec: apifreaks-api-hub-for-developers-currency-supported-openapi.json
+    binding: rest
+    confidence: high
+    note: "shares operation getSupportedCurrencies with 1 sibling tools that narrow it with different parameters"
+  - tool: currency_symbols
+    tool_title: "Currency Symbols"
+    category: currency
+    http: GET /v1.0/currency/symbols
+    rest: [getCurrencySymbols]
+    operation_summary: "Get all currency symbols"
+    spec: apifreaks-api-hub-for-developers-currency-symbols-openapi.json
+    binding: rest
+    confidence: high
+    note: "shares operation getCurrencySymbols with 1 sibling tools that narrow it with different parameters"
+  - tool: currency_symbol_info
+    tool_title: "Currency Symbol Info"
+    category: currency
+    http: GET /v1.0/currency/symbols
+    rest: [getCurrencySymbols]
+    operation_summary: "Get all currency symbols"
+    spec: apifreaks-api-hub-for-developers-currency-symbols-openapi.json
+    binding: rest
+    confidence: high
+    note: "shares operation getCurrencySymbols with 1 sibling tools that narrow it with different parameters"
+  - tool: dns_lookup
+    tool_title: "DNS Lookup"
+    category: dns
+    http: GET /v1.0/domain/dns/live
+    rest: [dnsLookup]
+    operation_summary: "Perform a live DNS lookup for any hostname or IP address"
+    spec: apifreaks-api-hub-for-developers-dns-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: dns_history
+    tool_title: "DNS History"
+    category: dns
+    http: GET /v1.0/domain/dns/history
+    rest: [dnsHistoryLookup]
+    operation_summary: "Get all historical A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of a hostname"
+    spec: apifreaks-api-hub-for-developers-dns-history-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: dns_reverse
+    tool_title: "DNS Reverse Lookup"
+    category: dns
+    http: GET /v1.0/domain/dns/reverse
+    rest: [reverseDnsLookup]
+    operation_summary: "Retrieve all hostnames associated with any A, AAAA, MX, NS, SOA, SPF, TXT, or CNAME DNS record"
+    spec: apifreaks-api-hub-for-developers-reverse-dns-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: dns_bulk_lookup
+    tool_title: "Bulk DNS Lookup"
+    category: dns
+    http: POST /v1.0/domain/dns/live
+    rest: [bulkDnsLookup]
+    operation_summary: "Retrieve A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of multiple hostnames in a single request"
+    spec: apifreaks-api-hub-for-developers-bulk-dns-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: domain_check_availability
+    tool_title: "Domain Availability Check"
+    category: domain
+    http: GET /v1.0/domain/availability
+    rest: [checkDomainAvailability]
+    operation_summary: "Check whether a domain is available for registration or not."
+    spec: apifreaks-api-hub-for-developers-domain-search-openapi.json
+    binding: rest
+    confidence: high
+  - tool: domain_check_availability_with_suggestions
+    tool_title: "Domain Availability with Suggestions"
+    category: domain
+    http: GET /v1.0/domain/availability/suggestions
+    rest: [suggestDomainAvailability]
+    operation_summary: "Check domain availability and receive suggestions for related domains."
+    spec: apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json
+    binding: rest
+    confidence: high
+  - tool: domain_bulk_check_availability
+    tool_title: "Bulk Domain Availability Check"
+    category: domain
+    http: POST /v1.0/domain/availability
+    rest: [checkBulkDomainAvailability]
+    operation_summary: "Check the availability of multiple domains in a single request."
+    spec: apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json
+    binding: rest
+    confidence: high
+  - tool: ipgeolocation_lookup
+    tool_title: "IP Geolocation Lookup"
+    category: ip-intelligence
+    http: GET /v2.0/geolocation/lookup
+    rest: [ipLookup]
+    operation_summary: "Retrieve real-time and accurate IP geolocation and threat intelligence information for an IPv4 or IPv6 address"
+    spec: apifreaks-api-hub-for-developers-ip-locator-openapi.json
+    binding: rest
+    confidence: high
+  - tool: ipgeolocation_bulk_lookup
+    tool_title: "Bulk IP Geolocation Lookup"
+    category: ip-intelligence
+    http: POST /v2.0/geolocation/lookup
+    rest: [bulkIpLookup]
+    operation_summary: "Retrieve geolocation and threat intelligence data for multiple IP addresses in a single request"
+    spec: apifreaks-api-hub-for-developers-bulk-ip-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: ip_security_lookup
+    tool_title: "IP Threat Intelligence Lookup"
+    category: ip-intelligence
+    http: GET /v1.0/ip/security
+    rest: [ipSecurityLookup]
+    operation_summary: "Retrieve real-time threat intelligence and security signals for an IPv4 or IPv6 address"
+    spec: apifreaks-api-hub-for-developers-ip-threat-intelligence-openapi.json
+    binding: rest
+    confidence: high
+  - tool: ip_security_bulk_lookup
+    tool_title: "Bulk IP Threat Intelligence Lookup"
+    category: ip-intelligence
+    http: POST /v1.0/ip/security
+    rest: [bulkIpSecurityLookup]
+    operation_summary: "Retrieve threat intelligence data for multiple IP addresses in a single request"
+    spec: apifreaks-api-hub-for-developers-bulk-ip-threat-intelligence-openapi.json
+    binding: rest
+    confidence: high
+  - tool: screenshot_capture
+    tool_title: "Screenshot Capture"
+    category: screenshot
+    http: GET /v1.0/screenshot
+    rest: [websiteScreenshot]
+    operation_summary: "Build screenshots the way real users see the web \u2014 not just what fits on the screen."
+    spec: apifreaks-api-hub-for-developers-website-screenshot-openapi.json
+    binding: rest
+    confidence: high
+    note: "shares operation websiteScreenshot with 1 sibling tools that narrow it with different parameters"
+  - tool: screenshot_capture_scrolling
+    tool_title: "Screenshot Capture Scrolling"
+    category: screenshot
+    http: GET /v1.0/screenshot
+    rest: [websiteScreenshot]
+    operation_summary: "Build screenshots the way real users see the web \u2014 not just what fits on the screen."
+    spec: apifreaks-api-hub-for-developers-website-screenshot-openapi.json
+    binding: rest
+    confidence: high
+    note: "shares operation websiteScreenshot with 1 sibling tools that narrow it with different parameters"
+  - tool: screenshot_bulk_capture
+    tool_title: "Bulk Screenshot Capture"
+    category: screenshot
+    http: POST /v1.0/screenshot
+    rest: [bulkScreenshot]
+    operation_summary: "Capture screenshots of multiple websites in a single request."
+    spec: apifreaks-api-hub-for-developers-bulk-screenshot-openapi.json
+    binding: rest
+    confidence: high
+  - tool: ssl_live_lookup
+    tool_title: "SSL Live Lookup"
+    category: ssl
+    http: GET /v1.0/domain/ssl/live
+    rest: [sslCertificateLookup]
+    operation_summary: "Retrieve the SSL certificate and any hidden information embedded within it for a domain."
+    spec: apifreaks-api-hub-for-developers-ssl-certificate-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: ssl_live_chain_lookup
+    tool_title: "SSL Live Chain Lookup"
+    category: ssl
+    http: GET /v1.0/domain/ssl/live/chain
+    rest: [sslCertificateChainLookup]
+    operation_summary: "Retrieve all certificates from the domain to the root Certificate Authority (CA) of a domain."
+    spec: apifreaks-api-hub-for-developers-ssl-certificate-chain-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: timezone_lookup
+    tool_title: "Timezone Lookup"
+    category: timezone
+    http: GET /v2.0/geolocation/timezone
+    rest: [getTimezone]
+    operation_summary: "Retrieve current time, date, and timezone information for any location identifier"
+    spec: apifreaks-api-hub-for-developers-timezone-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: timezone_convert
+    tool_title: "Timezone Converter"
+    category: timezone
+    http: GET /v1.0/timezone/converter
+    rest: [convertTimezone]
+    operation_summary: "Convert a timestamp from one timezone to another using any supported location identifier"
+    spec: apifreaks-api-hub-for-developers-timezone-converter-openapi.json
+    binding: rest
+    confidence: high
+  - tool: user_agent_parse
+    tool_title: "Parse User Agent"
+    category: user-agent
+    http: GET /v1.0/user-agent/lookup
+    rest: [parseUserAgent]
+    operation_summary: "Parse a User-Agent string to obtain browser, device, and operating system details"
+    spec: apifreaks-api-hub-for-developers-user-agent-parser-openapi.json
+    binding: rest
+    confidence: high
+  - tool: user_agent_bulk_parse
+    tool_title: "Bulk Parse User Agents"
+    category: user-agent
+    http: POST /v1.0/user-agent/lookup
+    rest: [bulkParseUserAgent]
+    operation_summary: "Parse multiple User-Agent strings in a single request to obtain browser, device, and operating system details"
+    spec: apifreaks-api-hub-for-developers-bulk-user-agent-parser-openapi.json
+    binding: rest
+    confidence: high
+  - tool: weather_current
+    tool_title: "Current Weather"
+    category: weather
+    http: GET /v1.0/weather/current
+    rest: [getLiveWeather]
+    operation_summary: "Real-time weather conditions for any location on demand"
+    spec: apifreaks-api-hub-for-developers-live-weather-openapi.json
+    binding: rest
+    confidence: high
+  - tool: weather_bulk_current
+    tool_title: "Bulk Current Weather"
+    category: weather
+    http: POST /v1.0/weather/current
+    rest: [bulkLiveWeather]
+    operation_summary: "Get real-time weather data for multiple locations, coordinates, or IP addresses"
+    spec: apifreaks-api-hub-for-developers-bulk-live-weather-openapi.json
+    binding: rest
+    confidence: high
+  - tool: weather_forecast
+    tool_title: "Weather Forecast"
+    category: weather
+    http: GET /v1.0/weather/forecast
+    rest: [getWeatherForecast]
+    operation_summary: "Retrieve daily, hourly, or minutely weather forecasts for up to 16 days ahead"
+    spec: apifreaks-api-hub-for-developers-weather-forecast-openapi.json
+    binding: rest
+    confidence: high
+  - tool: weather_historical
+    tool_title: "Historical Weather"
+    category: weather
+    http: GET /v1.0/weather/historical
+    rest: [getHistoricalData]
+    operation_summary: "Retrieve historical weather conditions for a specific past date and location, coordinates, or IP address"
+    spec: apifreaks-api-hub-for-developers-historical-weather-openapi.json
+    binding: rest
+    confidence: high
+  - tool: weather_time_series
+    tool_title: "Weather Time Series"
+    category: weather
+    http: GET /v1.0/weather/time-series
+    rest: [getTimeSeriesData]
+    operation_summary: "Get historical weather data across a date range"
+    spec: apifreaks-api-hub-for-developers-time-series-weather-openapi.json
+    binding: rest
+    confidence: high
+  - tool: weather_air_quality
+    tool_title: "Air Quality"
+    category: weather
+    http: GET /v1.0/weather/air-quality
+    rest: [getAirQuality]
+    operation_summary: "Air pollution monitoring and quality forecasts"
+    spec: apifreaks-api-hub-for-developers-air-quality-openapi.json
+    binding: rest
+    confidence: high
+  - tool: weather_marine
+    tool_title: "Marine Weather"
+    category: weather
+    http: GET /v1.0/weather/marine
+    rest: [getMarineWeather]
+    operation_summary: "Dive into detailed marine weather forecasts for coastal and offshore locations"
+    spec: apifreaks-api-hub-for-developers-marine-weather-openapi.json
+    binding: rest
+    confidence: high
+  - tool: weather_flood_forecast
+    tool_title: "Flood Forecast"
+    category: weather
+    http: GET /v1.0/weather/flood
+    rest: [getFloodForecast]
+    operation_summary: "Get flood risk and river discharge forecast"
+    spec: apifreaks-api-hub-for-developers-flood-forecast-openapi.json
+    binding: rest
+    confidence: high
+  - tool: whois_domain_lookup
+    tool_title: "WHOIS Domain Lookup"
+    category: whois
+    http: GET /v2.0/domain/whois/live
+    rest: [lookupDomainWhois]
+    operation_summary: "Retrieve real-time WHOIS registration and ownership data for a domain name"
+    spec: apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: whois_ip_lookup
+    tool_title: "WHOIS IP Lookup"
+    category: whois
+    http: GET /v1.0/ip/whois/live
+    rest: [lookupIpWhois]
+    operation_summary: "Retrieve WHOIS registration and ownership data for an IP address"
+    spec: apifreaks-api-hub-for-developers-whois-ip-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: whois_asn_lookup
+    tool_title: "WHOIS ASN Lookup"
+    category: whois
+    http: GET /v1.0/asn/whois/live
+    rest: [asnLookup]
+    operation_summary: "Retrieve WHOIS registration data, CIDR block inventory, and BGP peer relationships for an Autonomous System Number"
+    spec: apifreaks-api-hub-for-developers-asn-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: whois_domain_history
+    tool_title: "WHOIS Domain History"
+    category: whois
+    http: GET /v1.0/domain/whois/history
+    rest: [whoisHistoryLookup]
+    operation_summary: "Retrieve the complete historical WHOIS record timeline for a domain name"
+    spec: apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: whois_reverse_lookup
+    tool_title: "WHOIS Reverse Lookup"
+    category: whois
+    http: GET /v1.0/domain/whois/reverse
+    rest: [reverseWhoisLookup]
+    operation_summary: "Search domains by owner name, email, company, or keyword"
+    spec: apifreaks-api-hub-for-developers-reverse-whois-openapi.json
+    binding: rest
+    confidence: high
+  - tool: whois_bulk_domain_lookup
+    tool_title: "Bulk WHOIS Domain Lookup"
+    category: whois
+    http: POST /v2.0/domain/whois/live
+    rest: [bulkWhoisLookup]
+    operation_summary: "Retrieve real-time WHOIS registration and ownership data for up to 100 domain names in a single request"
+    spec: apifreaks-api-hub-for-developers-bulk-whois-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: zipcode_lookup
+    tool_title: "ZIP Code Lookup"
+    category: zipcode
+    http: GET /v1.0/zipcode/lookup
+    rest: [lookupZipCode]
+    operation_summary: "Look up a ZIP/postal code"
+    spec: apifreaks-api-hub-for-developers-zip-code-api-openapi.json
+    binding: rest
+    confidence: high
+  - tool: zipcode_bulk_lookup
+    tool_title: "Bulk ZIP Code Lookup"
+    category: zipcode
+    http: POST /v1.0/zipcode/lookup
+    rest: [bulkLookupZipCodes]
+    operation_summary: "Look up multiple ZIP/postal codes in one request"
+    spec: apifreaks-api-hub-for-developers-bulk-zip-code-lookup-openapi.json
+    binding: rest
+    confidence: high
+  - tool: zipcode_radius_search
+    tool_title: "ZIP Code Radius Search"
+    category: zipcode
+    http: GET /v1.0/zipcode/search/radius
+    rest: [searchZipByRadius]
+    operation_summary: "Find ZIP/postal codes within a radius"
+    spec: apifreaks-api-hub-for-developers-zip-codes-radius-search-openapi.json
+    binding: rest
+    confidence: high
+  - tool: zipcode_distance
+    tool_title: "ZIP Code Distance"
+    category: zipcode
+    http: POST /v1.0/zipcode/distance
+    rest: [getZipcodeDistance]
+    operation_summary: "Get distance between postal codes"
+    spec: apifreaks-api-hub-for-developers-zip-code-distance-openapi.json
+    binding: rest
+    confidence: high
+  - tool: zipcode_distance_match
+    tool_title: "ZIP Code Distance Match"
+    category: zipcode
+    http: POST /v1.0/zipcode/distance/match
+    rest: [getZipcodeDistanceMatch]
+    operation_summary: "Get matching ZIP/postal code pairs within a distance"
+    spec: apifreaks-api-hub-for-developers-zip-code-distance-match-openapi.json
+    binding: rest
+    confidence: high
+  - tool: zipcode_by_city
+    tool_title: "ZIP Codes by City"
+    category: zipcode
+    http: GET /v1.0/zipcode/search/city
+    rest: [searchZipByCity]
+    operation_summary: "Search ZIP/postal codes by city"
+    spec: apifreaks-api-hub-for-developers-zip-codes-by-city-openapi.json
+    binding: rest
+    confidence: high
+  - tool: zipcode_by_region
+    tool_title: "ZIP Codes by Region"
+    category: zipcode
+    http: GET /v1.0/zipcode/search/region
+    rest: [searchZipByRegion]
+    operation_summary: "Search ZIP codes by region"
+    spec: apifreaks-api-hub-for-developers-zip-codes-by-region-openapi.json
+    binding: rest
+    confidence: high
+mcp_only: []
+rest_only:
+  - capability: "Currency reference limits"
+    category: currency
+    reason: no tool registered in @apifreaks/mcp v1.1.2
+    operations:
+      - {operationId: getHistoricalDataLimits, http: GET /v1.0/currency/historical/data/limits, spec: apifreaks-api-hub-for-developers-currency-historical-data-limit-openapi.json}
+  - capability: "Domain suggestions"
+    category: domain
+    reason: no tool registered in @apifreaks/mcp v1.1.2
+    operations:
+      - {operationId: lookupSubdomains, http: GET /v1.0/subdomains/lookup, spec: apifreaks-api-hub-for-developers-subdomain-lookup-openapi.json}
+  - capability: "Email validation"
+    category: email-validation
+    reason: no tool registered in @apifreaks/mcp v1.1.2
+    operations:
+      - {operationId: bulkCheckEmail, http: POST /v1.0/email-validation/bulk, spec: apifreaks-api-hub-for-developers-bulk-email-validation-openapi.json}
+      - {operationId: checkEmail, http: POST /v1.0/email-validation/single, spec: apifreaks-api-hub-for-developers-email-checker-openapi.json}
+  - capability: "Financial validation (VAT / IBAN / SWIFT)"
+    category: financial
+    reason: no tool registered in @apifreaks/mcp v1.1.2
+    operations:
+      - {operationId: bulkVatRatesByCountry, http: POST /v1.0/vat/rates/country, spec: apifreaks-api-hub-for-developers-bulk-vat-rates-country-openapi.json}
+      - {operationId: findSwiftCode, http: GET /v1.0/swift-code/finder, spec: apifreaks-api-hub-for-developers-swift-code-finder-openapi.json}
+      - {operationId: getSupportedCountries, http: GET /v1.0/vat/supported-countries, spec: apifreaks-api-hub-for-developers-financial-apis-supported-countries-openapi.json}
+      - {operationId: getVatRatesByCountry, http: GET /v1.0/vat/rates/country, spec: apifreaks-api-hub-for-developers-vat-rates-country-openapi.json}
+      - {operationId: getVatRatesByIp, http: GET /v1.0/vat/rates/ip-address, spec: apifreaks-api-hub-for-developers-vat-rates-by-ip-openapi.json}
+      - {operationId: lookupSwiftCode, http: GET /v1.0/swift-code/lookup, spec: apifreaks-api-hub-for-developers-swift-code-lookup-openapi.json}
+      - {operationId: validateIban, http: GET /v1.0/iban/validation, spec: apifreaks-api-hub-for-developers-iban-validation-openapi.json}
+      - {operationId: validateVatNumber, http: GET /v1.0/vat/validation, spec: apifreaks-api-hub-for-developers-vat-number-validation-openapi.json}
+  - capability: "Account credits and usage"
+    category: general
+    reason: no tool registered in @apifreaks/mcp v1.1.2
+    operations:
+      - {operationId: getCreditsUsage, http: GET /v1.0/credits/usage/info, spec: apifreaks-api-hub-for-developers-usage-credits-openapi.json}
+  - capability: "Geocoding"
+    category: geocoding
+    reason: no tool registered in @apifreaks/mcp v1.1.2
+    operations:
+      - {operationId: forwardGeocode, http: GET /v1.0/geocoder/search, spec: apifreaks-api-hub-for-developers-forward-geocoding-openapi.json}
+      - {operationId: reverseGeocode, http: GET /v1.0/geocoder/reverse, spec: apifreaks-api-hub-for-developers-reverse-geocoding-openapi.json}
+  - capability: "GeoDB reference data"
+    category: geodb
+    reason: no tool registered in @apifreaks/mcp v1.1.2
+    operations:
+      - {operationId: getAdminLevels, http: GET /v1.0/geo/admin-levels, spec: apifreaks-api-hub-for-developers-administrative-units-levels-openapi.json}
+      - {operationId: getAdminUnitDetails, http: GET /v1.0/geo/admin-unit/details, spec: apifreaks-api-hub-for-developers-administrative-units-details-openapi.json}
+      - {operationId: getAdminUnits, http: GET /v1.0/geo/admin-units, spec: apifreaks-api-hub-for-developers-administrative-units-openapi.json}
+      - {operationId: getCities, http: GET /v1.0/geo/cities, spec: apifreaks-api-hub-for-developers-cities-openapi.json}
+      - {operationId: getCountries, http: GET /v1.0/geo/countries, spec: apifreaks-api-hub-for-developers-countries-openapi.json}
+      - {operationId: getCountryDetails, http: GET /v1.0/geo/country/details, spec: apifreaks-api-hub-for-developers-countries-details-openapi.json}
+      - {operationId: getFlag, http: GET /v1.0/flags, spec: apifreaks-api-hub-for-developers-flags-openapi.json}
+      - {operationId: getRegions, http: GET /v1.0/geo/regions, spec: apifreaks-api-hub-for-developers-regions-openapi.json}
+      - {operationId: getSubregionsByRegion, http: GET /v1.0/geo/subregions, spec: apifreaks-api-hub-for-developers-subregions-openapi.json}
+      - {operationId: getSupportedFlags, http: GET /v1.0/flags/supported, spec: apifreaks-api-hub-for-developers-flags-supported-openapi.json}
+  - capability: "PDF processing"
+    category: pdf
+    reason: no tool registered in @apifreaks/mcp v1.1.2
+    operations:
+      - {operationId: compressPdf, http: POST /v1.0/pdf/compress, spec: apifreaks-api-hub-for-developers-pdf-compress-openapi.json}
+      - {operationId: decryptPdf, http: POST /v1.0/pdf/decrypt, spec: apifreaks-api-hub-for-developers-pdf-decrypt-openapi.json}
+      - {operationId: deleteFile, http: DELETE /v1.0/pdf/file, spec: apifreaks-api-hub-for-developers-pdf-file-openapi.json}
+      - {operationId: deletePdfPage, http: POST /v1.0/pdf/remove-pages, spec: apifreaks-api-hub-for-developers-delete-pdf-page-openapi.json}
+      - {operationId: downloadResource, http: GET /v1.0/pdf/resource/download, spec: apifreaks-api-hub-for-developers-pdf-resource-download-openapi.json}
+      - {operationId: encryptPdf, http: POST /v1.0/pdf/encrypt, spec: apifreaks-api-hub-for-developers-pdf-encrypt-openapi.json}
+      - {operationId: extractPdfPages, http: POST /v1.0/pdf/extract-pages, spec: apifreaks-api-hub-for-developers-pdf-extract-pages-openapi.json}
+      - {operationId: getFileStatus, http: GET /v1.0/pdf/file-status, spec: apifreaks-api-hub-for-developers-pdf-file-status-openapi.json}
+      - {operationId: getFiles, http: GET /v1.0/pdf/files, spec: apifreaks-api-hub-for-developers-pdf-files-openapi.json}
+      - {operationId: getTaskStatus, http: GET /v1.0/pdf/task-status, spec: apifreaks-api-hub-for-developers-pdf-task-status-openapi.json}
+      - {operationId: linearizePdf, http: POST /v1.0/pdf/linearize, spec: apifreaks-api-hub-for-developers-linearize-pdf-openapi.json}
+      - {operationId: mergePdf, http: POST /v1.0/pdf/merge, spec: apifreaks-api-hub-for-developers-merge-pdf-openapi.json}
+      - {operationId: pdfToImage, http: POST /v1.0/pdf/png, spec: apifreaks-api-hub-for-developers-pdf-to-image-openapi.json}
+      - {operationId: restrictPdf, http: POST /v1.0/pdf/restrict, spec: apifreaks-api-hub-for-developers-pdf-restrict-openapi.json}
+      - {operationId: rotatePdfPages, http: POST /v1.0/pdf/rotate, spec: apifreaks-api-hub-for-developers-rotate-pdf-pages-openapi.json}
+      - {operationId: splitPdf, http: POST /v1.0/pdf/split, spec: apifreaks-api-hub-for-developers-pdf-split-pages-openapi.json}
+      - {operationId: unrestrictPdf, http: POST /v1.0/pdf/unrestrict, spec: apifreaks-api-hub-for-developers-pdf-unrestrict-openapi.json}
+      - {operationId: uploadResource, http: POST /v1.0/pdf/resource/upload, spec: apifreaks-api-hub-for-developers-pdf-resource-upload-openapi.json}
+      - {operationId: uploadResourceBinary, http: POST /v1.0/pdf/resource/upload-binary, spec: apifreaks-api-hub-for-developers-pdf-resource-upload-binary-openapi.json}
+      - {operationId: ~, http: POST /v1.0/pdf/jpg, spec: apifreaks-api-hub-for-developers-pdf-to-image-openapi.json}
+      - {operationId: ~, http: POST /v1.0/pdf/tif, spec: apifreaks-api-hub-for-developers-pdf-to-image-openapi.json}
+      - {operationId: ~, http: POST /v1.0/pdf/bmp, spec: apifreaks-api-hub-for-developers-pdf-to-image-openapi.json}
+      - {operationId: ~, http: POST /v1.0/pdf/gif, spec: apifreaks-api-hub-for-developers-pdf-to-image-openapi.json}
+  - capability: "Phone validation"
+    category: phone-validation
+    reason: no tool registered in @apifreaks/mcp v1.1.2
+    operations:
+      - {operationId: bulkValidatePhoneNumbers, http: POST /v1.0/phone/validation/bulk, spec: apifreaks-api-hub-for-developers-bulk-phone-number-validation-openapi.json}
+      - {operationId: validatePhoneNumber, http: POST /v1.0/phone/validation, spec: apifreaks-api-hub-for-developers-phone-number-validation-openapi.json}
+  - capability: "Web scraping"
+    category: scraper
+    reason: no tool registered in @apifreaks/mcp v1.1.2
+    operations:
+      - {operationId: performScraping, http: POST /v1.0/scraping, spec: apifreaks-api-hub-for-developers-web-scraper-openapi.json}

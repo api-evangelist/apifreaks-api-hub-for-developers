@@ -1,0 +1,66 @@
+generated: '2026-08-09'
+method: searched
+source: https://apifreaks.com/docs (Custom Response Headers) + https://apifreaks.com/docs/concurrency-limits + https://apifreaks.com/pricing
+summary: >-
+  APIFreaks does not throttle by requests-per-second. It caps CONCURRENCY — how many requests may be in
+  flight at once — and only on seven endpoints that fan out to slow upstream systems. Everything else is
+  bounded by the credit pool rather than by a rate limit. The live limit is signalled on every response from
+  a limited endpoint via X-Concurrent-Threads and X-Concurrent-Threads-Active.
+model: concurrency
+headers:
+  - name: X-Concurrent-Threads
+    description: Maximum number of concurrent requests allowed for the caller's plan.
+  - name: X-Concurrent-Threads-Active
+    description: Number of concurrent requests currently being processed.
+  - name: X-AF-Credits-Cost
+    description: Credits consumed by the current request (returned on every successful call, all endpoints).
+exceeded:
+  status: 429
+  message: Please slow down. Allowed Maximum concurrent request limit has been reached.
+limited_endpoints:
+  - Reverse DNS Lookup
+  - Reverse WHOIS Lookup
+  - Bulk Screenshot API
+  - Website Screenshot API
+  - ZIP Code Radius Search
+  - Email Checker API
+  - Web Scraper API
+rate_limits:
+  - plan: 80K Credits
+    limit_count: 3
+    limit_unit: concurrent requests
+    applies_to: the seven concurrency-limited endpoints
+    source: https://apifreaks.com/docs/concurrency-limits
+  - plan: 600K Credits
+    limit_count: 8
+    limit_unit: concurrent requests
+    applies_to: the seven concurrency-limited endpoints
+    source: https://apifreaks.com/pricing
+plan_tiers_with_concurrency:
+  - {plan: 80K Credits, concurrent_requests: 3}
+  - {plan: 600K Credits, concurrent_requests: 8}
+  - {plan: 1.5M Credits, concurrent_requests: unread}
+  - {plan: 4.5M Credits, concurrent_requests: unread}
+  - {plan: 10M Credits, concurrent_requests: unread}
+  - {plan: 17M Credits, concurrent_requests: unread}
+plan_tiers_note: >-
+    The concurrency-limits page renders the per-plan number behind a client-side plan selector. Only the 80K
+    and 600K values were observable in the server-rendered HTML; the remaining tiers are marked `unread`
+    rather than guessed.
+quota:
+  model: credit-pool
+  scope: shared across every API on the account
+  charged_on: 2xx only; 4xx/5xx refunded
+  free_tier: 10000
+  balance_api: https://apifreaks.com/api/usage-credits
+  surcharge:
+    available: true
+    example_plan: 600K subscription
+    rate: 30,000 credits per $5
+    limit: 300,000 credits
+x-evidence:
+  fetched: '2026-08-09'
+  urls:
+    - {url: 'https://apifreaks.com/docs', http_status: 200}
+    - {url: 'https://apifreaks.com/docs/concurrency-limits', http_status: 200}
+    - {url: 'https://apifreaks.com/pricing', http_status: 200}

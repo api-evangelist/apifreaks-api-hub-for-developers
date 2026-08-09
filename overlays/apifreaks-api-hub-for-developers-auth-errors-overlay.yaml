@@ -1,0 +1,124 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist auth-failure overlay for the APIFreaks REST API
+  version: 1.0.0
+extends: openapi/apifreaks-api-hub-for-developers-ip-locator-openapi.json
+generated: '2026-08-09'
+method: generated
+source: https://apifreaks.com/docs (HTTP Error Codes table)
+x-applies-to:
+  scope: every spec in openapi/
+  count: 102
+  note: >-
+    The actions below use generic JSONPath targets ($.paths.*.*) and are intentionally spec-agnostic —
+    the same overlay applies unchanged to all 102 APIFreaks specs. `extends` names one representative
+    document because Overlay 1.0.0 takes a single target; re-point it per spec when applying.
+rationale: >-
+  The 102 published APIFreaks OpenAPI 3.1.1 specs are unusually good — real operationIds, summaries,
+  descriptions, request/response examples, components reuse, and both apiKey securitySchemes declared with a
+  root security requirement. But not one of them declares 401, 402, 500, 502, 503 or 504, even though the
+  platform docs publish an authoritative table of exactly those statuses. The two failures an unattended
+  agent is most likely to hit — an invalid key (401) and an exhausted credit balance (402) — are invisible
+  to any client generated from the contract. This overlay adds them WITHOUT mutating the harvested specs.
+  Every status, message and field below is quoted from https://apifreaks.com/docs; nothing is invented.
+actions:
+  - target: $.paths.*.*.responses
+    description: >-
+      Add the 401 invalid-key / blocked-IP response documented in the platform docs. Applies to every
+      operation because every operation carries the same root security requirement.
+    update:
+      '401':
+        description: >-
+          Unauthorized — the provided API key is invalid, or the requesting IP is blocked from accessing
+          this API.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+            examples:
+              invalidKey:
+                summary: Invalid API key
+                value:
+                  timestamp: '2026-08-09T00:00:00.000Z'
+                  path: /v1.0/example
+                  status: 401
+                  error: Unauthorized
+                  message: 'Provided API key is invalid. [For Technical Support: support@apifreaks.com]'
+              blockedIp:
+                summary: Requesting IP blocked
+                value:
+                  timestamp: '2026-08-09T00:00:00.000Z'
+                  path: /v1.0/example
+                  status: 401
+                  error: Unauthorized
+                  message: The Request IP is blocked to access this API.
+  - target: $.paths.*.*.responses
+    description: >-
+      Add the 402 credit-exhaustion response. This is the distinguishing failure mode of a credit-metered
+      platform and is documented in four variants in the docs.
+    update:
+      '402':
+        description: >-
+          Payment Required — the account's credit subscription is deactivated, or a subscription, one-off
+          or surcharge credit limit has been exceeded. Purchase a plan or add one-off credits.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+            examples:
+              limitExceeded:
+                summary: Subscription credit limit exceeded
+                value:
+                  timestamp: '2026-08-09T00:00:00.000Z'
+                  path: /v1.0/example
+                  status: 402
+                  error: Payment Required
+                  message: >-
+                    Subscription credits allowed limit exceeded. Please buy new plan or add one-off credits
+                    for using APIFreaks.
+  - target: $.paths.*.*.responses
+    description: Add the documented 5xx family, absent from every published spec.
+    update:
+      '500':
+        description: 'Internal Server Error occurred [For Technical Support: support@apifreaks.com].'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+      '502':
+        description: Bad Gateway — trouble reaching an upstream service. Retry shortly.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+      '503':
+        description: Service unavailable. Retry later or contact support@apifreaks.com.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+      '504':
+        description: Gateway timeout. Contact support@apifreaks.com.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+  - target: $.info
+    description: >-
+      Record the credit-metering contract and the platform-wide response headers as info-level extensions,
+      so a client generator or agent can see the cost signal without reading the HTML docs.
+    update:
+      x-apievangelist-source: https://github.com/api-freaks/af-openapi-specs
+      x-apievangelist-artifacts:
+        conventions: conventions/apifreaks-api-hub-for-developers-conventions.yml
+        errors: errors/apifreaks-api-hub-for-developers-problem-types.yml
+        authentication: authentication/apifreaks-api-hub-for-developers-authentication.yml
+        rate_limits: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
+      x-metering:
+        model: credit-pool
+        charged_on: 2xx-only
+        refunded_on: 4xx-5xx
+        cost_header: X-AF-Credits-Cost
+      x-concurrency-headers:
+        - X-Concurrent-Threads
+        - X-Concurrent-Threads-Active

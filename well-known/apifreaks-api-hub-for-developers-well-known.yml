@@ -1,0 +1,53 @@
+generated: '2026-08-09'
+method: probed
+source: direct HTTPS probes of the /.well-known/ surface on every APIFreaks host
+summary: >-
+  No /.well-known/ discovery document is served by APIFreaks. apifreaks.com and api.apifreaks.com return 404
+  for every probed path. status.apifreaks.com returns HTTP 200 for EVERY /.well-known/* path, but the body is
+  the updown.io status-page HTML shell (a soft-404 catch-all), not a discovery document — those 200s are
+  recorded as false positives and no file was saved.
+hosts:
+  - host: https://apifreaks.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /.well-known/mcp.json, status: 404}
+  - host: https://api.apifreaks.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /.well-known/mcp.json, status: 404}
+  - host: https://status.apifreaks.com
+    soft_404: true
+    note: >-
+      Third-party updown.io status page. Every /.well-known/* path returns 200 with
+      content-type text/html and the body "<!DOCTYPE html> ... https://api.apifreaks.com/ status page".
+      Not evidence of any discovery document.
+    documents:
+      - {path: /.well-known/security.txt, status: 200, valid: false, reason: html-catch-all}
+      - {path: /.well-known/agent-card.json, status: 200, valid: false, reason: html-catch-all}
+      - {path: /.well-known/openid-configuration, status: 200, valid: false, reason: html-catch-all}
+      - {path: /.well-known/oauth-authorization-server, status: 200, valid: false, reason: html-catch-all}
+      - {path: /.well-known/api-catalog, status: 200, valid: false, reason: html-catch-all}
+      - {path: /.well-known/ai-plugin.json, status: 200, valid: false, reason: html-catch-all}
+documents: []
+gaps:
+  - >-
+    No RFC 9116 /.well-known/security.txt on apifreaks.com. The provider does publish a support contact
+    (support@apifreaks.com) and a contact page, so a security.txt is a low-cost addition.
+  - >-
+    No RFC 9727 /.well-known/api-catalog, despite APIFreaks publishing 102 OpenAPI 3.1 specs at
+    github.com/api-freaks/af-openapi-specs. An api-catalog pointing at those specs would make the whole
+    catalog machine-discoverable from the apex domain.

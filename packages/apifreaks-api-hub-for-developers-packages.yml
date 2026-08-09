@@ -1,0 +1,122 @@
+generated: '2026-08-09'
+method: searched
+source: https://github.com/api-freaks + npm/PyPI/RubyGems/crates.io/Packagist/pkg.go.dev registry lookups
+summary: >-
+  APIFreaks (JFreaks Software Solutions) publishes first-party client SDKs from the github.com/api-freaks
+  organization in ten languages. Eight are live on a public package registry; the Java and .NET SDKs exist as
+  GitHub repositories but were not resolvable on Maven Central or NuGet at probe time, and the Swift SDK is
+  distributed as a SwiftPM git dependency rather than a registry artifact.
+packages:
+  - language: typescript
+    registry: npm
+    name: "@apifreaks/sdk"
+    version: 1.0.2
+    license: ISC
+    url: https://www.npmjs.com/package/@apifreaks/sdk
+    install: npm install @apifreaks/sdk
+    repo: https://github.com/api-freaks/af-typescript-sdk
+    official: true
+    note: >-
+      The af-typescript-sdk README documents `npm install @api-freaks/sdk`, which returns 404 on the npm
+      registry; the published package is `@apifreaks/sdk` (verified 200).
+  - language: python
+    registry: pypi
+    name: apifreaks
+    version: 1.0.2
+    url: https://pypi.org/project/apifreaks/
+    install: pip install apifreaks
+    repo: https://github.com/api-freaks/af-python-sdk
+    official: true
+  - language: go
+    registry: go-modules
+    name: github.com/api-freaks/af-go-sdk
+    license: MIT
+    url: https://pkg.go.dev/github.com/api-freaks/af-go-sdk
+    install: go get github.com/api-freaks/af-go-sdk
+    repo: https://github.com/api-freaks/af-go-sdk
+    official: true
+  - language: ruby
+    registry: rubygems
+    name: apifreaks
+    version: 1.0.4
+    license: MIT
+    url: https://rubygems.org/gems/apifreaks
+    install: gem install apifreaks
+    repo: https://github.com/api-freaks/af-ruby-sdk
+    official: true
+  - language: php
+    registry: packagist
+    name: apifreaks/sdk
+    version: v1.0.2
+    license: MIT
+    url: https://packagist.org/packages/apifreaks/sdk
+    install: composer require apifreaks/sdk
+    repo: https://github.com/api-freaks/af-php-sdk
+    official: true
+  - language: rust
+    registry: crates.io
+    name: apifreaks
+    version: 1.0.3
+    url: https://crates.io/crates/apifreaks
+    install: cargo add apifreaks
+    repo: https://github.com/api-freaks/af-rust-sdk
+    official: true
+  - language: typescript
+    registry: npm
+    name: "@apifreaks/mcp"
+    version: 1.1.2
+    license: Apache-2.0
+    url: https://www.npmjs.com/package/@apifreaks/mcp
+    install: npx -y @apifreaks/mcp
+    repo: https://github.com/api-freaks/apifreaks-mcp
+    official: true
+    kind: mcp-server
+  - language: typescript
+    registry: npm
+    name: "@apifreaks/openapi-specs"
+    version: 0.1.1
+    license: MIT
+    url: https://www.npmjs.com/package/@apifreaks/openapi-specs
+    install: npm install @apifreaks/openapi-specs
+    repo: https://github.com/api-freaks/af-openapi-specs
+    official: true
+    kind: openapi-specs
+    note: Ships all 102 OpenAPI 3.1 product specs as importable JSON.
+  - language: typescript
+    registry: npm
+    name: n8n-nodes-apifreaks
+    version: 1.0.1
+    license: MIT
+    url: https://www.npmjs.com/package/n8n-nodes-apifreaks
+    install: npm install n8n-nodes-apifreaks
+    repo: https://github.com/api-freaks/n8n-nodes-apifreaks
+    official: true
+    kind: workflow-node
+  - language: swift
+    registry: swift-package-manager
+    name: af-swift-sdk
+    url: https://github.com/api-freaks/af-swift-sdk
+    install: '.package(url: "https://github.com/api-freaks/af-swift-sdk", from: "1.0.2")'
+    repo: https://github.com/api-freaks/af-swift-sdk
+    official: true
+    note: Distributed as a SwiftPM git dependency; no registry artifact.
+unpublished:
+  - language: java
+    repo: https://github.com/api-freaks/af-java-sdk
+    declared_coordinates: com.apifreaks:sdk
+    status: not-found-on-maven-central
+    probed: https://search.maven.org/solrsearch/select?q=g:com.apifreaks
+  - language: dotnet
+    repo: https://github.com/api-freaks/af-dotnet-sdk
+    declared_package: ApifreaksApi
+    status: not-found-on-nuget
+    probed: https://azuresearch-usnc.nuget.org/query?q=apifreaks
+other_integrations:
+  - name: Zapier integration
+    repo: https://github.com/api-freaks/zapier-integration-apifreaks
+  - name: Make integration
+    repo: https://github.com/api-freaks/make-integration-apifreaks
+  - name: WordPress integration
+    repo: https://github.com/api-freaks/wordpress-integration-apifreaks
+  - name: Google Sheets add-on
+    repo: https://github.com/api-freaks/google-sheets-apifreaks

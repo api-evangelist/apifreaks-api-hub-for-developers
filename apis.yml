@@ -1,11 +1,19 @@
 name: APIFreaks - API Hub for Developers
 description: >-
-  APIFreaks is a first-party REST API platform by JFreaks Software Solutions offering 60+ production-ready APIs across
-  IP intelligence, WHOIS, DNS, geocoding, email/phone validation, SSL, web scraping, screenshots, PDF, currency/forex,
-  commodities, weather, timezones, and more. Uses a single API key with a shared credit pool and a free tier.
+  APIFreaks is a first-party REST API hub built by JFreaks Software Solutions (Lahore, Pakistan) that ships
+  more than 100 production endpoints behind a single API key and a single shared credit pool. The catalog
+  spans IP geolocation and threat intelligence, WHOIS (live, historical, reverse, ASN), DNS (live, history,
+  reverse), SSL certificate inspection, domain availability and subdomain discovery, forward and reverse
+  geocoding, email and phone validation, VAT/IBAN/SWIFT financial validation, web scraping, website
+  screenshots, an asynchronous PDF processing pipeline, currency and commodity market data, ZIP code and
+  GeoDB reference data, weather (current, forecast, historical, marine, air quality, flood), timezones,
+  user-agent parsing and astronomy. Credits are charged only on successful 2xx responses and refunded on
+  errors, new accounts get 10,000 free credits with no card, and the whole surface is published as 102
+  OpenAPI 3.1 specifications plus an official Apache-2.0 MCP server exposing 59 agent tools.
+image: https://apifreaks.com/img/opengraph-image.jpg
 url: https://apifreaks-api-hub-for-developers.apievangelist.com/apis.yml
 created: '2026-07-29'
-modified: '2026-07-29'
+modified: '2026-08-09'
 specificationVersion: '0.21'
 tags:
   - IP intelligence
@@ -37,9 +45,11 @@ tags:
 apis:
   - name: APIFreaks REST API
     description: >-
-      RESTful API platform providing 60+ APIs across IP intelligence, WHOIS, DNS, geocoding, validation, web scraping,
-      currency, weather and more. API-key auth via X-apiKey header or apiKey query parameter; credit-based billing
-      charged only on successful responses.
+      RESTful API hub providing 100+ endpoints across IP intelligence, WHOIS, DNS, geocoding, validation,
+      web scraping, screenshots, PDF processing, currency, commodities, weather, GeoDB and more. API-key
+      auth via the X-apiKey header or the apiKey query parameter; content negotiation via `format` or
+      Accept; credit-based billing charged only on successful responses and refunded on 4xx/5xx. Published
+      as 102 OpenAPI 3.1.1 documents.
     humanURL: https://apifreaks.com/api
     baseURL: https://api.apifreaks.com/v1.0/
     tags:
@@ -66,21 +76,442 @@ apis:
       - user-agent parsing
       - astronomy
       - developer tools
-      - MCP
-      - agent-ready
-      - OCR
     properties:
       - type: Documentation
         url: https://apifreaks.com/docs
-      - type: OpenAPI
+      - type: APIReference
         url: https://apifreaks.com/api/swagger
-      - type: LLMSTxt
-        url: https://apifreaks.com/llms.txt
+      - type: Playground
+        url: https://apifreaks.com/api/playground
+      - type: OpenAPI
+        name: "Admin Unit Details API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-administrative-units-details-openapi.json
+      - type: OpenAPI
+        name: "Admin Levels API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-administrative-units-levels-openapi.json
+      - type: OpenAPI
+        name: "Administrative Units API - Get Country Subdivisions & Admin Units"
+        url: openapi/apifreaks-api-hub-for-developers-administrative-units-openapi.json
+      - type: OpenAPI
+        name: "Air Quality API - Real-Time AQI & Pollution Monitoring"
+        url: openapi/apifreaks-api-hub-for-developers-air-quality-openapi.json
+      - type: OpenAPI
+        name: "ASN Lookup API - WHOIS Records, CIDR Blocks & BGP Peer Data"
+        url: openapi/apifreaks-api-hub-for-developers-asn-lookup-openapi.json
+      - type: OpenAPI
+        name: "Astronomy API - Location Based Astronomy Data"
+        url: openapi/apifreaks-api-hub-for-developers-astronomy-data-openapi.json
+      - type: OpenAPI
+        name: "Bulk DNS Lookup API - DNS Records for Up to 100 Hostnames in One Request"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-dns-lookup-openapi.json
+      - type: OpenAPI
+        name: "Bulk Domain Checker API - Search Multiple Domains at Once"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json
+      - type: OpenAPI
+        name: "Bulk Email Validation API - Validate and Verify Emails in Bulk"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-email-validation-openapi.json
+      - type: OpenAPI
+        name: "Bulk IP Geolocation Lookup API - Instantly Geolocate Thousands of IP Addresses"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-ip-lookup-openapi.json
+      - type: OpenAPI
+        name: "Bulk IP Threat Intelligence API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-ip-threat-intelligence-openapi.json
+      - type: OpenAPI
+        name: "Bulk Live Weather API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-live-weather-openapi.json
+      - type: OpenAPI
+        name: "Bulk Phone Validation API - Validate and Verify Numbers and Carrier in Batches"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-phone-number-validation-openapi.json
+      - type: OpenAPI
+        name: "Bulk Screenshot API - Capture Up to 50 URLs in a Single Request"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-screenshot-openapi.json
+      - type: OpenAPI
+        name: "Bulk User Agent Parser - Multi User Agent Parsing"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-user-agent-parser-openapi.json
+      - type: OpenAPI
+        name: "Bulk VAT Rates by Country API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-vat-rates-country-openapi.json
+      - type: OpenAPI
+        name: "Bulk WHOIS Lookup API - Accurate and Efficient Mass Domain Queries"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-whois-lookup-openapi.json
+      - type: OpenAPI
+        name: "Bulk ZIP Code Lookup API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-bulk-zip-code-lookup-openapi.json
+      - type: OpenAPI
+        name: "Cities API - Get City Data for Any Country"
+        url: openapi/apifreaks-api-hub-for-developers-cities-openapi.json
+      - type: OpenAPI
+        name: "Commodity Fluctuation API "
+        url: openapi/apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json
+      - type: OpenAPI
+        name: "Live Commodity Prices API - Real Time Market Insights"
+        url: openapi/apifreaks-api-hub-for-developers-commodity-prices-openapi.json
+      - type: OpenAPI
+        name: "Commodity Symbols API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-commodity-symbols-openapi.json
+      - type: OpenAPI
+        name: "Commodities Time Series API"
+        url: openapi/apifreaks-api-hub-for-developers-commodity-time-series-openapi.json
+      - type: OpenAPI
+        name: "Country Details API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-countries-details-openapi.json
+      - type: OpenAPI
+        name: "Countries API - Retrieve Global Countries Data"
+        url: openapi/apifreaks-api-hub-for-developers-countries-openapi.json
+      - type: OpenAPI
+        name: "Currency Converter API - Convert 970+ Fiat & Crypto Currencies at Live or Historical Rates"
+        url: openapi/apifreaks-api-hub-for-developers-currency-converter-openapi.json
+      - type: OpenAPI
+        name: "Currency Fluctuation API - Get Currency Fluctuations Over a Time Period"
+        url: openapi/apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json
+      - type: OpenAPI
+        name: "Currency Historical Data Limits API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-currency-historical-data-limit-openapi.json
+      - type: OpenAPI
+        name: "Exchange Rate API - Real-Time Forex & Crypto Rates for 1,000+ Assets"
+        url: openapi/apifreaks-api-hub-for-developers-currency-rate-openapi.json
+      - type: OpenAPI
+        name: "Currency Supported API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-currency-supported-openapi.json
+      - type: OpenAPI
+        name: "Currency Symbols API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-currency-symbols-openapi.json
+      - type: OpenAPI
+        name: "Currency Time Series - Historical Currency Exchange Rates for a Time Interval"
+        url: openapi/apifreaks-api-hub-for-developers-currency-time-series-openapi.json
+      - type: OpenAPI
+        name: "PDF Remove Pages API - Delete PDF Pages and Clean Up Documents Instantly"
+        url: openapi/apifreaks-api-hub-for-developers-delete-pdf-page-openapi.json
+      - type: OpenAPI
+        name: "DNS History API - Historical DNS Records with Dated Snapshots for Any Hostname"
+        url: openapi/apifreaks-api-hub-for-developers-dns-history-lookup-openapi.json
+      - type: OpenAPI
+        name: "DNS Lookup API - Live DNS Records, TTLs & PTR Lookups for Any Hostname"
+        url: openapi/apifreaks-api-hub-for-developers-dns-lookup-openapi.json
+      - type: OpenAPI
+        name: "Domain Availability API - Check Domain Names in Real Time and Get Suggestions"
+        url: openapi/apifreaks-api-hub-for-developers-domain-search-openapi.json
+      - type: OpenAPI
+        name: "Domain Search with Suggestions API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json
+      - type: OpenAPI
+        name: "WHOIS History API: Historical WHOIS Records Since 1986"
+        url: openapi/apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json
+      - type: OpenAPI
+        name: "Email Checker API - Real-Time Validation, Deliverability & Risk Signals"
+        url: openapi/apifreaks-api-hub-for-developers-email-checker-openapi.json
+      - type: OpenAPI
+        name: "Financial APIs Supported Countries Reference"
+        url: openapi/apifreaks-api-hub-for-developers-financial-apis-supported-countries-openapi.json
+      - type: OpenAPI
+        name: "Flags API - Country & Organization Flags in Multiple Formats, Shapes, or Sizes"
+        url: openapi/apifreaks-api-hub-for-developers-flags-openapi.json
+      - type: OpenAPI
+        name: "Supported Flags API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-flags-supported-openapi.json
+      - type: OpenAPI
+        name: "Flood Forecast API - River Discharge & Flood Risk Monitoring"
+        url: openapi/apifreaks-api-hub-for-developers-flood-forecast-openapi.json
+      - type: OpenAPI
+        name: "Forward Geocoding API - Convert Address to Lat/Long Coordinates"
+        url: openapi/apifreaks-api-hub-for-developers-forward-geocoding-openapi.json
+      - type: OpenAPI
+        name: "IP Currency API - Convert Any Amount to Local Currency from an IP Address"
+        url: openapi/apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json
+      - type: OpenAPI
+        name: "Historical Commodity Prices, Delivered Simply."
+        url: openapi/apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json
+      - type: OpenAPI
+        name: "Historical Currency Converter API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json
+      - type: OpenAPI
+        name: "Historical Exchange Rate API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json
+      - type: OpenAPI
+        name: "Historical Weather APIs & Time-Series Analytics"
+        url: openapi/apifreaks-api-hub-for-developers-historical-weather-openapi.json
+      - type: OpenAPI
+        name: "IBAN Validation API - Validate Format, Check SEPA & Return Bank Details"
+        url: openapi/apifreaks-api-hub-for-developers-iban-validation-openapi.json
+      - type: OpenAPI
+        name: "IP Geolocation API - City, Country, Coordinates & ISP Data"
+        url: openapi/apifreaks-api-hub-for-developers-ip-locator-openapi.json
+      - type: OpenAPI
+        name: "IP Threat Intelligence API - VPN, Proxy & Tor Detection with Threat Scoring"
+        url: openapi/apifreaks-api-hub-for-developers-ip-threat-intelligence-openapi.json
+      - type: OpenAPI
+        name: "PDF Linearize API - Optimize PDFs for Fast Web Viewing"
+        url: openapi/apifreaks-api-hub-for-developers-linearize-pdf-openapi.json
+      - type: OpenAPI
+        name: "Live Weather API"
+        url: openapi/apifreaks-api-hub-for-developers-live-weather-openapi.json
+      - type: OpenAPI
+        name: "Marine Weather API -  Ocean & Coastal Weather Data"
+        url: openapi/apifreaks-api-hub-for-developers-marine-weather-openapi.json
+      - type: OpenAPI
+        name: "Merge PDF API - Instantly Combine PDFs at Scale"
+        url: openapi/apifreaks-api-hub-for-developers-merge-pdf-openapi.json
+      - type: OpenAPI
+        name: "PDF Compress API - Reduce PDF File Size Programmatically"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-compress-openapi.json
+      - type: OpenAPI
+        name: "PDF Decrypt API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-decrypt-openapi.json
+      - type: OpenAPI
+        name: "PDF Encrypt API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-encrypt-openapi.json
+      - type: OpenAPI
+        name: "PDF Extract Pages API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-extract-pages-openapi.json
+      - type: OpenAPI
+        name: "PDF Delete File API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-file-openapi.json
+      - type: OpenAPI
+        name: "PDF File Status API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-file-status-openapi.json
+      - type: OpenAPI
+        name: "PDF Files API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-files-openapi.json
+      - type: OpenAPI
+        name: "PDF Resource Download API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-resource-download-openapi.json
+      - type: OpenAPI
+        name: "PDF Binary Resource Upload API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-resource-upload-binary-openapi.json
+      - type: OpenAPI
+        name: "PDF Resource Upload API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-resource-upload-openapi.json
+      - type: OpenAPI
+        name: "PDF Restrict API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-restrict-openapi.json
+      - type: OpenAPI
+        name: "PDF Split API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-split-pages-openapi.json
+      - type: OpenAPI
+        name: "PDF Task Status API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-task-status-openapi.json
+      - type: OpenAPI
+        name: "PDF to Image APIs - Convert PDF to JPG, PNG, TIFF, BMP & GIF"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-to-image-openapi.json
+      - type: OpenAPI
+        name: "PDF Unrestrict API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-pdf-unrestrict-openapi.json
+      - type: OpenAPI
+        name: "Phone Validation API - Carrier Lookup, Line Type Detection & Location Data"
+        url: openapi/apifreaks-api-hub-for-developers-phone-number-validation-openapi.json
+      - type: OpenAPI
+        name: "Regions API - Retrieve World Regions & Subregions"
+        url: openapi/apifreaks-api-hub-for-developers-regions-openapi.json
+      - type: OpenAPI
+        name: "Reverse DNS Lookup API - Find Every Hostname Behind an IP, MX, NS, or CNAME"
+        url: openapi/apifreaks-api-hub-for-developers-reverse-dns-lookup-openapi.json
+      - type: OpenAPI
+        name: "Reverse Geocoding API - Convert Coordinates to a Street Address"
+        url: openapi/apifreaks-api-hub-for-developers-reverse-geocoding-openapi.json
+      - type: OpenAPI
+        name: "Reverse WHOIS API - Search Domains by Owner Name, Email, Company, or Keyword"
+        url: openapi/apifreaks-api-hub-for-developers-reverse-whois-openapi.json
+      - type: OpenAPI
+        name: "PDF Rotate API - Instantly Change Page Orientation"
+        url: openapi/apifreaks-api-hub-for-developers-rotate-pdf-pages-openapi.json
+      - type: OpenAPI
+        name: "SSL Certificate Chain Lookup API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-ssl-certificate-chain-lookup-openapi.json
+      - type: OpenAPI
+        name: "SSL Lookup API - Check and Monitor SSL Certificate Chains"
+        url: openapi/apifreaks-api-hub-for-developers-ssl-certificate-lookup-openapi.json
+      - type: OpenAPI
+        name: "Subdomain Finder API - Discover Active, Inactive & Historical Subdomains"
+        url: openapi/apifreaks-api-hub-for-developers-subdomain-lookup-openapi.json
+      - type: OpenAPI
+        name: "Subregions API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-subregions-openapi.json
+      - type: OpenAPI
+        name: "SWIFT/BIC Code Finder API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-swift-code-finder-openapi.json
+      - type: OpenAPI
+        name: "SWIFT/BIC Code API - Look Up Bank Details or Find Codes by Country, Bank & City"
+        url: openapi/apifreaks-api-hub-for-developers-swift-code-lookup-openapi.json
+      - type: OpenAPI
+        name: "Time Series Weather API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-time-series-weather-openapi.json
+      - type: OpenAPI
+        name: "Timezone Converter API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-timezone-converter-openapi.json
+      - type: OpenAPI
+        name: "Timezone Lookup API - Get Timezone from IP, Coordinates, IATA Code & More"
+        url: openapi/apifreaks-api-hub-for-developers-timezone-lookup-openapi.json
+      - type: OpenAPI
+        name: "Credits Usage API"
+        url: openapi/apifreaks-api-hub-for-developers-usage-credits-openapi.json
+      - type: OpenAPI
+        name: "User Agent Parser - Parse User Agent into Readable Format"
+        url: openapi/apifreaks-api-hub-for-developers-user-agent-parser-openapi.json
+      - type: OpenAPI
+        name: "VAT Number Validation API - Real-time VAT Validations across EU & UK"
+        url: openapi/apifreaks-api-hub-for-developers-vat-number-validation-openapi.json
+      - type: OpenAPI
+        name: "VAT Rates by IP API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-vat-rates-by-ip-openapi.json
+      - type: OpenAPI
+        name: "VAT Rates by Country API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-vat-rates-country-openapi.json
+      - type: OpenAPI
+        name: "Weather Forecast API - Advanced Weather Prediction Data"
+        url: openapi/apifreaks-api-hub-for-developers-weather-forecast-openapi.json
+      - type: OpenAPI
+        name: "Web Scraper API - JavaScript Rendering, Proxy Rotation & CAPTCHA Solving"
+        url: openapi/apifreaks-api-hub-for-developers-web-scraper-openapi.json
+      - type: OpenAPI
+        name: "Website Screenshot API - Full-Page Captures, Scrolling Video & PDF Output"
+        url: openapi/apifreaks-api-hub-for-developers-website-screenshot-openapi.json
+      - type: OpenAPI
+        name: "Domain WHOIS Lookup API - Well-Structured Registration & Ownership Data"
+        url: openapi/apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json
+      - type: OpenAPI
+        name: "IP WHOIS Lookup API - Organization, CIDR & Abuse Contact Data"
+        url: openapi/apifreaks-api-hub-for-developers-whois-ip-lookup-openapi.json
+      - type: OpenAPI
+        name: "ZIP Code API - Global ZIP & Postal Code Lookup and Validation"
+        url: openapi/apifreaks-api-hub-for-developers-zip-code-api-openapi.json
+      - type: OpenAPI
+        name: "ZIP Code Distance Match API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-zip-code-distance-match-openapi.json
+      - type: OpenAPI
+        name: "ZIP Code Distance API - Straight-Line Distance Between ZIP & Postal Codes Worldwide"
+        url: openapi/apifreaks-api-hub-for-developers-zip-code-distance-openapi.json
+      - type: OpenAPI
+        name: "ZIP Codes Search by City API: Find ZIP Codes for Any City or State/Province/Region"
+        url: openapi/apifreaks-api-hub-for-developers-zip-codes-by-city-openapi.json
+      - type: OpenAPI
+        name: "ZIP Codes by Region API Reference"
+        url: openapi/apifreaks-api-hub-for-developers-zip-codes-by-region-openapi.json
+      - type: OpenAPI
+        name: "Find All ZIP Codes within a Radius - ZIP Code Radius Search API"
+        url: openapi/apifreaks-api-hub-for-developers-zip-codes-radius-search-openapi.json
+      - type: Authentication
+        url: authentication/apifreaks-api-hub-for-developers-authentication.yml
+      - type: Conventions
+        url: conventions/apifreaks-api-hub-for-developers-conventions.yml
+      - type: ErrorCatalog
+        url: errors/apifreaks-api-hub-for-developers-problem-types.yml
+      - type: RateLimits
+        url: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
+      - type: Webhooks
+        url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
+      - type: Overlay
+        url: overlays/apifreaks-api-hub-for-developers-auth-errors-overlay.yaml
+  - name: APIFreaks MCP Server
+    description: >-
+      Official first-party Model Context Protocol server (Apache-2.0) exposing 59 read-only tools across 13
+      categories — IP intelligence, WHOIS, DNS, SSL, domain, weather, currency, commodity, ZIP code,
+      screenshot, timezone, user-agent and astronomy. Distributed on npm as @apifreaks/mcp and run locally
+      over stdio with `npx -y @apifreaks/mcp`; there is no hosted remote endpoint. Authenticates with the
+      same single APIFREAKS_API_KEY as the REST API.
+    humanURL: https://apifreaks.com/integrations/mcp-server
+    baseURL: https://api.apifreaks.com/v1.0/
+    tags:
+      - MCP
+      - agent-ready
+      - developer tools
+      - IP intelligence
+      - WHOIS
+      - DNS
+      - weather
+      - currency
+    properties:
+      - type: MCPServer
+        url: mcp/apifreaks-api-hub-for-developers-mcp.yml
+      - type: ToolCrosswalk
+        url: mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml
+      - type: Documentation
+        url: https://apifreaks.com/integrations/mcp-server
+      - type: APIReference
+        url: https://apifreaks.com/integrations/mcp-server/supported-tools
+      - type: SourceCode
+        url: https://github.com/api-freaks/apifreaks-mcp
 maintainers:
   - FN: JFreaks Software Solutions
     url: https://apifreaks.com
+    email: support@apifreaks.com
 generated:
   by: apis.io/add
   model: claude-opus-4-8
   confidence: 95
   at: '2026-07-29T05:10:30.144Z'
+common:
+- type: DeveloperPortal
+  url: https://apifreaks.com/api
+- type: Documentation
+  url: https://apifreaks.com/docs
+- type: APIReference
+  url: https://apifreaks.com/api/swagger
+- type: GettingStarted
+  url: https://apifreaks.com/docs
+- type: Support
+  url: https://apifreaks.com/contact
+- type: GitHubOrganization
+  url: https://github.com/api-freaks
+- type: Blog
+  url: https://apifreaks.com/resources/blogs
+- type: Pricing
+  url: https://apifreaks.com/pricing
+- type: SignUp
+  url: https://apifreaks.com/signup
+- type: Login
+  url: https://apifreaks.com/login
+- type: TermsOfService
+  url: https://apifreaks.com/terms
+- type: PrivacyPolicy
+  url: https://apifreaks.com/privacy-policy
+- type: StatusPage
+  url: https://status.apifreaks.com/
+- type: ChangeLog
+  url: https://apifreaks.com/announcements
+- type: Postman
+  url: https://www.postman.com/apifreaks-official/apifreaks/overview
+- type: Plans
+  url: plans/apifreaks-api-hub-for-developers-plans.yml
+- type: RateLimits
+  url: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
+- type: LLMsTxt
+  url: llms/apifreaks-api-hub-for-developers-llms.txt
+- type: WellKnown
+  url: well-known/apifreaks-api-hub-for-developers-well-known.yml
+- type: Packages
+  url: packages/apifreaks-api-hub-for-developers-packages.yml
+- type: SDKs
+  url: packages/apifreaks-api-hub-for-developers-packages.yml
+- type: MCPServer
+  url: mcp/apifreaks-api-hub-for-developers-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Authentication
+  url: authentication/apifreaks-api-hub-for-developers-authentication.yml
+- type: Conventions
+  url: conventions/apifreaks-api-hub-for-developers-conventions.yml
+- type: ErrorCatalog
+  url: errors/apifreaks-api-hub-for-developers-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/apifreaks-api-hub-for-developers-lifecycle.yml
+- type: Deprecation
+  url: https://apifreaks.com/announcements
+- type: ChangeLog
+  url: changelog/apifreaks-api-hub-for-developers-changelog.yml
+- type: Conformance
+  url: conformance/apifreaks-api-hub-for-developers-conformance.yml
+- type: Sandbox
+  url: sandbox/apifreaks-api-hub-for-developers-sandbox.yml
+- type: Webhooks
+  url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
+- type: Overlay
+  url: overlays/apifreaks-api-hub-for-developers-auth-errors-overlay.yaml
+- type: DomainSecurity
+  url: security/apifreaks-api-hub-for-developers-domain-security.yml
+x-enrichment:
+  date: '2026-08-09'
+  status: enriched
+  artifacts_added: 125
+  pass: local-v1
