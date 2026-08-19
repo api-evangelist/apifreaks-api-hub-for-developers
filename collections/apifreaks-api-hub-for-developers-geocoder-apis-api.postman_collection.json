@@ -1,0 +1,536 @@
+{
+  "item": [
+    {
+      "id": "a198b6d3-508c-4722-ade9-073770693300",
+      "name": "Geocoder APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "28ad815f-5249-4ca9-9fbe-d4123ed66ae9",
+          "name": "Convert an address or place name into geographic coordinates",
+          "request": {
+            "name": "Convert an address or place name into geographic coordinates",
+            "description": {
+              "content": "Search for a free-form address, place name, or point of interest and return matching locations with coordinates, structured address components, and a bounding box.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geocoder",
+                "search"
+              ],
+              "host": [
+                "{{geocoder-search-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) Free-form search query, e.g. `Wembley Stadium, London`."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "1",
+                  "description": "Maximum number of results to return. May return fewer if matches are weak."
+                },
+                {
+                  "disabled": false,
+                  "key": "min_lat",
+                  "value": "<float>",
+                  "description": "Minimum latitude of the viewbox used to bias results. Must be provided together with `max_lat`, `min_lon`, and `max_lon`, and must be less than or equal to `max_lat`."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_lat",
+                  "value": "<float>",
+                  "description": "Maximum latitude of the viewbox used to bias results. Must be provided together with `min_lat`, `min_lon`, and `max_lon`, and must be greater than or equal to `min_lat`."
+                },
+                {
+                  "disabled": false,
+                  "key": "min_lon",
+                  "value": "<float>",
+                  "description": "Minimum longitude of the viewbox used to bias results. Must be provided together with `min_lat`, `max_lat`, and `max_lon`, and must be less than or equal to `max_lon`."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_lon",
+                  "value": "<float>",
+                  "description": "Maximum longitude of the viewbox used to bias results. Must be provided together with `min_lat`, `max_lat`, and `min_lon`, and must be greater than or equal to `min_lon`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Preferred language order for result names, as a comma-separated list of language codes or a single code. Results are returned in the first matched language, falling back to `en` if none match.",
+                "key": "Accept-Language",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7032d349-327a-4c70-9093-19451dbf21f0",
+              "name": "Successful geocoding response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geocoder",
+                    "search"
+                  ],
+                  "host": [
+                    "{{geocoder-search-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    },
+                    {
+                      "key": "min_lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "max_lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "min_lon",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "max_lon",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred language order for result names, as a comma-separated list of language codes or a single code. Results are returned in the first matched language, falling back to `en` if none match.",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"lat\": 51.55606945,\n    \"lon\": -0.27960339379401444,\n    \"name\": \"Wembley Stadium\",\n    \"category\": \"tourism\",\n    \"type\": \"attraction\",\n    \"poi\": [\n      {\n        \"name\": \"Wembley Stadium\",\n        \"category\": \"leisure\",\n        \"type\": \"stadium\"\n      }\n    ],\n    \"street\": \"Pacific Crescent\",\n    \"area\": \"London Borough of Brent\",\n    \"postcode\": \"HA9 0SL\",\n    \"city\": \"Greater London\",\n    \"state_code\": \"GB-ENG\",\n    \"state\": \"England\",\n    \"country_code\": \"GB\",\n    \"country\": \"United Kingdom\",\n    \"full_address\": \"Wembley Stadium, Pacific Crescent, London Borough of Brent, Greater London, England, HA9 0SL, United Kingdom\",\n    \"bounding_box\": [\n      \"51.5547925\",\n      \"51.5573402\",\n      \"-0.2817245\",\n      \"-0.2774831\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8fc34e3-20b3-4a8d-b633-4b6af8d4f889",
+              "name": "Bad Request — Invalid or missing parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geocoder",
+                    "search"
+                  ],
+                  "host": [
+                    "{{geocoder-search-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    },
+                    {
+                      "key": "min_lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "max_lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "min_lon",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "max_lon",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred language order for result names, as a comma-separated list of language codes or a single code. Results are returned in the first matched language, falling back to `en` if none match.",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/geocoder/search\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-22T14:29:30.362Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "390c8069-cdfe-4a4a-b04f-daae9c90e4cd",
+              "name": "Not Found — No results matched the query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geocoder",
+                    "search"
+                  ],
+                  "host": [
+                    "{{geocoder-search-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    },
+                    {
+                      "key": "min_lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "max_lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "min_lon",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "max_lon",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred language order for result names, as a comma-separated list of language codes or a single code. Results are returned in the first matched language, falling back to `en` if none match.",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"No Result Found\",\n  \"message\": \"No results found for the given query.\",\n  \"path\": \"/v1.0/geocoder/search\",\n  \"status\": 404,\n  \"timestamp\": \"2026-07-22T14:29:58.349Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "264d29dd-4c2f-41cf-ae71-59cb528e983f",
+          "name": "Convert coordinates into a human-readable address",
+          "request": {
+            "name": "Convert coordinates into a human-readable address",
+            "description": {
+              "content": "Look up the nearest address or place name for a given latitude and longitude pair.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geocoder",
+                "reverse"
+              ],
+              "host": [
+                "{{geocoder-reverse-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "(Required) WGS84 latitude value, ranging from -90 to 90."
+                },
+                {
+                  "disabled": false,
+                  "key": "lon",
+                  "value": "<float>",
+                  "description": "(Required) WGS84 longitude value, ranging from -180 to 180."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Preferred language order for the result name and address, as a comma-separated list of language codes or a single code. Results are returned in the first matched language, falling back to `en` if none match.",
+                "key": "Accept-Language",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0730f37-bbd0-48f1-9612-6fdb479586dd",
+              "name": "Successful geocoding response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geocoder",
+                    "reverse"
+                  ],
+                  "host": [
+                    "{{geocoder-reverse-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred language order for the result name and address, as a comma-separated list of language codes or a single code. Results are returned in the first matched language, falling back to `en` if none match.",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lat\": 40.7489669,\n  \"lon\": -73.985399,\n  \"name\": \"LensCrafters\",\n  \"category\": \"shop\",\n  \"type\": \"optician\",\n  \"poi\": [\n    {\n      \"name\": \"LensCrafters\",\n      \"category\": \"shop\",\n      \"type\": \"optician\"\n    },\n    {\n      \"name\": \"7\",\n      \"category\": \"place\",\n      \"type\": \"house_number\"\n    }\n  ],\n  \"street\": \"West 34th Street\",\n  \"area\": \"Manhattan, New York County\",\n  \"postcode\": \"10001\",\n  \"city\": \"New York\",\n  \"state_code\": \"US-NY\",\n  \"state\": \"New York\",\n  \"country_code\": \"US\",\n  \"country\": \"United States\",\n  \"full_address\": \"LensCrafters, 7, West 34th Street, Midtown South, Manhattan Community Board 5, Manhattan, New York County, New York, 10001, United States\",\n  \"bounding_box\": [\n    \"40.7489169\",\n    \"40.7490169\",\n    \"-73.9854490\",\n    \"-73.9853490\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb9aa200-71aa-4478-82d6-6eec9911158d",
+              "name": "Bad Request — Invalid or missing parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geocoder",
+                    "reverse"
+                  ],
+                  "host": [
+                    "{{geocoder-reverse-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "<float>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Preferred language order for the result name and address, as a comma-separated list of language codes or a single code. Results are returned in the first matched language, falling back to `en` if none match.",
+                    "key": "Accept-Language",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/geocoder/reverse\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-22T14:29:45.148Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "geocoder-search-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "geocoder-reverse-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "46fd1f46-6fa5-40fe-bc26-4c263efdd41c",
+    "name": "Apifreaks Api Hub For Developers Geocoder APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Geocoder APIs across 2 of this provider's published API definitions: apifreaks-api-hub-for-developers-forward-geocoding-openapi.json, apifreaks-api-hub-for-developers-reverse-geocoding-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

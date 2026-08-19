@@ -1,0 +1,1842 @@
+{
+  "item": [
+    {
+      "id": "badf623a-5e76-400a-9ebe-c7b339a750e4",
+      "name": "ZIP Code APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4930785b-1d69-44b8-befd-14d5b223b156",
+          "name": "Look up multiple ZIP/postal codes in one request",
+          "request": {
+            "name": "Look up multiple ZIP/postal codes in one request",
+            "description": {
+              "content": "Looks up up to 100 ZIP/postal codes in a single request and returns matching location data for each code that resolves.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "zipcode",
+                "lookup"
+              ],
+              "host": [
+                "{{zipcode-lookup-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"country\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "69369897-b2e4-4521-a321-0162000bc2db",
+              "name": "Successful response. `results` contains one entry per code that matched, in match order — codes with no match are omitted rather than represented as error entries, so the array can be shorter than the requested `codes` list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{zipcode-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"codes\": [\n    \"10001\",\n    \"90210\"\n  ],\n  \"country\": \"US\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"code\": \"10001\",\n      \"country_code\": \"US\",\n      \"region\": \"New York\",\n      \"region_code\": \"NY\",\n      \"city\": \"New York County\",\n      \"locality\": \"Manhattan\",\n      \"latitude\": 40.748436,\n      \"longitude\": -73.99402\n    },\n    {\n      \"code\": \"90210\",\n      \"country_code\": \"US\",\n      \"region\": \"California\",\n      \"region_code\": \"CA\",\n      \"city\": \"Los Angeles\",\n      \"locality\": \"Beverly Hills (Beverly Hills)\",\n      \"latitude\": 34.10313,\n      \"longitude\": -118.41625\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4354dfbe-35dc-46a0-b65e-e68c80f6498c",
+              "name": "Bad Request — Malformed body, invalid country code, or over the 100-code limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{zipcode-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"codes\": [\n    \"10001\",\n    \"90210\"\n  ],\n  \"country\": \"US\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:18:38.639Z\",\n  \"path\": \"/v1.0/zipcode/lookup\",\n  \"status\": 400,\n  \"error\": \"Request Body Invalid\",\n  \"message\": \"Request body is missing required fields or is not in the expected format. Please refer to the API documentation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37f2211e-07e3-4d89-a4b5-691c88cc245a",
+              "name": "Not Found — None of the submitted codes matched anything",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{zipcode-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"codes\": [\n    \"10001\",\n    \"90210\"\n  ],\n  \"country\": \"US\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:18:39.650Z\",\n  \"path\": \"/v1.0/zipcode/lookup\",\n  \"status\": 404,\n  \"error\": \"Postal/Zip Codes Not Found\",\n  \"message\": \"None of the provided postal/zip codes were found in our database.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a50dcd73-26fa-4d87-94d3-03e8853a5349",
+          "name": "Look up a ZIP/postal code",
+          "request": {
+            "name": "Look up a ZIP/postal code",
+            "description": {
+              "content": "Returns every location worldwide that matches the given postal/ZIP code, optionally narrowed to one country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "zipcode",
+                "lookup"
+              ],
+              "host": [
+                "{{zipcode-lookup-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "(Required) The postal/ZIP code to look up. Only one code is accepted per request."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Country code in ISO 3166-1 alpha-2 format. Limits results to that country. If not provided, matching locations from all countries are returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7868e93a-2db7-45d4-a894-4f7d465e00b6",
+              "name": "Successful response with matching ZIP code locations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{zipcode-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"code\": \"90210\",\n      \"country_code\": \"US\",\n      \"region\": \"California\",\n      \"region_code\": \"CA\",\n      \"city\": \"Los Angeles\",\n      \"locality\": \"Beverly Hills (Beverly Hills)\",\n      \"latitude\": 34.10313,\n      \"longitude\": -118.41625\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb5cfe3a-70a5-46fe-a3ab-6703dc00f7cf",
+              "name": "Bad Request — Missing code or invalid country code",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{zipcode-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/zipcode/lookup\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:17:13.351Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2476f9bf-7751-4ba3-ab29-fea6d67374de",
+              "name": "Not Found — No location matches the given code",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{zipcode-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:17:14.474Z\",\n  \"path\": \"/v1.0/zipcode/lookup\",\n  \"status\": 404,\n  \"error\": \"Postal/Zip Code Not Found\",\n  \"message\": \"Provided postal/zip code was not found in our database.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9950c9ff-d104-4611-aec6-1c6cdc97ece8",
+          "name": "Get matching ZIP/postal code pairs within a distance",
+          "request": {
+            "name": "Get matching ZIP/postal code pairs within a distance",
+            "description": {
+              "content": "Returns every pair of the requested ZIP/postal codes whose distance from each other is at or below the given threshold.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "zipcode",
+                "distance",
+                "match"
+              ],
+              "host": [
+                "{{zipcode-distance-match-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"country\": \"<string>\",\n  \"distance\": \"<float>\",\n  \"unit\": \"km\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "727c9224-8fd3-4a66-b1eb-9abdc4be4d23",
+              "name": "Successful response with matching ZIP code pairs. If none of the codes are within the distance threshold of each other, results is an empty array — this is not a 404.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "distance",
+                    "match"
+                  ],
+                  "host": [
+                    "{{zipcode-distance-match-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"codes\": [\n    \"90210\",\n    \"90211\",\n    \"90212\",\n    \"10001\"\n  ],\n  \"country\": \"US\",\n  \"distance\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result_count\": 2,\n  \"results\": [\n    {\n      \"code_1\": \"90211\",\n      \"code_2\": \"90212\",\n      \"distance\": 1.958\n    },\n    {\n      \"code_1\": \"90210\",\n      \"code_2\": \"90212\",\n      \"distance\": 4.704\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11229af2-cfeb-4f01-b576-be27f1dd1138",
+              "name": "Bad Request — Missing/invalid body, country, or unit, or over the 100-code limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "distance",
+                    "match"
+                  ],
+                  "host": [
+                    "{{zipcode-distance-match-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"codes\": [\n    \"90210\",\n    \"90211\",\n    \"90212\",\n    \"10001\"\n  ],\n  \"country\": \"US\",\n  \"distance\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:21:58.473Z\",\n  \"path\": \"/v1.0/zipcode/distance/match\",\n  \"status\": 400,\n  \"error\": \"Request Body Invalid\",\n  \"message\": \"Request body is missing required fields or is not in the expected format. Please refer to the API documentation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87ea0755-9deb-4e75-898b-7b41261a43f3",
+              "name": "Not Found — None of the submitted codes matched anything",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "distance",
+                    "match"
+                  ],
+                  "host": [
+                    "{{zipcode-distance-match-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"codes\": [\n    \"90210\",\n    \"90211\",\n    \"90212\",\n    \"10001\"\n  ],\n  \"country\": \"US\",\n  \"distance\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:21:59.589Z\",\n  \"path\": \"/v1.0/zipcode/distance/match\",\n  \"status\": 404,\n  \"error\": \"Postal/Zip Codes Not Found\",\n  \"message\": \"None of the provided postal/zip codes were found in our database.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ecd48254-5ba3-4ef7-8f63-ddd97a074305",
+          "name": "Get distance between postal codes",
+          "request": {
+            "name": "Get distance between postal codes",
+            "description": {
+              "content": "Calculates the distance from a base ZIP/postal code or coordinate pair to up to 100 comparison postal codes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "zipcode",
+                "distance"
+              ],
+              "host": [
+                "{{zipcode-distance-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"country\": \"<string>\",\n  \"compare\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"code\": \"<string>\",\n  \"lat\": \"<float>\",\n  \"long\": \"<float>\",\n  \"unit\": \"km\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d734b95c-8bf3-4206-90cd-4b393ada762e",
+              "name": "Successful response with distances. Comparison codes with no match are omitted from results rather than represented as error entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "distance"
+                  ],
+                  "host": [
+                    "{{zipcode-distance-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"90210\",\n  \"country\": \"US\",\n  \"compare\": [\n    \"10001\",\n    \"94103\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result_count\": 2,\n  \"results\": [\n    {\n      \"code\": \"10001\",\n      \"distance\": 3948.696\n    },\n    {\n      \"code\": \"94103\",\n      \"distance\": 544.134\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "143dc86f-d818-4d80-9d46-3e65186417e6",
+              "name": "Bad Request — Missing/invalid body, country, or unit, or over the 100-code limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "distance"
+                  ],
+                  "host": [
+                    "{{zipcode-distance-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"90210\",\n  \"country\": \"US\",\n  \"compare\": [\n    \"10001\",\n    \"94103\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:20:46.922Z\",\n  \"path\": \"/v1.0/zipcode/distance\",\n  \"status\": 400,\n  \"error\": \"Request Body Invalid\",\n  \"message\": \"Request body is missing required fields or is not in the expected format. Please refer to the API documentation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5b5c10c-6119-46c9-8d6c-599b43008480",
+              "name": "Not Found — None of the compare codes matched anything",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "distance"
+                  ],
+                  "host": [
+                    "{{zipcode-distance-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"90210\",\n  \"country\": \"US\",\n  \"compare\": [\n    \"10001\",\n    \"94103\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:20:49.310Z\",\n  \"path\": \"/v1.0/zipcode/distance\",\n  \"status\": 404,\n  \"error\": \"Postal/Zip Codes Not Found\",\n  \"message\": \"None of the provided postal/zip codes were found in our database.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6e842e5-b23a-4c32-ba85-470a73ecadf8",
+          "name": "Search ZIP/postal codes by city",
+          "request": {
+            "name": "Search ZIP/postal codes by city",
+            "description": {
+              "content": "Returns every ZIP/postal code associated with the given city and country, optionally narrowed by state or province.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "zipcode",
+                "search",
+                "city"
+              ],
+              "host": [
+                "{{zipcode-search-city-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>",
+                  "description": "(Required) Name of the city to find ZIP/postal codes for."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) Country code in ISO 3166-1 alpha-2 format."
+                },
+                {
+                  "disabled": false,
+                  "key": "state_name",
+                  "value": "<string>",
+                  "description": "Name of the state or province associated with the country. Useful to disambiguate cities with the same name in different states."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to retrieve paginated results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c427dcf-27b5-4054-b9f7-52910f0afc03",
+              "name": "ZIP/postal codes retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "search",
+                    "city"
+                  ],
+                  "host": [
+                    "{{zipcode-search-city-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_results\": 368,\n  \"total_pages\": 1,\n  \"current_page\": 1,\n  \"current_page_size\": 368,\n  \"codes\": [\n    \"90001\",\n    \"90002\",\n    \"90003\",\n    \"90210\",\n    \"90211\",\n    \"90212\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1862e32b-1e4f-42d1-bc2a-da5f18c5cf86",
+              "name": "Bad Request — Missing city, invalid country code, or invalid page number",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "search",
+                    "city"
+                  ],
+                  "host": [
+                    "{{zipcode-search-city-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/zipcode/search/city\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:22:48.293Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0baf9452-a1b2-45d5-ba79-c5415e06ff07",
+              "name": "Not Found — No codes for the city, or requested page is out of range",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "search",
+                    "city"
+                  ],
+                  "host": [
+                    "{{zipcode-search-city-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:23:00.301Z\",\n  \"path\": \"/v1.0/zipcode/search/city\",\n  \"status\": 404,\n  \"error\": \"Postal/Zip Codes Not Found\",\n  \"message\": \"No postal/zip codes found for the provided city Nonexistentcityxyz123 in country US.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86d7a889-9ae3-4f0f-8672-265326cbc21b",
+          "name": "Search ZIP codes by region",
+          "request": {
+            "name": "Search ZIP codes by region",
+            "description": {
+              "content": "Returns every ZIP/postal code within the given region, state, or province of a country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "zipcode",
+                "search",
+                "region"
+              ],
+              "host": [
+                "{{zipcode-search-region-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) Country code in ISO 3166-1 alpha-2 format."
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "<string>",
+                  "description": "Name of the region, state, or province associated with the country. Either region or region_code is required."
+                },
+                {
+                  "disabled": false,
+                  "key": "region_code",
+                  "value": "<string>",
+                  "description": "ISO code of the region, state, or province associated with the country. Either region or region_code is required. region_code takes priority if both are given."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to retrieve. Each page returns up to 500 results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5fa1c283-0f3a-4028-97bf-dd0bde2786a5",
+              "name": "ZIP/postal codes retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "search",
+                    "region"
+                  ],
+                  "host": [
+                    "{{zipcode-search-region-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_results\": 2591,\n  \"total_pages\": 6,\n  \"current_page\": 1,\n  \"current_page_size\": 500,\n  \"codes\": [\n    \"90001\",\n    \"90002\",\n    \"90003\",\n    \"90004\",\n    \"90005\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c597ef1-2762-42d6-912a-621fbc657fb1",
+              "name": "Bad Request — Missing region/region_code, invalid country code, or invalid page number",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "search",
+                    "region"
+                  ],
+                  "host": [
+                    "{{zipcode-search-region-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/zipcode/search/region\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:23:39.623Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70290551-dc0f-4991-ab13-5e680f89937a",
+              "name": "Not Found — No codes for the region, or requested page is out of range",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "search",
+                    "region"
+                  ],
+                  "host": [
+                    "{{zipcode-search-region-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:23:47.785Z\",\n  \"path\": \"/v1.0/zipcode/search/region\",\n  \"status\": 404,\n  \"error\": \"Postal/Zip Codes Not Found\",\n  \"message\": \"No postal/zip codes found for the provided region Nonexistentregionxyz in country US.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c1e9829-c6f0-4ff5-91c9-7eb9b9aa0c10",
+          "name": "Find ZIP/postal codes within a radius",
+          "request": {
+            "name": "Find ZIP/postal codes within a radius",
+            "description": {
+              "content": "Returns every ZIP/postal code within the given radius of a center point, specified either by code plus country or by latitude/longitude coordinates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "zipcode",
+                "search",
+                "radius"
+              ],
+              "host": [
+                "{{zipcode-search-radius-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "Postal/ZIP code to use as the center point for the search. Requires country to be set. Alternative to lat/long."
+                },
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "Latitude coordinate for the center point. Alternative to code/country."
+                },
+                {
+                  "disabled": false,
+                  "key": "long",
+                  "value": "<float>",
+                  "description": "Longitude coordinate for the center point. Alternative to code/country."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Country code in ISO 3166-1 alpha-2 format. Required only when using the code parameter."
+                },
+                {
+                  "disabled": false,
+                  "key": "radius",
+                  "value": "<float>",
+                  "description": "(Required) Search radius for the query. The maximum allowed values are: 100 km, 100 mi, 109361 yd, 100000 m, 328084 ft, 3937007.75 in."
+                },
+                {
+                  "disabled": false,
+                  "key": "unit",
+                  "value": "km",
+                  "description": "Unit for the radius and returned distance values. Supported distance units are m, km, mi, ft, yd, in."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to retrieve. Each page returns up to 500 results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "46e51aec-1e73-49eb-9cf3-3040142938d3",
+              "name": "ZIP/postal codes found within the specified radius",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "search",
+                    "radius"
+                  ],
+                  "host": [
+                    "{{zipcode-search-radius-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "unit",
+                      "value": "km"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_results\": 64,\n  \"total_pages\": 1,\n  \"current_page\": 1,\n  \"current_page_size\": 64,\n  \"results\": [\n    {\n      \"code\": \"90077\",\n      \"region\": \"California\",\n      \"region_code\": \"CA\",\n      \"city\": \"Los Angeles\",\n      \"district\": \"Los Angeles (Los Angeles)\",\n      \"distance\": 3.335\n    },\n    {\n      \"code\": \"90069\",\n      \"region\": \"California\",\n      \"region_code\": \"CA\",\n      \"city\": \"Los Angeles\",\n      \"district\": \"West Hollywood (West Hollywood)\",\n      \"distance\": 3.403\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8eb1fbb-e539-4815-98a0-dcf5615e0760",
+              "name": "Bad Request — Missing/invalid radius, coordinates, or country code",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "search",
+                    "radius"
+                  ],
+                  "host": [
+                    "{{zipcode-search-radius-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "unit",
+                      "value": "km"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/zipcode/search/radius\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:19:37.382Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15b48a97-7e0d-4e1a-b5b5-60bef139455d",
+              "name": "Not Found — Base ZIP/postal code does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "zipcode",
+                    "search",
+                    "radius"
+                  ],
+                  "host": [
+                    "{{zipcode-search-radius-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "unit",
+                      "value": "km"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:19:47.940Z\",\n  \"path\": \"/v1.0/zipcode/search/radius\",\n  \"status\": 404,\n  \"error\": \"Base Postal/Zip Code Not Found\",\n  \"message\": \"The provided base postal/zip code does not exist in our database.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "zipcode-lookup-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "zipcode-distance-match-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "zipcode-distance-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "zipcode-search-city-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "zipcode-search-region-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "zipcode-search-radius-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a22eca67-cc80-43a3-a20d-0e6d7c9d56cb",
+    "name": "Apifreaks Api Hub For Developers ZIP Code APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged ZIP Code APIs across 7 of this provider's published API definitions: apifreaks-api-hub-for-developers-bulk-zip-code-lookup-openapi.json, apifreaks-api-hub-for-developers-zip-code-api-openapi.json, apifreaks-api-hub-for-developers-zip-code-distance-match-openapi.json, apifreaks-api-hub-for-developers-zip-code-distance-openapi.json, apifreaks-api-hub-for-developers-zip-codes-by-city-openapi.json, apifreaks-api-hub-for-developers-zip-codes-by-region-openapi.json, apifreaks-api-hub-for-developers-zip-codes-radius-search-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,409 @@
+{
+  "item": [
+    {
+      "id": "b685bec6-bcb6-47fb-8ec4-e0d963b5adef",
+      "name": "Flags APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b0422166-465f-473a-8a5c-b98b34f78cfc",
+          "name": "Retrieve a country or organization flag image",
+          "request": {
+            "name": "Retrieve a country or organization flag image",
+            "description": {
+              "content": "Returns a flag image for a specified country or international organization. Supports PNG, WEBP, and SVG formats with flat or round shapes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "flags"
+              ],
+              "host": [
+                "{{flags-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) Country code in ISO 3166-1 alpha-2 format for country flags, or organization identifier for organization flags. Organization identifiers are case-sensitive and must exactly match an entry from the Supported Flags endpoint (e.g. NATO, European_Union) — lowercase or abbreviated forms return a 404."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) Type of flag to retrieve. Possible values: country, organization."
+                },
+                {
+                  "disabled": false,
+                  "key": "shape",
+                  "value": "<string>",
+                  "description": "(Required) Shape of the flag image. Possible values: flat, round."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "png",
+                  "description": "Image format. Possible values: png, webp, svg. Default: png."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<string>",
+                  "description": "Size of the flag image in pixels. Possible values: 16px, 24px, 32px, 48px, 64px. Default is 64px when omitted. Applies to PNG and WEBP formats only; silently ignored (no error) when format is svg, since SVG is vector-scalable."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "image/png"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33bd2ef8-60e6-4e00-9c63-172abe3ccc7f",
+              "name": "Successful response with the flag image as raw binary data (not JSON) in the format requested",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flags"
+                  ],
+                  "host": [
+                    "{{flags-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "shape",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "png"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "image/png"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "image/png"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c77d8cfe-63e4-48e7-8dc2-7bb15ed7d811",
+              "name": "Bad Request — Missing required parameter, or type/shape/format/size is not one of the allowed enum values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flags"
+                  ],
+                  "host": [
+                    "{{flags-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "shape",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "png"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/flags\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-24T11:04:56.443Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad9769d4-26e1-4201-ac01-593092e9246c",
+              "name": "Not Found — Country code or organization identifier not recognized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flags"
+                  ],
+                  "host": [
+                    "{{flags-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "shape",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "png"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-24T11:04:58.077767+00:00\",\n  \"path\": \"/flags\",\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"message\": \"Invalid country name or code: ZZ\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d1ff132-326b-4591-8a7f-f289d3b58634",
+          "name": "Retrieve list of all supported flags",
+          "request": {
+            "name": "Retrieve list of all supported flags",
+            "description": {
+              "content": "Returns a list of all supported country and international organization flags with their metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "flags",
+                "supported"
+              ],
+              "host": [
+                "{{flags-supported-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80459ca6-8088-4fde-ab03-69152766e3c4",
+              "name": "Successful response with list of supported flags",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flags",
+                    "supported"
+                  ],
+                  "host": [
+                    "{{flags-supported-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"supported_countries\": [\n    {\n      \"name\": \"Luxembourg\",\n      \"iso2\": \"LU\",\n      \"iso3\": \"LUX\"\n    },\n    {\n      \"name\": \"Suriname\",\n      \"iso2\": \"SR\",\n      \"iso3\": \"SUR\"\n    },\n    {\n      \"name\": \"Tunisia\",\n      \"iso2\": \"TN\",\n      \"iso3\": \"TUN\"\n    },\n    {\n      \"name\": \"Colombia\",\n      \"iso2\": \"CO\",\n      \"iso3\": \"COL\"\n    },\n    {\n      \"name\": \"Pakistan\",\n      \"iso2\": \"PK\",\n      \"iso3\": \"PAK\"\n    }\n  ],\n  \"supported_organizations\": [\n    \"Commonwealth_of_Independent_States\",\n    \"Gulf_Cooperation_Council\",\n    \"Arab_League\",\n    \"Organization_of_American_States\",\n    \"African_Union\",\n    \"European_Union\",\n    \"United_Nations\",\n    \"NATO\",\n    \"Association_of_Southeast_Asian_Nations\",\n    \"Commonwealth_of_Nations\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "flags-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "flags-supported-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4a362173-1112-49d2-baa7-01bd39b05bb5",
+    "name": "Apifreaks Api Hub For Developers Flags APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Flags APIs across 2 of this provider's published API definitions: apifreaks-api-hub-for-developers-flags-openapi.json, apifreaks-api-hub-for-developers-flags-supported-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

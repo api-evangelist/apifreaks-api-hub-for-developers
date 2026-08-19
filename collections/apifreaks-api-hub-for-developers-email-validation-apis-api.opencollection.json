@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers Email Validation APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Email Validation APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Validate multiple email addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/email-validation/bulk",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates a bulk of email addresses and returns result for each. Maximum `100` email addresses per request."
+        },
+        {
+          "info": {
+            "name": "Validate a single email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/email-validation/single",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates a single email address and returns result."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

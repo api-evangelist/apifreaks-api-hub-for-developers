@@ -1,0 +1,1132 @@
+{
+  "item": [
+    {
+      "id": "f766e10b-79a1-4336-bb2e-196c4d7dada6",
+      "name": "Commodity APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4730aa27-3b09-4995-a739-45b8964d2139",
+          "name": "Get commodity price fluctuations",
+          "request": {
+            "name": "Get commodity price fluctuations",
+            "description": {
+              "content": "Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commodity",
+                "fluctuation"
+              ],
+              "host": [
+                "{{commodity-fluctuation-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format. Currently only `json` is supported."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of commodity symbols."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<string>",
+                  "description": "(Required) Start date in `YYYY-MM-DD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<string>",
+                  "description": "(Required) End date in `YYYY-MM-DD` format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6a381fe2-19cf-49a4-99f1-9fbc40844f73",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "fluctuation"
+                  ],
+                  "host": [
+                    "{{commodity-fluctuation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"startDate\": \"2024-01-01\",\n  \"endDate\": \"2024-01-31\",\n  \"rates\": {\n    \"WTIOIL-SPOT\": {\n      \"startRate\": 72.02,\n      \"endRate\": 75.81,\n      \"change\": 3.79,\n      \"changePercent\": 5.26\n    },\n    \"XAU\": {\n      \"startRate\": 2063.63,\n      \"endRate\": 2039.83,\n      \"change\": -23.8,\n      \"changePercent\": -1.15\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2277cc05-fcdb-4699-a4db-a02c8dee060b",
+              "name": "Bad Request — Missing parameters or invalid dates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "fluctuation"
+                  ],
+                  "host": [
+                    "{{commodity-fluctuation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/commodity/fluctuation\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:37:24.273Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b13152e8-0422-40aa-8c87-22787ffab74d",
+              "name": "Not found - Symbol or data not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "fluctuation"
+                  ],
+                  "host": [
+                    "{{commodity-fluctuation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:37:23.759Z\",\n  \"path\": \"/rates/fluctuation\",\n  \"code\": 404,\n  \"error\": \"SYMBOL_NOT_FOUND\",\n  \"message\": \"The symbol is not supported, please visit the documentation for a list of supported symbols\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0de277c5-3175-4a28-b0e2-99cbc4c4cec6",
+          "name": "Get latest commodity prices",
+          "request": {
+            "name": "Get latest commodity prices",
+            "description": {
+              "content": "Returns the current live price for the requested commodity symbols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commodity",
+                "rates",
+                "latest"
+              ],
+              "host": [
+                "{{commodity-rates-latest-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format. Currently only `json` is supported."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of commodity symbols (e.g., `XAU`, `WTIOIL-SPOT`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "updates",
+                  "value": "1m",
+                  "description": "(Required) Update frequency. Accepted values: `1m` (default), `10m`."
+                },
+                {
+                  "disabled": false,
+                  "key": "quote",
+                  "value": "<string>",
+                  "description": "Target currency for the exchange rate. Defaults to the market currency of each commodity."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5182ec33-a394-451e-84a6-831d67819f7d",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "rates",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{commodity-rates-latest-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    },
+                    {
+                      "key": "quote",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"timestamp\": 1785152172,\n  \"rates\": {\n    \"XAU\": 4099.1,\n    \"WTIOIL-SPOT\": 81.88\n  },\n  \"metadata\": {\n    \"XAU\": {\n      \"unit\": \"T.oz\",\n      \"quote\": \"USD\"\n    },\n    \"WTIOIL-SPOT\": {\n      \"unit\": \"Bbl\",\n      \"quote\": \"USD\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03d0925c-eb33-411c-b765-87b43fdf65bc",
+              "name": "Bad Request — Missing or invalid query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "rates",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{commodity-rates-latest-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    },
+                    {
+                      "key": "quote",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/commodity/rates/latest\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:36:13.312Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9c2ed21-2875-4e00-8b1d-ffe4b7c5063c",
+              "name": "Not found - Symbol or quote currency not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "rates",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{commodity-rates-latest-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    },
+                    {
+                      "key": "quote",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": 1781792620618,\n  \"path\": \"/rates/latestRates\",\n  \"code\": 404,\n  \"error\": \"SYMBOL_NOT_FOUND\",\n  \"message\": \"The symbol is not supported, please visit the documentation for a list of supported symbols\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4266af50-2689-43ba-aa2e-928eb0287923",
+          "name": "Get all supported commodity symbols",
+          "request": {
+            "name": "Get all supported commodity symbols",
+            "description": {
+              "content": "Returns the list of supported commodity symbols with metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commodity",
+                "symbols"
+              ],
+              "host": [
+                "{{commodity-symbols-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format. Accepted values: `json` (default) or `xml`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3a39a9a4-1dc7-473f-8283-9560c9d6ae7d",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "symbols"
+                  ],
+                  "host": [
+                    "{{commodity-symbols-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"symbols\": [\n    {\n      \"symbol\": \"XAU\",\n      \"name\": \"Gold\",\n      \"category\": \"Metals\",\n      \"status\": \"active\",\n      \"updateInterval\": \"PER_SECOND\",\n      \"currency\": {\n        \"code\": \"USD\",\n        \"name\": \"US Dollar\",\n        \"symbol\": \"$\"\n      },\n      \"unit\": {\n        \"symbol\": \"T.oz\",\n        \"name\": \"Troy Ounce\"\n      }\n    },\n    {\n      \"symbol\": \"NG-FUT\",\n      \"name\": \"Natural Gas Futures\",\n      \"category\": \"Energy\",\n      \"status\": \"active\",\n      \"updateInterval\": \"PER_MINUTE\",\n      \"currency\": {\n        \"code\": \"USD\",\n        \"name\": \"US Dollar\",\n        \"symbol\": \"$\"\n      },\n      \"unit\": {\n        \"symbol\": \"MMBtu\",\n        \"name\": \"Million British Thermal Units\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c1195e7-6d57-4f4f-b05b-2c6805a2289b",
+          "name": "Get commodity price time series",
+          "request": {
+            "name": "Get commodity price time series",
+            "description": {
+              "content": "Returns day-by-day OHLC data for the requested commodity symbols within a date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commodity",
+                "time-series"
+              ],
+              "host": [
+                "{{commodity-time-series-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format. Currently only `json` is supported."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of commodity symbols."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<string>",
+                  "description": "(Required) Start date in `YYYY-MM-DD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<string>",
+                  "description": "(Required) End date in `YYYY-MM-DD` format. Maximum range is 365 days."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0ba08392-de67-4d29-940c-6d594c10f499",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "time-series"
+                  ],
+                  "host": [
+                    "{{commodity-time-series-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"startDate\": \"2025-01-06\",\n  \"endDate\": \"2025-01-08\",\n  \"rates\": {\n    \"2025-01-06\": {\n      \"XAU\": {\n        \"open\": 2649.01,\n        \"high\": 2651.33,\n        \"low\": 2645.36,\n        \"close\": 2646.91\n      }\n    },\n    \"2025-01-07\": {\n      \"XAU\": {\n        \"open\": 2662.45,\n        \"high\": 2663.06,\n        \"low\": 2655.66,\n        \"close\": 2658.9\n      }\n    },\n    \"2025-01-08\": {\n      \"XAU\": {\n        \"open\": 2669.69,\n        \"high\": 2674.68,\n        \"low\": 2668.58,\n        \"close\": 2671.8\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23600017-6331-4231-9950-db28bd5320a5",
+              "name": "Bad Request — Missing parameters, invalid dates, or date range exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "time-series"
+                  ],
+                  "host": [
+                    "{{commodity-time-series-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/commodity/time-series\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:38:40.063Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85b9f609-d8cd-43aa-8e6d-2bc20f12a0ca",
+              "name": "Not found - Symbol or data not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "time-series"
+                  ],
+                  "host": [
+                    "{{commodity-time-series-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T11:38:41.234Z\",\n  \"path\": \"/rates/time-series\",\n  \"code\": 404,\n  \"error\": \"SYMBOL_NOT_FOUND\",\n  \"message\": \"The symbol is not supported, please visit the documentation for a list of supported symbols\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed91a37f-c862-4df4-a9ac-20731afeff53",
+          "name": "Get historical commodity prices",
+          "request": {
+            "name": "Get historical commodity prices",
+            "description": {
+              "content": "Returns OHLC price data for the requested commodity symbols on a specific date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commodity",
+                "rates",
+                "historical"
+              ],
+              "host": [
+                "{{commodity-rates-historical-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format. Currently only `json` is supported."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of commodity symbols."
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "(Required) Date in `YYYY-MM-DD` format. Data available from 1990 onwards."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ff5e345-c189-4211-b07c-1931e42ec201",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "rates",
+                    "historical"
+                  ],
+                  "host": [
+                    "{{commodity-rates-historical-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"date\": \"2025-01-10\",\n  \"rates\": {\n    \"WTIOIL-SPOT\": {\n      \"date\": \"2025-01-10\",\n      \"open\": 73.77,\n      \"high\": 77.16,\n      \"low\": 73.55,\n      \"close\": 75.97\n    },\n    \"XAU\": {\n      \"date\": \"2025-01-10\",\n      \"open\": 2669.93,\n      \"high\": 2697.85,\n      \"low\": 2663.61,\n      \"close\": 2689.44\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "865e5f7e-2549-4c25-b840-2d44f5c8df3f",
+              "name": "Bad request - Invalid date format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "rates",
+                    "historical"
+                  ],
+                  "host": [
+                    "{{commodity-rates-historical-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": 1781792620618,\n  \"status\": 400,\n  \"error\": \"VALIDATION_ERROR\",\n  \"message\": \"Invalid Date Format (YYYY-MM-DD).\",\n  \"path\": \"/v1.0/commodity/rates/historical\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10d10de1-d475-400d-8abf-4f378e737837",
+              "name": "Not found - Symbol or rate not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commodity",
+                    "rates",
+                    "historical"
+                  ],
+                  "host": [
+                    "{{commodity-rates-historical-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": 1781792620618,\n  \"status\": 404,\n  \"error\": \"SYMBOL_NOT_FOUND\",\n  \"message\": \"The symbol is not supported, please visit the documentation for a list of supported symbols\",\n  \"path\": \"/v1.0/commodity/rates/historical\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "commodity-fluctuation-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "commodity-rates-latest-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "commodity-symbols-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "commodity-time-series-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "commodity-rates-historical-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2377188c-f275-41ad-874f-a4a99f47f413",
+    "name": "Apifreaks Api Hub For Developers Commodity APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Commodity APIs across 5 of this provider's published API definitions: apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json, apifreaks-api-hub-for-developers-commodity-prices-openapi.json, apifreaks-api-hub-for-developers-commodity-symbols-openapi.json, apifreaks-api-hub-for-developers-commodity-time-series-openapi.json, apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1698 @@
+{
+  "item": [
+    {
+      "id": "b13a3c62-6d5f-4856-8437-c3a46390a481",
+      "name": "PDF Security APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d54372cf-fb08-49bf-ac63-e6ec46ecda5b",
+          "name": "Remove all encryption from a PDF",
+          "request": {
+            "name": "Remove all encryption from a PDF",
+            "description": {
+              "content": "This API decrypts PDF files, removing all encryption, including open passwords and permission restrictions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "decrypt"
+              ],
+              "host": [
+                "{{pdf-decrypt-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_id",
+                  "value": "<string>",
+                  "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+                },
+                {
+                  "disabled": false,
+                  "key": "destroy",
+                  "value": "<boolean>",
+                  "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "<string>",
+                  "description": "The desired name for the output decrypted PDF file. If not provided, a default name will be assigned."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_password",
+                  "value": "<string>",
+                  "description": "(Required) The password to unlock the input file if it is protected. Either the owner password or user password can be provided. The owner password takes precedence. Password Length should be between 6 and 128 characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_url",
+                  "value": "<string>",
+                  "description": "The URL to which the webhook notification will be sent after the task is completed."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_failure_notification",
+                  "value": "<boolean>",
+                  "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                "key": "X-Webhook-Authorization",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "acda1a1b-8233-4713-947d-8ef45529fac8",
+              "name": "Decrypt task created successfully. An incorrect file_password is not rejected synchronously — the task is created, then fails asynchronously; poll the task status endpoint and check for status \"failed\" with error \"Invalid PDF Password\".",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "decrypt"
+                  ],
+                  "host": [
+                    "{{pdf-decrypt-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"f91ec747-1dc6-4be5-be4b-4d6ff66ed386\",\n  \"inputIds\": [\n    \"a5f8aca9-d19a-4ee0-90e3-d15f62df1e06\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b230b73-fd8a-4d79-bfc8-0678fd4e69c5",
+              "name": "Bad Request — Missing/invalid parameters or file ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "decrypt"
+                  ],
+                  "host": [
+                    "{{pdf-decrypt-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/pdf/decrypt\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T10:56:16.863Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f761c486-4acb-49f1-8977-5b718457e453",
+              "name": "Unsupported Media Type — File type not supported",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "decrypt"
+                  ],
+                  "host": [
+                    "{{pdf-decrypt-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:56:50.780Z\",\n  \"path\": \"/v1.0/pdf/decrypt-pdf\",\n  \"status\": 415,\n  \"error\": \"Unsupported File Type\",\n  \"message\": \"The provided file type is not supported. Refer to the documentation for valid file types.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b0ea2589-53cc-456c-8da9-efc63f2829ba",
+          "name": "Add password protection to a PDF",
+          "request": {
+            "name": "Add password protection to a PDF",
+            "description": {
+              "content": "This API encrypts a PDF file by setting a password required to open it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "encrypt"
+              ],
+              "host": [
+                "{{pdf-encrypt-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_id",
+                  "value": "<string>",
+                  "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+                },
+                {
+                  "disabled": false,
+                  "key": "destroy",
+                  "value": "<boolean>",
+                  "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "<string>",
+                  "description": "The desired name for the output encrypted PDF file. If not provided, a default name will be assigned."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_password",
+                  "value": "<string>",
+                  "description": "The password to unlock the input file if it is already protected. Either the owner password or user password can be provided. The owner password takes precedence. Password Length should be between 6 and 128 characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "user_password",
+                  "value": "<string>",
+                  "description": "(Required) Sets the user password required to open and view the encrypted PDF file. Password Length should be between 6 and 128 characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "owner_password",
+                  "value": "<string>",
+                  "description": "Sets the owner password for the PDF file. This password provides full access, including the ability to remove restrictions. If not provided, the `user_password` will also be used as the owner password. Password Length should be between 6 and 128 characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_url",
+                  "value": "<string>",
+                  "description": "The URL to which the webhook notification will be sent after the task is completed."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_failure_notification",
+                  "value": "<boolean>",
+                  "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                "key": "X-Webhook-Authorization",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "80c95494-40ee-43e9-bf4b-8229dbff1bc1",
+              "name": "PDF encrypt successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "encrypt"
+                  ],
+                  "host": [
+                    "{{pdf-encrypt-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"c11f7d84-33f5-46da-a64c-e70b3704284e\",\n  \"inputIds\": [\n    \"2d11e722-85cc-4105-b345-f395d48b326e\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ead909c-7528-4aed-b3ff-df52abc09fd8",
+              "name": "Bad Request — Missing/invalid parameters, file ID, or password",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "encrypt"
+                  ],
+                  "host": [
+                    "{{pdf-encrypt-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/pdf/encrypt\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T10:55:36.936Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "497ac7ec-4527-4902-b6a6-1780c7bbcd7a",
+              "name": "Unsupported Media Type — File type not supported",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "encrypt"
+                  ],
+                  "host": [
+                    "{{pdf-encrypt-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:55:38.634Z\",\n  \"path\": \"/v1.0/pdf/encrypt-pdf\",\n  \"status\": 415,\n  \"error\": \"Unsupported File Type\",\n  \"message\": \"The provided file type is not supported. Refer to the documentation for valid file types.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1db2f03c-ecf7-4b19-b1bf-4a38658bbe6f",
+          "name": "Apply permission restrictions on a PDF file",
+          "request": {
+            "name": "Apply permission restrictions on a PDF file",
+            "description": {
+              "content": "This API applies permission restrictions on a PDF file, such as disabling printing, copying, or editing. This can include password protection to enforce restrictions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "restrict"
+              ],
+              "host": [
+                "{{pdf-restrict-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_id",
+                  "value": "<string>",
+                  "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+                },
+                {
+                  "disabled": false,
+                  "key": "destroy",
+                  "value": "<boolean>",
+                  "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "<string>",
+                  "description": "The desired name for the output restricted PDF file. If not provided, a default name will be assigned."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_password",
+                  "value": "<string>",
+                  "description": "The password to unlock the input file if it is already secured. Provide the owner password if available; otherwise, the user password. The owner password takes precedence. Password Length should be between 6 and 128 characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "user_password",
+                  "value": "<string>",
+                  "description": "(Required) Sets the password users will use to open the PDF. If this is not set, only the owner password will be configured, and anyone can open the PDF file with the provided restrictions enabled. Password Length should be between 6 and 128 characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "owner_password",
+                  "value": "<string>",
+                  "description": "Sets the password that allows full access to the PDF (e.g., removing restrictions). If not provided, the `user_password` (if set) will also be used as the owner password. Password Length should be between 6 and 128 characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "restrictions",
+                  "value": "<string>",
+                  "description": "(Required) A comma-separated list of restrictions to apply to the PDF. These define what the end-user is *not* allowed to do with the PDF. Available options are:\n\n\n* **print_high** – Disables high-quality printing.\n* **print_low** – Disables low-resolution printing.\n* **edit_document_assembly** – Prevents reordering or inserting pages.\n* **fill_form_fields** – Disallows filling in PDF form fields.\n* **edit_annotations** – Disables adding or modifying annotations or comments.\n* **modify_content** – Prevents modifying existing content in the PDF.\n* **copy_and_extract_content** – Disables copying text or images from the PDF.\n* **use_accessibility** – Prevents screen readers or accessibility tools from accessing content. An invalid restriction keyword returns a 400 with error \"Invalid PDF Restriction\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_url",
+                  "value": "<string>",
+                  "description": "The URL to which the webhook notification will be sent after the task is completed."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_failure_notification",
+                  "value": "<boolean>",
+                  "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                "key": "X-Webhook-Authorization",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ca4cfd7b-7ca5-4b54-822f-154aff112a42",
+              "name": "PDF restrict successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "restrict"
+                  ],
+                  "host": [
+                    "{{pdf-restrict-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "restrictions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"42839406-7e1b-4f64-96bb-d94bb054e8d3\",\n  \"inputIds\": [\n    \"2c682ade-eccc-4ab5-9c06-d16e415cbecb\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d58f4571-b1eb-4cbd-a7e8-20cd557955ff",
+              "name": "Bad Request — Missing/invalid parameters, file ID, or password",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "restrict"
+                  ],
+                  "host": [
+                    "{{pdf-restrict-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "restrictions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/pdf/restrict\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T10:57:14.449Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91b75ac6-6a2a-4849-b452-32ed9873645f",
+              "name": "Unsupported Media Type — File type not supported",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "restrict"
+                  ],
+                  "host": [
+                    "{{pdf-restrict-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "restrictions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:57:25.374Z\",\n  \"path\": \"/v1.0/pdf/restrict-pdf\",\n  \"status\": 415,\n  \"error\": \"Unsupported File Type\",\n  \"message\": \"The provided file type is not supported. Refer to the documentation for valid file types.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e0a07a0-69e0-4080-a927-71ba69ad997c",
+          "name": "Remove permission restrictions from a PDF while keeping it encrypted.",
+          "request": {
+            "name": "Remove permission restrictions from a PDF while keeping it encrypted.",
+            "description": {
+              "content": "This API removes permission restrictions from a PDF while keeping it encrypted. If you want to remove all security (including encryption), use the `/pdf/decrypt` endpoint instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "unrestrict"
+              ],
+              "host": [
+                "{{pdf-unrestrict-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_id",
+                  "value": "<string>",
+                  "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+                },
+                {
+                  "disabled": false,
+                  "key": "destroy",
+                  "value": "<boolean>",
+                  "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "<string>",
+                  "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_password",
+                  "value": "<string>",
+                  "description": "(Required) The password to unlock the input file. Either the owner password or user password can be provided. The owner password takes precedence. Password Length should be between 6 and 128 characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "user_password",
+                  "value": "<string>",
+                  "description": "(Required) Sets the user password for the PDF file. Required — providing only owner_password without user_password is rejected. Password Length should be between 6 and 128 characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "owner_password",
+                  "value": "<string>",
+                  "description": "Sets the owner password for the PDF file. If the owner password is not provided, the `user_password` will also be used as the owner password. Password Length should be between 6 and 128 characters."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_url",
+                  "value": "<string>",
+                  "description": "The URL to which the webhook notification will be sent after the task is completed."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_failure_notification",
+                  "value": "<boolean>",
+                  "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                "key": "X-Webhook-Authorization",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "59bf863f-22cd-45cd-838f-a1133acba63d",
+              "name": "PDF unrestrict successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "unrestrict"
+                  ],
+                  "host": [
+                    "{{pdf-unrestrict-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"16cc979a-55b9-476c-bfef-0977314478ec\",\n  \"inputIds\": [\n    \"9c809ef8-583a-40f1-afe2-424d1d953b69\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93186100-7b8f-46db-953f-674eabb3238f",
+              "name": "Bad Request — Missing/invalid parameters, file ID, or password",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "unrestrict"
+                  ],
+                  "host": [
+                    "{{pdf-unrestrict-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/pdf/unrestrict\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T10:59:22.835Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2230fcb-3d28-4ee7-b2d7-95e95a56bd02",
+              "name": "Unsupported Media Type — File type not supported",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "unrestrict"
+                  ],
+                  "host": [
+                    "{{pdf-unrestrict-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner_password",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:59:24.507Z\",\n  \"path\": \"/v1.0/pdf/unrestrict-pdf\",\n  \"status\": 415,\n  \"error\": \"Unsupported File Type\",\n  \"message\": \"The provided file type is not supported. Refer to the documentation for valid file types.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "pdf-decrypt-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "pdf-encrypt-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "pdf-restrict-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "pdf-unrestrict-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "33e9e2e8-dcc0-40ab-8e35-882a46044732",
+    "name": "Apifreaks Api Hub For Developers PDF Security APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged PDF Security APIs across 4 of this provider's published API definitions: apifreaks-api-hub-for-developers-pdf-decrypt-openapi.json, apifreaks-api-hub-for-developers-pdf-encrypt-openapi.json, apifreaks-api-hub-for-developers-pdf-restrict-openapi.json, apifreaks-api-hub-for-developers-pdf-unrestrict-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

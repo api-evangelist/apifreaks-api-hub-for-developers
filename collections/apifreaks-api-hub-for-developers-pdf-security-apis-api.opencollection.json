@@ -1,0 +1,328 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers PDF Security APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PDF Security APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Remove all encryption from a PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/decrypt",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output decrypted PDF file. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "file_password",
+                "value": "",
+                "type": "query",
+                "description": "The password to unlock the input file if it is protected. Either the owner password or user password can be provided. The owner password takes precedence. Password Length should be between 6 and 128 characters."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API decrypts PDF files, removing all encryption, including open passwords and permission restrictions."
+        },
+        {
+          "info": {
+            "name": "Add password protection to a PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/encrypt",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output encrypted PDF file. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "file_password",
+                "value": "",
+                "type": "query",
+                "description": "The password to unlock the input file if it is already protected. Either the owner password or user password can be provided. The owner password takes precedence. Password Length should be between 6 and 128 characters."
+              },
+              {
+                "name": "user_password",
+                "value": "",
+                "type": "query",
+                "description": "Sets the user password required to open and view the encrypted PDF file. Password Length should be between 6 and 128 characters."
+              },
+              {
+                "name": "owner_password",
+                "value": "",
+                "type": "query",
+                "description": "Sets the owner password for the PDF file. This password provides full access, including the ability to remove restrictions. If not provided, the `user_password` will also be used as the owner password. Password Length should be between 6 and 128 characters."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API encrypts a PDF file by setting a password required to open it."
+        },
+        {
+          "info": {
+            "name": "Apply permission restrictions on a PDF file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/restrict",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output restricted PDF file. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "file_password",
+                "value": "",
+                "type": "query",
+                "description": "The password to unlock the input file if it is already secured. Provide the owner password if available; otherwise, the user password. The owner password takes precedence. Password Length should be between 6 and 128 characters."
+              },
+              {
+                "name": "user_password",
+                "value": "",
+                "type": "query",
+                "description": "Sets the password users will use to open the PDF. If this is not set, only the owner password will be configured, and anyone can open the PDF file with the provided restrictions enabled. Password Length should be between 6 and 128 characters."
+              },
+              {
+                "name": "owner_password",
+                "value": "",
+                "type": "query",
+                "description": "Sets the password that allows full access to the PDF (e.g., removing restrictions). If not provided, the `user_password` (if set) will also be used as the owner password. Password Length should be between 6 and 128 characters."
+              },
+              {
+                "name": "restrictions",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of restrictions to apply to the PDF. These define what the end-user is *not* allowed to do with the PDF. Available options are:\n\n\n* **print_high** – Disables high-quality printing.\n* **print_low** – Disables low-resolution printing.\n* **edit_document_assembly** – Prevents reordering or inserting pages.\n* **fill_form_fields** – Disallows filling in PDF form fields.\n* **edit_annotations** – Disables adding or modifying annotations or comments.\n* **modify_content** – Prevents modifying existing content in the PDF.\n* **copy_and_extract_content** – Disables copying text or images from the PDF.\n* **use_accessibility** – Prevents screen readers or accessibility tools from accessing content. An invalid restriction keyword returns a 400 with error \"Invalid PDF Restriction\"."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API applies permission restrictions on a PDF file, such as disabling printing, copying, or editing. This can include password protection to enforce restrictions."
+        },
+        {
+          "info": {
+            "name": "Remove permission restrictions from a PDF while keeping it encrypted.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/unrestrict",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "file_password",
+                "value": "",
+                "type": "query",
+                "description": "The password to unlock the input file. Either the owner password or user password can be provided. The owner password takes precedence. Password Length should be between 6 and 128 characters."
+              },
+              {
+                "name": "user_password",
+                "value": "",
+                "type": "query",
+                "description": "Sets the user password for the PDF file. Required — providing only owner_password without user_password is rejected. Password Length should be between 6 and 128 characters."
+              },
+              {
+                "name": "owner_password",
+                "value": "",
+                "type": "query",
+                "description": "Sets the owner password for the PDF file. If the owner password is not provided, the `user_password` will also be used as the owner password. Password Length should be between 6 and 128 characters."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API removes permission restrictions from a PDF while keeping it encrypted. If you want to remove all security (including encryption), use the `/pdf/decrypt` endpoint instead."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

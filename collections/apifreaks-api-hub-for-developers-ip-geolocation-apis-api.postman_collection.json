@@ -1,0 +1,1149 @@
+{
+  "item": [
+    {
+      "id": "65083619-fc3c-4a26-a47a-659a1b220a2f",
+      "name": "IP Geolocation APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f61e20b1-afaa-44f2-bc16-73153368c898",
+          "name": "Retrieve geolocation and threat intelligence data for multiple IP addresses in a single request",
+          "request": {
+            "name": "Retrieve geolocation and threat intelligence data for multiple IP addresses in a single request",
+            "description": {
+              "content": "Get detailed IP geolocation data for multiple IP addresses including country, city, timezone, currency, and optional threat intelligence information. Supports up to 50,000 IP addresses per request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geolocation",
+                "lookup"
+              ],
+              "host": [
+                "{{geolocation-lookup-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "en",
+                  "description": "Response language for location fields. Default: en."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to include in the response. For example, `location` includes all location fields, `location.city` is a specific field."
+                },
+                {
+                  "disabled": false,
+                  "key": "excludes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to exclude from response."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of additional data modules to include. Possible values: security (threat intelligence), hostname (IP-Hostname lookup), liveHostname (live hostname lookup), user_agent (parse User-Agent header), abuse (abuse contact info), * (all modules)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ips\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6b67d3ef-8e8e-4d0b-af82-687c643d6301",
+              "name": "Successful geolocation response. Each item corresponds to one requested IP, in the same order; an IP that fails validation (invalid, bogon, reserved, or not found) yields an error item instead of a location result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{geolocation-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ips\": [\n    \"8.8.8.8\",\n    \"1.1.1.1\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ip\": \"8.8.8.8\",\n    \"location\": {\n      \"continent_code\": \"NA\",\n      \"continent_name\": \"North America\",\n      \"country_code2\": \"US\",\n      \"country_code3\": \"USA\",\n      \"country_name\": \"United States\",\n      \"country_name_official\": \"United States of America\",\n      \"country_capital\": \"Washington, D.C.\",\n      \"state_prov\": \"California\",\n      \"state_code\": \"US-CA\",\n      \"district\": \"Santa Clara\",\n      \"city\": \"Mountain View\",\n      \"zipcode\": \"94043-1351\",\n      \"latitude\": \"37.42240\",\n      \"longitude\": \"-122.08421\",\n      \"is_eu\": false,\n      \"country_flag\": \"https://ipgeolocation.io/static/flags/us_64.png\",\n      \"geoname_id\": \"6301403\",\n      \"country_emoji\": \"🇺🇸\"\n    },\n    \"country_metadata\": {\n      \"calling_code\": \"+1\",\n      \"tld\": \".us\",\n      \"languages\": [\n        \"en-US\",\n        \"es-US\",\n        \"haw\",\n        \"fr\"\n      ]\n    },\n    \"network\": {\n      \"connection_type\": \"\",\n      \"route\": \"8.8.8.0/24\",\n      \"is_anycast\": true\n    },\n    \"currency\": {\n      \"code\": \"USD\",\n      \"name\": \"US Dollar\",\n      \"symbol\": \"$\"\n    },\n    \"asn\": {\n      \"as_number\": \"AS15169\",\n      \"organization\": \"Google LLC\",\n      \"country\": \"US\",\n      \"type\": \"BUSINESS\",\n      \"domain\": \"google.com\",\n      \"date_allocated\": \"2000-03-30\",\n      \"rir\": \"ARIN\"\n    },\n    \"company\": {\n      \"name\": \"Google LLC\",\n      \"type\": \"HOSTING\",\n      \"domain\": \"google.com\"\n    },\n    \"time_zone\": {\n      \"name\": \"America/Los_Angeles\",\n      \"offset\": -8,\n      \"offset_with_dst\": -7,\n      \"current_time\": \"2026-07-08 03:21:52.843-0700\",\n      \"current_time_unix\": 1783506112.843,\n      \"current_tz_abbreviation\": \"PDT\",\n      \"current_tz_full_name\": \"Pacific Daylight Time\",\n      \"standard_tz_abbreviation\": \"PST\",\n      \"standard_tz_full_name\": \"Pacific Standard Time\",\n      \"is_dst\": true,\n      \"dst_savings\": 1,\n      \"dst_exists\": true,\n      \"dst_tz_abbreviation\": \"PDT\",\n      \"dst_tz_full_name\": \"Pacific Daylight Time\",\n      \"dst_start\": {\n        \"utc_time\": \"2026-03-08 TIME 10:00\",\n        \"duration\": \"+1.00H\",\n        \"gap\": true,\n        \"date_time_after\": \"2026-03-08 TIME 03:00\",\n        \"date_time_before\": \"2026-03-08 TIME 02:00\",\n        \"overlap\": false\n      },\n      \"dst_end\": {\n        \"utc_time\": \"2026-11-01 TIME 09:00\",\n        \"duration\": \"-1.00H\",\n        \"gap\": false,\n        \"date_time_after\": \"2026-11-01 TIME 01:00\",\n        \"date_time_before\": \"2026-11-01 TIME 02:00\",\n        \"overlap\": true\n      }\n    }\n  },\n  {\n    \"ip\": \"1.1.1.1\",\n    \"location\": {\n      \"continent_code\": \"OC\",\n      \"continent_name\": \"Oceania\",\n      \"country_code2\": \"AU\",\n      \"country_code3\": \"AUS\",\n      \"country_name\": \"Australia\",\n      \"country_name_official\": \"Commonwealth of Australia\",\n      \"country_capital\": \"Canberra\",\n      \"state_prov\": \"Queensland\",\n      \"state_code\": \"AU-QLD\",\n      \"district\": \"Brisbane\",\n      \"city\": \"South Brisbane\",\n      \"zipcode\": \"4101\",\n      \"latitude\": \"-27.47301\",\n      \"longitude\": \"153.01425\",\n      \"is_eu\": false,\n      \"country_flag\": \"https://ipgeolocation.io/static/flags/au_64.png\",\n      \"geoname_id\": \"10113228\",\n      \"country_emoji\": \"🇦🇺\"\n    },\n    \"country_metadata\": {\n      \"calling_code\": \"+61\",\n      \"tld\": \".au\",\n      \"languages\": [\n        \"en-AU\"\n      ]\n    },\n    \"network\": {\n      \"connection_type\": \"\",\n      \"route\": \"1.1.1.0/24\",\n      \"is_anycast\": true\n    },\n    \"currency\": {\n      \"code\": \"AUD\",\n      \"name\": \"Australian Dollar\",\n      \"symbol\": \"A$\"\n    },\n    \"asn\": {\n      \"as_number\": \"AS13335\",\n      \"organization\": \"Cloudflare, Inc.\",\n      \"country\": \"US\",\n      \"type\": \"BUSINESS\",\n      \"domain\": \"cloudflare.com\",\n      \"date_allocated\": \"2010-07-14\",\n      \"rir\": \"ARIN\"\n    },\n    \"company\": {\n      \"name\": \"APNIC Research and Development\",\n      \"type\": \"\",\n      \"domain\": \"\"\n    },\n    \"time_zone\": {\n      \"name\": \"Australia/Brisbane\",\n      \"offset\": 10,\n      \"offset_with_dst\": 10,\n      \"current_time\": \"2026-07-08 20:21:52.843+1000\",\n      \"current_time_unix\": 1783506112.843,\n      \"current_tz_abbreviation\": \"AEST\",\n      \"current_tz_full_name\": \"Australian Eastern Standard Time\",\n      \"standard_tz_abbreviation\": \"AEST\",\n      \"standard_tz_full_name\": \"Australian Eastern Standard Time\",\n      \"is_dst\": false,\n      \"dst_savings\": 0,\n      \"dst_exists\": false,\n      \"dst_tz_abbreviation\": \"\",\n      \"dst_tz_full_name\": \"\",\n      \"dst_start\": {},\n      \"dst_end\": {}\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36f5f7db-55a1-477a-9623-4641f0d46509",
+              "name": "Bad Request — Invalid or missing parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{geolocation-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ips\": [\n    \"8.8.8.8\",\n    \"1.1.1.1\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request body Exception\",\n  \"message\": \"Please provide data in required format in request body\",\n  \"path\": \"/v2.0/geolocation/lookup\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-22T13:08:51.422Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8254d4ea-7f60-4428-b1f6-42fa6935203e",
+              "name": "Payload Too Large — Request body exceeds the maximum allowed size",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{geolocation-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ips\": [\n    \"8.8.8.8\",\n    \"1.1.1.1\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Payload too large Exception\",\n  \"message\": \"Maximum request body size limit exceeded\",\n  \"path\": \"/v2.0/geolocation/lookup\",\n  \"status\": 413,\n  \"timestamp\": \"2026-07-22T13:09:13.142Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a9fe21c-6ec4-492c-809a-c312dcd27e2f",
+          "name": "Retrieve real-time and accurate IP geolocation and threat intelligence information for an IPv4 or IPv6 address",
+          "request": {
+            "name": "Retrieve real-time and accurate IP geolocation and threat intelligence information for an IPv4 or IPv6 address",
+            "description": {
+              "content": "Get detailed IP geolocation data for an IP address including country, city, timezone, currency, and optional threat intelligence and user-agent information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geolocation",
+                "lookup"
+              ],
+              "host": [
+                "{{geolocation-lookup-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "ip",
+                  "value": "<string>",
+                  "description": "IPv4, IPv6, or hostname for geolocation lookup."
+                },
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "en",
+                  "description": "Response language for location fields. Default: en."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to include in response. For example, `location` includes all location fields, `location.city` is a specific field."
+                },
+                {
+                  "disabled": false,
+                  "key": "excludes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to exclude from response."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated list of additional data modules to include. Possible values: security (threat intelligence), hostname (IP-Hostname lookup), liveHostname (live hostname lookup), hostnameFallbackLive (hostname with live fallback), user_agent (parse User-Agent header), abuse (abuse contact info), dma_code (DMA code), geo_accuracy (accuracy_radius, confidence, locality), * (all modules)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "388ede8f-f0ed-414e-901b-ec0c27ca9b25",
+              "name": "Successful geolocation response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{geolocation-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ip\": \"8.8.8.8\",\n  \"location\": {\n    \"continent_code\": \"NA\",\n    \"continent_name\": \"North America\",\n    \"country_code2\": \"US\",\n    \"country_code3\": \"USA\",\n    \"country_name\": \"United States\",\n    \"country_name_official\": \"United States of America\",\n    \"country_capital\": \"Washington, D.C.\",\n    \"state_prov\": \"California\",\n    \"state_code\": \"US-CA\",\n    \"district\": \"Santa Clara\",\n    \"city\": \"Mountain View\",\n    \"zipcode\": \"94043-1351\",\n    \"latitude\": \"37.42240\",\n    \"longitude\": \"-122.08421\",\n    \"is_eu\": false,\n    \"country_flag\": \"https://ipgeolocation.io/static/flags/us_64.png\",\n    \"geoname_id\": \"6301403\",\n    \"country_emoji\": \"🇺🇸\"\n  },\n  \"country_metadata\": {\n    \"calling_code\": \"+1\",\n    \"tld\": \".us\",\n    \"languages\": [\n      \"en-US\",\n      \"es-US\",\n      \"haw\",\n      \"fr\"\n    ]\n  },\n  \"network\": {\n    \"connection_type\": \"\",\n    \"route\": \"8.8.8.0/24\",\n    \"is_anycast\": true\n  },\n  \"currency\": {\n    \"code\": \"USD\",\n    \"name\": \"US Dollar\",\n    \"symbol\": \"$\"\n  },\n  \"asn\": {\n    \"as_number\": \"AS15169\",\n    \"organization\": \"Google LLC\",\n    \"country\": \"US\",\n    \"type\": \"BUSINESS\",\n    \"domain\": \"google.com\",\n    \"date_allocated\": \"2000-03-30\",\n    \"rir\": \"ARIN\"\n  },\n  \"company\": {\n    \"name\": \"Google LLC\",\n    \"type\": \"HOSTING\",\n    \"domain\": \"google.com\"\n  },\n  \"time_zone\": {\n    \"name\": \"America/Los_Angeles\",\n    \"offset\": -8,\n    \"offset_with_dst\": -7,\n    \"current_time\": \"2026-07-08 03:03:31.835-0700\",\n    \"current_time_unix\": 1783505011.835,\n    \"current_tz_abbreviation\": \"PDT\",\n    \"current_tz_full_name\": \"Pacific Daylight Time\",\n    \"standard_tz_abbreviation\": \"PST\",\n    \"standard_tz_full_name\": \"Pacific Standard Time\",\n    \"is_dst\": true,\n    \"dst_savings\": 1,\n    \"dst_exists\": true,\n    \"dst_tz_abbreviation\": \"PDT\",\n    \"dst_tz_full_name\": \"Pacific Daylight Time\",\n    \"dst_start\": {\n      \"utc_time\": \"2026-03-08 TIME 10:00\",\n      \"duration\": \"+1.00H\",\n      \"gap\": true,\n      \"date_time_after\": \"2026-03-08 TIME 03:00\",\n      \"date_time_before\": \"2026-03-08 TIME 02:00\",\n      \"overlap\": false\n    },\n    \"dst_end\": {\n      \"utc_time\": \"2026-11-01 TIME 09:00\",\n      \"duration\": \"-1.00H\",\n      \"gap\": false,\n      \"date_time_after\": \"2026-11-01 TIME 01:00\",\n      \"date_time_before\": \"2026-11-01 TIME 02:00\",\n      \"overlap\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2870776a-d5a0-4e53-8679-be75492eada0",
+              "name": "Bad Request — Invalid or missing parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{geolocation-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The request was unacceptable. Typically due to missing or invalid parameters.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f6aaf1d-6f5f-45d2-9f46-e4553b00e852",
+              "name": "Not Found — IP address not in database",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{geolocation-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Provided IP address '255.255.255.255' doesn't exist in our database.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3558f821-89e0-4d9b-8dfc-7947d747c9d2",
+              "name": "Locked — Bogon or reserved IP address",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{geolocation-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Locked (WebDAV) (RFC 4918)",
+              "code": 423,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"'127.0.0.1' is a bogon (Internet Assigned Numbers Authority) IP address.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb1a50ae-ee24-457d-acf8-e9fc80f9bc35",
+          "name": "Retrieve threat intelligence data for multiple IP addresses in a single request",
+          "request": {
+            "name": "Retrieve threat intelligence data for multiple IP addresses in a single request",
+            "description": {
+              "content": "Get security profiles including threat score, VPN, proxy, Tor, bot, and spam detection for up to 50,000 IPs per request. Each item in the response array corresponds to one requested IP; invalid or bogon IPs return a per-item error object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ip",
+                "security"
+              ],
+              "host": [
+                "{{ip-security-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Supports dot notation (e.g. security.threat_score)."
+                },
+                {
+                  "disabled": false,
+                  "key": "excludes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to remove from the response. Supports dot notation (e.g. security.is_tor)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ips\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1d475c0c-4eba-4451-aafc-0824e397d968",
+              "name": "Successful threat intelligence response. The response array always contains one item for each input IP, preserving order; an IP that fails validation (invalid, bogon, reserved, or not found) yields an error item instead of a security result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ip",
+                    "security"
+                  ],
+                  "host": [
+                    "{{ip-security-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ips\": [\n    \"8.8.8.8\",\n    \"1.1.1.1\",\n    \"45.33.32.156\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ip\": \"8.8.8.8\",\n    \"security\": {\n      \"threat_score\": 5,\n      \"is_tor\": false,\n      \"is_proxy\": false,\n      \"proxy_provider_names\": [],\n      \"proxy_confidence_score\": 0,\n      \"proxy_last_seen\": \"\",\n      \"is_residential_proxy\": false,\n      \"is_vpn\": false,\n      \"vpn_provider_names\": [],\n      \"vpn_confidence_score\": 0,\n      \"vpn_last_seen\": \"\",\n      \"is_relay\": false,\n      \"relay_provider_name\": \"\",\n      \"is_anonymous\": false,\n      \"is_known_attacker\": false,\n      \"is_bot\": false,\n      \"is_spam\": false,\n      \"is_cloud_provider\": true,\n      \"cloud_provider_name\": \"Google LLC\"\n    }\n  },\n  {\n    \"ip\": \"1.1.1.1\",\n    \"security\": {\n      \"threat_score\": 5,\n      \"is_tor\": false,\n      \"is_proxy\": false,\n      \"proxy_provider_names\": [],\n      \"proxy_confidence_score\": 0,\n      \"proxy_last_seen\": \"\",\n      \"is_residential_proxy\": false,\n      \"is_vpn\": false,\n      \"vpn_provider_names\": [],\n      \"vpn_confidence_score\": 0,\n      \"vpn_last_seen\": \"\",\n      \"is_relay\": false,\n      \"relay_provider_name\": \"\",\n      \"is_anonymous\": false,\n      \"is_known_attacker\": false,\n      \"is_bot\": false,\n      \"is_spam\": false,\n      \"is_cloud_provider\": true,\n      \"cloud_provider_name\": \"Cloudflare, Inc.\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "013b515d-5f2b-465a-8c34-31e4a5befb34",
+              "name": "Bad Request - Missing, empty, or malformed request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ip",
+                    "security"
+                  ],
+                  "host": [
+                    "{{ip-security-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ips\": [\n    \"8.8.8.8\",\n    \"1.1.1.1\",\n    \"45.33.32.156\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request body Exception\",\n  \"message\": \"Please provide data in required format in request body\",\n  \"path\": \"/v1.0/ip/security\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-22T14:03:26.577Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0951a69-2031-4870-814c-1446322265ba",
+          "name": "Retrieve real-time threat intelligence and security signals for an IPv4 or IPv6 address",
+          "request": {
+            "name": "Retrieve real-time threat intelligence and security signals for an IPv4 or IPv6 address",
+            "description": {
+              "content": "Get a threat score along with VPN, proxy, Tor, relay, bot, spam, known-attacker, and cloud-provider detection flags for an IP address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ip",
+                "security"
+              ],
+              "host": [
+                "{{ip-security-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "ip",
+                  "value": "<string>",
+                  "description": "IPv4 or IPv6 address to check for threat intelligence and security signals. If omitted, the public IP of the requesting client is used."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return. Supports dot notation (e.g. `security.threat_score`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "excludes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to remove from the response. Supports dot notation (e.g. `security.is_tor`). The `ip` field is always included and cannot be excluded."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e7d44bb-67ef-46c5-b032-48fd785d5ae8",
+              "name": "Successful threat intelligence response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ip",
+                    "security"
+                  ],
+                  "host": [
+                    "{{ip-security-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ip\": \"8.8.8.8\",\n  \"security\": {\n    \"threat_score\": 5,\n    \"is_tor\": false,\n    \"is_proxy\": false,\n    \"proxy_provider_names\": [],\n    \"proxy_confidence_score\": 0,\n    \"proxy_last_seen\": \"\",\n    \"is_residential_proxy\": false,\n    \"is_vpn\": false,\n    \"vpn_provider_names\": [],\n    \"vpn_confidence_score\": 0,\n    \"vpn_last_seen\": \"\",\n    \"is_relay\": false,\n    \"relay_provider_name\": \"\",\n    \"is_anonymous\": false,\n    \"is_known_attacker\": false,\n    \"is_bot\": false,\n    \"is_spam\": false,\n    \"is_cloud_provider\": true,\n    \"cloud_provider_name\": \"Google LLC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c5c93bc-f875-437e-ae07-ec32436fbd5b",
+              "name": "Bad Request — Invalid or missing IP address",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ip",
+                    "security"
+                  ],
+                  "host": [
+                    "{{ip-security-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Provided IP address 'invalid' is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21fba2e4-110c-4549-b4fe-2327165cbb7e",
+              "name": "Locked — Bogon or reserved IP address",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ip",
+                    "security"
+                  ],
+                  "host": [
+                    "{{ip-security-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excludes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Locked (WebDAV) (RFC 4918)",
+              "code": 423,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"'10.0.0.1' is a bogon IP address.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v2.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v2.0",
+      "key": "geolocation-lookup-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "ip-security-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "49b17da0-5a5b-4f5a-af05-b5b897258e52",
+    "name": "Apifreaks Api Hub For Developers IP Geolocation APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged IP Geolocation APIs across 4 of this provider's published API definitions: apifreaks-api-hub-for-developers-bulk-ip-lookup-openapi.json, apifreaks-api-hub-for-developers-bulk-ip-threat-intelligence-openapi.json, apifreaks-api-hub-for-developers-ip-locator-openapi.json, apifreaks-api-hub-for-developers-ip-threat-intelligence-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

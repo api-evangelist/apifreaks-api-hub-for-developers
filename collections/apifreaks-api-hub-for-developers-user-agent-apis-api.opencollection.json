@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers User Agent APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Agent APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Parse a User-Agent string to obtain browser, device, and operating system details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/user-agent/lookup",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              }
+            ]
+          },
+          "docs": "Parse any User-Agent string to obtain detailed information about the browser, device, layout engine, and operating system. Supports desktop, mobile, tablet, and crawler detection."
+        },
+        {
+          "info": {
+            "name": "Parse multiple User-Agent strings in a single request to obtain browser, device, and operating system details",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/user-agent/lookup",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Parse up to 50,000 User-Agent strings simultaneously in a single request. Returns structured details about the browser, device, layout engine, and operating system for each string."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

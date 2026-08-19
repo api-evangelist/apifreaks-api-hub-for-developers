@@ -1,0 +1,208 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers Timezone APIs API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Timezone APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert a timestamp from one timezone to another using any supported location identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/timezone/converter",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "Time to convert in yyyy-MM-dd HH:mm or yyyy-MM-dd HH:mm:ss format. Omit to convert the current time."
+              },
+              {
+                "name": "tz_from",
+                "value": "",
+                "type": "query",
+                "description": "Source timezone name in IANA format (e.g., Asia/Kolkata) to convert from."
+              },
+              {
+                "name": "tz_to",
+                "value": "",
+                "type": "query",
+                "description": "Target timezone name in IANA format (e.g., America/New_York) to convert to."
+              },
+              {
+                "name": "lat_from",
+                "value": "",
+                "type": "query",
+                "description": "Latitude of source location for coordinate-based conversion."
+              },
+              {
+                "name": "long_from",
+                "value": "",
+                "type": "query",
+                "description": "Longitude of source location for coordinate-based conversion."
+              },
+              {
+                "name": "lat_to",
+                "value": "",
+                "type": "query",
+                "description": "Latitude of target location for coordinate-based conversion."
+              },
+              {
+                "name": "long_to",
+                "value": "",
+                "type": "query",
+                "description": "Longitude of target location for coordinate-based conversion."
+              },
+              {
+                "name": "location_from",
+                "value": "",
+                "type": "query",
+                "description": "Source location address (city and country) for address-based conversion."
+              },
+              {
+                "name": "location_to",
+                "value": "",
+                "type": "query",
+                "description": "Target location address (city and country) for address-based conversion."
+              },
+              {
+                "name": "iata_from",
+                "value": "",
+                "type": "query",
+                "description": "Source IATA airport code (3-letter, e.g., JFK) for airport-based conversion."
+              },
+              {
+                "name": "iata_to",
+                "value": "",
+                "type": "query",
+                "description": "Target IATA airport code (3-letter) for airport-based conversion."
+              },
+              {
+                "name": "icao_from",
+                "value": "",
+                "type": "query",
+                "description": "Source ICAO airport code (4-letter, e.g., KJFK) for airport-based conversion."
+              },
+              {
+                "name": "icao_to",
+                "value": "",
+                "type": "query",
+                "description": "Target ICAO airport code (4-letter) for airport-based conversion."
+              },
+              {
+                "name": "locode_from",
+                "value": "",
+                "type": "query",
+                "description": "Source UN/LOCODE (5-letter) for location code-based conversion."
+              },
+              {
+                "name": "locode_to",
+                "value": "",
+                "type": "query",
+                "description": "Target UN/LOCODE (5-letter) for location code-based conversion."
+              }
+            ]
+          },
+          "docs": "Convert a given time from one timezone to another using timezone names, GPS coordinates, location addresses, IATA/ICAO airport codes, or UN/LOCODEs."
+        },
+        {
+          "info": {
+            "name": "Retrieve current time, date, and timezone information for any location identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/geolocation/timezone",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "IPv4 or IPv6 address to extract timezone information."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "Timezone name in IANA format (e.g., Asia/Kolkata) to retrieve information directly."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Location string (preferably city and country) to extract timezone."
+              },
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude for geolocation-based timezone lookup. Only time_zone is returned for this mode; no location object is included."
+              },
+              {
+                "name": "long",
+                "value": "",
+                "type": "query",
+                "description": "Longitude for geolocation-based timezone lookup. Only time_zone is returned for this mode; no location object is included."
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Response language for location fields. Default: en."
+              },
+              {
+                "name": "iata_code",
+                "value": "",
+                "type": "query",
+                "description": "3-letter IATA airport code (e.g., LHR) to extract timezone."
+              },
+              {
+                "name": "icao_code",
+                "value": "",
+                "type": "query",
+                "description": "4-letter ICAO airport code (e.g., KJFK) to extract timezone."
+              },
+              {
+                "name": "lo_code",
+                "value": "",
+                "type": "query",
+                "description": "5-letter UN/LOCODE city code to extract timezone."
+              }
+            ]
+          },
+          "docs": "Get current time, date, and timezone details by specifying a timezone name, location address, GPS coordinates, IP address, IATA/ICAO airport code, UN/LOCODE, or use the client IP if no parameter is provided."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

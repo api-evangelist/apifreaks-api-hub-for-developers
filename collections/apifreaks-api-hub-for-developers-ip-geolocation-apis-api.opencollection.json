@@ -1,0 +1,194 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers IP Geolocation APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IP Geolocation APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve real-time and accurate IP geolocation and threat intelligence information for an IPv4 or IPv6 address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v2.0/geolocation/lookup",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "IPv4, IPv6, or hostname for geolocation lookup."
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Response language for location fields. Default: en."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include in response. For example, `location` includes all location fields, `location.city` is a specific field."
+              },
+              {
+                "name": "excludes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to exclude from response."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of additional data modules to include. Possible values: security (threat intelligence), hostname (IP-Hostname lookup), liveHostname (live hostname lookup), hostnameFallbackLive (hostname with live fallback), user_agent (parse User-Agent header), abuse (abuse contact info), dma_code (DMA code), geo_accuracy (accuracy_radius, confidence, locality), * (all modules)."
+              }
+            ]
+          },
+          "docs": "Get detailed IP geolocation data for an IP address including country, city, timezone, currency, and optional threat intelligence and user-agent information."
+        },
+        {
+          "info": {
+            "name": "Retrieve geolocation and threat intelligence data for multiple IP addresses in a single request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v2.0/geolocation/lookup",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Response language for location fields. Default: en."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include in the response. For example, `location` includes all location fields, `location.city` is a specific field."
+              },
+              {
+                "name": "excludes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to exclude from response."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of additional data modules to include. Possible values: security (threat intelligence), hostname (IP-Hostname lookup), liveHostname (live hostname lookup), user_agent (parse User-Agent header), abuse (abuse contact info), * (all modules)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get detailed IP geolocation data for multiple IP addresses including country, city, timezone, currency, and optional threat intelligence information. Supports up to 50,000 IP addresses per request."
+        },
+        {
+          "info": {
+            "name": "Retrieve real-time threat intelligence and security signals for an IPv4 or IPv6 address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v2.0/ip/security",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "IPv4 or IPv6 address to check for threat intelligence and security signals. If omitted, the public IP of the requesting client is used."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Supports dot notation (e.g. `security.threat_score`)."
+              },
+              {
+                "name": "excludes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to remove from the response. Supports dot notation (e.g. `security.is_tor`). The `ip` field is always included and cannot be excluded."
+              }
+            ]
+          },
+          "docs": "Get a threat score along with VPN, proxy, Tor, relay, bot, spam, known-attacker, and cloud-provider detection flags for an IP address."
+        },
+        {
+          "info": {
+            "name": "Retrieve threat intelligence data for multiple IP addresses in a single request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v2.0/ip/security",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Supports dot notation (e.g. security.threat_score)."
+              },
+              {
+                "name": "excludes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to remove from the response. Supports dot notation (e.g. security.is_tor)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get security profiles including threat score, VPN, proxy, Tor, bot, and spam detection for up to 50,000 IPs per request. Each item in the response array corresponds to one requested IP; invalid or bogon IPs return a per-item error object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

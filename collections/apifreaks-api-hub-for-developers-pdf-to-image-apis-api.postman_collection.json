@@ -1,0 +1,1692 @@
+{
+  "item": [
+    {
+      "id": "cce900ad-5963-43f1-b362-6a6b831684a0",
+      "name": "PDF To Image APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "601c587a-2067-41f9-befd-f03fc693221e",
+          "name": "Convert PDF to PNG",
+          "request": {
+            "name": "Convert PDF to PNG",
+            "description": {
+              "content": "This API converts a given PDF file into a sequence of PNG images.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "png"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_id",
+                  "value": "<string>",
+                  "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+                },
+                {
+                  "disabled": false,
+                  "key": "destroy",
+                  "value": "<boolean>",
+                  "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "<string>",
+                  "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+                },
+                {
+                  "disabled": false,
+                  "key": "pages",
+                  "value": "<string>",
+                  "description": "Specifies the pages or ranges at which to split the PDF. Accepts individual page numbers (e.g., '1') and/or page ranges (e.g., '4-2', 'last'). Ranges can be ascending or descending. Use commas to separate entries and hyphens for ranges. Alternatively, provide only one of the following keywords: 'even' (split at every even-numbered page), 'odd' (split at every odd-numbered page), 'last' (split at the last page only), or 'all' (split into single pages). Examples: '1,4-2,last', 'odd', 'all'. Mixing special keywords with specific pages/ranges is not allowed."
+                },
+                {
+                  "disabled": false,
+                  "key": "resolution",
+                  "value": "<integer>",
+                  "description": "Specifies the resolution (in DPI) for the output images. Acceptable Range is from 20 to 1200."
+                },
+                {
+                  "disabled": false,
+                  "key": "image_smoothing",
+                  "value": "<string>",
+                  "description": "Determines the smoothing options to apply during image conversion. Valid values are 'none', 'all' or a combination of 'text', 'line', and 'image' (comma-separated).If not provided, no smoothing will be applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "profile",
+                  "value": "<string>",
+                  "description": "Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors)."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_url",
+                  "value": "<string>",
+                  "description": "The URL to which the webhook notification will be sent after the task is completed."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_failure_notification",
+                  "value": "<boolean>",
+                  "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                "key": "X-Webhook-Authorization",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ae83a2cd-5e49-4c2c-ba62-840344e5a669",
+              "name": "PDF converted to PNG successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "png"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "image_smoothing",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"b48e5ed0-e5ce-41bd-953c-6c590ded4b20\",\n  \"inputIds\": [\n    \"6d994947-3909-46cf-91fe-24316c457e2a\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85d68f32-a566-44e4-a61f-3531a90b4cb0",
+              "name": "Bad Request — Missing/invalid parameters or file ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "png"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "image_smoothing",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:51:09.542Z\",\n  \"path\": \"/v1.0/pdf/png\",\n  \"status\": 400,\n  \"error\": \"Missing File or ID\",\n  \"message\": \"Please provide either a file or a file ID.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f6dc6a5-ce93-4b3c-a490-edabca3eabb6",
+          "name": "Convert PDF to JPG",
+          "request": {
+            "name": "Convert PDF to JPG",
+            "description": {
+              "content": "This API converts a given PDF file into a sequence of JPG images.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "jpg"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_id",
+                  "value": "<string>",
+                  "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+                },
+                {
+                  "disabled": false,
+                  "key": "destroy",
+                  "value": "<boolean>",
+                  "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "<string>",
+                  "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+                },
+                {
+                  "disabled": false,
+                  "key": "quality",
+                  "value": "<integer>",
+                  "description": "Controls JPG compression quality. Higher values yield sharper images with larger file sizes."
+                },
+                {
+                  "disabled": false,
+                  "key": "pages",
+                  "value": "<string>",
+                  "description": "Specifies the pages or ranges at which to split the PDF. Accepts individual page numbers (e.g., '1') and/or page ranges (e.g., '4-2', 'last'). Ranges can be ascending or descending. Use commas to separate entries and hyphens for ranges. Alternatively, provide only one of the following keywords: 'even' (split at every even-numbered page), 'odd' (split at every odd-numbered page), 'last' (split at the last page only), or 'all' (split into single pages). Examples: '1,4-2,last', 'odd', 'all'. Mixing special keywords with specific pages/ranges is not allowed."
+                },
+                {
+                  "disabled": false,
+                  "key": "resolution",
+                  "value": "<integer>",
+                  "description": "Specifies the resolution (in DPI) for the output images. Acceptable Range is from 20 to 1200."
+                },
+                {
+                  "disabled": false,
+                  "key": "image_smoothing",
+                  "value": "<string>",
+                  "description": "Determines the smoothing options to apply during image conversion. Valid values are 'none', 'all' or a combination of 'text', 'line', and 'image' (comma-separated).If not provided, no smoothing will be applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "profile",
+                  "value": "<string>",
+                  "description": "Specifies the color profile for the output JPG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors)."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_url",
+                  "value": "<string>",
+                  "description": "The URL to which the webhook notification will be sent after the task is completed."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_failure_notification",
+                  "value": "<boolean>",
+                  "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                "key": "X-Webhook-Authorization",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cbaed8d9-174f-4d5d-ba7f-f04bf0de49b8",
+              "name": "PDF converted to JPG successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "jpg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quality",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "image_smoothing",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"04a06cd5-158d-4191-a45b-6f58249c599d\",\n  \"inputIds\": [\n    \"7a9e4b12-f3c8-4d56-b7e1-8c2f9d0a3e6f\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7a617ba-7653-4839-9c16-48b52a451bd3",
+              "name": "Bad Request — Missing/invalid parameters or file ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "jpg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quality",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "image_smoothing",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:51:09.542Z\",\n  \"path\": \"/v1.0/pdf/jpg\",\n  \"status\": 400,\n  \"error\": \"Missing File or ID\",\n  \"message\": \"Please provide either a file or a file ID.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "139841b3-eb36-4493-80c9-4b42499bf82c",
+          "name": "Convert a PDF file into a sequence of TIFF images.",
+          "request": {
+            "name": "Convert a PDF file into a sequence of TIFF images.",
+            "description": {
+              "content": "This API converts a given PDF file into a sequence of TIFF images. The output images can be saved as a single TIFF file, or as a sequence of TIFF files.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "tif"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_id",
+                  "value": "<string>",
+                  "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+                },
+                {
+                  "disabled": false,
+                  "key": "destroy",
+                  "value": "<boolean>",
+                  "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "<string>",
+                  "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+                },
+                {
+                  "disabled": false,
+                  "key": "pages",
+                  "value": "<string>",
+                  "description": "Specifies the pages or ranges at which to split the PDF. Accepts individual page numbers (e.g., '1') and/or page ranges (e.g., '4-2', 'last'). Ranges can be ascending or descending. Use commas to separate entries and hyphens for ranges. Alternatively, provide only one of the following keywords: 'even' (split at every even-numbered page), 'odd' (split at every odd-numbered page), 'last' (split at the last page only), or 'all' (split into single pages). Examples: '1,4-2,last', 'odd', 'all'. Mixing special keywords with specific pages/ranges is not allowed."
+                },
+                {
+                  "disabled": false,
+                  "key": "resolution",
+                  "value": "<integer>",
+                  "description": "Specifies the resolution (in DPI) for the output images. Acceptable Range is from 20 to 1200."
+                },
+                {
+                  "disabled": false,
+                  "key": "image_smoothing",
+                  "value": "<string>",
+                  "description": "Determines the smoothing options to apply during image conversion. Valid values are 'none', 'all' or a combination of 'text', 'line', and 'image' (comma-separated).If not provided, no smoothing will be applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "profile",
+                  "value": "<string>",
+                  "description": "Specifies the color profile for the output TIF images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors)."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_url",
+                  "value": "<string>",
+                  "description": "The URL to which the webhook notification will be sent after the task is completed."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_failure_notification",
+                  "value": "<boolean>",
+                  "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                "key": "X-Webhook-Authorization",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7a5e0249-365d-40a9-bddb-555a3c65874a",
+              "name": "PDF converted to TIF successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "tif"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "image_smoothing",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"04a06cd5-158d-4191-a45b-6f58249c599d\",\n  \"inputIds\": [\n    \"7a9e4b12-f3c8-4d56-b7e1-8c2f9d0a3e6f\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d464cefb-f0f6-47e9-8e7b-7f47d8518deb",
+              "name": "Bad Request — Missing/invalid parameters or file ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "tif"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "image_smoothing",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:51:09.542Z\",\n  \"path\": \"/v1.0/pdf/tif\",\n  \"status\": 400,\n  \"error\": \"Missing File or ID\",\n  \"message\": \"Please provide either a file or a file ID.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de90ce19-7468-41a2-a15e-a911e35d3fe7",
+          "name": "Convert PDF to BMP",
+          "request": {
+            "name": "Convert PDF to BMP",
+            "description": {
+              "content": "Converts a PDF file to a BMP image.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "bmp"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_id",
+                  "value": "<string>",
+                  "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+                },
+                {
+                  "disabled": false,
+                  "key": "destroy",
+                  "value": "<boolean>",
+                  "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "<string>",
+                  "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+                },
+                {
+                  "disabled": false,
+                  "key": "pages",
+                  "value": "<string>",
+                  "description": "Specifies the pages or ranges at which to split the PDF. Accepts individual page numbers (e.g., '1') and/or page ranges (e.g., '4-2', 'last'). Ranges can be ascending or descending. Use commas to separate entries and hyphens for ranges. Alternatively, provide only one of the following keywords: 'even' (split at every even-numbered page), 'odd' (split at every odd-numbered page), 'last' (split at the last page only), or 'all' (split into single pages). Examples: '1,4-2,last', 'odd', 'all'. Mixing special keywords with specific pages/ranges is not allowed."
+                },
+                {
+                  "disabled": false,
+                  "key": "resolution",
+                  "value": "<integer>",
+                  "description": "Specifies the resolution (in DPI) for the output images. Acceptable Range is from 20 to 1200."
+                },
+                {
+                  "disabled": false,
+                  "key": "image_smoothing",
+                  "value": "<string>",
+                  "description": "Determines the smoothing options to apply during image conversion. Valid values are 'none', 'all' or a combination of 'text', 'line', and 'image' (comma-separated).If not provided, no smoothing will be applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "profile",
+                  "value": "<string>",
+                  "description": "Specifies the color profile for the output BMP images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors)."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_url",
+                  "value": "<string>",
+                  "description": "The URL to which the webhook notification will be sent after the task is completed."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_failure_notification",
+                  "value": "<boolean>",
+                  "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                "key": "X-Webhook-Authorization",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "604375c9-5efc-47ba-8a52-ca1e31774a73",
+              "name": "PDF converted to BMP successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "bmp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "image_smoothing",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"04a06cd5-158d-4191-a45b-6f58249c599d\",\n  \"inputIds\": [\n    \"7a9e4b12-f3c8-4d56-b7e1-8c2f9d0a3e6f\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59f23291-d504-4e6a-bfb1-1217b44db747",
+              "name": "Bad Request — Missing/invalid parameters or file ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "bmp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "image_smoothing",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:51:09.542Z\",\n  \"path\": \"/v1.0/pdf/bmp\",\n  \"status\": 400,\n  \"error\": \"Missing File or ID\",\n  \"message\": \"Please provide either a file or a file ID.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ff78fdb-1c3c-46a6-90c8-6f4485ba23a9",
+          "name": "Convert PDF to GIF",
+          "request": {
+            "name": "Convert PDF to GIF",
+            "description": {
+              "content": "This API converts a given PDF file into a sequence of GIF images.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "gif"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_id",
+                  "value": "<string>",
+                  "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+                },
+                {
+                  "disabled": false,
+                  "key": "destroy",
+                  "value": "<boolean>",
+                  "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "<string>",
+                  "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+                },
+                {
+                  "disabled": false,
+                  "key": "pages",
+                  "value": "<string>",
+                  "description": "Specifies the pages or ranges at which to split the PDF. Accepts individual page numbers (e.g., '1') and/or page ranges (e.g., '4-2', 'last'). Ranges can be ascending or descending. Use commas to separate entries and hyphens for ranges. Alternatively, provide only one of the following keywords: 'even' (split at every even-numbered page), 'odd' (split at every odd-numbered page), 'last' (split at the last page only), or 'all' (split into single pages). Examples: '1,4-2,last', 'odd', 'all'. Mixing special keywords with specific pages/ranges is not allowed."
+                },
+                {
+                  "disabled": false,
+                  "key": "resolution",
+                  "value": "<integer>",
+                  "description": "Specifies the resolution (in DPI) for the output images. Acceptable Range is from 20 to 1200."
+                },
+                {
+                  "disabled": false,
+                  "key": "image_smoothing",
+                  "value": "<string>",
+                  "description": "Determines the smoothing options to apply during image conversion. Valid values are 'none', 'all' or a combination of 'text', 'line', and 'image' (comma-separated).If not provided, no smoothing will be applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "profile",
+                  "value": "<string>",
+                  "description": "Specifies the color profile for the output GIF images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors)."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_url",
+                  "value": "<string>",
+                  "description": "The URL to which the webhook notification will be sent after the task is completed."
+                },
+                {
+                  "disabled": false,
+                  "key": "webhook_failure_notification",
+                  "value": "<boolean>",
+                  "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                "key": "X-Webhook-Authorization",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "acfa4a5c-5d6c-4d1e-9f88-844b7aad4a91",
+              "name": "PDF converted to GIF successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "gif"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "image_smoothing",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"04a06cd5-158d-4191-a45b-6f58249c599d\",\n  \"inputIds\": [\n    \"7a9e4b12-f3c8-4d56-b7e1-8c2f9d0a3e6f\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6515be92-6368-4db8-acc8-8f6711d2c7a8",
+              "name": "Bad Request — Missing/invalid parameters or file ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "gif"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destroy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "image_smoothing",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "webhook_failure_notification",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.",
+                    "key": "X-Webhook-Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:51:09.542Z\",\n  \"path\": \"/v1.0/pdf/gif\",\n  \"status\": 400,\n  \"error\": \"Missing File or ID\",\n  \"message\": \"Please provide either a file or a file ID.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1452a809-8182-4b0b-9560-58b7489ec96f",
+    "name": "Convert PDF to JPG, PNG, TIFF, BMP & GIF PDF To Image APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Convert PDF pages to image format. Supports PNG, JPEG, and WebP output formats. Returns a task ID for tracking the conversion progress.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers SSL APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SSL APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all certificates from the domain to the root Certificate Authority (CA) of a domain.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/domain/ssl/live/chain",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "domainName",
+                "value": "",
+                "type": "query",
+                "description": "Domain name or URL whose SSL certificate chain lookup is required"
+              },
+              {
+                "name": "sslRaw",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to get the raw openSSL response for each certificate in the chain"
+              }
+            ]
+          },
+          "docs": "Retrieve the complete SSL certificate chain from root Certificate Authority (CA) to end-user certificate.\nThis endpoint provides comprehensive information about each certificate in the chain.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve the SSL certificate and any hidden information embedded within it for a domain.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/domain/ssl/live",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "domainName",
+                "value": "",
+                "type": "query",
+                "description": "Domain name or URL whose SSL certificate lookup is required"
+              },
+              {
+                "name": "sslRaw",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to get the raw openSSL response of the domain"
+              }
+            ]
+          },
+          "docs": "Retrieve comprehensive SSL certificate information without the certificate chain.\nThis endpoint provides detailed information about the SSL certificate including expiry dates, issuer details, and encryption methods.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

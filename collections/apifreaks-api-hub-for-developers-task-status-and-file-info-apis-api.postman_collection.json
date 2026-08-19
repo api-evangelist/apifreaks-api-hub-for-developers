@@ -1,0 +1,785 @@
+{
+  "item": [
+    {
+      "id": "2e933feb-33cf-485e-9572-f8c50c98b313",
+      "name": "Task Status and File Info APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "08145c94-bc05-4a11-9c1e-cfb76bcb37a9",
+          "name": "Delete a PDF file",
+          "request": {
+            "name": "Delete a PDF file",
+            "description": {
+              "content": "This API deletes a PDF file using its unique file ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "file"
+              ],
+              "host": [
+                "{{pdf-file-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_id",
+                  "value": "<string>",
+                  "description": "(Required) The unique ID of the file to be deleted."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3be63517-d0d3-4eaf-aed9-2f1effe8d7e5",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "file"
+                  ],
+                  "host": [
+                    "{{pdf-file-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fileId\": \"abc123\",\n  \"success\": true,\n  \"message\": \"File deleted successfully.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed249adc-a34e-40fb-8cf5-7d24174fc32f",
+              "name": "Bad Request — Missing required file_id parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "file"
+                  ],
+                  "host": [
+                    "{{pdf-file-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/pdf/file\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T10:45:56.656Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1fe3f95-5e2f-49a8-aa19-8ff3ce1fedde",
+              "name": "File ID Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "file"
+                  ],
+                  "host": [
+                    "{{pdf-file-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:45:55.737Z\",\n  \"path\": \"/v1.0/pdf/file\",\n  \"status\": 404,\n  \"error\": \"File ID Not Found\",\n  \"message\": \"Please provide a valid file ID.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "732bee77-83f4-436e-9859-3a48293a0dd5",
+          "name": "Check file status",
+          "request": {
+            "name": "Check file status",
+            "description": {
+              "content": "This API checks the status of a PDF file using its unique file ID, providing information about its creation and potential deletion time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "file-status"
+              ],
+              "host": [
+                "{{pdf-file-status-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_id",
+                  "value": "<string>",
+                  "description": "(Required) The unique ID of the file whose status is requested."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11504678-302a-4a05-b41a-df6fce8094ac",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "file-status"
+                  ],
+                  "host": [
+                    "{{pdf-file-status-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fileId\": \"b7ece7d4-1141-4143-98cb-7b4b818d6d82\",\n  \"fileName\": \"test.pdf\",\n  \"fileType\": \"pdf\",\n  \"fileCreationTime\": \"2026-07-27T10:46:36\",\n  \"fileDeletionTime\": \"2026-08-26\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58cc12ba-640d-415d-9afa-c08b33e9b2e6",
+              "name": "Bad Request — Missing required file_id parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "file-status"
+                  ],
+                  "host": [
+                    "{{pdf-file-status-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/pdf/file-status\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T10:46:38.333Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95084a2c-80f4-469b-bc67-8bfdab258678",
+              "name": "File ID Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "file-status"
+                  ],
+                  "host": [
+                    "{{pdf-file-status-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "file_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:46:37.828Z\",\n  \"path\": \"/v1.0/pdf/file-status\",\n  \"status\": 404,\n  \"error\": \"File ID Not Found\",\n  \"message\": \"Please provide a valid file ID.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "744e8482-6d60-4ee2-9bd2-6014a4f2657f",
+          "name": "Get list of PDF files",
+          "request": {
+            "name": "Get list of PDF files",
+            "description": {
+              "content": "This API retrieves a list of all PDF files uploaded and generated by a specific user. Please note that if the user is part of an organization, only the Organization Administrator can access this endpoint. Organization Members cannot access this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "files"
+              ],
+              "host": [
+                "{{pdf-files-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f466609-0d67-4fe8-b92e-837c09c20135",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "files"
+                  ],
+                  "host": [
+                    "{{pdf-files-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"files\": [\n    {\n      \"fileId\": \"abc123\",\n      \"fileName\": \"document.pdf\"\n    },\n    {\n      \"fileId\": \"def456\",\n      \"fileName\": \"report.pdf\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3ac6ebb-f66b-48c1-814d-f44127e47ba4",
+          "name": "Check PDF task status",
+          "request": {
+            "name": "Check PDF task status",
+            "description": {
+              "content": "This API checks the status of a previously initiated PDF processing task using its unique task ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pdf",
+                "task-status"
+              ],
+              "host": [
+                "{{pdf-task-status-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+                },
+                {
+                  "disabled": false,
+                  "key": "task_id",
+                  "value": "<string>",
+                  "description": "(Required) The unique ID of the PDF processing task for which the status is requested."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c9583937-4990-4f1f-942a-e940b80fdcf8",
+              "name": "Task status retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "task-status"
+                  ],
+                  "host": [
+                    "{{pdf-task-status-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "task_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"74004a68-ec05-4681-8d10-698304206065\",\n  \"status\": \"completed\",\n  \"createdAt\": \"2026-07-27 10:48:51\",\n  \"outputUrls\": [\n    \"https://api.apifreaks.com/v1.0/pdf/resource/download?resource_id=21e3bb30-f98e-47ca-9d52-b221857d1f48\"\n  ],\n  \"outputIds\": [\n    \"21e3bb30-f98e-47ca-9d52-b221857d1f48\"\n  ],\n  \"inputIds\": [\n    \"0deab2f6-927c-451e-81e2-e8565206690e\",\n    \"5b6a4836-8c4c-4379-8b3c-0867be35db71\"\n  ],\n  \"expiresAt\": \"2026-08-03 10:48:51\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef9c637e-3148-456a-b7c4-75a2949a380b",
+              "name": "Bad Request — Missing required task_id parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "task-status"
+                  ],
+                  "host": [
+                    "{{pdf-task-status-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "task_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/pdf/task-status\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T10:49:06.412Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28d984e4-967c-420d-ae95-4179883f0a1a",
+              "name": "Task ID Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pdf",
+                    "task-status"
+                  ],
+                  "host": [
+                    "{{pdf-task-status-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "task_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:49:05.829Z\",\n  \"path\": \"/v1.0/pdf/task-status\",\n  \"status\": 404,\n  \"error\": \"Task ID Not Found\",\n  \"message\": \"Please provide a valid task ID.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "pdf-file-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "pdf-file-status-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "pdf-files-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "pdf-task-status-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6a2439d4-b78a-44b5-b467-5ad90f6541c5",
+    "name": "Apifreaks Api Hub For Developers Task Status and File Info APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Task Status and File Info APIs across 4 of this provider's published API definitions: apifreaks-api-hub-for-developers-pdf-file-openapi.json, apifreaks-api-hub-for-developers-pdf-file-status-openapi.json, apifreaks-api-hub-for-developers-pdf-files-openapi.json, apifreaks-api-hub-for-developers-pdf-task-status-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

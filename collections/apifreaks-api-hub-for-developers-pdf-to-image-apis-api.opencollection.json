@@ -1,0 +1,447 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Convert PDF to JPG, PNG, TIFF, BMP & GIF PDF To Image APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PDF To Image APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert PDF to PNG",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/png",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the pages or ranges at which to split the PDF. Accepts individual page numbers (e.g., '1') and/or page ranges (e.g., '4-2', 'last'). Ranges can be ascending or descending. Use commas to separate entries and hyphens for ranges. Alternatively, provide only one of the following keywords: 'even' (split at every even-numbered page), 'odd' (split at every odd-numbered page), 'last' (split at the last page only), or 'all' (split into single pages). Examples: '1,4-2,last', 'odd', 'all'. Mixing special keywords with specific pages/ranges is not allowed."
+              },
+              {
+                "name": "resolution",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the resolution (in DPI) for the output images. Acceptable Range is from 20 to 1200."
+              },
+              {
+                "name": "image_smoothing",
+                "value": "",
+                "type": "query",
+                "description": "Determines the smoothing options to apply during image conversion. Valid values are 'none', 'all' or a combination of 'text', 'line', and 'image' (comma-separated).If not provided, no smoothing will be applied."
+              },
+              {
+                "name": "profile",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors)."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API converts a given PDF file into a sequence of PNG images."
+        },
+        {
+          "info": {
+            "name": "Convert PDF to JPG",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/jpg",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query",
+                "description": "Controls JPG compression quality. Higher values yield sharper images with larger file sizes."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the pages or ranges at which to split the PDF. Accepts individual page numbers (e.g., '1') and/or page ranges (e.g., '4-2', 'last'). Ranges can be ascending or descending. Use commas to separate entries and hyphens for ranges. Alternatively, provide only one of the following keywords: 'even' (split at every even-numbered page), 'odd' (split at every odd-numbered page), 'last' (split at the last page only), or 'all' (split into single pages). Examples: '1,4-2,last', 'odd', 'all'. Mixing special keywords with specific pages/ranges is not allowed."
+              },
+              {
+                "name": "resolution",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the resolution (in DPI) for the output images. Acceptable Range is from 20 to 1200."
+              },
+              {
+                "name": "image_smoothing",
+                "value": "",
+                "type": "query",
+                "description": "Determines the smoothing options to apply during image conversion. Valid values are 'none', 'all' or a combination of 'text', 'line', and 'image' (comma-separated).If not provided, no smoothing will be applied."
+              },
+              {
+                "name": "profile",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the color profile for the output JPG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors)."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API converts a given PDF file into a sequence of JPG images."
+        },
+        {
+          "info": {
+            "name": "Convert a PDF file into a sequence of TIFF images.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/tif",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the pages or ranges at which to split the PDF. Accepts individual page numbers (e.g., '1') and/or page ranges (e.g., '4-2', 'last'). Ranges can be ascending or descending. Use commas to separate entries and hyphens for ranges. Alternatively, provide only one of the following keywords: 'even' (split at every even-numbered page), 'odd' (split at every odd-numbered page), 'last' (split at the last page only), or 'all' (split into single pages). Examples: '1,4-2,last', 'odd', 'all'. Mixing special keywords with specific pages/ranges is not allowed."
+              },
+              {
+                "name": "resolution",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the resolution (in DPI) for the output images. Acceptable Range is from 20 to 1200."
+              },
+              {
+                "name": "image_smoothing",
+                "value": "",
+                "type": "query",
+                "description": "Determines the smoothing options to apply during image conversion. Valid values are 'none', 'all' or a combination of 'text', 'line', and 'image' (comma-separated).If not provided, no smoothing will be applied."
+              },
+              {
+                "name": "profile",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the color profile for the output TIF images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors)."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API converts a given PDF file into a sequence of TIFF images. The output images can be saved as a single TIFF file, or as a sequence of TIFF files."
+        },
+        {
+          "info": {
+            "name": "Convert PDF to BMP",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/bmp",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the pages or ranges at which to split the PDF. Accepts individual page numbers (e.g., '1') and/or page ranges (e.g., '4-2', 'last'). Ranges can be ascending or descending. Use commas to separate entries and hyphens for ranges. Alternatively, provide only one of the following keywords: 'even' (split at every even-numbered page), 'odd' (split at every odd-numbered page), 'last' (split at the last page only), or 'all' (split into single pages). Examples: '1,4-2,last', 'odd', 'all'. Mixing special keywords with specific pages/ranges is not allowed."
+              },
+              {
+                "name": "resolution",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the resolution (in DPI) for the output images. Acceptable Range is from 20 to 1200."
+              },
+              {
+                "name": "image_smoothing",
+                "value": "",
+                "type": "query",
+                "description": "Determines the smoothing options to apply during image conversion. Valid values are 'none', 'all' or a combination of 'text', 'line', and 'image' (comma-separated).If not provided, no smoothing will be applied."
+              },
+              {
+                "name": "profile",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the color profile for the output BMP images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors)."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Converts a PDF file to a BMP image."
+        },
+        {
+          "info": {
+            "name": "Convert PDF to GIF",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/gif",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the pages or ranges at which to split the PDF. Accepts individual page numbers (e.g., '1') and/or page ranges (e.g., '4-2', 'last'). Ranges can be ascending or descending. Use commas to separate entries and hyphens for ranges. Alternatively, provide only one of the following keywords: 'even' (split at every even-numbered page), 'odd' (split at every odd-numbered page), 'last' (split at the last page only), or 'all' (split into single pages). Examples: '1,4-2,last', 'odd', 'all'. Mixing special keywords with specific pages/ranges is not allowed."
+              },
+              {
+                "name": "resolution",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the resolution (in DPI) for the output images. Acceptable Range is from 20 to 1200."
+              },
+              {
+                "name": "image_smoothing",
+                "value": "",
+                "type": "query",
+                "description": "Determines the smoothing options to apply during image conversion. Valid values are 'none', 'all' or a combination of 'text', 'line', and 'image' (comma-separated).If not provided, no smoothing will be applied."
+              },
+              {
+                "name": "profile",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the color profile for the output GIF images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors)."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API converts a given PDF file into a sequence of GIF images."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

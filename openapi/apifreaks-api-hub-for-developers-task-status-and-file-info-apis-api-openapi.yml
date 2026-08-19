@@ -1,0 +1,444 @@
+openapi: 3.2.0
+info:
+  title: Apifreaks Api Hub For Developers Task Status and File Info APIs API
+  version: 1.0.0
+  contact:
+    name: APIFreaks Support
+    url: https://apifreaks.com/contact
+    email: support@apifreaks.com
+  description: 'Operations tagged Task Status and File Info APIs across 4 of this provider''s published API definitions: apifreaks-api-hub-for-developers-pdf-file-openapi.json, apifreaks-api-hub-for-developers-pdf-file-status-openapi.json, apifreaks-api-hub-for-developers-pdf-files-openapi.json, apifreaks-api-hub-for-developers-pdf-task-status-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.apifreaks.com/v1.0
+  description: PDF Delete File API Server
+security:
+- ApiKeyAuthHeader: []
+- ApiKeyAuthQuery: []
+tags:
+- name: Task Status and File Info APIs
+paths:
+  /pdf/file:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: PDF Delete File API Server
+    delete:
+      tags:
+      - Task Status and File Info APIs
+      summary: Delete a PDF file
+      description: This API deletes a PDF file using its unique file ID.
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+      - name: file_id
+        in: query
+        description: The unique ID of the file to be deleted.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteFileResponse'
+              examples:
+                success:
+                  summary: File deleted
+                  value:
+                    fileId: abc123
+                    success: true
+                    message: File deleted successfully.
+        '400':
+          description: Bad Request — Missing required file_id parameter
+          content:
+            application/json:
+              examples:
+                missingFileId:
+                  summary: Missing file_id parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/pdf/file
+                    status: 400
+                    timestamp: '2026-07-27T10:45:56.656Z'
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: File ID Not Found
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: File ID not found or already deleted
+                  value:
+                    timestamp: '2026-07-27T10:45:55.737Z'
+                    path: /v1.0/pdf/file
+                    status: 404
+                    error: File ID Not Found
+                    message: Please provide a valid file ID.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      operationId: deleteFile
+  /pdf/file-status:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: PDF File Status API Server
+    get:
+      tags:
+      - Task Status and File Info APIs
+      summary: Check file status
+      description: This API checks the status of a PDF file using its unique file ID, providing information about its creation and potential deletion time.
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+      - name: file_id
+        in: query
+        description: The unique ID of the file whose status is requested.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileStatusResponse'
+              examples:
+                success:
+                  summary: File found
+                  value:
+                    fileId: b7ece7d4-1141-4143-98cb-7b4b818d6d82
+                    fileName: test.pdf
+                    fileType: pdf
+                    fileCreationTime: '2026-07-27T10:46:36'
+                    fileDeletionTime: '2026-08-26'
+        '400':
+          description: Bad Request — Missing required file_id parameter
+          content:
+            application/json:
+              examples:
+                missingFileId:
+                  summary: Missing file_id parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/pdf/file-status
+                    status: 400
+                    timestamp: '2026-07-27T10:46:38.333Z'
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: File ID Not Found
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: File ID not found
+                  value:
+                    timestamp: '2026-07-27T10:46:37.828Z'
+                    path: /v1.0/pdf/file-status
+                    status: 404
+                    error: File ID Not Found
+                    message: Please provide a valid file ID.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      operationId: getFileStatus
+  /pdf/files:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: PDF Files API Server
+    get:
+      tags:
+      - Task Status and File Info APIs
+      summary: Get list of PDF files
+      description: This API retrieves a list of all PDF files uploaded and generated by a specific user. Please note that if the user is part of an organization, only the Organization Administrator can access this endpoint. Organization Members cannot access this endpoint.
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PdfFileListResponse'
+              examples:
+                success:
+                  summary: File list
+                  value:
+                    files:
+                    - fileId: abc123
+                      fileName: document.pdf
+                    - fileId: def456
+                      fileName: report.pdf
+      operationId: getFiles
+  /pdf/task-status:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: PDF Task Status API Server
+    get:
+      tags:
+      - Task Status and File Info APIs
+      summary: Check PDF task status
+      description: This API checks the status of a previously initiated PDF processing task using its unique task ID.
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+      - name: task_id
+        in: query
+        description: The unique ID of the PDF processing task for which the status is requested.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Task status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskStatusResponse'
+              examples:
+                success:
+                  summary: Task completed
+                  value:
+                    taskId: 74004a68-ec05-4681-8d10-698304206065
+                    status: completed
+                    createdAt: '2026-07-27 10:48:51'
+                    outputUrls:
+                    - https://api.apifreaks.com/v1.0/pdf/resource/download?resource_id=21e3bb30-f98e-47ca-9d52-b221857d1f48
+                    outputIds:
+                    - 21e3bb30-f98e-47ca-9d52-b221857d1f48
+                    inputIds:
+                    - 0deab2f6-927c-451e-81e2-e8565206690e
+                    - 5b6a4836-8c4c-4379-8b3c-0867be35db71
+                    expiresAt: '2026-08-03 10:48:51'
+                failed:
+                  summary: Task failed (e.g. invalid page range/format caught during processing)
+                  value:
+                    taskId: 9d8d803b-e23a-4431-901b-98b1f337355c
+                    status: failed
+                    createdAt: '2026-07-27 10:52:12'
+                    inputIds:
+                    - 63ea4110-b007-475b-9211-2fa7138b8ba1
+                    error: Invalid Page Range
+                    message: One or more specified page numbers exceed the total number of pages in the PDF document.
+                    expiresAt: '2026-08-03 10:52:12'
+        '400':
+          description: Bad Request — Missing required task_id parameter
+          content:
+            application/json:
+              examples:
+                missingTaskId:
+                  summary: Missing task_id parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/pdf/task-status
+                    status: 400
+                    timestamp: '2026-07-27T10:49:06.412Z'
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Task ID Not Found
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Task ID not found
+                  value:
+                    timestamp: '2026-07-27T10:49:05.829Z'
+                    path: /v1.0/pdf/task-status
+                    status: 404
+                    error: Task ID Not Found
+                    message: Please provide a valid task ID.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      operationId: getTaskStatus
+components:
+  schemas:
+    FileStatusResponse:
+      type: object
+      required:
+      - fileId
+      - fileName
+      - fileType
+      - fileCreationTime
+      - fileDeletionTime
+      properties:
+        fileId:
+          type: string
+          description: The unique identifier of the file.
+        fileName:
+          type: string
+          description: The name of the file.
+        fileType:
+          type: string
+          description: The type of the file (e.g., 'pdf').
+        fileCreationTime:
+          type: string
+          format: date-time
+          description: The timestamp when the file was created.
+        fileDeletionTime:
+          type: string
+          format: date
+          description: Date on which the file is scheduled to be deleted, in UTC.
+      description: File status response containing metadata about the PDF file.
+    DeleteFileResponse:
+      type: object
+      required:
+      - fileId
+      - success
+      - message
+      properties:
+        fileId:
+          type: string
+          description: The unique identifier of the file.
+        success:
+          type: boolean
+          description: Indicates whether the file deletion request was successful.
+        message:
+          type: string
+          description: A message indicating the result of the file deletion request.
+      description: File deletion response containing the result of the delete operation.
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    PdfFileListResponse:
+      type: object
+      description: PDF file list response containing an array of file objects.
+      required:
+      - files
+      properties:
+        files:
+          type: array
+          description: List of files available on the server.
+          items:
+            $ref: '#/components/schemas/PdfFileItem'
+    PdfFileItem:
+      type: object
+      description: A single PDF file in the file list.
+      properties:
+        fileId:
+          type: string
+          description: Unique ID for the file, used to fetch or process the file.
+        fileName:
+          type: string
+          description: Original name of the uploaded file.
+      required: []
+    TaskStatusResponse:
+      type: object
+      required:
+      - taskId
+      - status
+      - createdAt
+      - inputIds
+      - expiresAt
+      properties:
+        taskId:
+          type: string
+          description: The unique identifier of the PDF processing task.
+        status:
+          type: string
+          description: The current status of the task (e.g., 'queued', 'processing', 'completed', 'failed').
+        createdAt:
+          type: string
+          description: The timestamp when the task status was created, formatted as 'yyyy-MM-dd HH:mm:ss'.
+        zipFileId:
+          type: string
+          description: The unique identifier for the ZIP file. This is present only when the task status is 'COMPLETED'.
+        outputUrls:
+          type: array
+          items:
+            type: string
+          description: A list of URLs for each individual output file. This is present only when the task is 'COMPLETED'.
+        outputIds:
+          type: array
+          items:
+            type: string
+          description: A list of unique IDs for the output files. This is present only when the task is 'COMPLETED'.
+        inputIds:
+          type: array
+          items:
+            type: string
+          description: A list of unique IDs for the input files submitted with the task. If the task was initiated with the `destroy` parameter set to `true`, `inputIds` will not be generated.
+        error:
+          type: string
+          description: The error code for the PDF Task. This is included only if the task fails.
+        message:
+          type: string
+          description: A descriptive message indicating the reason for task failure. This is included only if the task fails.
+        expiresAt:
+          type: string
+          description: The timestamp when the task status will expire and be removed from the system, formatted as 'yyyy-MM-dd HH:mm:ss'.
+        zipFileUrl:
+          type: string
+          description: The URL to download all output files as a single ZIP archive. Present only when the task status is completed.
+      description: Task status response containing the current state of a PDF processing task.
+  securitySchemes:
+    ApiKeyAuthHeader:
+      type: apiKey
+      in: header
+      name: X-apiKey
+      description: Pass your API key via the X-apiKey request header.
+    ApiKeyAuthQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: Pass your API key via the apiKey query parameter.
+x-refined-from:
+- apifreaks-api-hub-for-developers-pdf-file-openapi.json
+- apifreaks-api-hub-for-developers-pdf-file-status-openapi.json
+- apifreaks-api-hub-for-developers-pdf-files-openapi.json
+- apifreaks-api-hub-for-developers-pdf-task-status-openapi.json

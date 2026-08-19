@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astronomy API - Location Based Astronomy Data Other APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Other APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns sunrise, sunset, moon phase, and celestial positions for a given location and date.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v2.0/geolocation/astronomy",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Can be \"json\" or \"xml\"."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Extract astronomy information using location (preferably city)"
+              },
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude to extract astronomy information using location coordinates"
+              },
+              {
+                "name": "long",
+                "value": "",
+                "type": "query",
+                "description": "Longitude to extract astronomy information using location coordinates"
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "IPv4 or IPv6 address to extract astronomy information using IP address"
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Response language of \"location\" field in case of lookup through IP address only."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Specific date (format YYYY-MM-DD) for which astronomy data is required"
+              },
+              {
+                "name": "elevation",
+                "value": "",
+                "type": "query",
+                "description": "Elevation above sea level at the location, in meters. The value should be between 0 meter and a maximum value of 10,000 meters. Negative value is set to 0."
+              },
+              {
+                "name": "time_zone",
+                "value": "",
+                "type": "query",
+                "description": "Time zone to receive all time-based data in your preferred local time."
+              }
+            ]
+          },
+          "docs": "Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

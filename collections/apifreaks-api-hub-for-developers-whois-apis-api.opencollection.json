@@ -1,0 +1,210 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers WHOIS APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "WHOIS APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve WHOIS registration data, CIDR block inventory, and BGP peer relationships for an Autonomous System Number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/asn/whois/live",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "asn",
+                "value": "",
+                "type": "query",
+                "description": "Autonomous System Number to retrieve WHOIS data for, with or without the 'AS' prefix (e.g. 15169 or AS15169)."
+              }
+            ]
+          },
+          "docs": "Returns the WHOIS record for the specified ASN, including organization details, IPv4/IPv6 route objects, upstream/downstream/peer relationships, and both parsed and raw WHOIS text. Accepts the ASN with or without the 'AS' prefix."
+        },
+        {
+          "info": {
+            "name": "Retrieve real-time WHOIS registration and ownership data for a domain name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/domain/whois/live",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "domainName",
+                "value": "",
+                "type": "query",
+                "description": "Domain name to retrieve WHOIS data for (e.g. example.com)."
+              }
+            ]
+          },
+          "docs": "Returns the current WHOIS record for the specified domain, including registrar details, registrant/administrative/technical/billing/reseller contacts, name servers, status codes, and raw WHOIS text."
+        },
+        {
+          "info": {
+            "name": "Retrieve real-time WHOIS registration and ownership data for up to 100 domain names in a single request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/domain/whois/live",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch."
+        },
+        {
+          "info": {
+            "name": "Retrieve the complete historical WHOIS record timeline for a domain name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/domain/whois/history",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "domainName",
+                "value": "",
+                "type": "query",
+                "description": "Domain name to retrieve historical WHOIS records for (e.g. example.com)."
+              }
+            ]
+          },
+          "docs": "Returns every recorded WHOIS snapshot for the specified domain in chronological order, including registrar, contact, name server, and status changes over time."
+        },
+        {
+          "info": {
+            "name": "Search domains by owner name, email, company, or keyword",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/domain/whois/reverse",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "keyword",
+                "value": "",
+                "type": "query",
+                "description": "Keyword to search for in domain names (case-insensitive pattern matching)."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Email address to search for in registrant records (case-insensitive exact or regex match; * wildcard supported)."
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query",
+                "description": "Registrant or owner name to search for (full-text phrase matching)."
+              },
+              {
+                "name": "company",
+                "value": "",
+                "type": "query",
+                "description": "Organization or company name to search for (full-text phrase matching)."
+              },
+              {
+                "name": "exact",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to return only exact matches for keyword, owner, or company. Default is false."
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "Response detail level. 'default' returns full WHOIS data per domain; 'mini' returns only key fields."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results."
+              }
+            ]
+          },
+          "docs": "Performs a reverse WHOIS search returning matching domains with registration details. Use mode=default for full WHOIS data or mode=mini for a condensed summary. When mode=default, each item in whois_domains_historical matches the ReverseWhoisDomainDefault schema (full registrar, contacts, name servers, status, and registry data). When mode=mini, each item matches the ReverseWhoisDomainMini schema (domain name, create/update/expiry dates, owner name, email, and company only)."
+        },
+        {
+          "info": {
+            "name": "Retrieve WHOIS registration and ownership data for an IP address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/ip/whois/live",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "IPv4 or IPv6 address to look up."
+              }
+            ]
+          },
+          "docs": "Returns WHOIS details for an IPv4 or IPv6 address including IP range, organization, contacts, routes, and raw WHOIS output."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,244 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers GeoDB APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GeoDB APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve detailed information about a specific administrative unit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/geo/admin-unit/details",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-2 format (e.g., US, PK)."
+              },
+              {
+                "name": "admin_unit",
+                "value": "",
+                "type": "query",
+                "description": "Admin code of the administrative unit being requested."
+              }
+            ]
+          },
+          "docs": "Returns comprehensive details for a single administrative unit identified by country code and admin code."
+        },
+        {
+          "info": {
+            "name": "Retrieve administrative level types for a country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/geo/admin-levels",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-2 format (e.g., US, PK)."
+              }
+            ]
+          },
+          "docs": "Returns the distinct administrative level types (e.g., province, district, state) defined for a given country using ISO 3166-1 alpha-2 country code."
+        },
+        {
+          "info": {
+            "name": "Retrieve administrative units for a country with optional level filtering",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/geo/admin-units",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-2 format (e.g., US, PK)."
+              },
+              {
+                "name": "admin_level",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list to filter results by one or more administrative levels (e.g., state, district). A level name that doesn't exist for the country returns a 200 with an empty admin_units array rather than an error."
+              }
+            ]
+          },
+          "docs": "Returns all administrative units (states, provinces, districts) for a country using ISO 3166-1 alpha-2 country code. Optionally filter by one or more admin levels."
+        },
+        {
+          "info": {
+            "name": "Retrieve cities for a country with optional admin unit filtering",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/geo/cities",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-2 format (e.g., US, PK)."
+              },
+              {
+                "name": "admin_unit",
+                "value": "",
+                "type": "query",
+                "description": "Administrative unit code used to filter cities within a specific region. An admin_unit code that doesn't exist for the specified country returns a 400 error, not an empty result."
+              }
+            ]
+          },
+          "docs": "Returns all cities for a country, optionally filtered by administrative unit. Each city includes name, coordinates, admin unit details, and ISO country code."
+        },
+        {
+          "info": {
+            "name": "Retrieve comprehensive metadata for a specific country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/geo/country/details",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-2 format (e.g., US, PK)."
+              }
+            ]
+          },
+          "docs": "Returns complete country details for a single country identified by its ISO 3166-1 alpha-2 code, including ISO codes, capital, currency, phone code, nationality, and flag emoji."
+        },
+        {
+          "info": {
+            "name": "Retrieve a list of countries with optional region or subregion filtering",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/geo/countries",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter to return countries within a specific region (e.g., Europe, Asia)."
+              },
+              {
+                "name": "subregion",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter to return countries within a specific subregion (e.g., Northern Europe, Southern Asia)."
+              }
+            ]
+          },
+          "docs": "Returns all countries with their ISO codes, capital cities, regions, and subregions. Optional region and subregion parameters narrow results."
+        },
+        {
+          "info": {
+            "name": "Retrieve all geographical regions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/geo/regions",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              }
+            ]
+          },
+          "docs": "Returns all geographical regions supported by the service, such as Africa, Americas, Asia, Europe, Oceania, and Polar."
+        },
+        {
+          "info": {
+            "name": "Retrieve subregions for a specific geographical region",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/geo/subregions",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Name of the region to retrieve subregions for. Omit to return all subregions across every region."
+              }
+            ]
+          },
+          "docs": "Returns all subregions within a specified region, or all subregions across every region when the region parameter is omitted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

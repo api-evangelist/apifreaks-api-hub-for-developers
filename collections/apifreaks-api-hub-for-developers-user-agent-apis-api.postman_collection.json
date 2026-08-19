@@ -1,0 +1,383 @@
+{
+  "item": [
+    {
+      "id": "bfe1a21f-58df-4044-a8e0-e4372a30b7f0",
+      "name": "User Agent APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3d7827b9-a630-4193-bc03-a74b20a2c59f",
+          "name": "Parse multiple User-Agent strings in a single request to obtain browser, device, and operating system details",
+          "request": {
+            "name": "Parse multiple User-Agent strings in a single request to obtain browser, device, and operating system details",
+            "description": {
+              "content": "Parse up to 50,000 User-Agent strings simultaneously in a single request. Returns structured details about the browser, device, layout engine, and operating system for each string.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user-agent",
+                "lookup"
+              ],
+              "host": [
+                "{{user-agent-lookup-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uaStrings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ab919a73-60a9-4442-81db-1604b42dd58a",
+              "name": "Successful response with parsed user agent data for each input string",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user-agent",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{user-agent-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uaStrings\": [\n    \"Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36\",\n    \"Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+\",\n    \"Mozilla/5.0 (Linux; U; en-US) AppleWebKit/528.5+ (KHTML, like Gecko, Safari/528.5+) Version/4.0 Kindle/3.0 (screen 600x800; rotate)\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"user_agent_string\": \"Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36\",\n    \"name\": \"Chrome\",\n    \"type\": \"Browser\",\n    \"version\": \"62.0.3202.84\",\n    \"version_major\": \"62\",\n    \"device\": {\n      \"name\": \"Samsung SM-G960F\",\n      \"type\": \"Phone\",\n      \"brand\": \"Samsung\",\n      \"cpu\": \"Unknown\"\n    },\n    \"engine\": {\n      \"name\": \"Blink\",\n      \"type\": \"Browser\",\n      \"version\": \"62.0\",\n      \"version_major\": \"62\"\n    },\n    \"operating_system\": {\n      \"name\": \"Android\",\n      \"type\": \"Mobile\",\n      \"version\": \"8.0.0\",\n      \"version_major\": \"8\",\n      \"build\": \"R16NW\"\n    }\n  },\n  {\n    \"user_agent_string\": \"Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+\",\n    \"name\": \"Kindle\",\n    \"type\": \"Browser\",\n    \"version\": \"3.0\",\n    \"version_major\": \"3\",\n    \"device\": {\n      \"name\": \"Amazon Kindle\",\n      \"type\": \"eReader\",\n      \"brand\": \"Amazon\",\n      \"cpu\": \"ARMv7l\"\n    },\n    \"engine\": {\n      \"name\": \"AppleWebKit\",\n      \"type\": \"Browser\",\n      \"version\": \"531.2\",\n      \"version_major\": \"531\"\n    },\n    \"operating_system\": {\n      \"name\": \"FireOS\",\n      \"type\": \"Mobile\",\n      \"version\": \"??\",\n      \"version_major\": \"??\",\n      \"build\": \"??\"\n    }\n  },\n  {\n    \"user_agent_string\": \"Mozilla/5.0 (Linux; U; en-US) AppleWebKit/528.5+ (KHTML, like Gecko, Safari/528.5+) Version/4.0 Kindle/3.0 (screen 600x800; rotate)\",\n    \"name\": \"Kindle\",\n    \"type\": \"Browser\",\n    \"version\": \"3.0\",\n    \"version_major\": \"3\",\n    \"device\": {\n      \"name\": \"Amazon Kindle\",\n      \"type\": \"eReader\",\n      \"brand\": \"Amazon\",\n      \"cpu\": \"Unknown\"\n    },\n    \"engine\": {\n      \"name\": \"AppleWebKit\",\n      \"type\": \"Browser\",\n      \"version\": \"528.5\",\n      \"version_major\": \"528\"\n    },\n    \"operating_system\": {\n      \"name\": \"FireOS\",\n      \"type\": \"Mobile\",\n      \"version\": \"??\",\n      \"version_major\": \"??\",\n      \"build\": \"??\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16477891-4f0f-4258-b039-d15ef67954ae",
+              "name": "Bad Request — Invalid/missing request body, or an empty/null string anywhere in uaStrings (fails the whole batch, not a per-item error)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user-agent",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{user-agent-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uaStrings\": [\n    \"Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36\",\n    \"Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+\",\n    \"Mozilla/5.0 (Linux; U; en-US) AppleWebKit/528.5+ (KHTML, like Gecko, Safari/528.5+) Version/4.0 Kindle/3.0 (screen 600x800; rotate)\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request body Exception\",\n  \"message\": \"Please provide data in required format in request body\",\n  \"path\": \"/v1.0/user-agent/lookup\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-24T10:16:11.030Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a280f3a-5992-4f86-a451-7af5a3632b4c",
+          "name": "Parse a User-Agent string to obtain browser, device, and operating system details",
+          "request": {
+            "name": "Parse a User-Agent string to obtain browser, device, and operating system details",
+            "description": {
+              "content": "Parse any User-Agent string to obtain detailed information about the browser, device, layout engine, and operating system. Supports desktop, mobile, tablet, and crawler detection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user-agent",
+                "lookup"
+              ],
+              "host": [
+                "{{user-agent-lookup-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The User-Agent string to parse for browser, device, and operating system details.",
+                "key": "User-Agent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2de0efa4-3e12-48e1-8569-17b2b2b514de",
+              "name": "Successful response with parsed user agent data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user-agent",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{user-agent-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The User-Agent string to parse for browser, device, and operating system details.",
+                    "key": "User-Agent",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user_agent_string\": \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0\",\n  \"name\": \"Firefox\",\n  \"type\": \"Browser\",\n  \"version\": \"142.0\",\n  \"version_major\": \"142\",\n  \"device\": {\n    \"name\": \"Linux Desktop\",\n    \"type\": \"Desktop\",\n    \"brand\": \"Unknown\",\n    \"cpu\": \"Intel x86_64\"\n  },\n  \"engine\": {\n    \"name\": \"Gecko\",\n    \"type\": \"Browser\",\n    \"version\": \"142.0\",\n    \"version_major\": \"142\"\n  },\n  \"operating_system\": {\n    \"name\": \"Ubuntu\",\n    \"type\": \"Desktop\",\n    \"version\": \"??\",\n    \"version_major\": \"??\",\n    \"build\": \"??\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b340bda8-e189-440c-9327-20cdf3c986bf",
+              "name": "Bad Request — Missing or empty User-Agent header",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user-agent",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{user-agent-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The User-Agent string to parse for browser, device, and operating system details.",
+                    "key": "User-Agent",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Header Exception\",\n  \"message\": \"Please provide correct headers\",\n  \"path\": \"/v1.0/user-agent/lookup\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-24T10:12:15.828Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "user-agent-lookup-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7986a822-3848-467f-833a-411744bb6556",
+    "name": "Apifreaks Api Hub For Developers User Agent APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged User Agent APIs across 2 of this provider's published API definitions: apifreaks-api-hub-for-developers-bulk-user-agent-parser-openapi.json, apifreaks-api-hub-for-developers-user-agent-parser-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

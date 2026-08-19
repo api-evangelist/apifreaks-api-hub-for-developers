@@ -1,0 +1,1037 @@
+openapi: 3.2.0
+info:
+  title: Apifreaks Api Hub For Developers GeoDB APIs API
+  version: 1.0.0
+  contact:
+    name: APIFreaks Support
+    url: https://apifreaks.com/contact
+    email: support@apifreaks.com
+  description: 'Operations tagged GeoDB APIs across 8 of this provider''s published API definitions: apifreaks-api-hub-for-developers-administrative-units-details-openapi.json, apifreaks-api-hub-for-developers-administrative-units-levels-openapi.json, apifreaks-api-hub-for-developers-administrative-units-openapi.json, apifreaks-api-hub-for-developers-cities-openapi.json, apifreaks-api-hub-for-developers-countries-details-openapi.json, apifreaks-api-hub-for-developers-countries-openapi.json, apifreaks-api-hub-for-developers-regions-openapi.json, apifreaks-api-hub-for-developers-subregions-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.apifreaks.com/v1.0
+  description: Admin Unit Details API Server
+security:
+- ApiKeyAuthHeader: []
+- ApiKeyAuthQuery: []
+tags:
+- name: GeoDB APIs
+paths:
+  /geo/admin-unit/details:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Admin Unit Details API Server
+    get:
+      tags:
+      - GeoDB APIs
+      summary: Retrieve detailed information about a specific administrative unit
+      description: Returns comprehensive details for a single administrative unit identified by country code and admin code.
+      operationId: getAdminUnitDetails
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Format of the response. Possible values: json, xml.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: country
+        in: query
+        required: true
+        description: Country code in ISO 3166-1 alpha-2 format (e.g., US, PK).
+        schema:
+          type: string
+      - name: admin_unit
+        in: query
+        required: true
+        description: Admin code of the administrative unit being requested.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with admin unit details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminUnitDetailsResponse'
+              examples:
+                typicalSuccess:
+                  summary: Unit with a real ISO 3166-2 subdivision code
+                  value:
+                    name: California
+                    admin_code: CA
+                    admin_iso3166_2: US-CA
+                    admin_level: state
+                    country_iso3166_2: US
+                    country_name: United States
+                noIso3166_2:
+                  summary: Unit with no real ISO 3166-2 code (e.g. US military postal regions) — admin_iso3166_2 is absent
+                  value:
+                    name: Armed Forces of the Americas
+                    admin_code: AA
+                    admin_level: military postal region
+                    country_iso3166_2: US
+                    country_name: United States
+        '400':
+          description: Bad Request — Missing country/admin_unit parameter, invalid country code, or invalid admin code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                MissingParams:
+                  summary: Missing required country or admin_unit parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/geo/admin-unit/details
+                    status: 400
+                    timestamp: '2026-07-24T10:46:22.210Z'
+                InvalidCountryCode:
+                  summary: Malformed or unrecognized country code
+                  value:
+                    timestamp: '2026-07-24T10:46:23.231Z'
+                    path: /v1/admin-unit/details
+                    status: 400
+                    error: Invalid Country Code provided
+                    message: Only ISO 3166-1 alpha-2 codes country codes are supported.
+                InvalidAdminCode:
+                  summary: admin_unit code does not exist for the given country
+                  value:
+                    timestamp: '2026-07-24T10:46:23.768Z'
+                    path: /v1/admin-unit/details
+                    status: 400
+                    error: Invalid Admin Code provided
+                    message: Please provide a valid admin code.
+        '404':
+          description: Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no published admin units (e.g. Vatican City)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                NoAdminUnits:
+                  summary: No admin units for this country
+                  value:
+                    timestamp: '2026-07-24T10:46:24.259Z'
+                    path: /v1/admin-unit/details
+                    status: 404
+                    error: No Admin Unit present in country
+                    message: This Country does not have any admin units associated with it.
+  /geo/admin-levels:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Admin Levels API Server
+    get:
+      tags:
+      - GeoDB APIs
+      summary: Retrieve administrative level types for a country
+      description: Returns the distinct administrative level types (e.g., province, district, state) defined for a given country using ISO 3166-1 alpha-2 country code.
+      operationId: getAdminLevels
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Format of the response. Possible values: json, xml.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: country
+        in: query
+        required: true
+        description: Country code in ISO 3166-1 alpha-2 format (e.g., US, PK).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with list of administrative levels
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminLevelsResponse'
+              examples:
+                typicalSuccess:
+                  summary: Typical successful response
+                  value:
+                    admin_levels:
+                    - outlying area
+                    - district
+                    - state
+                    - military postal region
+        '400':
+          description: Bad Request — Missing country parameter, or country is not a valid/known ISO 3166-1 alpha-2 code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                MissingCountry:
+                  summary: Missing required country parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/geo/admin-levels
+                    status: 400
+                    timestamp: '2026-07-24T10:42:02.477Z'
+                InvalidCountryCode:
+                  summary: Malformed or unrecognized country code (also returned for well-formed but non-existent codes)
+                  value:
+                    timestamp: '2026-07-24T10:42:02.997Z'
+                    path: /v1/admin-levels
+                    status: 400
+                    error: Invalid Country Code provided
+                    message: Only ISO 3166-1 alpha-2 codes country codes are supported.
+        '404':
+          description: Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no published admin levels (e.g. Vatican City)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                NoAdminUnits:
+                  summary: No admin units for this country
+                  value:
+                    timestamp: '2026-07-24T10:42:15.470Z'
+                    path: /v1/admin-levels
+                    status: 404
+                    error: No Admin Unit present in country
+                    message: This Country does not have any admin units associated with it.
+  /geo/admin-units:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Administrative Units API Server
+    get:
+      tags:
+      - GeoDB APIs
+      summary: Retrieve administrative units for a country with optional level filtering
+      description: Returns all administrative units (states, provinces, districts) for a country using ISO 3166-1 alpha-2 country code. Optionally filter by one or more admin levels.
+      operationId: getAdminUnits
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Format of the response. Possible values: json, xml.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: country
+        in: query
+        required: true
+        description: Country code in ISO 3166-1 alpha-2 format (e.g., US, PK).
+        schema:
+          type: string
+      - name: admin_level
+        in: query
+        required: false
+        description: Comma-separated list to filter results by one or more administrative levels (e.g., state, district). A level name that doesn't exist for the country returns a 200 with an empty admin_units array rather than an error.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with list of administrative units
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminUnitsResponse'
+              examples:
+                typicalSuccess:
+                  summary: Typical successful response
+                  value:
+                    admin_units:
+                    - name: California
+                      admin_code: CA
+                      admin_level: state
+                    - name: Texas
+                      admin_code: TX
+                      admin_level: state
+                    - name: New York
+                      admin_code: NY
+                      admin_level: state
+        '400':
+          description: Bad Request — Missing country parameter, or country is not a valid/known ISO 3166-1 alpha-2 code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                MissingCountry:
+                  summary: Missing required country parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/geo/admin-units
+                    status: 400
+                    timestamp: '2026-07-24T10:44:10.185Z'
+                InvalidCountryCode:
+                  summary: Malformed or unrecognized country code (also returned for well-formed but non-existent codes)
+                  value:
+                    timestamp: '2026-07-24T10:44:10.711Z'
+                    path: /v1/admin-units
+                    status: 400
+                    error: Invalid Country Code provided
+                    message: Only ISO 3166-1 alpha-2 codes country codes are supported.
+        '404':
+          description: Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no published admin units (e.g. Vatican City)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                NoAdminUnits:
+                  summary: No admin units for this country
+                  value:
+                    timestamp: '2026-07-24T10:44:11.244Z'
+                    path: /v1/admin-units
+                    status: 404
+                    error: No Admin Unit present in country
+                    message: This Country does not have any admin units associated with it.
+  /geo/cities:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Cities API Server
+    get:
+      tags:
+      - GeoDB APIs
+      summary: Retrieve cities for a country with optional admin unit filtering
+      description: Returns all cities for a country, optionally filtered by administrative unit. Each city includes name, coordinates, admin unit details, and ISO country code.
+      operationId: getCities
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Format of the response. Possible values: json, xml.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: country
+        in: query
+        required: true
+        description: Country code in ISO 3166-1 alpha-2 format (e.g., US, PK).
+        schema:
+          type: string
+      - name: admin_unit
+        in: query
+        required: false
+        description: Administrative unit code used to filter cities within a specific region. An admin_unit code that doesn't exist for the specified country returns a 400 error, not an empty result.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with list of cities
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CitiesResponse'
+              examples:
+                typicalSuccess:
+                  summary: Typical successful response
+                  value:
+                    cities:
+                    - name: Aberdeen
+                      latitude: 57.14369
+                      longitude: -2.09814
+                      admin_unit:
+                        name: Aberdeen
+                        admin_code: ABE
+                        admin_level: council area
+                      iso_alpha_2: GB
+                    - name: Balmedie
+                      latitude: 57.25052
+                      longitude: -2.06163
+                      admin_unit:
+                        name: Aberdeen
+                        admin_code: ABE
+                        admin_level: council area
+                      iso_alpha_2: GB
+        '400':
+          description: Bad Request — Missing country parameter, invalid country code, or admin_unit code not found for the country
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                MissingCountry:
+                  summary: Missing required country parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/geo/cities
+                    status: 400
+                    timestamp: '2026-07-24T10:56:41.424Z'
+                InvalidCountryCode:
+                  summary: Malformed or unrecognized country code
+                  value:
+                    timestamp: '2026-07-24T10:56:41.913Z'
+                    path: /v1/cities
+                    status: 400
+                    error: Invalid Country Code provided
+                    message: Only ISO 3166-1 alpha-2 codes country codes are supported.
+                InvalidAdminCode:
+                  summary: admin_unit code does not exist for the given country
+                  value:
+                    timestamp: '2026-07-24T10:56:42.419Z'
+                    path: /v1/cities
+                    status: 400
+                    error: Invalid Admin Code provided
+                    message: Please provide a valid admin code.
+        '404':
+          description: Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no cities in the database (e.g. Vatican City)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                NoCities:
+                  summary: No cities for this country
+                  value:
+                    timestamp: '2026-07-24T10:56:42.941Z'
+                    path: /v1/cities
+                    status: 404
+                    error: No Cities present in country
+                    message: This country does not have any cities associated with it.
+  /geo/country/details:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Country Details API Server
+    get:
+      tags:
+      - GeoDB APIs
+      summary: Retrieve comprehensive metadata for a specific country
+      description: Returns complete country details for a single country identified by its ISO 3166-1 alpha-2 code, including ISO codes, capital, currency, phone code, nationality, and flag emoji.
+      operationId: getCountryDetails
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Format of the response. Possible values: json, xml.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: country
+        in: query
+        required: true
+        description: Country code in ISO 3166-1 alpha-2 format (e.g., US, PK).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with country details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryDetailsResponse'
+              examples:
+                typicalSuccess:
+                  summary: Typical successful response
+                  value:
+                    name: United States
+                    iso_alpha_2: US
+                    iso_alpha_3: USA
+                    iso_numeric: 840
+                    phone_code: 1
+                    capital: Washington
+                    top_level_domain: .us
+                    native_name: United States
+                    region: Americas
+                    subregion: Northern America
+                    nationality: American
+                    flag_emoji: 🇺🇸
+                    currency_code: USD
+                    currency_name: United States dollar
+                    currency_symbol: $
+                unassignedFields:
+                  summary: Uninhabited territory — capital, region, and subregion are empty strings; every other field is still populated
+                  value:
+                    name: Bouvet Island
+                    iso_alpha_2: BV
+                    iso_alpha_3: BVT
+                    iso_numeric: 74
+                    phone_code: 55
+                    capital: ''
+                    top_level_domain: .bv
+                    native_name: Bouvetøya
+                    region: ''
+                    subregion: ''
+                    nationality: Bouvet Island
+                    flag_emoji: 🇧🇻
+                    currency_code: NOK
+                    currency_name: Norwegian krone
+                    currency_symbol: ko
+        '400':
+          description: Bad Request — Missing country parameter, or country is not a valid/known ISO 3166-1 alpha-2 code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                MissingCountry:
+                  summary: Missing required country parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/geo/country/details
+                    status: 400
+                    timestamp: '2026-07-24T10:54:42.188Z'
+                InvalidCountryCode:
+                  summary: Malformed or unrecognized country code
+                  value:
+                    timestamp: '2026-07-24T10:54:42.684Z'
+                    path: /v1/country/details
+                    status: 400
+                    error: Invalid Country Code provided
+                    message: Only ISO 3166-1 alpha-2 codes country codes are supported.
+  /geo/countries:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Countries API Server
+    get:
+      tags:
+      - GeoDB APIs
+      summary: Retrieve a list of countries with optional region or subregion filtering
+      description: Returns all countries with their ISO codes, capital cities, regions, and subregions. Optional region and subregion parameters narrow results.
+      operationId: getCountries
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Format of the response. Possible values: json, xml.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: region
+        in: query
+        required: false
+        description: Optional filter to return countries within a specific region (e.g., Europe, Asia).
+        schema:
+          type: string
+      - name: subregion
+        in: query
+        required: false
+        description: Optional filter to return countries within a specific subregion (e.g., Northern Europe, Southern Asia).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with list of countries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountriesResponse'
+              examples:
+                typicalSuccess:
+                  summary: Typical successful response
+                  value:
+                    countries:
+                    - name: United Kingdom
+                      iso_alpha_2: GB
+                      iso_alpha_3: GBR
+                      iso_numeric: 826
+                      capital: London
+                      region: Europe
+                      subregion: Northern Europe
+                    - name: France
+                      iso_alpha_2: FR
+                      iso_alpha_3: FRA
+                      iso_numeric: 250
+                      capital: Paris
+                      region: Europe
+                      subregion: Western Europe
+                    - name: Germany
+                      iso_alpha_2: DE
+                      iso_alpha_3: DEU
+                      iso_numeric: 276
+                      capital: Berlin
+                      region: Europe
+                      subregion: Western Europe
+                unassignedFields:
+                  summary: Uninhabited/dependent territories — capital, region, and/or subregion come back as empty strings
+                  value:
+                    countries:
+                    - name: Bouvet Island
+                      iso_alpha_2: BV
+                      iso_alpha_3: BVT
+                      iso_numeric: 74
+                      capital: ''
+                      region: ''
+                      subregion: ''
+                    - name: Antarctica
+                      iso_alpha_2: AQ
+                      iso_alpha_3: ATA
+                      iso_numeric: 10
+                      capital: ''
+                      region: Polar
+                      subregion: ''
+        '400':
+          description: Bad Request — Invalid region or subregion name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                InvalidRegionName:
+                  summary: Invalid region name
+                  value:
+                    timestamp: '2026-07-24T10:51:01.695Z'
+                    path: /v1/countries
+                    status: 400
+                    error: Invalid Region Name provided
+                    message: Please provide a valid region name.
+                InvalidSubregionName:
+                  summary: Invalid subregion name
+                  value:
+                    timestamp: '2026-07-24T10:51:02.247Z'
+                    path: /v1/countries
+                    status: 400
+                    error: Invalid Subregion Name provided
+                    message: Please provide a valid subregion name.
+  /geo/regions:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Regions API Server
+    get:
+      tags:
+      - GeoDB APIs
+      summary: Retrieve all geographical regions
+      description: Returns all geographical regions supported by the service, such as Africa, Americas, Asia, Europe, Oceania, and Polar.
+      operationId: getRegions
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Format of the response. Possible values: json, xml.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      responses:
+        '200':
+          description: Successful response with list of regions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionsResponse'
+              examples:
+                typicalSuccess:
+                  summary: Typical successful response
+                  value:
+                    regions:
+                    - Africa
+                    - Americas
+                    - Asia
+                    - Europe
+                    - Oceania
+                    - Polar
+  /geo/subregions:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Subregions API Server
+    get:
+      tags:
+      - GeoDB APIs
+      summary: Retrieve subregions for a specific geographical region
+      description: Returns all subregions within a specified region, or all subregions across every region when the region parameter is omitted.
+      operationId: getSubregionsByRegion
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Format of the response. Possible values: json, xml.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: region
+        in: query
+        required: false
+        description: Name of the region to retrieve subregions for. Omit to return all subregions across every region.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with list of subregions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubregionsResponse'
+              examples:
+                typicalSuccess:
+                  summary: Filtered by region=Europe
+                  value:
+                    subregions:
+                    - Eastern Europe
+                    - Northern Europe
+                    - Southern Europe
+                    - Western Europe
+                allRegions:
+                  summary: region parameter omitted — all 22 subregions across every region
+                  value:
+                    subregions:
+                    - Australia and New Zealand
+                    - Caribbean
+                    - Central America
+                    - Central Asia
+                    - Eastern Africa
+                    - Eastern Asia
+                    - Eastern Europe
+                    - Melanesia
+                    - Micronesia
+                    - Middle Africa
+                    - Northern Africa
+                    - Northern America
+                    - Northern Europe
+                    - Polynesia
+                    - South America
+                    - South-Eastern Asia
+                    - Southern Africa
+                    - Southern Asia
+                    - Southern Europe
+                    - Western Africa
+                    - Western Asia
+                    - Western Europe
+        '400':
+          description: Bad Request — Region name is not a recognized region
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                InvalidRegionName:
+                  summary: Invalid region name
+                  value:
+                    timestamp: '2026-07-24T11:00:12.748Z'
+                    path: /v1/subregions
+                    status: 400
+                    error: Invalid Region Name provided
+                    message: Please provide a valid region name.
+        '404':
+          description: Not Found — Region is valid but has no subregions (e.g. Polar)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                NoSubregions:
+                  summary: No subregions for this region
+                  value:
+                    timestamp: '2026-07-24T11:00:06.003Z'
+                    path: /v1/subregions
+                    status: 404
+                    error: No subregions exist
+                    message: This region does not have any subregions.
+components:
+  schemas:
+    CountriesResponse:
+      type: object
+      description: Response containing the list of countries matching the applied region/subregion filters (or all 250 when unfiltered).
+      required:
+      - countries
+      properties:
+        countries:
+          type: array
+          description: An array of country objects matching the applied filters.
+          items:
+            $ref: '#/components/schemas/CountryItem'
+    AdminLevelsResponse:
+      type: object
+      description: Response containing the distinct administrative level types defined for the requested country.
+      required:
+      - admin_levels
+      properties:
+        admin_levels:
+          type: array
+          description: An array of unique administrative level types defined for the specified country. Each value represents a category of administrative division, such as state, district, or outlying area.
+          items:
+            type: string
+    AdminUnitsResponse:
+      type: object
+      description: Response containing the administrative units for the requested country, optionally filtered by admin_level.
+      required:
+      - admin_units
+      properties:
+        admin_units:
+          type: array
+          description: An array of administrative unit objects for the specified country.
+          items:
+            $ref: '#/components/schemas/AdminUnit'
+    AdminUnit_2:
+      type: object
+      description: An object describing the administrative unit the city belongs to.
+      required:
+      - name
+      - admin_code
+      - admin_level
+      properties:
+        name:
+          type: string
+          description: The full name of the administrative unit.
+        admin_code:
+          type: string
+          description: The short code of the administrative unit.
+        admin_level:
+          type: string
+          description: The administrative level type of the unit (e.g., province, council area).
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    AdminUnit:
+      type: object
+      description: An administrative unit object.
+      required:
+      - name
+      - admin_code
+      - admin_level
+      properties:
+        name:
+          type: string
+          description: Name of the administrative unit.
+        admin_code:
+          type: string
+          description: Administrative code of the unit.
+        admin_level:
+          type: string
+          description: Level or type of the administrative unit (e.g., state, district, province).
+    CitiesResponse:
+      type: object
+      description: Response containing every city for the requested country (optionally filtered by admin_unit), returned unpaginated in a single array.
+      required:
+      - cities
+      properties:
+        cities:
+          type: array
+          description: An array of city objects for the specified country, optionally filtered by admin unit.
+          items:
+            $ref: '#/components/schemas/CityItem'
+    CityItem:
+      type: object
+      description: A city object containing name, coordinates, admin unit, and country code.
+      required:
+      - name
+      - latitude
+      - longitude
+      - admin_unit
+      - iso_alpha_2
+      properties:
+        name:
+          type: string
+          description: The name of the city.
+        latitude:
+          type: number
+          format: float
+          description: The geographic latitude of the city in decimal degrees.
+        longitude:
+          type: number
+          format: float
+          description: The geographic longitude of the city in decimal degrees.
+        iso_alpha_2:
+          type: string
+          description: The ISO 3166-1 alpha-2 country code the city belongs to.
+        admin_unit:
+          $ref: '#/components/schemas/AdminUnit_2'
+    SubregionsResponse:
+      type: object
+      description: Response containing subregion names for the requested region, or all subregions across every region when unfiltered.
+      required:
+      - subregions
+      properties:
+        subregions:
+          type: array
+          description: An array of subregion names within the specified region.
+          items:
+            type: string
+    CountryItem:
+      type: object
+      description: A country object containing ISO codes, capital, and region information.
+      required:
+      - name
+      - iso_alpha_2
+      - iso_alpha_3
+      - iso_numeric
+      - capital
+      - region
+      - subregion
+      properties:
+        name:
+          type: string
+          description: The full English name of the country.
+        iso_alpha_2:
+          type: string
+          description: The ISO 3166-1 alpha-2 two-letter country code.
+        iso_alpha_3:
+          type: string
+          description: The ISO 3166-1 alpha-3 three-letter country code.
+        iso_numeric:
+          type: integer
+          description: The ISO 3166-1 numeric country code.
+        capital:
+          type: string
+          description: The capital city of the country. Empty string for uninhabited/dependent territories with no capital.
+        region:
+          type: string
+          description: The broad geographical region the country belongs to. Empty string for a small number of territories with no assigned region.
+        subregion:
+          type: string
+          description: The more specific subregion the country belongs to. Empty string for a small number of territories with no assigned subregion.
+    AdminUnitDetailsResponse:
+      type: object
+      description: Detailed information for a single administrative unit resolved from a country code and admin unit code.
+      required:
+      - name
+      - admin_code
+      - admin_level
+      - country_iso3166_2
+      - country_name
+      properties:
+        name:
+          type: string
+          description: Name of the administrative unit.
+        admin_code:
+          type: string
+          description: Administrative code of the unit.
+        admin_iso3166_2:
+          type: string
+          description: The unit's full ISO 3166-2 code, formed as {country}-{admin_code} (e.g., US-CA, PK-BA, TV-FUN).
+        admin_level:
+          type: string
+          description: Level or type of the administrative unit (e.g., province, region, state).
+        country_iso3166_2:
+          type: string
+          description: Country code in ISO 3166-1 alpha-2 format.
+        country_name:
+          type: string
+          description: Name of the country.
+    CountryDetailsResponse:
+      type: object
+      description: Comprehensive metadata for a single country resolved from an ISO 3166-1 alpha-2 code.
+      required:
+      - name
+      - iso_alpha_2
+      - iso_alpha_3
+      - iso_numeric
+      - phone_code
+      - capital
+      - top_level_domain
+      - native_name
+      - region
+      - subregion
+      - nationality
+      - flag_emoji
+      - currency_code
+      - currency_name
+      - currency_symbol
+      properties:
+        name:
+          type: string
+          description: The full English name of the country.
+        iso_alpha_2:
+          type: string
+          description: The ISO 3166-1 alpha-2 two-letter country code.
+        iso_alpha_3:
+          type: string
+          description: The ISO 3166-1 alpha-3 three-letter country code.
+        iso_numeric:
+          type: integer
+          description: The ISO 3166-1 numeric country code.
+        phone_code:
+          type: integer
+          description: The international dialing/phone code for the country.
+        capital:
+          type: string
+          description: The capital city of the country. Empty string for uninhabited/dependent territories with no capital.
+        top_level_domain:
+          type: string
+          description: The country-code top-level internet domain.
+        native_name:
+          type: string
+          description: The name of the country in its native language.
+        region:
+          type: string
+          description: The broad geographical region the country belongs to. Empty string for a small number of territories with no assigned region.
+        subregion:
+          type: string
+          description: The more specific subregion the country belongs to. Empty string for a small number of territories with no assigned subregion.
+        nationality:
+          type: string
+          description: The demonym for citizens of the country.
+        flag_emoji:
+          type: string
+          description: The emoji flag representing the country.
+        currency_code:
+          type: string
+          description: The ISO 4217 currency code used in the country.
+        currency_name:
+          type: string
+          description: The full name of the currency used in the country.
+        currency_symbol:
+          type: string
+          description: The symbol of the currency used in the country.
+    RegionsResponse:
+      type: object
+      description: Response containing the flat list of geographical regions supported by the GeoDB service.
+      required:
+      - regions
+      properties:
+        regions:
+          type: array
+          description: An array of region names representing all geographical regions supported by the service.
+          items:
+            type: string
+  securitySchemes:
+    ApiKeyAuthHeader:
+      type: apiKey
+      in: header
+      name: X-apiKey
+      description: Pass your API key via the X-apiKey request header.
+    ApiKeyAuthQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: Pass your API key via the apiKey query parameter.
+x-refined-from:
+- apifreaks-api-hub-for-developers-administrative-units-details-openapi.json
+- apifreaks-api-hub-for-developers-administrative-units-levels-openapi.json
+- apifreaks-api-hub-for-developers-administrative-units-openapi.json
+- apifreaks-api-hub-for-developers-cities-openapi.json
+- apifreaks-api-hub-for-developers-countries-details-openapi.json
+- apifreaks-api-hub-for-developers-countries-openapi.json
+- apifreaks-api-hub-for-developers-regions-openapi.json
+- apifreaks-api-hub-for-developers-subregions-openapi.json

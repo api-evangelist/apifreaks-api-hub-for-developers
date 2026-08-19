@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Credits Usage General APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "General APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get remaining and consumed API credit balances for the organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/credits/usage/info",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              }
+            ]
+          },
+          "docs": "Returns subscription, subscription-surcharge, and one-off credit balances for the authenticated organization's account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

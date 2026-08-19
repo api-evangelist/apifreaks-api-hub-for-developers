@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers Flags APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flags APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a country or organization flag image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/flags",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-2 format for country flags, or organization identifier for organization flags. Organization identifiers are case-sensitive and must exactly match an entry from the Supported Flags endpoint (e.g. NATO, European_Union) — lowercase or abbreviated forms return a 404."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of flag to retrieve. Possible values: country, organization."
+              },
+              {
+                "name": "shape",
+                "value": "",
+                "type": "query",
+                "description": "Shape of the flag image. Possible values: flat, round."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Image format. Possible values: png, webp, svg. Default: png."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Size of the flag image in pixels. Possible values: 16px, 24px, 32px, 48px, 64px. Default is 64px when omitted. Applies to PNG and WEBP formats only; silently ignored (no error) when format is svg, since SVG is vector-scalable."
+              }
+            ]
+          },
+          "docs": "Returns a flag image for a specified country or international organization. Supports PNG, WEBP, and SVG formats with flat or round shapes."
+        },
+        {
+          "info": {
+            "name": "Retrieve list of all supported flags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/flags/supported",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              }
+            ]
+          },
+          "docs": "Returns a list of all supported country and international organization flags with their metadata."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

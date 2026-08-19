@@ -1,0 +1,383 @@
+{
+  "item": [
+    {
+      "id": "d149c080-51b2-4c53-9166-8c76c9de42ef",
+      "name": "Other APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "502dd98f-3d23-453e-b90e-2302b0123898",
+          "name": "Returns sunrise, sunset, moon phase, and celestial positions for a given location and date.",
+          "request": {
+            "name": "Returns sunrise, sunset, moon phase, and celestial positions for a given location and date.",
+            "description": {
+              "content": "Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geolocation",
+                "astronomy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Can be \"json\" or \"xml\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "New York, US",
+                  "description": "Extract astronomy information using location (preferably city)"
+                },
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "Latitude to extract astronomy information using location coordinates"
+                },
+                {
+                  "disabled": false,
+                  "key": "long",
+                  "value": "<float>",
+                  "description": "Longitude to extract astronomy information using location coordinates"
+                },
+                {
+                  "disabled": false,
+                  "key": "ip",
+                  "value": "<string>",
+                  "description": "IPv4 or IPv6 address to extract astronomy information using IP address"
+                },
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "en",
+                  "description": "Response language of \"location\" field in case of lookup through IP address only."
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "Specific date (format YYYY-MM-DD) for which astronomy data is required"
+                },
+                {
+                  "disabled": false,
+                  "key": "elevation",
+                  "value": "0",
+                  "description": "Elevation above sea level at the location, in meters. The value should be between 0 meter and a maximum value of 10,000 meters. Negative value is set to 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_zone",
+                  "value": "<string>",
+                  "description": "Time zone to receive all time-based data in your preferred local time."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f7dc108-1f5f-44a1-a733-29deb0878698",
+              "name": "Successful response with astronomy data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "astronomy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "location",
+                      "value": "New York, US"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "elevation",
+                      "value": "0"
+                    },
+                    {
+                      "key": "time_zone",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"location\": {\n    \"location_string\": \"New York, US\",\n    \"country_name\": \"United States\",\n    \"state_prov\": \"New York\",\n    \"city\": \"New York\",\n    \"locality\": \"Clinton\",\n    \"latitude\": \"40.76473\",\n    \"longitude\": \"-74.00084\",\n    \"elevation\": \"9\"\n  },\n  \"astronomy\": {\n    \"date\": \"2026-07-24\",\n    \"current_time\": \"05:39:55.740\",\n    \"mid_night\": \"01:02\",\n    \"night_end\": \"03:50\",\n    \"morning\": {\n      \"astronomical_twilight_begin\": \"03:50\",\n      \"astronomical_twilight_end\": \"04:34\",\n      \"nautical_twilight_begin\": \"04:34\",\n      \"nautical_twilight_end\": \"05:13\",\n      \"civil_twilight_begin\": \"05:13\",\n      \"civil_twilight_end\": \"05:44\",\n      \"blue_hour_begin\": \"05:00\",\n      \"blue_hour_end\": \"05:26\",\n      \"golden_hour_begin\": \"05:26\",\n      \"golden_hour_end\": \"06:24\"\n    },\n    \"sunrise\": \"05:44\",\n    \"sunset\": \"20:20\",\n    \"evening\": {\n      \"golden_hour_begin\": \"19:39\",\n      \"golden_hour_end\": \"20:38\",\n      \"blue_hour_begin\": \"20:38\",\n      \"blue_hour_end\": \"21:03\",\n      \"civil_twilight_begin\": \"20:20\",\n      \"civil_twilight_end\": \"20:50\",\n      \"nautical_twilight_begin\": \"20:50\",\n      \"nautical_twilight_end\": \"21:30\",\n      \"astronomical_twilight_begin\": \"21:30\",\n      \"astronomical_twilight_end\": \"22:14\"\n    },\n    \"night_begin\": \"22:14\",\n    \"sun_status\": \"-\",\n    \"solar_noon\": \"13:02\",\n    \"day_length\": \"14:35\",\n    \"sun_altitude\": -1.724678050716447,\n    \"sun_distance\": 151988138.3404624,\n    \"sun_azimuth\": 61.7231663467785,\n    \"moon_phase\": \"WAXING_GIBBOUS\",\n    \"moonrise\": \"16:59\",\n    \"moonset\": \"01:05\",\n    \"moon_status\": \"-\",\n    \"moon_altitude\": -47.89342665088803,\n    \"moon_distance\": 404852.80222395214,\n    \"moon_azimuth\": 275.0508821352747,\n    \"moon_parallactic_angle\": 57.14257561268031,\n    \"moon_illumination_percentage\": \"76.99\",\n    \"moon_angle\": 122.67519000797743\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e99cea5a-8e85-473f-a07f-84b9317238ad",
+              "name": "Bad Request – Invalid parameters provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "astronomy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "location",
+                      "value": "New York, US"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "elevation",
+                      "value": "0"
+                    },
+                    {
+                      "key": "time_zone",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Latitude must be between -90 and 90.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87fd2de7-971c-43bf-bd5d-741602ed273b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "astronomy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "location",
+                      "value": "New York, US"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "elevation",
+                      "value": "0"
+                    },
+                    {
+                      "key": "time_zone",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"We couldn't find the location (ZZZNOTEXIST). Try a city or state level location address only.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v2.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1df20529-a73b-44af-87d6-f8badc8416ae",
+    "name": "Astronomy API - Location Based Astronomy Data Other APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Retrieve sunrise and sunset times, current position of the moon, and other astronomical data for any location and date. Supports lookup by city name or address (location), GPS coordinates (lat/long), an explicit IP address (ip), or the requester's own client IP when none of those are provided. Returns comprehensive astronomy data including twilight times, blue hour, golden hour, sun and moon positions, distances, azimuths, and moon phase. The location object's field set varies by lookup mode: address lookups return a location_string plus basic fields, coordinate lookups return the same basic fields without location_string, and IP-based lookups (explicit ip or client-IP fallback) return a richer geo-IP field set (continent, country codes, EU membership, state code, district, zip code) plus a top-level ip field, but never location_string. Pass time_zone to convert all time fields into a specific IANA time zone.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

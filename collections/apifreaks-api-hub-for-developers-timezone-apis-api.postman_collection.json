@@ -1,0 +1,871 @@
+{
+  "item": [
+    {
+      "id": "b96f37ee-1d72-4198-a02c-9d33082e90a7",
+      "name": "Timezone APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "817f056a-7d0f-4e66-a75a-32d05586031a",
+          "name": "Convert a timestamp from one timezone to another using any supported location identifier",
+          "request": {
+            "name": "Convert a timestamp from one timezone to another using any supported location identifier",
+            "description": {
+              "content": "Convert a given time from one timezone to another using timezone names, GPS coordinates, location addresses, IATA/ICAO airport codes, or UN/LOCODEs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "timezone",
+                "converter"
+              ],
+              "host": [
+                "{{timezone-converter-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "time",
+                  "value": "<string>",
+                  "description": "Time to convert in yyyy-MM-dd HH:mm or yyyy-MM-dd HH:mm:ss format. Omit to convert the current time."
+                },
+                {
+                  "disabled": false,
+                  "key": "tz_from",
+                  "value": "<string>",
+                  "description": "Source timezone name in IANA format (e.g., Asia/Kolkata) to convert from."
+                },
+                {
+                  "disabled": false,
+                  "key": "tz_to",
+                  "value": "<string>",
+                  "description": "Target timezone name in IANA format (e.g., America/New_York) to convert to."
+                },
+                {
+                  "disabled": false,
+                  "key": "lat_from",
+                  "value": "<float>",
+                  "description": "Latitude of source location for coordinate-based conversion."
+                },
+                {
+                  "disabled": false,
+                  "key": "long_from",
+                  "value": "<float>",
+                  "description": "Longitude of source location for coordinate-based conversion."
+                },
+                {
+                  "disabled": false,
+                  "key": "lat_to",
+                  "value": "<float>",
+                  "description": "Latitude of target location for coordinate-based conversion."
+                },
+                {
+                  "disabled": false,
+                  "key": "long_to",
+                  "value": "<float>",
+                  "description": "Longitude of target location for coordinate-based conversion."
+                },
+                {
+                  "disabled": false,
+                  "key": "location_from",
+                  "value": "<string>",
+                  "description": "Source location address (city and country) for address-based conversion."
+                },
+                {
+                  "disabled": false,
+                  "key": "location_to",
+                  "value": "<string>",
+                  "description": "Target location address (city and country) for address-based conversion."
+                },
+                {
+                  "disabled": false,
+                  "key": "iata_from",
+                  "value": "<string>",
+                  "description": "Source IATA airport code (3-letter, e.g., JFK) for airport-based conversion."
+                },
+                {
+                  "disabled": false,
+                  "key": "iata_to",
+                  "value": "<string>",
+                  "description": "Target IATA airport code (3-letter) for airport-based conversion."
+                },
+                {
+                  "disabled": false,
+                  "key": "icao_from",
+                  "value": "<string>",
+                  "description": "Source ICAO airport code (4-letter, e.g., KJFK) for airport-based conversion."
+                },
+                {
+                  "disabled": false,
+                  "key": "icao_to",
+                  "value": "<string>",
+                  "description": "Target ICAO airport code (4-letter) for airport-based conversion."
+                },
+                {
+                  "disabled": false,
+                  "key": "locode_from",
+                  "value": "<string>",
+                  "description": "Source UN/LOCODE (5-letter) for location code-based conversion."
+                },
+                {
+                  "disabled": false,
+                  "key": "locode_to",
+                  "value": "<string>",
+                  "description": "Target UN/LOCODE (5-letter) for location code-based conversion."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23808007-633a-4ae9-ba60-e3b10a9a9d07",
+              "name": "Successful timezone conversion response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timezone",
+                    "converter"
+                  ],
+                  "host": [
+                    "{{timezone-converter-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tz_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tz_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat_from",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long_from",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lat_to",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long_to",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "location_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iata_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iata_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icao_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icao_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locode_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locode_to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"original_time\": \"2026-07-24 12:00:00\",\n  \"converted_time\": \"2026-07-24 17:00:00\",\n  \"diff_hour\": 5,\n  \"diff_min\": 300\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1818922-2321-4349-a4a5-4b4340974400",
+              "name": "Bad Request — Incomplete parameter combination, invalid timezone name, invalid coordinates, or location address not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timezone",
+                    "converter"
+                  ],
+                  "host": [
+                    "{{timezone-converter-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tz_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tz_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat_from",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long_from",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lat_to",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long_to",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "location_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iata_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iata_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icao_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icao_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locode_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locode_to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Parameters' combination is not complete. 'tz_from' and 'tz_to' or 'location_from' and 'location_to' or 'lat_from' and 'long_from' and 'lat_to' and 'long_to' or 'locode_from' and 'locode_to' or 'iata_from' and 'iata_to' or 'icao_from' and 'icao_to' combinations must be provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91c87902-6178-4c1e-892e-a004a01a720e",
+              "name": "Not Found — Airport (IATA/ICAO) code or UN/LOCODE has no matching data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timezone",
+                    "converter"
+                  ],
+                  "host": [
+                    "{{timezone-converter-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tz_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tz_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat_from",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long_from",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lat_to",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long_to",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "location_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iata_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iata_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icao_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icao_to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locode_from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locode_to",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"'Data not found for the provided airport code: XXX Please contact at support@ipgeolocation.io if provided airport code exists.'\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2f46c97-9630-40e7-9442-03555660c8df",
+          "name": "Retrieve current time, date, and timezone information for any location identifier",
+          "request": {
+            "name": "Retrieve current time, date, and timezone information for any location identifier",
+            "description": {
+              "content": "Get current time, date, and timezone details by specifying a timezone name, location address, GPS coordinates, IP address, IATA/ICAO airport code, UN/LOCODE, or use the client IP if no parameter is provided.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geolocation",
+                "timezone"
+              ],
+              "host": [
+                "{{geolocation-timezone-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "ip",
+                  "value": "<string>",
+                  "description": "IPv4 or IPv6 address to extract timezone information."
+                },
+                {
+                  "disabled": false,
+                  "key": "tz",
+                  "value": "<string>",
+                  "description": "Timezone name in IANA format (e.g., Asia/Kolkata) to retrieve information directly."
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "Location string (preferably city and country) to extract timezone."
+                },
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "Latitude for geolocation-based timezone lookup. Only time_zone is returned for this mode; no location object is included."
+                },
+                {
+                  "disabled": false,
+                  "key": "long",
+                  "value": "<float>",
+                  "description": "Longitude for geolocation-based timezone lookup. Only time_zone is returned for this mode; no location object is included."
+                },
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "en",
+                  "description": "Response language for location fields. Default: en."
+                },
+                {
+                  "disabled": false,
+                  "key": "iata_code",
+                  "value": "<string>",
+                  "description": "3-letter IATA airport code (e.g., LHR) to extract timezone."
+                },
+                {
+                  "disabled": false,
+                  "key": "icao_code",
+                  "value": "<string>",
+                  "description": "4-letter ICAO airport code (e.g., KJFK) to extract timezone."
+                },
+                {
+                  "disabled": false,
+                  "key": "lo_code",
+                  "value": "<string>",
+                  "description": "5-letter UN/LOCODE city code to extract timezone."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "927e9e33-750d-4360-89d2-eed73323da8f",
+              "name": "Successful timezone lookup response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "timezone"
+                  ],
+                  "host": [
+                    "{{geolocation-timezone-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tz",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "iata_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icao_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lo_code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"location\": {\n    \"location_string\": \"London, UK\",\n    \"country_name\": \"United Kingdom\",\n    \"state_prov\": \"England\",\n    \"city\": \"London\",\n    \"locality\": \"\",\n    \"latitude\": \"51.50002\",\n    \"longitude\": \"-0.19244\"\n  },\n  \"time_zone\": {\n    \"name\": \"Europe/London\",\n    \"offset\": 0,\n    \"offset_with_dst\": 1,\n    \"current_time\": \"2026-07-24 11:27:58.516+0100\",\n    \"current_time_unix\": 1784888878.516,\n    \"date\": \"2026-07-24\",\n    \"date_time\": \"2026-07-24 11:27:58\",\n    \"date_time_txt\": \"Friday, July 24, 2026 11:27:58\",\n    \"date_time_wti\": \"Fri, 24 Jul 2026 11:27:58 +0100\",\n    \"date_time_ymd\": \"2026-07-24T11:27:58+0100\",\n    \"time_24\": \"11:27:58\",\n    \"time_12\": \"11:27:58 AM\",\n    \"week\": 30,\n    \"month\": 7,\n    \"year\": 2026,\n    \"year_abbr\": \"26\",\n    \"current_tz_abbreviation\": \"BST\",\n    \"current_tz_full_name\": \"British Summer Time\",\n    \"standard_tz_abbreviation\": \"GMT\",\n    \"standard_tz_full_name\": \"Greenwich Mean Time\",\n    \"is_dst\": true,\n    \"dst_savings\": 1,\n    \"dst_exists\": true,\n    \"dst_tz_abbreviation\": \"BST\",\n    \"dst_tz_full_name\": \"British Summer Time\",\n    \"dst_start\": {\n      \"utc_time\": \"2026-03-29 TIME 01:00\",\n      \"duration\": \"+1.00H\",\n      \"gap\": true,\n      \"date_time_after\": \"2026-03-29 TIME 02:00\",\n      \"date_time_before\": \"2026-03-29 TIME 01:00\",\n      \"overlap\": false\n    },\n    \"dst_end\": {\n      \"utc_time\": \"2026-10-25 TIME 01:00\",\n      \"duration\": \"-1.00H\",\n      \"gap\": false,\n      \"date_time_after\": \"2026-10-25 TIME 01:00\",\n      \"date_time_before\": \"2026-10-25 TIME 02:00\",\n      \"overlap\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "462efd56-4b2d-4315-b8f3-b22119d99291",
+              "name": "Bad Request — Invalid coordinates, timezone name, IP address, or airport code",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "timezone"
+                  ],
+                  "host": [
+                    "{{geolocation-timezone-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tz",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "iata_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icao_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lo_code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"'latitude' (999) or 'longitude' (0) is not valid. 'latitude' must be between -90.0 and +90.0 and 'longitude' must be between -180.0 and +180.0.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37c3e34a-2215-4863-ad92-cc95afca947b",
+              "name": "Not Found — Location address not found, or LO code has no matching data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "timezone"
+                  ],
+                  "host": [
+                    "{{geolocation-timezone-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tz",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "long",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "iata_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icao_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lo_code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"We couldn't find the location (ZZZNOTEXIST). Try a city or state level location address only.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "timezone-converter-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v2.0",
+      "key": "geolocation-timezone-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fb646cdd-410f-40a3-8478-3132a8bc937f",
+    "name": "Apifreaks Api Hub For Developers Timezone APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Timezone APIs across 2 of this provider's published API definitions: apifreaks-api-hub-for-developers-timezone-converter-openapi.json, apifreaks-api-hub-for-developers-timezone-lookup-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

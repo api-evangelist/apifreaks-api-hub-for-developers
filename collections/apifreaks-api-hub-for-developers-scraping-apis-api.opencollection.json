@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Web Scraper API - JavaScript Rendering, Proxy Rotation & CAPTCHA Solving Scraping APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scraping APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute a sequence of web scraping instructions against a target URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/scraping",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "Target URL to scrape."
+              },
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to strip HTML tags from extracted values (plain text). Set to false to keep HTML tags. Default is false. Under jsEnabled=true, single-element matches are always plain text regardless of this flag."
+              },
+              {
+                "name": "jsEnabled",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to render the page in a real browser for dynamic/JavaScript-driven pages (enables fill, click, wait, CAPTCHA-solving, and related instructions). Set to false to fetch static HTML only (enables postForm, getForm, getPage, extract). Default is false."
+              },
+              {
+                "name": "proxy",
+                "value": "",
+                "type": "query",
+                "description": "Use a proxy for the request. Pass true/false to toggle the default proxy pool, or a proxy URL string to use a specific proxy."
+              },
+              {
+                "name": "sslIgnore",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to ignore SSL certificate errors on the target site. Only works when jsEnabled is true."
+              },
+              {
+                "name": "windowSize",
+                "value": "",
+                "type": "query",
+                "description": "Browser window size in the format 'width,height' (e.g. '1920,1080'). Only works when jsEnabled is true."
+              },
+              {
+                "name": "adBlock",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to block ads on the target page. Only works when jsEnabled is true."
+              },
+              {
+                "name": "captcha",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to allow CAPTCHA-solving instructions (generalImageCaptcha, fillImageCaptcha, resolveAudioCaptcha) in the request body. Only works when jsEnabled is true."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Runs form-filling, clicking, data-extraction, and CAPTCHA-solving instructions against a target URL and returns the extracted data. Behavior and available instructions depend on the jsEnabled query parameter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,728 @@
+openapi: 3.2.0
+info:
+  title: Apifreaks Api Hub For Developers PDF Security APIs API
+  version: 1.0.0
+  contact:
+    name: APIFreaks Support
+    url: https://apifreaks.com/contact
+    email: support@apifreaks.com
+  description: 'Operations tagged PDF Security APIs across 4 of this provider''s published API definitions: apifreaks-api-hub-for-developers-pdf-decrypt-openapi.json, apifreaks-api-hub-for-developers-pdf-encrypt-openapi.json, apifreaks-api-hub-for-developers-pdf-restrict-openapi.json, apifreaks-api-hub-for-developers-pdf-unrestrict-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.apifreaks.com/v1.0
+  description: PDF Decrypt API Server
+security:
+- ApiKeyAuthHeader: []
+- ApiKeyAuthQuery: []
+tags:
+- name: PDF Security APIs
+paths:
+  /pdf/decrypt:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: PDF Decrypt API Server
+    post:
+      tags:
+      - PDF Security APIs
+      summary: Remove all encryption from a PDF
+      description: This API decrypts PDF files, removing all encryption, including open passwords and permission restrictions.
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+      - name: file_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly.
+      - name: destroy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated.
+      - name: output
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The desired name for the output decrypted PDF file. If not provided, a default name will be assigned.
+      - name: file_password
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The password to unlock the input file if it is protected. Either the owner password or user password can be provided. The owner password takes precedence. Password Length should be between 6 and 128 characters.
+      - name: webhook_url
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The URL to which the webhook notification will be sent after the task is completed.
+      - name: webhook_failure_notification
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
+      - name: X-Webhook-Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: 'Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.'
+      requestBody:
+        description: Multipart form-data body carrying the PDF file to decrypt. Alternatively, reference an already-uploaded file via the file_id query parameter instead of uploading here.
+        required: false
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PdfFileUploadRequest'
+      responses:
+        '200':
+          description: Decrypt task created successfully. An incorrect file_password is not rejected synchronously — the task is created, then fails asynchronously; poll the task status endpoint and check for status "failed" with error "Invalid PDF Password".
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PDFResponse'
+              examples:
+                success:
+                  summary: Task created
+                  value:
+                    taskId: f91ec747-1dc6-4be5-be4b-4d6ff66ed386
+                    inputIds:
+                    - a5f8aca9-d19a-4ee0-90e3-d15f62df1e06
+        '400':
+          description: Bad Request — Missing/invalid parameters or file ID
+          content:
+            application/json:
+              examples:
+                MissingPassword:
+                  summary: Missing required file_password parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/pdf/decrypt
+                    status: 400
+                    timestamp: '2026-07-27T10:56:16.863Z'
+                MissingFileOrID:
+                  summary: Neither a file nor a file ID was provided
+                  value:
+                    timestamp: '2026-07-27T10:56:17.498Z'
+                    path: /v1.0/pdf/decrypt-pdf
+                    status: 400
+                    error: Missing File or ID
+                    message: Please provide either a file or a file ID.
+                InvalidID:
+                  summary: file_id is malformed or does not exist
+                  value:
+                    timestamp: '2026-07-27T10:56:18.138Z'
+                    path: /v1.0/pdf/decrypt
+                    status: 400
+                    error: Invalid File ID Provided
+                    message: Please provide a valid file ID
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '415':
+          description: Unsupported Media Type — File type not supported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                UnsupportedFileType:
+                  summary: Uploaded file is not a supported type
+                  value:
+                    timestamp: '2026-07-27T10:56:50.780Z'
+                    path: /v1.0/pdf/decrypt-pdf
+                    status: 415
+                    error: Unsupported File Type
+                    message: The provided file type is not supported. Refer to the documentation for valid file types.
+      operationId: decryptPdf
+  /pdf/encrypt:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: PDF Encrypt API Server
+    post:
+      tags:
+      - PDF Security APIs
+      summary: Add password protection to a PDF
+      description: This API encrypts a PDF file by setting a password required to open it.
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+      - name: file_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly.
+      - name: destroy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated.
+      - name: output
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The desired name for the output encrypted PDF file. If not provided, a default name will be assigned.
+      - name: file_password
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The password to unlock the input file if it is already protected. Either the owner password or user password can be provided. The owner password takes precedence. Password Length should be between 6 and 128 characters.
+      - name: user_password
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Sets the user password required to open and view the encrypted PDF file. Password Length should be between 6 and 128 characters.
+      - name: owner_password
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Sets the owner password for the PDF file. This password provides full access, including the ability to remove restrictions. If not provided, the `user_password` will also be used as the owner password. Password Length should be between 6 and 128 characters.
+      - name: webhook_url
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The URL to which the webhook notification will be sent after the task is completed.
+      - name: webhook_failure_notification
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
+      - name: X-Webhook-Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: 'Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.'
+      requestBody:
+        description: Multipart form-data body carrying the PDF file to encrypt. Alternatively, reference an already-uploaded file via the file_id query parameter instead of uploading here.
+        required: false
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PdfFileUploadRequest'
+      responses:
+        '200':
+          description: PDF encrypt successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PDFResponse_2'
+              examples:
+                success:
+                  summary: Task created
+                  value:
+                    taskId: c11f7d84-33f5-46da-a64c-e70b3704284e
+                    inputIds:
+                    - 2d11e722-85cc-4105-b345-f395d48b326e
+        '400':
+          description: Bad Request — Missing/invalid parameters, file ID, or password
+          content:
+            application/json:
+              examples:
+                MissingPassword:
+                  summary: Missing required user_password parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/pdf/encrypt
+                    status: 400
+                    timestamp: '2026-07-27T10:55:36.936Z'
+                WeakPassword:
+                  summary: Password does not meet strength requirements
+                  value:
+                    timestamp: '2026-07-27T10:55:37.534Z'
+                    path: /v1.0/pdf/encrypt-pdf
+                    status: 400
+                    error: Weak Password Provided
+                    message: Please provide a strong password. Refer to the documentation for password requirements.
+                InvalidID:
+                  summary: file_id is malformed or does not exist
+                  value:
+                    timestamp: '2026-07-27T10:55:38.063Z'
+                    path: /v1.0/pdf/encrypt
+                    status: 400
+                    error: Invalid File ID Provided
+                    message: Please provide a valid file ID
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '415':
+          description: Unsupported Media Type — File type not supported
+          content:
+            application/json:
+              examples:
+                UnsupportedFileType:
+                  summary: Uploaded file is not a supported type
+                  value:
+                    timestamp: '2026-07-27T10:55:38.634Z'
+                    path: /v1.0/pdf/encrypt-pdf
+                    status: 415
+                    error: Unsupported File Type
+                    message: The provided file type is not supported. Refer to the documentation for valid file types.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      operationId: encryptPdf
+  /pdf/restrict:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: PDF Restrict API Server
+    post:
+      tags:
+      - PDF Security APIs
+      summary: Apply permission restrictions on a PDF file
+      description: This API applies permission restrictions on a PDF file, such as disabling printing, copying, or editing. This can include password protection to enforce restrictions.
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+      - name: file_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly.
+      - name: destroy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated.
+      - name: output
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The desired name for the output restricted PDF file. If not provided, a default name will be assigned.
+      - name: file_password
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The password to unlock the input file if it is already secured. Provide the owner password if available; otherwise, the user password. The owner password takes precedence. Password Length should be between 6 and 128 characters.
+      - name: user_password
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Sets the password users will use to open the PDF. If this is not set, only the owner password will be configured, and anyone can open the PDF file with the provided restrictions enabled. Password Length should be between 6 and 128 characters.
+      - name: owner_password
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Sets the password that allows full access to the PDF (e.g., removing restrictions). If not provided, the `user_password` (if set) will also be used as the owner password. Password Length should be between 6 and 128 characters.
+      - name: restrictions
+        in: query
+        required: true
+        schema:
+          type: string
+        description: 'A comma-separated list of restrictions to apply to the PDF. These define what the end-user is *not* allowed to do with the PDF. Available options are:
+
+
+
+          * **print_high** – Disables high-quality printing.
+
+          * **print_low** – Disables low-resolution printing.
+
+          * **edit_document_assembly** – Prevents reordering or inserting pages.
+
+          * **fill_form_fields** – Disallows filling in PDF form fields.
+
+          * **edit_annotations** – Disables adding or modifying annotations or comments.
+
+          * **modify_content** – Prevents modifying existing content in the PDF.
+
+          * **copy_and_extract_content** – Disables copying text or images from the PDF.
+
+          * **use_accessibility** – Prevents screen readers or accessibility tools from accessing content. An invalid restriction keyword returns a 400 with error "Invalid PDF Restriction".'
+      - name: webhook_url
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The URL to which the webhook notification will be sent after the task is completed.
+      - name: webhook_failure_notification
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
+      - name: X-Webhook-Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: 'Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.'
+      requestBody:
+        description: Multipart form-data body carrying the PDF file to restrict. Alternatively, reference an already-uploaded file via the file_id query parameter instead of uploading here.
+        required: false
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PdfFileUploadRequest'
+      responses:
+        '200':
+          description: PDF restrict successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PDFResponse_3'
+              examples:
+                success:
+                  summary: Task created
+                  value:
+                    taskId: 42839406-7e1b-4f64-96bb-d94bb054e8d3
+                    inputIds:
+                    - 2c682ade-eccc-4ab5-9c06-d16e415cbecb
+        '400':
+          description: Bad Request — Missing/invalid parameters, file ID, or password
+          content:
+            application/json:
+              examples:
+                MissingParams:
+                  summary: Missing required user_password or restrictions parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/pdf/restrict
+                    status: 400
+                    timestamp: '2026-07-27T10:57:14.449Z'
+                MissingFileOrID:
+                  summary: Neither a file nor a file ID was provided
+                  value:
+                    timestamp: '2026-07-27T10:57:25.953Z'
+                    path: /v1.0/pdf/restrict-pdf
+                    status: 400
+                    error: Missing File or ID
+                    message: Please provide either a file or a file ID.
+                InvalidID:
+                  summary: file_id is malformed or does not exist
+                  value:
+                    timestamp: '2026-07-27T10:57:24.835Z'
+                    path: /v1.0/pdf/restrict
+                    status: 400
+                    error: Invalid File ID Provided
+                    message: Please provide a valid file ID
+                WeakPassword:
+                  summary: Password does not meet strength requirements
+                  value:
+                    timestamp: '2026-07-27T10:57:15.634Z'
+                    path: /v1.0/pdf/restrict-pdf
+                    status: 400
+                    error: Weak Password Provided
+                    message: Please provide a strong password. Refer to the documentation for password requirements.
+                InvalidRestriction:
+                  summary: Unrecognized restriction keyword
+                  value:
+                    timestamp: '2026-07-27T10:57:16.268Z'
+                    path: /v1.0/pdf/restrict-pdf
+                    status: 400
+                    error: Invalid PDF Restriction
+                    message: Please provide valid PDF restrictions. Refer to the documentation for valid PDF restrictions.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '415':
+          description: Unsupported Media Type — File type not supported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                UnsupportedFileType:
+                  summary: Uploaded file is not a supported type
+                  value:
+                    timestamp: '2026-07-27T10:57:25.374Z'
+                    path: /v1.0/pdf/restrict-pdf
+                    status: 415
+                    error: Unsupported File Type
+                    message: The provided file type is not supported. Refer to the documentation for valid file types.
+      operationId: restrictPdf
+  /pdf/unrestrict:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: PDF Unrestrict API Server
+    post:
+      tags:
+      - PDF Security APIs
+      summary: Remove permission restrictions from a PDF while keeping it encrypted.
+      description: This API removes permission restrictions from a PDF while keeping it encrypted. If you want to remove all security (including encryption), use the `/pdf/decrypt` endpoint instead.
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+      - name: file_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly.
+      - name: destroy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated.
+      - name: output
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The desired name for the output unrestricted PDF file. If not provided, a default name will be assigned.
+      - name: file_password
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The password to unlock the input file. Either the owner password or user password can be provided. The owner password takes precedence. Password Length should be between 6 and 128 characters.
+      - name: user_password
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Sets the user password for the PDF file. Required — providing only owner_password without user_password is rejected. Password Length should be between 6 and 128 characters.
+      - name: owner_password
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Sets the owner password for the PDF file. If the owner password is not provided, the `user_password` will also be used as the owner password. Password Length should be between 6 and 128 characters.
+      - name: webhook_url
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The URL to which the webhook notification will be sent after the task is completed.
+      - name: webhook_failure_notification
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
+      - name: X-Webhook-Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: 'Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.'
+      requestBody:
+        description: Multipart form-data body carrying the PDF file to unrestrict. Alternatively, reference an already-uploaded file via the file_id query parameter instead of uploading here.
+        required: false
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PdfFileUploadRequest'
+      responses:
+        '200':
+          description: PDF unrestrict successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PDFResponse_4'
+              examples:
+                success:
+                  summary: Task created
+                  value:
+                    taskId: 16cc979a-55b9-476c-bfef-0977314478ec
+                    inputIds:
+                    - 9c809ef8-583a-40f1-afe2-424d1d953b69
+        '400':
+          description: Bad Request — Missing/invalid parameters, file ID, or password
+          content:
+            application/json:
+              examples:
+                MissingParams:
+                  summary: Missing required file_password or user_password parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/pdf/unrestrict
+                    status: 400
+                    timestamp: '2026-07-27T10:59:22.835Z'
+                MissingFileOrID:
+                  summary: Neither a file nor a file ID was provided
+                  value:
+                    timestamp: '2026-07-27T10:59:23.398Z'
+                    path: /v1.0/pdf/unrestrict-pdf
+                    status: 400
+                    error: Missing File or ID
+                    message: Please provide either a file or a file ID.
+                InvalidID:
+                  summary: file_id is malformed or does not exist
+                  value:
+                    error: Invalid File ID Provided
+                    message: Please provide a valid file ID
+                    path: /v1.0/pdf/unrestrict
+                    status: 400
+                    timestamp: '2026-07-27T10:59:23.936Z'
+                WeakPassword:
+                  summary: New password does not meet strength requirements
+                  value:
+                    timestamp: '2026-07-27T10:59:25.041Z'
+                    path: /v1.0/pdf/unrestrict-pdf
+                    status: 400
+                    error: Weak Password Provided
+                    message: Please provide a strong password. Refer to the documentation for password requirements.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '415':
+          description: Unsupported Media Type — File type not supported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                UnsupportedFileType:
+                  summary: Uploaded file is not a supported type
+                  value:
+                    timestamp: '2026-07-27T10:59:24.507Z'
+                    path: /v1.0/pdf/unrestrict-pdf
+                    status: 415
+                    error: Unsupported File Type
+                    message: The provided file type is not supported. Refer to the documentation for valid file types.
+      operationId: unrestrictPdf
+components:
+  schemas:
+    PDFResponse_2:
+      type: object
+      description: Response containing the task ID and input file IDs for a PDF processing task.
+      required:
+      - taskId
+      properties:
+        taskId:
+          type: string
+          description: Task ID of the requested task, used to check the task status.
+        inputIds:
+          type: array
+          items:
+            type: string
+          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
+    PdfFileUploadRequest:
+      type: object
+      description: Multipart form-data request body containing the PDF file to process.
+      required: []
+      properties:
+        file:
+          type: string
+          format: binary
+          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    PDFResponse:
+      type: object
+      required:
+      - taskId
+      - inputIds
+      properties:
+        taskId:
+          type: string
+          description: Task ID of the requested task, used to check the task status.
+        inputIds:
+          type: array
+          items:
+            type: string
+          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
+      description: Response containing the task ID and input file IDs for a PDF processing task.
+    PDFResponse_4:
+      type: object
+      description: Response containing the task ID and input file IDs for a PDF processing task.
+      required:
+      - taskId
+      properties:
+        taskId:
+          type: string
+          description: Task ID of the requested task, used to check the task status.
+        inputIds:
+          type: array
+          items:
+            type: string
+          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
+    PDFResponse_3:
+      type: object
+      description: Response containing the task ID and input file IDs for a PDF processing task.
+      required:
+      - taskId
+      properties:
+        taskId:
+          type: string
+          description: Task ID of the requested task, used to check the task status.
+        inputIds:
+          type: array
+          items:
+            type: string
+          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
+  securitySchemes:
+    ApiKeyAuthHeader:
+      type: apiKey
+      in: header
+      name: X-apiKey
+      description: Pass your API key via the X-apiKey request header.
+    ApiKeyAuthQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: Pass your API key via the apiKey query parameter.
+x-refined-from:
+- apifreaks-api-hub-for-developers-pdf-decrypt-openapi.json
+- apifreaks-api-hub-for-developers-pdf-encrypt-openapi.json
+- apifreaks-api-hub-for-developers-pdf-restrict-openapi.json
+- apifreaks-api-hub-for-developers-pdf-unrestrict-openapi.json

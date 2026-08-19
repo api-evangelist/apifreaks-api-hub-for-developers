@@ -1,0 +1,398 @@
+{
+  "item": [
+    {
+      "id": "631e5e95-f948-47ac-8720-bfafb82da0f8",
+      "name": "Scraping APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2ec560fa-6825-43ea-9b11-8e4411e995b6",
+          "name": "Execute a sequence of web scraping instructions against a target URL",
+          "request": {
+            "name": "Execute a sequence of web scraping instructions against a target URL",
+            "description": {
+              "content": "Runs form-filling, clicking, data-extraction, and CAPTCHA-solving instructions against a target URL and returns the extracted data. Behavior and available instructions depend on the jsEnabled query parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scraping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<uri>",
+                  "description": "(Required) Target URL to scrape."
+                },
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "false",
+                  "description": "Set to true to strip HTML tags from extracted values (plain text). Set to false to keep HTML tags. Default is false. Under jsEnabled=true, single-element matches are always plain text regardless of this flag."
+                },
+                {
+                  "disabled": false,
+                  "key": "jsEnabled",
+                  "value": "false",
+                  "description": "Set to true to render the page in a real browser for dynamic/JavaScript-driven pages (enables fill, click, wait, CAPTCHA-solving, and related instructions). Set to false to fetch static HTML only (enables postForm, getForm, getPage, extract). Default is false."
+                },
+                {
+                  "disabled": false,
+                  "key": "proxy",
+                  "value": "<boolean>",
+                  "description": "Use a proxy for the request. Pass true/false to toggle the default proxy pool, or a proxy URL string to use a specific proxy."
+                },
+                {
+                  "disabled": false,
+                  "key": "sslIgnore",
+                  "value": "<boolean>",
+                  "description": "Set to true to ignore SSL certificate errors on the target site. Only works when jsEnabled is true."
+                },
+                {
+                  "disabled": false,
+                  "key": "windowSize",
+                  "value": "<string>",
+                  "description": "Browser window size in the format 'width,height' (e.g. '1920,1080'). Only works when jsEnabled is true."
+                },
+                {
+                  "disabled": false,
+                  "key": "adBlock",
+                  "value": "<boolean>",
+                  "description": "Set to true to block ads on the target page. Only works when jsEnabled is true."
+                },
+                {
+                  "disabled": false,
+                  "key": "captcha",
+                  "value": "<boolean>",
+                  "description": "Set to true to allow CAPTCHA-solving instructions (generalImageCaptcha, fillImageCaptcha, resolveAudioCaptcha) in the request body. Only works when jsEnabled is true."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"blockUrl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"cookies\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"instructions\": [\n    {\n      \"fill\": {\n        \"place\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"click\": \"<string>\",\n      \"clickIfExist\": \"<string>\",\n      \"enter\": \"<string>\",\n      \"newTab\": \"<boolean>\",\n      \"moveToRelativeTab\": \"<integer>\",\n      \"wait\": \"<integer>\",\n      \"waitFor\": \"<string>\",\n      \"select\": {\n        \"place\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"jsExe\": \"<string>\",\n      \"conditionalCheck\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"clickButtonByValue\": {\n        \"place\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"generalImageCaptcha\": [\n        {\n          \"imagePath\": \"<string>\",\n          \"textField\": \"<string>\",\n          \"imageUpdatePath\": \"<string>\",\n          \"captchaFailedPath\": \"<string>\",\n          \"model\": \"<string>\"\n        },\n        {\n          \"imagePath\": \"<string>\",\n          \"textField\": \"<string>\",\n          \"imageUpdatePath\": \"<string>\",\n          \"captchaFailedPath\": \"<string>\",\n          \"model\": \"<string>\"\n        }\n      ],\n      \"blockElement\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"extract\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      \"fillImageCaptcha\": [\n        {\n          \"imagePath\": \"<string>\",\n          \"textField\": \"<string>\",\n          \"imageUpdatePath\": \"<string>\",\n          \"captchaFailedPath\": \"<string>\",\n          \"model\": \"<string>\"\n        },\n        {\n          \"imagePath\": \"<string>\",\n          \"textField\": \"<string>\",\n          \"imageUpdatePath\": \"<string>\",\n          \"captchaFailedPath\": \"<string>\",\n          \"model\": \"<string>\"\n        }\n      ],\n      \"switchToIframe\": \"<string>\",\n      \"switchToParentFrame\": \"<boolean>\",\n      \"resolveAudioCaptcha\": {\n        \"audioPath\": \"<string>\",\n        \"textField\": \"<string>\"\n      },\n      \"screenshot\": \"<string>\",\n      \"saveimage\": \"<string>\"\n    },\n    {\n      \"fill\": {\n        \"place\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"click\": \"<string>\",\n      \"clickIfExist\": \"<string>\",\n      \"enter\": \"<string>\",\n      \"newTab\": \"<boolean>\",\n      \"moveToRelativeTab\": \"<integer>\",\n      \"wait\": \"<integer>\",\n      \"waitFor\": \"<string>\",\n      \"select\": {\n        \"place\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"jsExe\": \"<string>\",\n      \"conditionalCheck\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"clickButtonByValue\": {\n        \"place\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"generalImageCaptcha\": [\n        {\n          \"imagePath\": \"<string>\",\n          \"textField\": \"<string>\",\n          \"imageUpdatePath\": \"<string>\",\n          \"captchaFailedPath\": \"<string>\",\n          \"model\": \"<string>\"\n        },\n        {\n          \"imagePath\": \"<string>\",\n          \"textField\": \"<string>\",\n          \"imageUpdatePath\": \"<string>\",\n          \"captchaFailedPath\": \"<string>\",\n          \"model\": \"<string>\"\n        }\n      ],\n      \"blockElement\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"extract\": {\n        \"key_0\": \"<string>\"\n      },\n      \"fillImageCaptcha\": [\n        {\n          \"imagePath\": \"<string>\",\n          \"textField\": \"<string>\",\n          \"imageUpdatePath\": \"<string>\",\n          \"captchaFailedPath\": \"<string>\",\n          \"model\": \"<string>\"\n        },\n        {\n          \"imagePath\": \"<string>\",\n          \"textField\": \"<string>\",\n          \"imageUpdatePath\": \"<string>\",\n          \"captchaFailedPath\": \"<string>\",\n          \"model\": \"<string>\"\n        }\n      ],\n      \"switchToIframe\": \"<string>\",\n      \"switchToParentFrame\": \"<boolean>\",\n      \"resolveAudioCaptcha\": {\n        \"audioPath\": \"<string>\",\n        \"textField\": \"<string>\"\n      },\n      \"screenshot\": \"<string>\",\n      \"saveimage\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7b10a88c-353b-4d39-a2da-02a987286994",
+              "name": "Successful scraping operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scraping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "key": "text",
+                      "value": "false"
+                    },
+                    {
+                      "key": "jsEnabled",
+                      "value": "false"
+                    },
+                    {
+                      "key": "proxy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sslIgnore",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "windowSize",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "adBlock",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "captcha",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"blockUrl\": [\n    \"https://example.com/ads.js\",\n    \"https://tracker.example.com/*\"\n  ],\n  \"cookies\": [\n    {\n      \"name\": \"sessionid\",\n      \"value\": \"abc123\"\n    }\n  ],\n  \"instructions\": [\n    {\n      \"fill\": {\n        \"place\": \"#username\",\n        \"value\": \"myuser\"\n      }\n    },\n    {\n      \"fill\": {\n        \"place\": \"#password\",\n        \"value\": \"mypassword\"\n      }\n    },\n    {\n      \"click\": \"input[type=submit]\"\n    },\n    {\n      \"wait\": 1000\n    },\n    {\n      \"extract\": {\n        \"pageTitle\": \"title\",\n        \"welcomeText\": \"h1\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"extractedData\": {\n    \"pageTitle\": \"<title>Example Domain</title>\",\n    \"paragraphs\": [\n      \"<p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p>\",\n      \"<p><a href=\\\"https://iana.org/domains/example\\\">Learn more</a></p>\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28693e59-f2aa-445a-b4b9-5a0a29945106",
+              "name": "Bad Request — Missing/invalid parameters, malformed request body, unparseable selectors, or the target URL could not be fetched",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scraping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "key": "text",
+                      "value": "false"
+                    },
+                    {
+                      "key": "jsEnabled",
+                      "value": "false"
+                    },
+                    {
+                      "key": "proxy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sslIgnore",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "windowSize",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "adBlock",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "captcha",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"blockUrl\": [\n    \"https://example.com/ads.js\",\n    \"https://tracker.example.com/*\"\n  ],\n  \"cookies\": [\n    {\n      \"name\": \"sessionid\",\n      \"value\": \"abc123\"\n    }\n  ],\n  \"instructions\": [\n    {\n      \"fill\": {\n        \"place\": \"#username\",\n        \"value\": \"myuser\"\n      }\n    },\n    {\n      \"fill\": {\n        \"place\": \"#password\",\n        \"value\": \"mypassword\"\n      }\n    },\n    {\n      \"click\": \"input[type=submit]\"\n    },\n    {\n      \"wait\": 1000\n    },\n    {\n      \"extract\": {\n        \"pageTitle\": \"title\",\n        \"welcomeText\": \"h1\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/scraping\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-23T11:50:14.427Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f342584-e6d8-4918-9654-a4af42934d1b",
+              "name": "Not Found — Wrong HTTP method or path used against this endpoint",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scraping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "key": "text",
+                      "value": "false"
+                    },
+                    {
+                      "key": "jsEnabled",
+                      "value": "false"
+                    },
+                    {
+                      "key": "proxy",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sslIgnore",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "windowSize",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "adBlock",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "captcha",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"blockUrl\": [\n    \"https://example.com/ads.js\",\n    \"https://tracker.example.com/*\"\n  ],\n  \"cookies\": [\n    {\n      \"name\": \"sessionid\",\n      \"value\": \"abc123\"\n    }\n  ],\n  \"instructions\": [\n    {\n      \"fill\": {\n        \"place\": \"#username\",\n        \"value\": \"myuser\"\n      }\n    },\n    {\n      \"fill\": {\n        \"place\": \"#password\",\n        \"value\": \"mypassword\"\n      }\n    },\n    {\n      \"click\": \"input[type=submit]\"\n    },\n    {\n      \"wait\": 1000\n    },\n    {\n      \"extract\": {\n        \"pageTitle\": \"title\",\n        \"welcomeText\": \"h1\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Resource Not Found\",\n  \"message\": \"The requested resource could not be found. Please verify the URL and try again.\",\n  \"path\": \"/v1.0/scraping\",\n  \"status\": 404,\n  \"timestamp\": \"2026-07-23T11:51:33.926Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2457da24-3ddd-4440-8d30-d363db0d4667",
+    "name": "Web Scraper API - JavaScript Rendering, Proxy Rotation & CAPTCHA Solving Scraping APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Executes a sequence of scraping instructions against a target URL and returns the extracted data. Two modes are available via the `jsEnabled` query parameter: `jsEnabled=true` renders the page in a real browser and supports `fill`, `click`, `wait`, iframe switching, image/audio CAPTCHA solving, and other interactive instructions, plus request-level `blockUrl` and `cookies`; `jsEnabled=false` fetches static HTML and supports `postForm`, `getForm`, `getPage`, and `extract`. Every mode's response is an `extractedData` object keyed by the field names used in your `extract` instructions --- each value is a string when its selector matched exactly one element, or an array of strings when it matched more than one; a selector that matches nothing is omitted from the response entirely. The `text` query parameter strips HTML tags from extracted values; under `jsEnabled=true`, single-element matches are always returned as plain text regardless of `text`, while multi-element matches keep tags unless `text=true` is set.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

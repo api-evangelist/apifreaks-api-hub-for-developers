@@ -1,0 +1,656 @@
+openapi: 3.2.0
+info:
+  title: Apifreaks Api Hub For Developers Domain APIs API
+  version: 1.0.0
+  contact:
+    name: APIFreaks Support
+    url: https://apifreaks.com/contact
+    email: support@apifreaks.com
+  description: 'Operations tagged Domain APIs across 4 of this provider''s published API definitions: apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json, apifreaks-api-hub-for-developers-domain-search-openapi.json, apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json, apifreaks-api-hub-for-developers-subdomain-lookup-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.apifreaks.com/v1.0
+  description: Bulk Domain Checker API Server
+security:
+- ApiKeyAuthHeader: []
+- ApiKeyAuthQuery: []
+tags:
+- name: Domain APIs
+paths:
+  /domain/availability:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Bulk Domain Checker API Server
+    post:
+      tags:
+      - Domain APIs
+      summary: Check the availability of multiple domains in a single request.
+      description: Perform Bulk Domain Availability checks using a list of domains. Supports upto `100 Domains Per Request`.
+      operationId: checkBulkDomainAvailability
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Format of the response.
+      - name: source
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - dns
+          - whois
+          default: dns
+        description: Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDomainCheckRequest'
+            examples:
+              typicalRequest:
+                summary: Typical bulk domain check request
+                value:
+                  domainNames:
+                  - google.com
+                  - example.com
+                  - techguruss.com
+      responses:
+        '200':
+          description: Successful response — every domain in the batch resolved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkDomainCheckResponse'
+              examples:
+                typicalSuccess:
+                  summary: All domains resolved
+                  value:
+                    bulk_domain_availability_response:
+                    - domain: google.com
+                      domainAvailability: false
+                      status: true
+                    - domain: thisdomainisdefinitelyavailablexyz123abc.com
+                      domainAvailability: true
+                      status: true
+        '206':
+          description: Partial Success — one or more domains in the batch failed to resolve. Failed entries have status false and no domainAvailability field. Even a batch where every domain fails still returns 206, not an error status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkDomainCheckResponse'
+              examples:
+                partialFailure:
+                  summary: Mix of resolved and failed domains
+                  value:
+                    bulk_domain_availability_response:
+                    - domain: notadomain
+                      status: false
+                    - domain: google.com
+                      domainAvailability: false
+                      status: true
+                    - domain: test.an
+                      status: false
+        '400':
+          description: Bad Request — Missing or malformed request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidBody:
+                  summary: domainNames field missing or malformed
+                  value:
+                    error: Invalid request body Exception
+                    message: Please provide data in required format in request body
+                    path: /v1.0/domain/availability
+                    status: 400
+                    timestamp: '2026-07-27T12:23:33.394Z'
+        '413':
+          description: Payload Too Large — Request body exceeds the size limit
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                payloadTooLarge:
+                  summary: Too many domains / body too large
+                  value:
+                    error: Payload too large Exception
+                    message: Maximum request body size limit exceeded
+                    path: /v1.0/domain/availability
+                    status: 413
+                    timestamp: '2026-07-27T12:23:46.923Z'
+    get:
+      tags:
+      - Domain APIs
+      summary: Check whether a domain is available for registration or not.
+      description: The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Format of the response.
+      - name: domain
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Domain name whose availability is to be checked.
+      - name: source
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - dns
+          - whois
+          default: dns
+        description: Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DomainAvailabilityResponse'
+              examples:
+                success:
+                  summary: Domain available
+                  value:
+                    domain: google.com
+                    domainAvailability: false
+        '400':
+          description: Bad Request – Missing domain, or domain has an unrecognized/unsupported TLD
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingDomain:
+                  summary: Missing required domain parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/domain/availability
+                    status: 400
+                    timestamp: '2026-07-27T12:18:21.115Z'
+                unsupportedTld:
+                  summary: Domain has an unrecognized or unsupported TLD
+                  value:
+                    timestamp: '2026-07-27T12:18:47.346748812Z'
+                    status: 400
+                    error: Invalid Param Exception
+                    message: 'Please pass domain param correct value [For Technical Support: support@whoisfreaks.com]'
+                    path: /v1.0/domain/availability
+        '408':
+          description: Request Timeout – Unable to fetch WHOIS data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    timestamp: '2025-08-14T10:37:21.871Z'
+                    status: 408
+                    error: Request Timeout
+                    message: 'Unable to fetch whois data. Please try again. [For Technical Support email at: support@apifreaks.com]'
+                    path: /v1.0/domain/availability
+      operationId: checkDomainAvailability
+  /domain/availability/suggestions:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Domain Search with Suggestions API Server
+    get:
+      tags:
+      - Domain APIs
+      summary: Check domain availability and receive suggestions for related domains.
+      description: The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Format of the response.
+      - name: domain
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Domain name for availability and suggestions.
+      - name: source
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - dns
+          - whois
+          default: dns
+        description: Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
+      - name: sug
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Set to false to get a single availability result for exactly the given domain (same shape as the Domain Availability API), with no suggestions. Omitting this parameter, or setting it to true, returns an array of suggested alternate-TLD domains instead — despite the parameter's name, omitting it does not behave like false.
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 5
+        description: 'Requested number of suggestions. Observed behavior: the API returns at least 5 alternate-TLD suggestions regardless of a lower count value; recognizable/brandable domains can return more than requested, drawn from a larger suggestion pool.'
+      responses:
+        '200':
+          description: 'Success. Shape depends on sug: false returns a single availability object; omitted or true returns an array of suggestions.'
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - description: Returned when sug=false — a single availability result for exactly the requested domain.
+                  $ref: '#/components/schemas/DomainAvailabilityResponse_2'
+                - description: Returned when sug is omitted or true — an array of suggested alternate-TLD domains with their availability.
+                  $ref: '#/components/schemas/DomainSuggestionResponse'
+              examples:
+                suggestions:
+                  summary: sug omitted or true — array of suggestions
+                  value:
+                    domain_available_response:
+                    - domain: acme.org
+                      domainAvailability: false
+                    - domain: acme.dev
+                      domainAvailability: false
+                    - domain: acme.net
+                      domainAvailability: false
+                    - domain: acme.com
+                      domainAvailability: false
+                    - domain: acme.info
+                      domainAvailability: false
+                noSuggestions:
+                  summary: sug=false — single availability object, same shape as the Domain Availability API
+                  value:
+                    domain: quixoticbramble77.com
+                    domainAvailability: true
+        '400':
+          description: Bad Request – Invalid domain parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingDomain:
+                  summary: Missing required domain parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/domain/availability/suggestions
+                    status: 400
+                    timestamp: '2026-07-27T12:19:46.594Z'
+        '408':
+          description: Request Timeout – Unable to fetch WHOIS data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    timestamp: '2025-08-14T10:37:21.871Z'
+                    status: 408
+                    error: Request Timeout
+                    message: 'Unable to fetch whois data. Please try again. [For Technical Support email at: support@apifreaks.com]'
+                    path: /v1.0/domain/availability/suggestions
+      operationId: suggestDomainAvailability
+  /subdomains/lookup:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Subdomain Lookup API Server
+    get:
+      tags:
+      - Domain APIs
+      summary: Get subdomains related to the given domain name.
+      description: The Subdomain Lookup API is designed to retrieve subdomains related to the given domain name. It helps you explore subdomains that are available for registration or usage.
+      parameters:
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+        description: Format of the response.
+      - name: domain
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Domain name for availability and suggestions.
+      - name: after
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+        description: Filter subdomains seen after this date (format YYYY-MM-DD).
+      - name: before
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+        description: Filter subdomains seen before this date( format YYYY-MM-DD).
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - active
+          - inactive
+          default: active
+        description: Filter subdomains by status (active or inactive).
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 1
+        description: Page number for paginated results.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubDomainResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    domain: google.com
+                    status: true
+                    query_time: '2026-07-27T12:22:26.954268895'
+                    current_page: 1
+                    total_pages: 1543
+                    total_records: 154233
+                    subdomains:
+                    - subdomain: 49qq1sm.sites.google.com
+                      first_seen: '2024-03-03'
+                      last_seen: '2026-06-18'
+                    - subdomain: tvgkp5.feedproxy.ghs.google.com
+                      last_seen: '2026-07-04'
+                    - subdomain: www.reusablesec.sites.google.com
+                      first_seen: '2020-02-18'
+                      last_seen: '2026-06-20'
+        '400':
+          description: Bad Request – one or more parameters are invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingDomain:
+                  summary: Missing required domain parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/subdomains/lookup
+                    status: 400
+                    timestamp: '2026-07-27T12:22:27.587Z'
+                invalidDomain:
+                  summary: domain is not a syntactically valid domain name
+                  value:
+                    timestamp: '2026-07-27T12:22:40.119716922Z'
+                    status: 400
+                    error: Invalid Param Exception
+                    message: 'Please pass domain param correct value[For Technical Support: support@whoisfreaks.com]'
+                    path: /v1.0/subdomains
+                AfterDateError:
+                  summary: after is not earlier than before
+                  value:
+                    timestamp: '2026-07-27T12:22:28.233751455Z'
+                    status: 400
+                    error: Invalid Param Exception
+                    message: after date must be earlier than before date.
+                    path: /v1.0/subdomains
+                AfterDateGreaterThanCurrent:
+                  summary: after is in the future
+                  value:
+                    timestamp: '2026-07-27T12:22:39.061042798Z'
+                    status: 400
+                    error: Invalid Param Exception
+                    message: after date cannot be greater than the current date.
+                    path: /v1.0/subdomains
+                BeforeDateGreaterThanCurrent:
+                  summary: before is in the future
+                  value:
+                    timestamp: '2026-07-27T12:22:39.609545647Z'
+                    status: 400
+                    error: Invalid Param Exception
+                    message: before date cannot be greater than the current date.
+                    path: /v1.0/subdomains
+        '408':
+          description: Request Timeout – Unable to fetch WHOIS data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    timestamp: '2025-08-14T10:37:21.871Z'
+                    status: 408
+                    error: Request Timeout
+                    message: 'Unable to fetch whois data. Please try again. [For Technical Support email at: support@apifreaks.com]'
+                    path: /v1.0/subdomains/lookup
+      operationId: lookupSubdomains
+components:
+  schemas:
+    SubDomainResponse:
+      type: object
+      required:
+      - domain
+      - status
+      - query_time
+      - current_page
+      - total_pages
+      - total_records
+      - subdomains
+      properties:
+        domain:
+          type: string
+          description: The domain name for which subdomains are retrieved.
+        status:
+          type: boolean
+          description: Indicates whether the request was successfully processed or not.
+        query_time:
+          type: string
+          description: Timestamp showing when the API request was executed.
+        current_page:
+          type: integer
+          description: The current page number of the paginated response.
+        total_pages:
+          type: integer
+          description: Total number of pages available for the given query. Each page has 100 subdomain entries.
+        total_records:
+          type: integer
+          description: Total number of subdomains found for the domain.
+        subdomains:
+          type: array
+          description: Returns an array of subdomain objects. Each object contains detailed information about an individual subdomain.
+          items:
+            $ref: '#/components/schemas/SubdomainItem'
+      description: Subdomain lookup response containing paginated subdomain results.
+    DomainSuggestionResponse:
+      type: object
+      required:
+      - domain_available_response
+      properties:
+        domain_available_response:
+          type: array
+          description: List of domain availability objects.
+          items:
+            $ref: '#/components/schemas/DomainSuggestionItem'
+      description: Domain suggestion response containing a list of availability-suggestions.
+    DomainAvailabilityResponse:
+      type: object
+      required:
+      - domain
+      - domainAvailability
+      properties:
+        domain:
+          type: string
+          description: Name of the queried domain
+        domainAvailability:
+          type: boolean
+          description: True if available, false if not available
+      description: Domain availability check response containing the domain name and availability status.
+    DomainAvailabilityResponse_2:
+      type: object
+      description: Domain availability check response containing the domain name and availability status. Returned when sug=false.
+      required:
+      - domain
+      - domainAvailability
+      properties:
+        domain:
+          type: string
+          description: Name of the queried domain.
+        domainAvailability:
+          type: boolean
+          description: True if available, false if not available.
+    DomainSuggestionItem:
+      type: object
+      description: A single domain suggestion with availability status.
+      required:
+      - domain
+      - domainAvailability
+      properties:
+        domain:
+          type: string
+          description: Name of the suggested domain.
+        domainAvailability:
+          type: boolean
+          description: True if available, false if not available.
+    SubdomainItem:
+      type: object
+      description: A single subdomain record with discovery dates.
+      required:
+      - subdomain
+      - last_seen
+      properties:
+        subdomain:
+          type: string
+          description: The discovered subdomain associated with the given domain.
+        first_seen:
+          type: string
+          format: date
+          description: The date when the subdomain was first discovered. Can be absent for some records.
+        last_seen:
+          type: string
+          format: date
+          description: The most recent date when the subdomain was observed.
+        inactive_from:
+          type: string
+          format: date
+          description: The date from which the subdomain is considered inactive. Appears only if inactive.
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    BulkDomainCheckResponse:
+      type: object
+      description: Wrapper containing the per-domain results array.
+      required:
+      - bulk_domain_availability_response
+      properties:
+        bulk_domain_availability_response:
+          type: array
+          description: Array of per-domain results. Order is not guaranteed to match the request order. Domains that fail to resolve appear with status false and no domainAvailability field.
+          items:
+            $ref: '#/components/schemas/BulkDomainCheckItem'
+    BulkDomainCheckItem:
+      type: object
+      description: Result for a single domain in a bulk check. domainAvailability is present only when status is true.
+      required:
+      - domain
+      - status
+      properties:
+        domain:
+          type: string
+          description: Name of the queried domain.
+        domainAvailability:
+          type: boolean
+          description: True if available, false if not available. Absent when this domain failed to resolve (status false).
+        status:
+          type: boolean
+          description: Whether this domain was successfully processed.
+    BulkDomainCheckRequest:
+      type: object
+      description: Request body for bulk domain availability check.
+      required:
+      - domainNames
+      properties:
+        domainNames:
+          type: array
+          description: List of domain names to check. Maximum 100 domains per request.
+          maxItems: 100
+          items:
+            type: string
+  securitySchemes:
+    ApiKeyAuthHeader:
+      type: apiKey
+      in: header
+      name: X-apiKey
+      description: Pass your API key via the X-apiKey request header.
+    ApiKeyAuthQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: Pass your API key via the apiKey query parameter.
+x-refined-from:
+- apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json
+- apifreaks-api-hub-for-developers-domain-search-openapi.json
+- apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json
+- apifreaks-api-hub-for-developers-subdomain-lookup-openapi.json

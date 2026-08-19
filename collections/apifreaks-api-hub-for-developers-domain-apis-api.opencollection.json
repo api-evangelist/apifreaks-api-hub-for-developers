@@ -1,0 +1,178 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers Domain APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domain APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check whether a domain is available for registration or not.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/domain/availability",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Domain name whose availability is to be checked."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Specify the data source for domain availability checks. Use \"dns\" for DNS-based lookups or \"whois\" for WHOIS-based lookups. By default, \"dns\" is used."
+              }
+            ]
+          },
+          "docs": "The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs)."
+        },
+        {
+          "info": {
+            "name": "Check the availability of multiple domains in a single request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/domain/availability",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Specify the data source for domain availability checks. Use \"dns\" for DNS-based lookups or \"whois\" for WHOIS-based lookups. By default, \"dns\" is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Perform Bulk Domain Availability checks using a list of domains. Supports upto `100 Domains Per Request`."
+        },
+        {
+          "info": {
+            "name": "Check domain availability and receive suggestions for related domains.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/domain/availability/suggestions",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Domain name for availability and suggestions."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Specify the data source for domain availability checks. Use \"dns\" for DNS-based lookups or \"whois\" for WHOIS-based lookups. By default, \"dns\" is used."
+              },
+              {
+                "name": "sug",
+                "value": "",
+                "type": "query",
+                "description": "Set to false to get a single availability result for exactly the given domain (same shape as the Domain Availability API), with no suggestions. Omitting this parameter, or setting it to true, returns an array of suggested alternate-TLD domains instead — despite the parameter's name, omitting it does not behave like false."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Requested number of suggestions. Observed behavior: the API returns at least 5 alternate-TLD suggestions regardless of a lower count value; recognizable/brandable domains can return more than requested, drawn from a larger suggestion pool."
+              }
+            ]
+          },
+          "docs": "The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs)."
+        },
+        {
+          "info": {
+            "name": "Get subdomains related to the given domain name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/subdomains/lookup",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Domain name for availability and suggestions."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Filter subdomains seen after this date (format YYYY-MM-DD)."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Filter subdomains seen before this date( format YYYY-MM-DD)."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter subdomains by status (active or inactive)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results."
+              }
+            ]
+          },
+          "docs": "The Subdomain Lookup API is designed to retrieve subdomains related to the given domain name. It helps you explore subdomains that are available for registration or usage."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

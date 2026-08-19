@@ -1,0 +1,1142 @@
+{
+  "item": [
+    {
+      "id": "866cdb81-a5fe-4140-b81b-eef7d98f4938",
+      "name": "Domain APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "29fe6e6c-de03-4e2f-beb6-9482131435c8",
+          "name": "Check the availability of multiple domains in a single request.",
+          "request": {
+            "name": "Check the availability of multiple domains in a single request.",
+            "description": {
+              "content": "Perform Bulk Domain Availability checks using a list of domains. Supports upto `100 Domains Per Request`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain",
+                "availability"
+              ],
+              "host": [
+                "{{domain-availability-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "dns",
+                  "description": "Specify the data source for domain availability checks. Use \"dns\" for DNS-based lookups or \"whois\" for WHOIS-based lookups. By default, \"dns\" is used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"domainNames\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c9918349-aa84-4f60-8fff-44d3d55b8c7c",
+              "name": "Successful response — every domain in the batch resolved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "availability"
+                  ],
+                  "host": [
+                    "{{domain-availability-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "source",
+                      "value": "dns"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainNames\": [\n    \"google.com\",\n    \"example.com\",\n    \"techguruss.com\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bulk_domain_availability_response\": [\n    {\n      \"domain\": \"google.com\",\n      \"domainAvailability\": false,\n      \"status\": true\n    },\n    {\n      \"domain\": \"thisdomainisdefinitelyavailablexyz123abc.com\",\n      \"domainAvailability\": true,\n      \"status\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48a63ea6-d542-4f96-ad4e-9bc1efcc829e",
+              "name": "Partial Success — one or more domains in the batch failed to resolve. Failed entries have status false and no domainAvailability field. Even a batch where every domain fails still returns 206, not an error status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "availability"
+                  ],
+                  "host": [
+                    "{{domain-availability-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "source",
+                      "value": "dns"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainNames\": [\n    \"google.com\",\n    \"example.com\",\n    \"techguruss.com\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Partial Content",
+              "code": 206,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bulk_domain_availability_response\": [\n    {\n      \"domain\": \"notadomain\",\n      \"status\": false\n    },\n    {\n      \"domain\": \"google.com\",\n      \"domainAvailability\": false,\n      \"status\": true\n    },\n    {\n      \"domain\": \"test.an\",\n      \"status\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04da5b4b-a4a3-4912-8997-d933494cf61a",
+              "name": "Bad Request — Missing or malformed request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "availability"
+                  ],
+                  "host": [
+                    "{{domain-availability-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "source",
+                      "value": "dns"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainNames\": [\n    \"google.com\",\n    \"example.com\",\n    \"techguruss.com\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request body Exception\",\n  \"message\": \"Please provide data in required format in request body\",\n  \"path\": \"/v1.0/domain/availability\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T12:23:33.394Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61f05f68-791d-4eb2-b363-41b400c3f007",
+              "name": "Payload Too Large — Request body exceeds the size limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "availability"
+                  ],
+                  "host": [
+                    "{{domain-availability-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "source",
+                      "value": "dns"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainNames\": [\n    \"google.com\",\n    \"example.com\",\n    \"techguruss.com\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Payload too large Exception\",\n  \"message\": \"Maximum request body size limit exceeded\",\n  \"path\": \"/v1.0/domain/availability\",\n  \"status\": 413,\n  \"timestamp\": \"2026-07-27T12:23:46.923Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36782301-7f56-4a12-9481-dd1c75b2f3cf",
+          "name": "Check whether a domain is available for registration or not.",
+          "request": {
+            "name": "Check whether a domain is available for registration or not.",
+            "description": {
+              "content": "The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain",
+                "availability"
+              ],
+              "host": [
+                "{{domain-availability-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "(Required) Domain name whose availability is to be checked."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "dns",
+                  "description": "Specify the data source for domain availability checks. Use \"dns\" for DNS-based lookups or \"whois\" for WHOIS-based lookups. By default, \"dns\" is used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "74de4570-f8b4-45e6-a916-f727698edd3c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "availability"
+                  ],
+                  "host": [
+                    "{{domain-availability-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "dns"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domain\": \"google.com\",\n  \"domainAvailability\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e58baacb-7407-487d-a9e4-b426aeff8be8",
+              "name": "Bad Request – Missing domain, or domain has an unrecognized/unsupported TLD",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "availability"
+                  ],
+                  "host": [
+                    "{{domain-availability-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "dns"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/domain/availability\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T12:18:21.115Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fdb0de1-86a0-42b4-a384-87125fbd8de1",
+              "name": "Request Timeout – Unable to fetch WHOIS data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "availability"
+                  ],
+                  "host": [
+                    "{{domain-availability-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "dns"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2025-08-14T10:37:21.871Z\",\n  \"status\": 408,\n  \"error\": \"Request Timeout\",\n  \"message\": \"Unable to fetch whois data. Please try again. [For Technical Support email at: support@apifreaks.com]\",\n  \"path\": \"/v1.0/domain/availability\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f9078e4-e5cd-457a-bf78-9f42464c7a8d",
+          "name": "Check domain availability and receive suggestions for related domains.",
+          "request": {
+            "name": "Check domain availability and receive suggestions for related domains.",
+            "description": {
+              "content": "The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain",
+                "availability",
+                "suggestions"
+              ],
+              "host": [
+                "{{domain-availability-suggestions-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "(Required) Domain name for availability and suggestions."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "dns",
+                  "description": "Specify the data source for domain availability checks. Use \"dns\" for DNS-based lookups or \"whois\" for WHOIS-based lookups. By default, \"dns\" is used."
+                },
+                {
+                  "disabled": false,
+                  "key": "sug",
+                  "value": "<boolean>",
+                  "description": "Set to false to get a single availability result for exactly the given domain (same shape as the Domain Availability API), with no suggestions. Omitting this parameter, or setting it to true, returns an array of suggested alternate-TLD domains instead — despite the parameter's name, omitting it does not behave like false."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "5",
+                  "description": "Requested number of suggestions. Observed behavior: the API returns at least 5 alternate-TLD suggestions regardless of a lower count value; recognizable/brandable domains can return more than requested, drawn from a larger suggestion pool."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8390eb10-f282-40c5-821f-fcc11da7a905",
+              "name": "Success. Shape depends on sug: false returns a single availability object; omitted or true returns an array of suggestions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "availability",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{domain-availability-suggestions-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "dns"
+                    },
+                    {
+                      "key": "sug",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domain_available_response\": [\n    {\n      \"domain\": \"acme.org\",\n      \"domainAvailability\": false\n    },\n    {\n      \"domain\": \"acme.dev\",\n      \"domainAvailability\": false\n    },\n    {\n      \"domain\": \"acme.net\",\n      \"domainAvailability\": false\n    },\n    {\n      \"domain\": \"acme.com\",\n      \"domainAvailability\": false\n    },\n    {\n      \"domain\": \"acme.info\",\n      \"domainAvailability\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "431bc18d-83d4-4b6e-aff7-f848ace956eb",
+              "name": "Bad Request – Invalid domain parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "availability",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{domain-availability-suggestions-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "dns"
+                    },
+                    {
+                      "key": "sug",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/domain/availability/suggestions\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T12:19:46.594Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c8a4e0a-2861-4c9b-a213-4cbad61df9cc",
+              "name": "Request Timeout – Unable to fetch WHOIS data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "availability",
+                    "suggestions"
+                  ],
+                  "host": [
+                    "{{domain-availability-suggestions-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "dns"
+                    },
+                    {
+                      "key": "sug",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2025-08-14T10:37:21.871Z\",\n  \"status\": 408,\n  \"error\": \"Request Timeout\",\n  \"message\": \"Unable to fetch whois data. Please try again. [For Technical Support email at: support@apifreaks.com]\",\n  \"path\": \"/v1.0/domain/availability/suggestions\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b2ed893-03ab-471c-94e9-ab08ccac1d55",
+          "name": "Get subdomains related to the given domain name.",
+          "request": {
+            "name": "Get subdomains related to the given domain name.",
+            "description": {
+              "content": "The Subdomain Lookup API is designed to retrieve subdomains related to the given domain name. It helps you explore subdomains that are available for registration or usage.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subdomains",
+                "lookup"
+              ],
+              "host": [
+                "{{subdomains-lookup-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "(Required) Domain name for availability and suggestions."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<date>",
+                  "description": "Filter subdomains seen after this date (format YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<date>",
+                  "description": "Filter subdomains seen before this date( format YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "active",
+                  "description": "Filter subdomains by status (active or inactive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5a943f2e-2296-410d-b99a-cfcfd7c5fa88",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subdomains",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{subdomains-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domain\": \"google.com\",\n  \"status\": true,\n  \"query_time\": \"2026-07-27T12:22:26.954268895\",\n  \"current_page\": 1,\n  \"total_pages\": 1543,\n  \"total_records\": 154233,\n  \"subdomains\": [\n    {\n      \"subdomain\": \"49qq1sm.sites.google.com\",\n      \"first_seen\": \"2024-03-03\",\n      \"last_seen\": \"2026-06-18\"\n    },\n    {\n      \"subdomain\": \"tvgkp5.feedproxy.ghs.google.com\",\n      \"last_seen\": \"2026-07-04\"\n    },\n    {\n      \"subdomain\": \"www.reusablesec.sites.google.com\",\n      \"first_seen\": \"2020-02-18\",\n      \"last_seen\": \"2026-06-20\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02a27196-519c-40ca-b8e4-b85bdca48588",
+              "name": "Bad Request – one or more parameters are invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subdomains",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{subdomains-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/subdomains/lookup\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T12:22:27.587Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "127ae96d-3aa6-4e90-941b-d6ca2f9b4749",
+              "name": "Request Timeout – Unable to fetch WHOIS data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subdomains",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{subdomains-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2025-08-14T10:37:21.871Z\",\n  \"status\": 408,\n  \"error\": \"Request Timeout\",\n  \"message\": \"Unable to fetch whois data. Please try again. [For Technical Support email at: support@apifreaks.com]\",\n  \"path\": \"/v1.0/subdomains/lookup\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "domain-availability-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "domain-availability-suggestions-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "subdomains-lookup-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ce6257a6-f562-4bed-b305-6bc2f12a10ad",
+    "name": "Apifreaks Api Hub For Developers Domain APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Domain APIs across 4 of this provider's published API definitions: apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json, apifreaks-api-hub-for-developers-domain-search-openapi.json, apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json, apifreaks-api-hub-for-developers-subdomain-lookup-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

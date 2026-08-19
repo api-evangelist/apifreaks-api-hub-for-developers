@@ -1,0 +1,481 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers PDF Operations APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PDF Operations APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete specific pages from a PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/remove-pages",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output PDF file after pages have been removed. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which pages to remove from the PDF. Accepts individual page numbers (e.g., '1,7') and/or ascending page ranges (e.g., '3-5'). Use commas to separate entries and hyphens for ranges. Reverse ranges (e.g., '5-3') are not allowed. Alternatively, you may provide only one of the following keywords: 'even' (removes all even-numbered pages), 'odd' (removes all odd-numbered pages), or 'last' (removes only the last page). The keyword 'all' is not supported for this operation. Examples: '1,3-5', 'even'. Mixing special keywords with specific pages/ranges is not allowed. Malformed values or page numbers exceeding the document's page count are not rejected on this call — the resulting task fails asynchronously (check task status)."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API removes a selection or range of pages from a PDF file."
+        },
+        {
+          "info": {
+            "name": "Linearize a PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/linearize",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output PDF file after pages have been extracted. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "API endpoint that linearizes any given PDF, restructuring it for faster loading and page-by-page viewing in web browsers."
+        },
+        {
+          "info": {
+            "name": "Combine multiple PDF files into one",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/merge",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "An array of unique file IDs referencing PDF files previously uploaded to the API Freaks server. Use this parameter to merge existing files without re-uploading them. Provide multiple IDs to merge files in the specified order."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired name for the resulting merged PDF file. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API merges multiple PDF files into a single PDF, in the order they are provided"
+        },
+        {
+          "info": {
+            "name": "Compress a PDF file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/compress",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "Name of the output PDF."
+              },
+              {
+                "name": "compression_level",
+                "value": "",
+                "type": "query",
+                "description": "Controls how aggressively the PDF is compressed. Lower levels preserve more quality, while higher levels reduce file size more."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to true, the input file(s) will be deleted from the server immediately after the output is generated."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API compresses a given PDF file to reduce its file serize."
+        },
+        {
+          "info": {
+            "name": "Extract pages from a PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/extract-pages",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output PDF file after pages have been extracted. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which pages to extract from the PDF. You can provide individual page numbers (e.g., '2') and/or page ranges in any order, including descending (e.g., '9-5', '16-last'). Use commas to separate entries and hyphens for ranges. You may alternatively pass only one of the special keywords: 'even' (extracts all even-numbered pages), 'odd' (extracts all odd-numbered pages), 'last' (extracts only the last page), or 'all' (extracts all pages into individual files). Examples: '2,6-3', 'even', 'all'. Mixing special keywords with specific pages/ranges is not allowed. Malformed values or page numbers exceeding the document's page count are not rejected on this call — the resulting task fails asynchronously (check task status)."
+              },
+              {
+                "name": "separated",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, each of the specified pages will be extracted and returned as a separate PDF file."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API extracts specific pages or page ranges from a PDF file and returns them as a new PDF."
+        },
+        {
+          "info": {
+            "name": "Split a PDF into smaller files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/split",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired base name for the output PDF files after splitting. If not provided, a default naming convention will be used."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "Defines the page numbers or ranges where the PDF should be split. Provide individual pages and/or ranges in any order (for example: \"1-4,9-5,16-last\"). Separate entries with commas and use hyphens for ranges.\n\nSpecial keywords (use alone):\n\n• `even` — split at every even-numbered page\n\n• `odd` — split at every odd-numbered page\n\n• `all` — split the PDF into single-page files\n\nThe keyword `last` can be used anywhere in the string, in combination with page numbers or ranges (for example: \"5-last\", \"last-2\", \"1,last,9\").\n\nExamples:\n- \"1,4-2,last\"\n- \"odd\"\n- \"all\"\n- \"last,2-5\"\n\nInvalid example: \"1,odd\" (mixing a keyword other than \"last\" with specific pages/ranges is not allowed). You can pass multiple pages entries to produce multiple output files."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API splits a PDF into multiple parts based on specified page numbers or ranges."
+        },
+        {
+          "info": {
+            "name": "Rotate pages in a PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/rotate",
+            "headers": [
+              {
+                "name": "X-Webhook-Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique ID of a PDF file already uploaded to the API Freaks server. Use this as an alternative to uploading a new file directly."
+              },
+              {
+                "name": "destroy",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, the input file(s) will be permanently deleted from the server immediately after the output PDF is generated."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the output PDF file after rotation. If not provided, a default name will be assigned."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which pages to rotate. Accepts individual page numbers (e.g., '1,7') and/or ascending page ranges (e.g., '3-5'). Use commas to separate entries and hyphens for ranges. Reverse ranges (e.g., '5-3') are not allowed. Alternatively, provide only one of the following keywords: 'even' (rotate all even-numbered pages), 'odd' (rotate all odd-numbered pages), 'last' (rotate only the last page), or 'all' (rotate all pages). Examples: '1,3-5', 'odd', 'all'. Mixing special keywords with specific pages/ranges is not allowed."
+              },
+              {
+                "name": "rotate",
+                "value": "",
+                "type": "query",
+                "description": "The angle in degrees to rotate the selected pages. Must be one of the following values: 0, 90, 180, 270, -90, -180, or -270. All rotations are applied clockwise."
+              },
+              {
+                "name": "webhook_url",
+                "value": "",
+                "type": "query",
+                "description": "The URL to which the webhook notification will be sent after the task is completed."
+              },
+              {
+                "name": "webhook_failure_notification",
+                "value": "",
+                "type": "query",
+                "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API rotates pages of a PDF by a specified angle (in multiples of 90 degrees)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

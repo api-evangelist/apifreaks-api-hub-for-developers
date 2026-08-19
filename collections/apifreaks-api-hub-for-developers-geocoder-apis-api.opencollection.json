@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers Geocoder APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Geocoder APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert an address or place name into geographic coordinates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/geocoder/search",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Free-form search query, e.g. `Wembley Stadium, London`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. May return fewer if matches are weak."
+              },
+              {
+                "name": "min_lat",
+                "value": "",
+                "type": "query",
+                "description": "Minimum latitude of the viewbox used to bias results. Must be provided together with `max_lat`, `min_lon`, and `max_lon`, and must be less than or equal to `max_lat`."
+              },
+              {
+                "name": "max_lat",
+                "value": "",
+                "type": "query",
+                "description": "Maximum latitude of the viewbox used to bias results. Must be provided together with `min_lat`, `min_lon`, and `max_lon`, and must be greater than or equal to `min_lat`."
+              },
+              {
+                "name": "min_lon",
+                "value": "",
+                "type": "query",
+                "description": "Minimum longitude of the viewbox used to bias results. Must be provided together with `min_lat`, `max_lat`, and `max_lon`, and must be less than or equal to `max_lon`."
+              },
+              {
+                "name": "max_lon",
+                "value": "",
+                "type": "query",
+                "description": "Maximum longitude of the viewbox used to bias results. Must be provided together with `min_lat`, `max_lat`, and `min_lon`, and must be greater than or equal to `min_lon`."
+              }
+            ]
+          },
+          "docs": "Search for a free-form address, place name, or point of interest and return matching locations with coordinates, structured address components, and a bounding box."
+        },
+        {
+          "info": {
+            "name": "Convert coordinates into a human-readable address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/geocoder/reverse",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "WGS84 latitude value, ranging from -90 to 90."
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query",
+                "description": "WGS84 longitude value, ranging from -180 to 180."
+              }
+            ]
+          },
+          "docs": "Look up the nearest address or place name for a given latitude and longitude pair."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

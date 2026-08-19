@@ -1,0 +1,248 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers Financial APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Financial APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get VAT rate by country code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/vat/rates/country",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country identifier in Alpha-2 (PK), Alpha-3 (PAK), or full name (Pakistan). Combine with the optional \"state\" query for sub-national VAT; values are case-insensitive and may use underscores instead of spaces."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Optional state or region in Alpha-2 (NY) or full name (New_York). Use with \"country\" for state-level VAT; values are case-insensitive and may use underscores."
+              }
+            ]
+          },
+          "docs": "Fetches VAT rates for a single country or state provided via query parameters."
+        },
+        {
+          "info": {
+            "name": "Bulk VAT lookup by country",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/vat/rates/country",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves VAT details for multiple countries or country-state combinations in a single request. Maximum of `100` entries per request are allowed."
+        },
+        {
+          "info": {
+            "name": "Get supported countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/vat/supported-countries",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Default is JSON."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Accepted by the endpoint but currently has no effect — all three categories (VAT, IBAN, SWIFT) are always returned regardless of this value."
+              }
+            ]
+          },
+          "docs": "Returns the countries and states supported by the VAT, IBAN, and SWIFT APIs."
+        },
+        {
+          "info": {
+            "name": "Validate IBAN",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/iban/validation",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+              },
+              {
+                "name": "iban",
+                "value": "",
+                "type": "query",
+                "description": "IBAN to validate."
+              }
+            ]
+          },
+          "docs": "Checks an IBAN for structural validity, checksum accuracy, and bank metadata."
+        },
+        {
+          "info": {
+            "name": "Find SWIFT codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/swift-code/finder",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country name (accepts full name, e.g., Pakistan, United States). If supplied alone, returns the list of bank names in that country. If omitted entirely, returns the list of all supported countries."
+              },
+              {
+                "name": "bank",
+                "value": "",
+                "type": "query",
+                "description": "Bank name (upper case) to drill into. Requires country to also be set. If supplied without city, returns the list of cities that bank operates in."
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query",
+                "description": "City (upper case) to narrow results to. Requires country and bank to also be set. Returns the matching SWIFT/BIC codes for that bank in that city."
+              }
+            ]
+          },
+          "docs": "Drills down from countries to banks to cities to SWIFT/BIC codes, one parameter level at a time."
+        },
+        {
+          "info": {
+            "name": "Lookup SWIFT code details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/swift-code/lookup",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+              },
+              {
+                "name": "swiftCode",
+                "value": "",
+                "type": "query",
+                "description": "SWIFT/BIC code to lookup (must be 8 or 11 characters)."
+              }
+            ]
+          },
+          "docs": "Fetches detailed information about a SWIFT code."
+        },
+        {
+          "info": {
+            "name": "Validate EU and UK VAT number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/vat/validation",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+              },
+              {
+                "name": "vatNumber",
+                "value": "",
+                "type": "query",
+                "description": "EU or UK VAT number to validate."
+              },
+              {
+                "name": "requesterVatNumber",
+                "value": "",
+                "type": "query",
+                "description": "Requester EU or UK VAT number."
+              }
+            ]
+          },
+          "docs": "Validates an EU or UK VAT number and returns registration status details."
+        },
+        {
+          "info": {
+            "name": "Get VAT rate by IP address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/vat/rates/ip-address",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+              },
+              {
+                "name": "ipAddress",
+                "value": "",
+                "type": "query",
+                "description": "IPv4 or IPv6 address to look up VAT rate for. If omitted, the originating IP address will be used."
+              }
+            ]
+          },
+          "docs": "Fetches VAT rate based on the specified or originating IP address."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

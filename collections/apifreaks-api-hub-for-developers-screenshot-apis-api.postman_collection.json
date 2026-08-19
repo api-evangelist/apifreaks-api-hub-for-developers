@@ -1,0 +1,1794 @@
+{
+  "item": [
+    {
+      "id": "2a88a59a-fc3a-449e-989f-6dafef4f3117",
+      "name": "Screenshot APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b1b866f0-3def-4793-a595-c92cff8b784b",
+          "name": "Capture screenshots of multiple websites in a single request.",
+          "request": {
+            "name": "Capture screenshots of multiple websites in a single request.",
+            "description": {
+              "content": "Our Bulk Screenshot API allows you to capture screenshots of multiple webpages simultaneously, saving you time and effort. Instead of manually capturing each page one by one, you can batch process URLs and receive high-quality screenshots in the format you choose.\n Maximum `50 URLs` per request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "screenshot"
+              ],
+              "host": [
+                "{{screenshot-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"urls\": [\n    {\n      \"url\": \"<uri>\",\n      \"file_type\": \"<string>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\",\n      \"full_page\": \"<boolean>\",\n      \"fresh\": \"<boolean>\",\n      \"no_cookie_banners\": \"<boolean>\",\n      \"enable_caching\": \"<boolean>\",\n      \"block_ads\": \"<boolean>\",\n      \"block_chat_widgets\": \"<boolean>\",\n      \"extract_text\": \"<boolean>\",\n      \"extract_html\": \"<boolean>\",\n      \"extract_markdown\": \"<boolean>\",\n      \"get_image_urls\": \"<boolean>\",\n      \"destroy_screenshot\": \"<boolean>\",\n      \"lazy_load\": \"<boolean>\",\n      \"scroll_delay\": \"<integer>\",\n      \"retina\": \"<boolean>\",\n      \"dark_mode\": \"<boolean>\",\n      \"block_tracking\": \"<boolean>\",\n      \"enable_incognito\": \"<boolean>\",\n      \"omit_background\": \"<boolean>\",\n      \"thumbnail_width\": \"<integer>\",\n      \"adjust_top\": \"<integer>\",\n      \"wait_for_event\": \"<string>\",\n      \"grayscale\": \"<integer>\",\n      \"delay\": \"<integer>\",\n      \"timeout\": \"<integer>\",\n      \"ttl\": \"<integer>\",\n      \"image_quality\": \"<integer>\",\n      \"clip[x]\": \"<integer>\",\n      \"clip[y]\": \"<integer>\",\n      \"clip[width]\": \"<integer>\",\n      \"clip[height]\": \"<integer>\",\n      \"css_url\": \"<string>\",\n      \"css\": \"<string>\",\n      \"js_url\": \"<string>\",\n      \"js\": \"<string>\",\n      \"block_js\": \"<boolean>\",\n      \"block_stylesheets\": \"<boolean>\",\n      \"block_images\": \"<boolean>\",\n      \"block_media\": \"<boolean>\",\n      \"block_font\": \"<boolean>\",\n      \"block_text_track\": \"<boolean>\",\n      \"block_xhr\": \"<boolean>\",\n      \"block_fetch\": \"<boolean>\",\n      \"block_event_source\": \"<boolean>\",\n      \"block_web_socket\": \"<boolean>\",\n      \"block_manifest\": \"<boolean>\",\n      \"block_specific_requests\": \"<string>\",\n      \"blur_selector\": \"<string>\",\n      \"remove_selector\": \"<string>\",\n      \"scroll_to_element\": \"<string>\",\n      \"selector\": \"<string>\",\n      \"selector_to_click\": \"<string>\",\n      \"click_recursion\": \"<integer>\",\n      \"result_file_name\": \"<string>\",\n      \"user_agent\": \"<string>\",\n      \"accept_languages\": \"<string>\",\n      \"proxy\": \"<string>\",\n      \"headers\": \"<string>\",\n      \"cookies\": \"<string>\",\n      \"custom_html\": \"<string>\",\n      \"fail_on_error\": \"<boolean>\",\n      \"longitude\": \"<float>\",\n      \"latitude\": \"<float>\",\n      \"scrolling_screenshot\": \"<boolean>\",\n      \"scroll_speed\": \"<string>\",\n      \"duration\": \"<number>\",\n      \"scroll_back\": \"<boolean>\",\n      \"start_immediately\": \"<boolean>\",\n      \"multiple_scrolling\": \"<boolean>\",\n      \"sizes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"video\": \"<boolean>\"\n    },\n    {\n      \"url\": \"<uri>\",\n      \"file_type\": \"<string>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\",\n      \"full_page\": \"<boolean>\",\n      \"fresh\": \"<boolean>\",\n      \"no_cookie_banners\": \"<boolean>\",\n      \"enable_caching\": \"<boolean>\",\n      \"block_ads\": \"<boolean>\",\n      \"block_chat_widgets\": \"<boolean>\",\n      \"extract_text\": \"<boolean>\",\n      \"extract_html\": \"<boolean>\",\n      \"extract_markdown\": \"<boolean>\",\n      \"get_image_urls\": \"<boolean>\",\n      \"destroy_screenshot\": \"<boolean>\",\n      \"lazy_load\": \"<boolean>\",\n      \"scroll_delay\": \"<integer>\",\n      \"retina\": \"<boolean>\",\n      \"dark_mode\": \"<boolean>\",\n      \"block_tracking\": \"<boolean>\",\n      \"enable_incognito\": \"<boolean>\",\n      \"omit_background\": \"<boolean>\",\n      \"thumbnail_width\": \"<integer>\",\n      \"adjust_top\": \"<integer>\",\n      \"wait_for_event\": \"<string>\",\n      \"grayscale\": \"<integer>\",\n      \"delay\": \"<integer>\",\n      \"timeout\": \"<integer>\",\n      \"ttl\": \"<integer>\",\n      \"image_quality\": \"<integer>\",\n      \"clip[x]\": \"<integer>\",\n      \"clip[y]\": \"<integer>\",\n      \"clip[width]\": \"<integer>\",\n      \"clip[height]\": \"<integer>\",\n      \"css_url\": \"<string>\",\n      \"css\": \"<string>\",\n      \"js_url\": \"<string>\",\n      \"js\": \"<string>\",\n      \"block_js\": \"<boolean>\",\n      \"block_stylesheets\": \"<boolean>\",\n      \"block_images\": \"<boolean>\",\n      \"block_media\": \"<boolean>\",\n      \"block_font\": \"<boolean>\",\n      \"block_text_track\": \"<boolean>\",\n      \"block_xhr\": \"<boolean>\",\n      \"block_fetch\": \"<boolean>\",\n      \"block_event_source\": \"<boolean>\",\n      \"block_web_socket\": \"<boolean>\",\n      \"block_manifest\": \"<boolean>\",\n      \"block_specific_requests\": \"<string>\",\n      \"blur_selector\": \"<string>\",\n      \"remove_selector\": \"<string>\",\n      \"scroll_to_element\": \"<string>\",\n      \"selector\": \"<string>\",\n      \"selector_to_click\": \"<string>\",\n      \"click_recursion\": \"<integer>\",\n      \"result_file_name\": \"<string>\",\n      \"user_agent\": \"<string>\",\n      \"accept_languages\": \"<string>\",\n      \"proxy\": \"<string>\",\n      \"headers\": \"<string>\",\n      \"cookies\": \"<string>\",\n      \"custom_html\": \"<string>\",\n      \"fail_on_error\": \"<boolean>\",\n      \"longitude\": \"<float>\",\n      \"latitude\": \"<float>\",\n      \"scrolling_screenshot\": \"<boolean>\",\n      \"scroll_speed\": \"<string>\",\n      \"duration\": \"<number>\",\n      \"scroll_back\": \"<boolean>\",\n      \"start_immediately\": \"<boolean>\",\n      \"multiple_scrolling\": \"<boolean>\",\n      \"sizes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"video\": \"<boolean>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7cec352e-2639-4965-b771-9462292259f3",
+              "name": "Successful response. Each item in `results` corresponds to one requested URL, in the same order; a URL that fails validation or capture returns an error object in its `url` field instead of screenshot data, while `status` stays \"fulfilled\" and `error_message` stays null.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screenshot"
+                  ],
+                  "host": [
+                    "{{screenshot-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"urls\": [\n    {\n      \"url\": \"https://example.com\",\n      \"file_type\": \"PNG\"\n    },\n    {\n      \"url\": \"https://github.com\",\n      \"file_type\": \"JPEG\",\n      \"full_page\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"meta_data\": {\n    \"total_urls\": 2,\n    \"successful_urls\": 1,\n    \"failed_urls\": 1\n  },\n  \"results\": [\n    {\n      \"url\": {\n        \"screenshot\": \"https://s3.eu-central-2.wasabisys.com/w.storage.apifreaks.com/example_com_6d83e1744f01.png\",\n        \"url\": \"https://example.com\",\n        \"created_at\": \"2026-07-27T10:18:31.378Z\",\n        \"file_type\": \"PNG\",\n        \"output\": \"json\",\n        \"ttl\": \"2026-08-26T10:18:28.034Z\",\n        \"sizes\": null\n      },\n      \"status\": \"fulfilled\",\n      \"error_message\": null\n    },\n    {\n      \"url\": {\n        \"timestamp\": \"2026-07-27T10:18:28.872Z\",\n        \"status\": 400,\n        \"error\": \"invalid_url\",\n        \"message\": \"Your URL is incorrect\",\n        \"path\": \"/v3/screenshot\"\n      },\n      \"status\": \"fulfilled\",\n      \"error_message\": null\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e9555a7-74c6-480f-8eac-4a4698e2fc04",
+              "name": "Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screenshot"
+                  ],
+                  "host": [
+                    "{{screenshot-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"urls\": [\n    {\n      \"url\": \"https://example.com\",\n      \"file_type\": \"PNG\"\n    },\n    {\n      \"url\": \"https://github.com\",\n      \"file_type\": \"JPEG\",\n      \"full_page\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request body Exception\",\n  \"message\": \"Please provide data in required format in request body\",\n  \"path\": \"/v1.0/screenshot\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T10:18:42.036Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60fca5f1-c6d3-4c74-8de1-333f7f39d097",
+              "name": "Payload too large",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screenshot"
+                  ],
+                  "host": [
+                    "{{screenshot-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"urls\": [\n    {\n      \"url\": \"https://example.com\",\n      \"file_type\": \"PNG\"\n    },\n    {\n      \"url\": \"https://github.com\",\n      \"file_type\": \"JPEG\",\n      \"full_page\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Payload too large Exception\",\n  \"message\": \"Maximum request body size limit exceeded\",\n  \"path\": \"/v1.0/screenshot\",\n  \"status\": 413,\n  \"timestamp\": \"2026-07-27T10:18:57.172Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56f5a514-1927-405e-9488-736811902dc8",
+          "name": "Build screenshots the way real users see the web — not just what fits on the screen.",
+          "request": {
+            "name": "Build screenshots the way real users see the web — not just what fits on the screen.",
+            "description": {
+              "content": "Capture full-page screenshots and videos of websites with advanced options like device simulation, custom code injection, cookie banner blocking, and scrollable content recording.\nSupports multiple output formats including JSON, image, GIF, MP4, and WebM.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "screenshot"
+              ],
+              "host": [
+                "{{screenshot-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format: 'json'."
+                },
+                {
+                  "disabled": false,
+                  "key": "output",
+                  "value": "<string>",
+                  "description": "Output format for screenshot results"
+                },
+                {
+                  "disabled": false,
+                  "key": "file_type",
+                  "value": "<string>",
+                  "description": "File type for screenshot output"
+                },
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<string>",
+                  "description": "(Required) URLs to capture screenshots of"
+                },
+                {
+                  "disabled": false,
+                  "key": "width",
+                  "value": "<integer>",
+                  "description": "Browser viewport width in pixels"
+                },
+                {
+                  "disabled": false,
+                  "key": "height",
+                  "value": "<integer>",
+                  "description": "Browser viewport height in pixels"
+                },
+                {
+                  "disabled": false,
+                  "key": "full_page",
+                  "value": "<boolean>",
+                  "description": "Capture a full-page screenshot"
+                },
+                {
+                  "disabled": false,
+                  "key": "fresh",
+                  "value": "<boolean>",
+                  "description": "Bypass cache and take a fresh screenshot"
+                },
+                {
+                  "disabled": false,
+                  "key": "no_cookie_banners",
+                  "value": "<boolean>",
+                  "description": "Remove cookie banners from the screenshot"
+                },
+                {
+                  "disabled": false,
+                  "key": "enable_caching",
+                  "value": "<boolean>",
+                  "description": "Enable caching for repeated requests"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_ads",
+                  "value": "<boolean>",
+                  "description": "Block advertisements on the page"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_chat_widgets",
+                  "value": "<boolean>",
+                  "description": "Block chat widget scripts from loading"
+                },
+                {
+                  "disabled": false,
+                  "key": "extract_text",
+                  "value": "<boolean>",
+                  "description": "Extract visible text from the page"
+                },
+                {
+                  "disabled": false,
+                  "key": "extract_html",
+                  "value": "<boolean>",
+                  "description": "Extract HTML content of the page"
+                },
+                {
+                  "disabled": false,
+                  "key": "destroy_screenshot",
+                  "value": "<boolean>",
+                  "description": "Auto-destroy screenshot after fetch"
+                },
+                {
+                  "disabled": false,
+                  "key": "lazy_load",
+                  "value": "<boolean>",
+                  "description": "Enable lazy-loading content before screenshot"
+                },
+                {
+                  "disabled": false,
+                  "key": "retina",
+                  "value": "<boolean>",
+                  "description": "Capture screenshot in high-DPI (Retina) mode"
+                },
+                {
+                  "disabled": false,
+                  "key": "dark_mode",
+                  "value": "<boolean>",
+                  "description": "Render page in dark mode"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_tracking",
+                  "value": "<boolean>",
+                  "description": "Block common user-tracking scripts"
+                },
+                {
+                  "disabled": false,
+                  "key": "enable_incognito",
+                  "value": "<boolean>",
+                  "description": "Enable private/incognito mode for browser session"
+                },
+                {
+                  "disabled": false,
+                  "key": "omit_background",
+                  "value": "<boolean>",
+                  "description": "Omit background color (transparent background)"
+                },
+                {
+                  "disabled": false,
+                  "key": "thumbnail_width",
+                  "value": "<integer>",
+                  "description": "Thumbnail width in pixels"
+                },
+                {
+                  "disabled": false,
+                  "key": "adjust_top",
+                  "value": "<integer>",
+                  "description": "Adjust top in pixels"
+                },
+                {
+                  "disabled": false,
+                  "key": "wait_for_event",
+                  "value": "<string>",
+                  "description": "Wait for a specific load event before capturing the screenshot."
+                },
+                {
+                  "disabled": false,
+                  "key": "grayscale",
+                  "value": "<integer>",
+                  "description": "Range:0 to 100 for grayscale filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "delay",
+                  "value": "<integer>",
+                  "description": "How many milliseconds to wait before taking the screenshot"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeout",
+                  "value": "<integer>",
+                  "description": "Maximum timeout in milliseconds. Defalut is `10,000`"
+                },
+                {
+                  "disabled": false,
+                  "key": "ttl",
+                  "value": "<integer>",
+                  "description": "Number of seconds the screenshot should be cached"
+                },
+                {
+                  "disabled": false,
+                  "key": "clip[x]",
+                  "value": "<integer>",
+                  "description": "X position of the clipping rectangle in pixels"
+                },
+                {
+                  "disabled": false,
+                  "key": "clip[y]",
+                  "value": "<integer>",
+                  "description": "Y position of the clipping rectangle in pixels"
+                },
+                {
+                  "disabled": false,
+                  "key": "clip[width]",
+                  "value": "<integer>",
+                  "description": "Width of the clipping rectangle in pixels"
+                },
+                {
+                  "disabled": false,
+                  "key": "clip[height]",
+                  "value": "<integer>",
+                  "description": "Height of the clipping rectangle in pixels"
+                },
+                {
+                  "disabled": false,
+                  "key": "css_url",
+                  "value": "<string>",
+                  "description": "URL to CSS file"
+                },
+                {
+                  "disabled": false,
+                  "key": "css",
+                  "value": "<string>",
+                  "description": "Your custom CSS code"
+                },
+                {
+                  "disabled": false,
+                  "key": "js_url",
+                  "value": "<string>",
+                  "description": "URL to JS file"
+                },
+                {
+                  "disabled": false,
+                  "key": "js",
+                  "value": "<string>",
+                  "description": "Your JS code"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_js",
+                  "value": "<boolean>",
+                  "description": "Block Scripts"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_stylesheets",
+                  "value": "<boolean>",
+                  "description": "Block Stylesheets"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_images",
+                  "value": "<boolean>",
+                  "description": "Block Images"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_media",
+                  "value": "<boolean>",
+                  "description": "Block Media"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_font",
+                  "value": "<boolean>",
+                  "description": "Block Fonts"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_text_track",
+                  "value": "<boolean>",
+                  "description": "Block Text Tracks"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_xhr",
+                  "value": "<boolean>",
+                  "description": "Block XHR Requests"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_fetch",
+                  "value": "<boolean>",
+                  "description": "Block Fetch Requests"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_event_source",
+                  "value": "<boolean>",
+                  "description": "Block Event Source"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_web_socket",
+                  "value": "<boolean>",
+                  "description": "Block Web Sockets"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_manifest",
+                  "value": "<boolean>",
+                  "description": "Block Manifest"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_specific_requests",
+                  "value": "<string>",
+                  "description": "Comma- or newline-separated list of specific requests to block. Each line and comma are treated as separate requests for processing. Example: https://example.com, https://example.js"
+                },
+                {
+                  "disabled": false,
+                  "key": "blur_selector",
+                  "value": "<string>",
+                  "description": "Comma-separated list of indexed CSS selectors to blur. Format: index:<selector>, e.g., 0:.banner,1:#ads."
+                },
+                {
+                  "disabled": false,
+                  "key": "remove_selector",
+                  "value": "<string>",
+                  "description": "Comma-separated list of indexed CSS selectors to remove. Format: index:<selector>, e.g., 0:.banner,1:#ads."
+                },
+                {
+                  "disabled": false,
+                  "key": "result_file_name",
+                  "value": "<string>",
+                  "description": "Specify a meaningful and unique file name to easily identify the screenshot result. Avoid using spaces or special characters; use hyphens or underscores to separate words."
+                },
+                {
+                  "disabled": false,
+                  "key": "scrolling_screenshot",
+                  "value": "<boolean>",
+                  "description": "**`Scrolling Screenshot`**: Capture a long scrolling screenshot. When true, disable `fullPage` and `freshScreenshot`."
+                },
+                {
+                  "disabled": false,
+                  "key": "scroll_speed",
+                  "value": "<string>",
+                  "description": "Speed of scrolling during the screenshot."
+                },
+                {
+                  "disabled": false,
+                  "key": "scroll_back",
+                  "value": "<boolean>",
+                  "description": "If true, the scroll will reverse back to the top after reaching the bottom."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_immediately",
+                  "value": "<boolean>",
+                  "description": "If true, the scrolling capture will start immediately upon page load."
+                },
+                {
+                  "disabled": false,
+                  "key": "multiple_scrolling",
+                  "value": "<boolean>",
+                  "description": "If true, multiple scrolling screenshots will be taken at different viewport sizes."
+                },
+                {
+                  "disabled": false,
+                  "key": "sizes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of viewport sizes in format index:XXw:YYh. Example: sizes=0:120w:300h,1:240w:500h"
+                },
+                {
+                  "disabled": false,
+                  "key": "duration",
+                  "value": "<number>",
+                  "description": "Duration in seconds for the scrolling capture. Acceptable range is 0 to 60 seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "fail_on_error",
+                  "value": "<boolean>",
+                  "description": "If true, returns an error when the target page responds with 4xx or 5xx status."
+                },
+                {
+                  "disabled": false,
+                  "key": "longitude",
+                  "value": "<number>",
+                  "description": "Specify longitude for the browser Geolocation API."
+                },
+                {
+                  "disabled": false,
+                  "key": "latitude",
+                  "value": "<number>",
+                  "description": "Specify latitude for the browser Geolocation API."
+                },
+                {
+                  "disabled": false,
+                  "key": "proxy",
+                  "value": "<string>",
+                  "description": "Allows defining a proxy for the connection. Provide a JSON string with keys: server (include port number), username, and password."
+                },
+                {
+                  "disabled": false,
+                  "key": "headers",
+                  "value": "<string>",
+                  "description": "Custom HTTP headers to include as key=value pairs. Use a semicolon to separate multiple headers (e.g., key1=value1;key2=value2)."
+                },
+                {
+                  "disabled": false,
+                  "key": "cookies",
+                  "value": "<string>",
+                  "description": "Cookies to include in the request before rendering. Supports single or multiple cookies. Example: cookie=value; otherCookie=otherValue;"
+                },
+                {
+                  "disabled": false,
+                  "key": "scroll_to_element",
+                  "value": "<string>",
+                  "description": "Scrolls the page to bring the specified CSS selector into view before capture."
+                },
+                {
+                  "disabled": false,
+                  "key": "selector",
+                  "value": "<string>",
+                  "description": "CSS selector to capture a specific element. Only that element is rendered."
+                },
+                {
+                  "disabled": false,
+                  "key": "selector_to_click",
+                  "value": "<string>",
+                  "description": "CSS selector for an element to click before capturing the screenshot."
+                },
+                {
+                  "disabled": false,
+                  "key": "click_recursion",
+                  "value": "<integer>",
+                  "description": "Number of times to click the selector (when set via selector_to_click). Default: 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "user_agent",
+                  "value": "<string>",
+                  "description": "Custom User-Agent string sent in the request headers."
+                },
+                {
+                  "disabled": false,
+                  "key": "accept_languages",
+                  "value": "<string>",
+                  "description": "Sets the accepted languages for the HTTP request. Sent as the Accept-Language header."
+                },
+                {
+                  "disabled": false,
+                  "key": "scroll_delay",
+                  "value": "<integer>",
+                  "description": "Delay in milliseconds between scroll steps when lazy_load is enabled."
+                },
+                {
+                  "disabled": false,
+                  "key": "custom_html",
+                  "value": "<string>",
+                  "description": "Custom HTML to render instead of loading a URL. Overrides the url option."
+                },
+                {
+                  "disabled": false,
+                  "key": "image_quality",
+                  "value": "<integer>",
+                  "description": "Compression level for JPEG output (0–100). Lower = smaller file, higher = better quality. Only applies to JPEG."
+                },
+                {
+                  "disabled": false,
+                  "key": "extract_markdown",
+                  "value": "<boolean>",
+                  "description": "Extracts rendered page content as a structured .md (Markdown) file."
+                },
+                {
+                  "disabled": false,
+                  "key": "get_image_urls",
+                  "value": "<boolean>",
+                  "description": "Extracts all image URLs from the rendered DOM and returns them in structured format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e002c6c0-249e-46cb-a57e-2b3ff77fcfd4",
+              "name": "Successful PDF response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screenshot"
+                  ],
+                  "host": [
+                    "{{screenshot-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "full_page",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fresh",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "no_cookie_banners",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "enable_caching",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_ads",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_chat_widgets",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "extract_text",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "extract_html",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "destroy_screenshot",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "lazy_load",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "retina",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "dark_mode",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_tracking",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "enable_incognito",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "omit_background",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "thumbnail_width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "adjust_top",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "wait_for_event",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "grayscale",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "delay",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ttl",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[x]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[y]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[width]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[height]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "css_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "css",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "js_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "js",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "block_js",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_stylesheets",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_images",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_media",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_font",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_text_track",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_xhr",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_fetch",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_event_source",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_web_socket",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_manifest",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_specific_requests",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "blur_selector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "remove_selector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result_file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scrolling_screenshot",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "scroll_speed",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scroll_back",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "start_immediately",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "multiple_scrolling",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sizes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fail_on_error",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "proxy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "headers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cookies",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scroll_to_element",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selector_to_click",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "click_recursion",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_agent",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "accept_languages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scroll_delay",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "custom_html",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "image_quality",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "extract_markdown",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "get_image_urls",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"screenshot\": \"https://s3.eu-central-2.wasabisys.com/w.storage.apifreaks.com/example_com_e56fe7e60d8d.png\",\n  \"url\": \"https://example.com\",\n  \"created_at\": \"2026-07-27T10:19:08.668Z\",\n  \"format\": \"json\",\n  \"ttl\": \"2026-08-26T10:19:05.486Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a0f2b4f-0d34-4209-95fc-6a9bfd8167a5",
+              "name": "Bad Request — Invalid or missing parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screenshot"
+                  ],
+                  "host": [
+                    "{{screenshot-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "full_page",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fresh",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "no_cookie_banners",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "enable_caching",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_ads",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_chat_widgets",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "extract_text",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "extract_html",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "destroy_screenshot",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "lazy_load",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "retina",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "dark_mode",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_tracking",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "enable_incognito",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "omit_background",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "thumbnail_width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "adjust_top",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "wait_for_event",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "grayscale",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "delay",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ttl",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[x]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[y]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[width]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[height]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "css_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "css",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "js_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "js",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "block_js",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_stylesheets",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_images",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_media",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_font",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_text_track",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_xhr",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_fetch",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_event_source",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_web_socket",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_manifest",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_specific_requests",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "blur_selector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "remove_selector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result_file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scrolling_screenshot",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "scroll_speed",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scroll_back",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "start_immediately",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "multiple_scrolling",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sizes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fail_on_error",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "proxy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "headers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cookies",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scroll_to_element",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selector_to_click",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "click_recursion",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_agent",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "accept_languages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scroll_delay",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "custom_html",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "image_quality",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "extract_markdown",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "get_image_urls",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:19:11.354Z\",\n  \"status\": 400,\n  \"error\": \"invalid_url\",\n  \"message\": \"Your URL is incorrect\",\n  \"path\": \"/v3/screenshot\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5b69c25-453c-4f70-9f0d-efbb9efe23f5",
+              "name": "Request Timeout — Screenshot capture exceeded the configured timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "screenshot"
+                  ],
+                  "host": [
+                    "{{screenshot-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "output",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "full_page",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "fresh",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "no_cookie_banners",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "enable_caching",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_ads",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_chat_widgets",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "extract_text",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "extract_html",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "destroy_screenshot",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "lazy_load",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "retina",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "dark_mode",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_tracking",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "enable_incognito",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "omit_background",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "thumbnail_width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "adjust_top",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "wait_for_event",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "grayscale",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "delay",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timeout",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ttl",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[x]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[y]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[width]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clip[height]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "css_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "css",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "js_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "js",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "block_js",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_stylesheets",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_images",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_media",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_font",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_text_track",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_xhr",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_fetch",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_event_source",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_web_socket",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_manifest",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "block_specific_requests",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "blur_selector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "remove_selector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "result_file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scrolling_screenshot",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "scroll_speed",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scroll_back",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "start_immediately",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "multiple_scrolling",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sizes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fail_on_error",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "proxy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "headers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cookies",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scroll_to_element",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selector_to_click",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "click_recursion",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_agent",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "accept_languages",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scroll_delay",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "custom_html",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "image_quality",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "extract_markdown",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "get_image_urls",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:19:25.676Z\",\n  \"status\": 408,\n  \"error\": \"timeout_error\",\n  \"message\": \"The request took too long to complete. Please try again later.\",\n  \"path\": \"/v3/screenshot\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "screenshot-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "70bf9efd-685b-465a-bffe-78fed23fa28e",
+    "name": "Apifreaks Api Hub For Developers Screenshot APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Screenshot APIs across 2 of this provider's published API definitions: apifreaks-api-hub-for-developers-bulk-screenshot-openapi.json, apifreaks-api-hub-for-developers-website-screenshot-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

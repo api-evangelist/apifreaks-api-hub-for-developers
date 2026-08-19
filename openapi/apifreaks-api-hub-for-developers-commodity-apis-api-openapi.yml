@@ -1,0 +1,948 @@
+openapi: 3.2.0
+info:
+  title: Apifreaks Api Hub For Developers Commodity APIs API
+  version: 1.0.0
+  contact:
+    name: APIFreaks Support
+    url: https://apifreaks.com/contact
+    email: support@apifreaks.com
+  description: 'Operations tagged Commodity APIs across 5 of this provider''s published API definitions: apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json, apifreaks-api-hub-for-developers-commodity-prices-openapi.json, apifreaks-api-hub-for-developers-commodity-symbols-openapi.json, apifreaks-api-hub-for-developers-commodity-time-series-openapi.json, apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.apifreaks.com/v1.0
+  description: Commodity Fluctuation API Server
+security:
+- ApiKeyAuthHeader: []
+- ApiKeyAuthQuery: []
+tags:
+- name: Commodity APIs
+paths:
+  /commodity/fluctuation:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Commodity Fluctuation API Server
+    get:
+      tags:
+      - Commodity APIs
+      summary: Get commodity price fluctuations
+      description: Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range.
+      operationId: getCommodityFluctuation
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: Response format. Currently only `json` is supported.
+        schema:
+          type: string
+          default: json
+          enum:
+          - json
+      - name: symbols
+        in: query
+        required: true
+        description: Comma-separated list of commodity symbols.
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        description: Start date in `YYYY-MM-DD` format.
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: true
+        description: End date in `YYYY-MM-DD` format.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommodityFluctuationResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    startDate: '2024-01-01'
+                    endDate: '2024-01-31'
+                    rates:
+                      WTIOIL-SPOT:
+                        startRate: 72.02
+                        endRate: 75.81
+                        change: 3.79
+                        changePercent: 5.26
+                      XAU:
+                        startRate: 2063.63
+                        endRate: 2039.83
+                        change: -23.8
+                        changePercent: -1.15
+        '400':
+          description: Bad Request — Missing parameters or invalid dates
+          content:
+            application/json:
+              examples:
+                missingSymbols:
+                  summary: Missing required symbols parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/commodity/fluctuation
+                    status: 400
+                    timestamp: '2026-07-27T11:37:24.273Z'
+                invalidDateFormat:
+                  summary: Date is not in YYYY-MM-DD format
+                  value:
+                    timestamp: '2026-07-27T11:37:22.687Z'
+                    path: /rates/fluctuation
+                    code: 400
+                    error: VALIDATION_ERROR
+                    message: Invalid Date Format (YYYY-MM-DD).
+                dateNotExist:
+                  summary: Date does not exist on the calendar (e.g. Feb 30)
+                  value:
+                    timestamp: '2026-07-27T11:37:33.565Z'
+                    path: /rates/fluctuation
+                    code: 400
+                    error: VALIDATION_ERROR
+                    message: 'Invalid Date: The provided start date or end date does not exist.'
+                startAfterEnd:
+                  summary: startDate is after endDate
+                  value:
+                    timestamp: '2026-07-27T11:37:23.206Z'
+                    path: /rates/fluctuation
+                    code: 400
+                    error: VALIDATION_ERROR
+                    message: Start date cannot be after end date
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found - Symbol or data not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                symbolNotFound:
+                  summary: Symbol Not Found
+                  value:
+                    timestamp: '2026-07-27T11:37:23.759Z'
+                    path: /rates/fluctuation
+                    code: 404
+                    error: SYMBOL_NOT_FOUND
+                    message: The symbol is not supported, please visit the documentation for a list of supported symbols
+                noData:
+                  summary: No data available for the given date range
+                  value:
+                    timestamp: '2026-07-27T11:37:34.167Z'
+                    path: /rates/fluctuation
+                    code: 404
+                    error: DATA_NOT_FOUND
+                    message: No data found for the given date range
+  /commodity/rates/latest:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Live Commodity Prices API Server
+    get:
+      tags:
+      - Commodity APIs
+      summary: Get latest commodity prices
+      description: Returns the current live price for the requested commodity symbols.
+      operationId: getLatestCommodityPrices
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: Response format. Currently only `json` is supported.
+        schema:
+          type: string
+          default: json
+          enum:
+          - json
+      - name: symbols
+        in: query
+        required: true
+        description: Comma-separated list of commodity symbols (e.g., `XAU`, `WTIOIL-SPOT`).
+        schema:
+          type: string
+      - name: updates
+        in: query
+        required: true
+        description: 'Update frequency. Accepted values: `1m` (default), `10m`.'
+        schema:
+          type: string
+          enum:
+          - 1m
+          - 10m
+          default: 1m
+      - name: quote
+        in: query
+        required: false
+        description: Target currency for the exchange rate. Defaults to the market currency of each commodity.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LiveCommodityPricesResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    timestamp: 1785152172
+                    rates:
+                      XAU: 4099.1
+                      WTIOIL-SPOT: 81.88
+                    metadata:
+                      XAU:
+                        unit: T.oz
+                        quote: USD
+                      WTIOIL-SPOT:
+                        unit: Bbl
+                        quote: USD
+                withQuoteConversion:
+                  summary: Price converted to a target quote currency
+                  value:
+                    success: true
+                    timestamp: 1785152172
+                    rates:
+                      XAU: 3597.734
+                    metadata:
+                      XAU:
+                        unit: T.oz
+                        quote: EUR
+        '400':
+          description: Bad Request — Missing or invalid query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_2'
+              examples:
+                missingSymbols:
+                  summary: Missing required symbols parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/commodity/rates/latest
+                    status: 400
+                    timestamp: '2026-07-27T11:36:13.312Z'
+                invalidUpdates:
+                  summary: updates is not 1m or 10m
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/commodity/rates/latest
+                    status: 400
+                    timestamp: '2026-07-27T11:36:35.755Z'
+        '404':
+          description: Not found - Symbol or quote currency not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommodityNotFoundError'
+              examples:
+                symbolNotFound:
+                  summary: Symbol Not Found
+                  value:
+                    timestamp: 1781792620618
+                    path: /rates/latestRates
+                    code: 404
+                    error: SYMBOL_NOT_FOUND
+                    message: The symbol is not supported, please visit the documentation for a list of supported symbols
+                quoteNotFound:
+                  summary: Quote Currency Not Found
+                  value:
+                    timestamp: 1781792620618
+                    path: /rates/latestRates
+                    code: 404
+                    error: QUOTE_NOT_FOUND
+                    message: The quote currency is invalid, please visit the documentation for a list of valid quote currencies
+  /commodity/symbols:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Commodity Symbols API Server
+    get:
+      tags:
+      - Commodity APIs
+      summary: Get all supported commodity symbols
+      description: Returns the list of supported commodity symbols with metadata.
+      operationId: getCommoditySymbols
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Response format. Accepted values: `json` (default) or `xml`.'
+        schema:
+          type: string
+          enum:
+          - json
+          default: json
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommoditySymbolsResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    symbols:
+                    - symbol: XAU
+                      name: Gold
+                      category: Metals
+                      status: active
+                      updateInterval: PER_SECOND
+                      currency:
+                        code: USD
+                        name: US Dollar
+                        symbol: $
+                      unit:
+                        symbol: T.oz
+                        name: Troy Ounce
+                    - symbol: NG-FUT
+                      name: Natural Gas Futures
+                      category: Energy
+                      status: active
+                      updateInterval: PER_MINUTE
+                      currency:
+                        code: USD
+                        name: US Dollar
+                        symbol: $
+                      unit:
+                        symbol: MMBtu
+                        name: Million British Thermal Units
+  /commodity/time-series:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Commodity Time Series API Server
+    get:
+      tags:
+      - Commodity APIs
+      summary: Get commodity price time series
+      description: Returns day-by-day OHLC data for the requested commodity symbols within a date range.
+      operationId: getCommodityTimeSeries
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: Response format. Currently only `json` is supported.
+        schema:
+          type: string
+          default: json
+          enum:
+          - json
+      - name: symbols
+        in: query
+        required: true
+        description: Comma-separated list of commodity symbols.
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        description: Start date in `YYYY-MM-DD` format.
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: true
+        description: End date in `YYYY-MM-DD` format. Maximum range is 365 days.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommodityTimeSeriesResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    startDate: '2025-01-06'
+                    endDate: '2025-01-08'
+                    rates:
+                      '2025-01-06':
+                        XAU:
+                          open: 2649.01
+                          high: 2651.33
+                          low: 2645.36
+                          close: 2646.91
+                      '2025-01-07':
+                        XAU:
+                          open: 2662.45
+                          high: 2663.06
+                          low: 2655.66
+                          close: 2658.9
+                      '2025-01-08':
+                        XAU:
+                          open: 2669.69
+                          high: 2674.68
+                          low: 2668.58
+                          close: 2671.8
+        '400':
+          description: Bad Request — Missing parameters, invalid dates, or date range exceeded
+          content:
+            application/json:
+              examples:
+                missingSymbols:
+                  summary: Missing required symbols parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/commodity/time-series
+                    status: 400
+                    timestamp: '2026-07-27T11:38:40.063Z'
+                invalidDate:
+                  summary: Date does not exist on the calendar
+                  value:
+                    timestamp: '2026-07-27T11:38:41.234Z'
+                    path: /rates/time-series
+                    code: 400
+                    error: VALIDATION_ERROR
+                    message: 'Invalid Date: The provided start date or end date does not exist.'
+                startAfterEnd:
+                  summary: startDate is after endDate
+                  value:
+                    timestamp: '2026-07-27T11:38:41.234Z'
+                    path: /rates/time-series
+                    code: 400
+                    error: VALIDATION_ERROR
+                    message: start date cannot be after end date
+                dateRangeExceeded:
+                  summary: Date range exceeds 365 days
+                  value:
+                    timestamp: '2026-07-27T11:38:40.699Z'
+                    path: /rates/time-series
+                    code: 400
+                    error: VALIDATION_ERROR
+                    message: Date range exceeds the allowed limit.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found - Symbol or data not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                symbolNotFound:
+                  summary: Symbol Not Found
+                  value:
+                    timestamp: '2026-07-27T11:38:41.234Z'
+                    path: /rates/time-series
+                    code: 404
+                    error: SYMBOL_NOT_FOUND
+                    message: The symbol is not supported, please visit the documentation for a list of supported symbols
+                dataNotFound:
+                  summary: No data available for the given date range
+                  value:
+                    timestamp: '2026-07-27T11:38:41.234Z'
+                    path: /rates/time-series
+                    code: 404
+                    error: DATA_NOT_FOUND
+                    message: No data found for the specified date range
+  /commodity/rates/historical:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Historical Commodity Prices API Server
+    get:
+      tags:
+      - Commodity APIs
+      summary: Get historical commodity prices
+      description: Returns OHLC price data for the requested commodity symbols on a specific date.
+      operationId: getHistoricalCommodityPrices
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: Response format. Currently only `json` is supported.
+        schema:
+          type: string
+          default: json
+          enum:
+          - json
+      - name: symbols
+        in: query
+        required: true
+        description: Comma-separated list of commodity symbols.
+        schema:
+          type: string
+      - name: date
+        in: query
+        required: true
+        description: Date in `YYYY-MM-DD` format. Data available from 1990 onwards.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalCommodityPricesResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    success: true
+                    date: '2025-01-10'
+                    rates:
+                      WTIOIL-SPOT:
+                        date: '2025-01-10'
+                        open: 73.77
+                        high: 77.16
+                        low: 73.55
+                        close: 75.97
+                      XAU:
+                        date: '2025-01-10'
+                        open: 2669.93
+                        high: 2697.85
+                        low: 2663.61
+                        close: 2689.44
+        '400':
+          description: Bad request - Invalid date format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_3'
+              examples:
+                invalidDateFormat:
+                  summary: Invalid date format
+                  value:
+                    timestamp: 1781792620618
+                    status: 400
+                    error: VALIDATION_ERROR
+                    message: Invalid Date Format (YYYY-MM-DD).
+                    path: /v1.0/commodity/rates/historical
+                dateNotExist:
+                  summary: Date does not exist
+                  value:
+                    timestamp: 1781792620618
+                    status: 400
+                    error: VALIDATION_ERROR
+                    message: 'Invalid Date: The provided date does not exist.'
+                    path: /v1.0/commodity/rates/historical
+        '404':
+          description: Not found - Symbol or rate not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_3'
+              examples:
+                symbolNotFound:
+                  summary: Symbol Not Found
+                  value:
+                    timestamp: 1781792620618
+                    status: 404
+                    error: SYMBOL_NOT_FOUND
+                    message: The symbol is not supported, please visit the documentation for a list of supported symbols
+                    path: /v1.0/commodity/rates/historical
+                rateNotFound:
+                  summary: Rate Not Found
+                  value:
+                    timestamp: 1781792620618
+                    status: 404
+                    error: RATE_NOT_FOUND
+                    message: no rates found for the specified date
+                    path: /v1.0/commodity/rates/historical
+components:
+  schemas:
+    CommoditySymbolsResponse:
+      type: object
+      required:
+      - success
+      - symbols
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the API request was successful.
+        symbols:
+          type: array
+          description: Array of commodity symbol objects with metadata.
+          items:
+            $ref: '#/components/schemas/CommoditySymbolItem'
+      description: Commodity symbols response containing an array of supported commodity symbol objects.
+    CommodityRates:
+      type: object
+      description: Map of requested commodity symbols to their current live price. Each key is a commodity symbol (e.g. XAU); the value is the current price.
+      additionalProperties:
+        title: CommodityPrice
+        type: number
+        description: Current live price for this commodity symbol.
+    CommodityNotFoundError:
+      type: object
+      description: Error envelope returned by the commodity pricing service specifically for unresolvable symbol/quote errors. Uses `code` instead of `status` and a Unix millisecond `timestamp`, unlike the standard ErrorResponse.
+      required:
+      - code
+      - error
+      - message
+      properties:
+        timestamp:
+          type: integer
+          description: Unix timestamp in milliseconds when the error occurred.
+        path:
+          type: string
+          description: Internal service path that produced the error.
+        code:
+          type: integer
+          description: HTTP status code returned with the error.
+        error:
+          type: string
+          description: Specific error type (e.g., SYMBOL_NOT_FOUND, QUOTE_NOT_FOUND).
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+    ErrorResponse_2:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    CommodityTimeSeriesResponse:
+      type: object
+      required:
+      - success
+      - startDate
+      - endDate
+      - rates
+      properties:
+        success:
+          type: boolean
+          description: '`true` for successful requests.'
+        startDate:
+          type: string
+          description: Start date of the time series (YYYY-MM-DD).
+        endDate:
+          type: string
+          description: End date of the time series (YYYY-MM-DD).
+        rates:
+          $ref: '#/components/schemas/CommodityTimeSeriesRates'
+      description: Commodity time series response containing date-indexed OHLC data per symbol.
+    LiveCommodityPricesResponse:
+      type: object
+      required:
+      - success
+      - timestamp
+      - rates
+      - metadata
+      properties:
+        success:
+          type: boolean
+          description: '`true` for successful requests.'
+        timestamp:
+          type: integer
+          description: Unix timestamp (seconds) indicating when the response was generated.
+        rates:
+          $ref: '#/components/schemas/CommodityRates'
+        metadata:
+          $ref: '#/components/schemas/CommodityMetadata'
+      description: Live commodity prices response containing success status, timestamp, rates, and metadata.
+    CommodityMetadata:
+      type: object
+      description: Map of requested commodity symbols to their unit and quote currency metadata. Each key is a commodity symbol (e.g. XAU).
+      additionalProperties:
+        title: CommodityMetadataItem
+        type: object
+        description: Unit and currency metadata for a single commodity.
+        required:
+        - unit
+        - quote
+        properties:
+          unit:
+            type: string
+            description: Unit of measurement for the commodity (e.g., Bbl, T.oz).
+          quote:
+            type: string
+            description: Quote currency used for this commodity's price.
+    CommodityUnit:
+      type: object
+      description: Unit of measurement for a commodity.
+      required:
+      - symbol
+      - name
+      properties:
+        symbol:
+          type: string
+          description: Abbreviated unit symbol (e.g., T.oz, MMBtu).
+        name:
+          type: string
+          description: Full name of the unit of measurement (e.g., Troy Ounce).
+    ErrorResponse_3:
+      type: object
+      required:
+      - timestamp
+      - status
+      - error
+      - message
+      - path
+      properties:
+        timestamp:
+          type: integer
+          description: Unix timestamp in milliseconds when the error occurred.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        error:
+          type: string
+          description: Specific error type (e.g., SYMBOL_NOT_FOUND, VALIDATION_ERROR).
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+      description: Standard error envelope returned by the API on failed requests.
+    CommoditySymbolItem:
+      type: object
+      description: A single commodity symbol with metadata.
+      required:
+      - symbol
+      - name
+      - category
+      - status
+      - updateInterval
+      - currency
+      - unit
+      properties:
+        symbol:
+          type: string
+          description: Unique identifier/ticker symbol for the commodity (e.g., XAU, NG-FUT).
+        name:
+          type: string
+          description: Full name of the commodity (e.g., Gold, Natural Gas Futures).
+        category:
+          type: string
+          description: Category the commodity belongs to (e.g., Metals, Energy).
+        status:
+          type: string
+          description: 'Current status of the commodity. Value: active.'
+        updateInterval:
+          type: string
+          description: 'Rate at which the price is updated. Values: PER_SECOND, PER_MINUTE.'
+        currency:
+          $ref: '#/components/schemas/CommodityCurrency'
+        unit:
+          $ref: '#/components/schemas/CommodityUnit'
+    CommodityTimeSeriesRates:
+      type: object
+      description: Map of trading dates to per-symbol OHLC data. Each key is a trading date (YYYY-MM-DD); non-trading days are excluded.
+      additionalProperties:
+        title: CommodityTimeSeriesSymbolData
+        type: object
+        description: Map of commodity symbols to their OHLC data for a single trading date. Each key is a commodity symbol (e.g. XAU).
+        additionalProperties:
+          $ref: '#/components/schemas/CommodityOhlc'
+    HistoricalCommodityPricesResponse:
+      type: object
+      required:
+      - success
+      - date
+      - rates
+      properties:
+        success:
+          type: boolean
+          description: '`true` for successful requests.'
+        date:
+          type: string
+          description: Date for which prices were fetched (YYYY-MM-DD).
+        rates:
+          $ref: '#/components/schemas/HistoricalCommodityRates'
+      description: Historical commodity prices response containing success status, date, and OHLC rate data.
+    CommodityFluctuationRates:
+      type: object
+      description: Map of requested commodity symbols to their fluctuation metrics. Each key is a commodity symbol (e.g. XAU).
+      additionalProperties:
+        title: CommodityFluctuationItem
+        type: object
+        description: Fluctuation metrics for a single commodity over a date range.
+        required:
+        - startRate
+        - endRate
+        - change
+        - changePercent
+        properties:
+          startRate:
+            type: number
+            format: float
+            description: Price of the commodity on the start date.
+          endRate:
+            type: number
+            format: float
+            description: Price of the commodity on the end date.
+          change:
+            type: number
+            format: float
+            description: Absolute price difference between end and start dates. May be negative.
+          changePercent:
+            type: number
+            format: float
+            description: Percentage price change from start to end date. May be negative.
+    HistoricalCommodityRates:
+      type: object
+      description: Object of commodity symbols to their OHLC price data. Each key is a commodity symbol and the value contains date, open, high, low, and close prices.
+      properties:
+        symbol:
+          $ref: '#/components/schemas/HistoricalCommodityRate'
+      required:
+      - symbol
+    CommodityOhlc:
+      type: object
+      description: OHLC price data for a single commodity on a single trading day.
+      required:
+      - open
+      - high
+      - low
+      - close
+      properties:
+        open:
+          type: number
+          format: float
+          description: Opening price on the given date.
+        high:
+          type: number
+          format: float
+          description: Highest price on the given date.
+        low:
+          type: number
+          format: float
+          description: Lowest price on the given date.
+        close:
+          type: number
+          format: float
+          description: Closing price on the given date.
+    HistoricalCommodityRate:
+      type: object
+      description: OHLC price data for a single commodity on a specific date.
+      required:
+      - date
+      - open
+      - high
+      - low
+      - close
+      properties:
+        date:
+          type: string
+          description: Date for which prices were fetched (YYYY-MM-DD).
+        open:
+          type: number
+          format: float
+          description: Opening price on the given date.
+        high:
+          type: number
+          format: float
+          description: Highest price recorded on the given date.
+        low:
+          type: number
+          format: float
+          description: Lowest price recorded on the given date.
+        close:
+          type: number
+          format: float
+          description: Closing price on the given date.
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests. Gateway-level validation errors populate status; commodity-service errors (date/symbol/data validation) populate code instead — check whichever is present.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type (e.g., Invalid Param Exception, VALIDATION_ERROR, SYMBOL_NOT_FOUND, DATA_NOT_FOUND).
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path (gateway errors) or internal service path (commodity-service errors) that produced the error.
+        status:
+          type: integer
+          description: HTTP status code. Present on gateway-level errors.
+        code:
+          type: integer
+          description: HTTP status code. Present on commodity-service errors instead of status.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    CommodityCurrency:
+      type: object
+      description: Currency information for a commodity.
+      required:
+      - code
+      - name
+      - symbol
+      properties:
+        code:
+          type: string
+          description: ISO 4217 currency code.
+        name:
+          type: string
+          description: Full name of the currency.
+        symbol:
+          type: string
+          description: Symbol of the currency (e.g., $).
+    CommodityFluctuationResponse:
+      type: object
+      required:
+      - success
+      - startDate
+      - endDate
+      - rates
+      properties:
+        success:
+          type: boolean
+          description: '`true` for successful requests.'
+        startDate:
+          type: string
+          description: Start date of the interval (YYYY-MM-DD).
+        endDate:
+          type: string
+          description: End date of the interval (YYYY-MM-DD).
+        rates:
+          $ref: '#/components/schemas/CommodityFluctuationRates'
+      description: Commodity fluctuation response containing price change data per symbol over a date range.
+  securitySchemes:
+    ApiKeyAuthHeader:
+      type: apiKey
+      in: header
+      name: X-apiKey
+      description: Pass your API key via the X-apiKey request header.
+    ApiKeyAuthQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: Pass your API key via the apiKey query parameter.
+x-refined-from:
+- apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json
+- apifreaks-api-hub-for-developers-commodity-prices-openapi.json
+- apifreaks-api-hub-for-developers-commodity-symbols-openapi.json
+- apifreaks-api-hub-for-developers-commodity-time-series-openapi.json
+- apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json

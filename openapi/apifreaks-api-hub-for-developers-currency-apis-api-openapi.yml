@@ -1,0 +1,1537 @@
+openapi: 3.2.0
+info:
+  title: Apifreaks Api Hub For Developers Currency APIs API
+  version: 1.0.0
+  contact:
+    name: APIFreaks Support
+    url: https://apifreaks.com/contact
+    email: support@apifreaks.com
+  description: 'Operations tagged Currency APIs across 10 of this provider''s published API definitions: apifreaks-api-hub-for-developers-currency-converter-openapi.json, apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json, apifreaks-api-hub-for-developers-currency-historical-data-limit-openapi.json, apifreaks-api-hub-for-developers-currency-rate-openapi.json, apifreaks-api-hub-for-developers-currency-supported-openapi.json, apifreaks-api-hub-for-developers-currency-symbols-openapi.json, apifreaks-api-hub-for-developers-currency-time-series-openapi.json, apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json, apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json, apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.apifreaks.com/v1.0
+  description: Currency Converter API Server
+security:
+- ApiKeyAuthHeader: []
+- ApiKeyAuthQuery: []
+tags:
+- name: Currency APIs
+paths:
+  /currency/converter/latest/prices:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Currency Converter API Server
+    get:
+      tags:
+      - Currency APIs
+      summary: Convert currency with latest rates
+      description: Converts an amount from one currency to another using the latest exchange rates.
+      operationId: convertLatest
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Response format: `json` (default) or `xml`.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: from
+        in: query
+        required: true
+        description: Source currency code.
+        schema:
+          type: string
+      - name: to
+        in: query
+        required: true
+        description: Target currency code.
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: false
+        description: Amount to convert, as a decimal. Defaults to `1`. Must be numeric — non-numeric values return a 400 (negative values are accepted despite the error message's wording).
+        schema:
+          type: string
+          default: '1'
+      - name: updates
+        in: query
+        required: false
+        description: 'Update frequency: `1m` (default), `10m`, `1h`, or `1d`.'
+        schema:
+          type: string
+          enum:
+          - 1m
+          - 10m
+          - 1h
+          - 1d
+          default: 1m
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LatestCurrencyConverterResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    date: '2026-07-27 12:05:00+00'
+                    from: USD
+                    to: EUR
+                    rate: '0.87800'
+                    givenAmount: '100.0'
+                    convertedAmount: '87.800'
+        '400':
+          description: Bad request - Invalid amount or updates parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingParams:
+                  summary: Missing required from/to parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/currency/converter/latest/prices
+                    status: 400
+                    timestamp: '2026-07-27T12:05:29.609Z'
+                invalidAmount:
+                  summary: amount is not numeric
+                  value:
+                    timestamp: 1785153941995
+                    status: 400
+                    error: Method Argument Type Mismatch
+                    message: Invalid Amount. Please provide amount in decimal format and greater than 0!
+                    path: /v2.0/convert/latest
+                invalidUpdates:
+                  summary: updates is not one of 1m/10m/1h/1d
+                  value:
+                    timestamp: 1785153942533
+                    status: 400
+                    error: Invalid Param Exception
+                    message: Please provide valid updates parameter (1d,1h,10m,1m)
+                    path: /v2.0/convert/latest
+        '404':
+          description: Not found - Currency not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidBase:
+                  summary: from currency not supported
+                  value:
+                    timestamp: 1785153930704
+                    status: 404
+                    error: Not Found Exception
+                    message: Rates of provided currency ZZZ are not available in our database!
+                    path: /v2.0/convert/latest
+  /currency/fluctuation:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Currency Fluctuation API Server
+    get:
+      tags:
+      - Currency APIs
+      summary: Get exchange rate fluctuations
+      description: Returns exchange rate fluctuations between two dates for the requested symbols.
+      operationId: getFluctuation
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Response format: `json` (default) or `xml`.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: startDate
+        in: query
+        required: true
+        description: Start date in `YYYY-MM-DD` format.
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: false
+        description: End date in `YYYY-MM-DD` format. Defaults to yesterday.
+        schema:
+          type: string
+      - name: base
+        in: query
+        required: false
+        description: Base currency code. Defaults to `USD`.
+        schema:
+          type: string
+          default: USD
+      - name: symbols
+        in: query
+        required: false
+        description: Comma-separated currency codes. Omit to get all available rates.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencyFluctuationResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    startDate: '2025-01-01'
+                    endDate: '2025-01-10'
+                    base: USD
+                    rateFluctuations:
+                      EUR:
+                        startRate: '0.96605'
+                        endRate: '0.97620'
+                        change: '-0.010150'
+                        percentChange: '-1.05'
+                      PKR:
+                        startRate: '278.400'
+                        endRate: '278.650'
+                        change: '-0.25'
+                        percentChange: '-0.09'
+        '400':
+          description: Bad request - Invalid dates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_2'
+              examples:
+                missingStartDate:
+                  summary: Missing required startDate parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/currency/fluctuation
+                    status: 400
+                    timestamp: '2026-07-27T12:09:21.348Z'
+                startAfterEnd:
+                  summary: startDate is after endDate or the current date
+                  value:
+                    timestamp: 1785154172736
+                    status: 400
+                    error: Invalid Param Exception
+                    message: Starting date cannot be after current date or ending date
+                    path: /v2.0/fluctuation
+                invalidDateFormat:
+                  summary: startDate/endDate not in YYYY-MM-DD format
+                  value:
+                    timestamp: 1785154172225
+                    status: 400
+                    error: Invalid Param Exception
+                    message: Provided Dates are in Invalid Format. Dates must be in a valid format YYYY-MM-DD!
+                    path: /v2.0/fluctuation
+        '404':
+          description: Not found - No data for interval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_2'
+              examples:
+                noData:
+                  summary: base or symbols not supported for the given interval
+                  value:
+                    timestamp: 1785154173332
+                    status: 404
+                    error: Not Found Exception
+                    message: Rates of provided base and symbols are not found for given intervals.
+                    path: /v2.0/fluctuation
+  /currency/historical/data/limits:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Currency Historical Data Limits API Server
+    get:
+      tags:
+      - Currency APIs
+      summary: Get historical data availability limits
+      description: Returns the date range when historical data is available for each currency.
+      operationId: getHistoricalDataLimits
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Response format: `json` (default) or `xml`.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalDataLimitsResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    availabilityPeriod:
+                      FJD: 1989-08-18 to 2026-07-27
+                      SCR: 1998-07-31 to 2026-07-27
+                      STPT: 2025-02-27 to 2025-05-28
+        '406':
+          description: Unsupported Media Type — format is not json or xml
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_3'
+              examples:
+                badFormat:
+                  summary: format value not supported
+                  value:
+                    error: Unsupported Media Type
+                    message: The media type specified in the request is not supported. For more details, please refer to the API documentation.
+                    path: /v1.0/currency/historical/data/limits
+                    status: 406
+                    timestamp: '2026-07-27T12:14:01.189Z'
+  /currency/rates/latest:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Exchange Rate API Server
+    get:
+      tags:
+      - Currency APIs
+      summary: Get the latest exchange rates
+      description: Returns the latest exchange rates for the requested base currency and symbols.
+      operationId: getLatestExchangeRates
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Response format: `json` (default) or `xml`.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: base
+        in: query
+        required: false
+        description: Base currency code. Defaults to `USD`. Supports fiat, crypto, and metals.
+        schema:
+          type: string
+          default: USD
+      - name: symbols
+        in: query
+        required: false
+        description: Comma-separated currency codes. Omit to get all available rates.
+        schema:
+          type: string
+      - name: updates
+        in: query
+        required: false
+        description: 'Update frequency: `1m` (default), `10m`, `1h`, or `1d`.'
+        schema:
+          type: string
+          enum:
+          - 1m
+          - 10m
+          - 1h
+          - 1d
+          default: 1m
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LatestExchangeRatesResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    date: '2026-07-27 12:01:00+00'
+                    base: USD
+                    rates:
+                      EUR: '0.878156'
+                      PKR: '277.863'
+        '400':
+          description: Bad request - Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_4'
+              examples:
+                invalidUpdates:
+                  summary: updates is not one of 1m/10m/1h/1d
+                  value:
+                    timestamp: 1785153665906
+                    status: 400
+                    error: Invalid Param Exception
+                    message: Please provide valid updates parameter (1d,1h,10m,1m)
+                    path: /v2.0/rates/latest
+        '404':
+          description: Not found - Currency or symbol not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_4'
+              examples:
+                invalidBase:
+                  summary: base currency not supported
+                  value:
+                    timestamp: 1785153666449
+                    status: 404
+                    error: Not Found Exception
+                    message: Rates of provided currency ZZZ are not available in our database!
+                    path: /v2.0/rates/latest
+                invalidSymbols:
+                  summary: symbols not supported
+                  value:
+                    timestamp: 1785153666998
+                    status: 404
+                    error: Not Found Exception
+                    message: Rates of provided Symbols are not available in our database!
+                    path: /v2.0/rates/latest
+  /currency/supported:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Currency Supported API Server
+    get:
+      tags:
+      - Currency APIs
+      summary: Get all supported currencies
+      description: Returns a map of all supported currencies with metadata.
+      operationId: getSupportedCurrencies
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Response format: `json` (default) or `xml`.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupportedCurrenciesResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    supportedCurrenciesMap:
+                      USD:
+                        currencyCode: USD
+                        currencyName: US Dollar
+                        countryCode: AS
+                        countryName: American Samoa
+                        status: AVAILABLE
+                        availableFrom: '2020-01-01'
+                        availableUntil: '2026-06-18'
+                        icon: https://currencyfreaks.com/photos/flags/usd.png
+                      BTC:
+                        currencyCode: BTC
+                        currencyName: Bitcoin
+                        countryCode: Crypto
+                        countryName: Global
+                        status: AVAILABLE
+                        availableFrom: '2014-01-01'
+                        availableUntil: '2026-06-18'
+                        icon: https://currencyfreaks.com/photos/flags/btc.png
+                      XAU:
+                        currencyCode: XAU
+                        currencyName: Gold Ounce
+                        countryCode: Metal
+                        countryName: Precious Metal
+                        status: AVAILABLE
+                        availableFrom: '2020-01-01'
+                        availableUntil: '2026-06-18'
+                        icon: https://currencyfreaks.com/photos/flags/xau.png
+        '406':
+          description: Unsupported Media Type — format is not json or xml
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_5'
+              examples:
+                badFormat:
+                  summary: format value not supported
+                  value:
+                    error: Unsupported Media Type
+                    message: The media type specified in the request is not supported. For more details, please refer to the API documentation.
+                    path: /v1.0/currency/supported
+                    status: 406
+                    timestamp: '2026-07-27T12:12:35.587Z'
+  /currency/symbols:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Currency Symbols API Server
+    get:
+      tags:
+      - Currency APIs
+      summary: Get all currency symbols
+      description: Returns a map of currency codes to their full names.
+      operationId: getCurrencySymbols
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Response format: `json` (default) or `xml`.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencySymbolsResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    currencySymbols:
+                      USD: US Dollar
+                      EUR: Euro
+                      GBP: British Pound Sterling
+                      PKR: Pakistani Rupee
+                      BTC: Bitcoin
+                      XAU: Gold (troy ounce)
+        '406':
+          description: Unsupported Media Type — format is not json or xml
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_6'
+              examples:
+                badFormat:
+                  summary: format value not supported
+                  value:
+                    error: Unsupported Media Type
+                    message: The media type specified in the request is not supported. For more details, please refer to the API documentation.
+                    path: /v1.0/currency/symbols
+                    status: 406
+                    timestamp: '2026-07-27T12:13:24.369Z'
+  /currency/time-series:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Currency Time Series API Server
+    get:
+      tags:
+      - Currency APIs
+      summary: Get time series of exchange rates
+      description: Returns day-by-day historical exchange rates for a custom date range.
+      operationId: getTimeSeries
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Response format: `json` (default) or `xml`.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: startDate
+        in: query
+        required: true
+        description: Start date in `YYYY-MM-DD` format.
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        required: false
+        description: End date in `YYYY-MM-DD` format. Defaults to yesterday.
+        schema:
+          type: string
+      - name: base
+        in: query
+        required: false
+        description: Base currency code. Defaults to `USD`.
+        schema:
+          type: string
+          default: USD
+      - name: symbols
+        in: query
+        required: false
+        description: Comma-separated currency codes. Omit to get all available rates.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencyTimeseriesResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    startDate: '2025-01-01'
+                    endDate: '2025-01-07'
+                    base: USD
+                    historicalRatesList:
+                    - date: '2025-01-01'
+                      rates:
+                        EUR: '0.96605'
+                        PKR: '278.4'
+                    - date: '2025-01-02'
+                      rates:
+                        EUR: '0.9739'
+                        PKR: '278.4'
+                    - date: '2025-01-03'
+                      rates:
+                        EUR: '0.97005'
+                        PKR: '278.4'
+                    - date: '2025-01-04'
+                      rates:
+                        EUR: '0.97005'
+                        PKR: '278.4'
+                    - date: '2025-01-05'
+                      rates:
+                        EUR: '0.9704'
+                        PKR: '278.4'
+                    - date: '2025-01-06'
+                      rates:
+                        EUR: '0.96305'
+                        PKR: '278.4'
+                    - date: '2025-01-07'
+                      rates:
+                        EUR: '0.967'
+                        PKR: '278.4'
+        '400':
+          description: Bad request - Invalid dates or range exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_7'
+              examples:
+                missingStartDate:
+                  summary: Missing required startDate parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/currency/time-series
+                    status: 400
+                    timestamp: '2026-07-27T12:08:01.002Z'
+                rangeExceeded:
+                  summary: Interval exceeds 1 year
+                  value:
+                    timestamp: 1785154081486
+                    status: 400
+                    error: Invalid Param Exception
+                    message: You can only retrieve time series data for a maximum interval of 1 Year
+                    path: /v2.0/timeseries
+                startAfterEnd:
+                  summary: startDate is after endDate or the current date (includes any future date)
+                  value:
+                    timestamp: 1785154082031
+                    status: 400
+                    error: Invalid Param Exception
+                    message: Starting date cannot be after current date or ending date.
+                    path: /v2.0/timeseries
+                invalidDateFormat:
+                  summary: startDate/endDate not in YYYY-MM-DD format
+                  value:
+                    timestamp: 1785154106063
+                    status: 400
+                    error: Invalid Param Exception
+                    message: Provided Dates are in Invalid Format. Dates must be in a valid format YYYY-MM-DD!
+                    path: /v2.0/timeseries
+        '404':
+          description: Not found - No data for interval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_7'
+              examples:
+                noData:
+                  summary: base or symbols not supported for the given interval
+                  value:
+                    timestamp: 1785154125982
+                    status: 404
+                    error: Not Found Exception
+                    message: Rates of provided base and symbols are not found for given intervals.
+                    path: /v2.0/timeseries
+  /currency/converter/ip-to-currency:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Geolocalized Currency Converter API Server
+    get:
+      tags:
+      - Currency APIs
+      summary: Convert currency based on IP geolocation
+      description: Converts an amount to the local currency of a given IP address.
+      operationId: convertByIp
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Response format: `json` (default) or `xml`.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: from
+        in: query
+        required: true
+        description: Source currency code.
+        schema:
+          type: string
+      - name: ip
+        in: query
+        required: false
+        description: IPv4 or IPv6 address. Defaults to the request IP.
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: false
+        description: Amount to convert, as a decimal. Defaults to `1`. Non-numeric values return a 400.
+        schema:
+          type: string
+          default: '1'
+      - name: updates
+        in: query
+        required: false
+        description: 'Update frequency: `1m` (default), `10m`, `1h`, or `1d`.'
+        schema:
+          type: string
+          enum:
+          - 1m
+          - 10m
+          - 1h
+          - 1d
+          default: 1m
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeolocalizedCurrencyConverterResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    date: '2026-07-27 12:10:00+00'
+                    from: USD
+                    to: PKR
+                    rate: '277.863'
+                    ipAddress: 182.186.18.91
+                    givenAmount: '100.0'
+                    convertedAmount: '27786.300'
+        '400':
+          description: Bad request - Invalid IP, amount, or updates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingFrom:
+                  summary: Missing required from parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/currency/converter/ip-to-currency
+                    status: 400
+                    timestamp: '2026-07-27T12:10:31.824Z'
+                invalidAmount:
+                  summary: amount is not numeric
+                  value:
+                    timestamp: 1785154232373
+                    status: 400
+                    error: Method Argument Type Mismatch
+                    message: Invalid Amount. Please provide amount in decimal format and greater than 0!
+                    path: /v2.0/iptocurrency
+                invalidIp:
+                  summary: ip is not a valid IPv4/IPv6 address
+                  value:
+                    timestamp: 1785154232944
+                    status: 400
+                    error: Invalid Param Exception
+                    message: Provided IP Address not-an-ip is invalid.
+                    path: /v2.0/iptocurrency
+                invalidUpdates:
+                  summary: updates is not one of 1m/10m/1h/1d
+                  value:
+                    timestamp: 1785154262483
+                    status: 400
+                    error: Invalid Param Exception
+                    message: Please provide valid updates parameter (1d,1h,10m,1m)
+                    path: /v2.0/iptocurrency
+        '404':
+          description: Not found - IP geolocation or currency not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unknownIp:
+                  summary: IP could not be geolocated
+                  value:
+                    timestamp: 1785154233555
+                    status: 404
+                    error: Not Found Exception
+                    message: Geolocation of provided IP 0.0.0.0 is unknown.
+                    path: /v2.0/iptocurrency
+                invalidBase:
+                  summary: from currency not supported
+                  value:
+                    timestamp: 1785154234101
+                    status: 404
+                    error: Not Found Exception
+                    message: Rates of provided currency ZZZ are not available in our database!
+                    path: /v2.0/iptocurrency
+  /currency/converter/historical/prices:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Historical Currency Converter API Server
+    get:
+      tags:
+      - Currency APIs
+      summary: Convert currency with historical rates
+      description: Converts an amount using exchange rates from a specific historical date.
+      operationId: convertHistorical
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Response format: `json` (default) or `xml`.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: from
+        in: query
+        required: true
+        description: Source currency code.
+        schema:
+          type: string
+      - name: to
+        in: query
+        required: true
+        description: Target currency code.
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: false
+        description: Amount to convert, as a decimal. Defaults to `1`. Must be numeric — non-numeric values return a 400 (negative values are accepted despite the error message's wording).
+        schema:
+          type: string
+          default: '1'
+      - name: date
+        in: query
+        required: true
+        description: Historical date in `YYYY-MM-DD` format.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalCurrencyConverterResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    date: '2025-01-10'
+                    from: USD
+                    to: EUR
+                    rate: '0.97620'
+                    givenAmount: '100.0'
+                    convertedAmount: '97.620'
+        '400':
+          description: Bad request - Invalid amount or date format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingParams:
+                  summary: Missing required from/to/date parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/currency/converter/historical/prices
+                    status: 400
+                    timestamp: '2026-07-27T12:07:03.772Z'
+                invalidAmount:
+                  summary: amount is not numeric
+                  value:
+                    timestamp: 1785154024296
+                    status: 400
+                    error: Method Argument Type Mismatch
+                    message: Invalid Amount. Please provide amount in decimal format and greater than 0!
+                    path: /v2.0/convert/historical
+                invalidDateFormat:
+                  summary: date is not in YYYY-MM-DD format
+                  value:
+                    timestamp: 1785154024931
+                    status: 400
+                    error: Invalid Param Exception
+                    message: Provided Date 10-01-2025 is in invalid format. It should be like  YYYY-MM-DD!
+                    path: /v2.0/convert/historical
+        '404':
+          description: Not found - Currency or date not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                dateNotFound:
+                  summary: No data for the given date
+                  value:
+                    timestamp: 1785154025547
+                    status: 404
+                    error: Not Found Exception
+                    message: Rates of provided date 2099-01-01 are not available in our database.
+                    path: /v2.0/convert/historical
+                invalidBase:
+                  summary: from currency not supported
+                  value:
+                    timestamp: 1785154026188
+                    status: 404
+                    error: Not Found Exception
+                    message: Rates of provided currency ZZZ are not available in our database!
+                    path: /v2.0/convert/historical
+  /currency/rates/historical:
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Historical Exchange Rate API Server
+    get:
+      tags:
+      - Currency APIs
+      summary: Get historical exchange rates
+      description: Returns exchange rates for a specific historical date.
+      operationId: getHistoricalExchangeRates
+      parameters:
+      - name: format
+        in: query
+        required: false
+        description: 'Response format: `json` (default) or `xml`.'
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: base
+        in: query
+        required: false
+        description: Base currency code. Defaults to `USD`. Supports fiat, crypto, and metals.
+        schema:
+          type: string
+          default: USD
+      - name: symbols
+        in: query
+        required: false
+        description: Comma-separated currency codes. Omit to get all available rates.
+        schema:
+          type: string
+      - name: date
+        in: query
+        required: true
+        description: Historical date in `YYYY-MM-DD` format.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalExchangeRatesResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    date: '2025-01-10'
+                    base: USD
+                    rates:
+                      EUR: '0.9762'
+                      PKR: '278.65'
+        '400':
+          description: Bad Request — Missing or malformed date
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_8'
+              examples:
+                missingDate:
+                  summary: Missing required date parameter
+                  value:
+                    error: Invalid Param Exception
+                    message: please pass correct parameters
+                    path: /v1.0/currency/rates/historical
+                    status: 400
+                    timestamp: '2026-07-27T12:01:57.285Z'
+                invalidDateFormat:
+                  summary: date is not in YYYY-MM-DD format
+                  value:
+                    timestamp: 1785153717794
+                    status: 400
+                    error: Invalid Param Exception
+                    message: Provided Date 10-01-2025 is in invalid format. It should be like  YYYY-MM-DD!
+                    path: /v2.0/rates/historical
+        '404':
+          description: Not found - Currency, symbol, or date not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse_8'
+              examples:
+                dateNotFound:
+                  summary: No data for the given date
+                  value:
+                    timestamp: 1785153718397
+                    status: 404
+                    error: Not Found Exception
+                    message: Rates of provided date 2099-01-01 are not available in our database.
+                    path: /v2.0/rates/historical
+                invalidBase:
+                  summary: base currency not supported
+                  value:
+                    timestamp: 1785153718975
+                    status: 404
+                    error: Not Found Exception
+                    message: Rates of provided currency ZZZ are not available in our database!
+                    path: /v2.0/rates/historical
+                invalidSymbols:
+                  summary: symbols not supported
+                  value:
+                    timestamp: 1785153718975
+                    status: 404
+                    error: Not Found Exception
+                    message: Rates of provided Symbols are not available in our database!
+                    path: /v2.0/rates/historical
+components:
+  schemas:
+    SupportedCurrenciesResponse:
+      type: object
+      required:
+      - supportedCurrenciesMap
+      properties:
+        supportedCurrenciesMap:
+          type: object
+          description: Map of all supported currencies keyed by currency code. Each key is a currency code and the value contains full currency metadata.
+          additionalProperties:
+            title: CurrencySupportedItem
+            $ref: '#/components/schemas/CurrencySupportedItem'
+      description: Currency supported response containing the map of all supported currencies.
+    CurrencyFluctuationResponse:
+      type: object
+      required:
+      - startDate
+      - endDate
+      - base
+      - rateFluctuations
+      properties:
+        startDate:
+          type: string
+          description: Start date of the interval (YYYY-MM-DD).
+        endDate:
+          type: string
+          description: End date of the interval (YYYY-MM-DD).
+        base:
+          type: string
+          description: Base currency used for all fluctuations.
+        rateFluctuations:
+          type: object
+          description: Map of currency codes to their fluctuation details. Each key is a currency code and the value contains startRate, endRate, change, and percentChange.
+          additionalProperties:
+            title: CurrencyFluctuationItem
+            $ref: '#/components/schemas/CurrencyFluctuationItem'
+      description: Currency fluctuation response containing rate changes per symbol over a date interval.
+    ErrorResponse_2:
+      type: object
+      description: Standard error envelope returned by the API on failed requests. Gateway-level validation errors use an ISO 8601 timestamp and the public endpoint path; currency-service errors use a Unix millisecond timestamp and an internal service path instead.
+      required:
+      - message
+      properties:
+        timestamp:
+          type:
+          - string
+          - integer
+          description: Timestamp when the error occurred — ISO 8601 string for gateway errors, Unix milliseconds integer for currency-service errors.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        error:
+          type: string
+          description: Specific error type (e.g., Invalid Param Exception, Not Found Exception).
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path (gateway errors) or internal service path (currency-service errors) that produced the error.
+    ErrorResponse_4:
+      type: object
+      required:
+      - timestamp
+      - status
+      - error
+      - message
+      - path
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp in milliseconds when the error occurred.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        error:
+          type: string
+          description: Specific error type (e.g., `Invalid Param Exception`, `Not Found Exception`).
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+      description: Standard error envelope returned by the API on failed requests.
+    LatestCurrencyConverterResponse:
+      type: object
+      required:
+      - date
+      - from
+      - to
+      - rate
+      - givenAmount
+      - convertedAmount
+      properties:
+        date:
+          type: string
+          description: Date and time with timezone (UTC) when the rate was recorded.
+        from:
+          type: string
+          description: Source currency code.
+        to:
+          type: string
+          description: Target currency code.
+        rate:
+          type: string
+          description: Conversion rate from source to target currency.
+        givenAmount:
+          type: string
+          description: The amount provided for conversion.
+        convertedAmount:
+          type: string
+          description: The converted amount in the target currency.
+      description: Currency conversion response containing the exchange rate and converted amount.
+    ErrorResponse_5:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    ErrorResponse_6:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    CurrencyTimeseriesResponse:
+      type: object
+      required:
+      - startDate
+      - endDate
+      - base
+      - historicalRatesList
+      properties:
+        startDate:
+          type: string
+          description: Start date of the interval (YYYY-MM-DD).
+        endDate:
+          type: string
+          description: End date of the interval (YYYY-MM-DD).
+        base:
+          type: string
+          description: Base currency used for all rates in the series.
+        historicalRatesList:
+          type: array
+          description: Array of daily rate objects within the specified interval.
+          items:
+            $ref: '#/components/schemas/CurrencyTimeSeriesItem'
+      description: Currency time series response containing daily exchange rate data over a date range.
+    CurrencySupportedItem:
+      type: object
+      description: Metadata for a single supported currency.
+      required:
+      - currencyCode
+      - currencyName
+      - countryCode
+      - countryName
+      - status
+      - availableFrom
+      - availableUntil
+      - icon
+      properties:
+        currencyCode:
+          type: string
+          description: Unique currency code (e.g., USD, BTC, XAU).
+        currencyName:
+          type: string
+          description: Full name of the currency.
+        countryCode:
+          type: string
+          description: 'ISO 3166-1 alpha-2 country code. For crypto: Crypto. For metals: Metal.'
+        countryName:
+          type: string
+          description: 'Country name. For crypto: Global. For metals: Precious Metal.'
+        status:
+          type: string
+          enum:
+          - AVAILABLE
+          - DEPRECIATED
+          description: Availability status.
+        availableFrom:
+          type: string
+          description: Date the currency became available (YYYY-MM-DD).
+        availableUntil:
+          type: string
+          description: Date the currency is or was available (YYYY-MM-DD).
+        icon:
+          type: string
+          format: uri
+          description: URL of the currency icon/flag image.
+    CurrencyTimeSeriesItem:
+      type: object
+      description: Daily exchange rate data for a specific date.
+      required:
+      - date
+      - rates
+      properties:
+        date:
+          type: string
+          description: Date within the interval (YYYY-MM-DD).
+        rates:
+          type: object
+          description: Map of currency codes to exchange rate strings for that date. Each key is a currency code and the value is an exchange rate string.
+          additionalProperties:
+            title: ExchangeRateString
+            type: string
+            description: Exchange rate value as a string for this currency code.
+    ErrorResponse_7:
+      type: object
+      description: Standard error envelope returned by the API on failed requests. Gateway-level validation errors use an ISO 8601 timestamp and the public endpoint path; currency-service errors use a Unix millisecond timestamp and an internal service path instead.
+      required:
+      - message
+      properties:
+        timestamp:
+          type:
+          - string
+          - integer
+          description: Timestamp when the error occurred — ISO 8601 string for gateway errors, Unix milliseconds integer for currency-service errors.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        error:
+          type: string
+          description: Specific error type (e.g., Invalid Param Exception, Not Found Exception).
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path (gateway errors) or internal service path (currency-service errors) that produced the error.
+    ErrorResponse_3:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    CurrencyFluctuationItem:
+      type: object
+      description: Fluctuation metrics for a single currency over a date interval.
+      required:
+      - startRate
+      - endRate
+      - change
+      - percentChange
+      properties:
+        startRate:
+          type: string
+          description: Rate of the currency at the start of the interval.
+        endRate:
+          type: string
+          description: Rate of the currency at the end of the interval.
+        change:
+          type: string
+          description: Absolute change between start and end rate. Can be positive or negative.
+        percentChange:
+          type: string
+          description: Percentage change between start and end rate. Can be positive or negative.
+    HistoricalExchangeRatesResponse:
+      type: object
+      description: Historical exchange rate response containing date, base currency, and rates map.
+      required:
+      - date
+      - base
+      - rates
+      properties:
+        date:
+          type: string
+          description: The requested historical date (YYYY-MM-DD).
+        base:
+          type: string
+          description: Base currency used for calculating exchange rates.
+        rates:
+          type: object
+          description: Map of currency codes to their exchange rate against the base currency on the requested date. Each key is a currency code and the value is an exchange rate string.
+          additionalProperties:
+            title: ExchangeRateString
+            type: string
+            description: Exchange rate value as a string for this currency code.
+    ErrorResponse_8:
+      type: object
+      description: Standard error envelope returned by the API on failed requests. Gateway-level validation errors use an ISO 8601 timestamp and the public endpoint path; currency-service errors (date/symbol validation) use a Unix millisecond timestamp and an internal service path instead.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type (e.g., Invalid Param Exception, Not Found Exception).
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path (gateway errors) or internal service path (currency-service errors) that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type:
+          - string
+          - integer
+          description: Timestamp when the error occurred — ISO 8601 string for gateway errors, Unix milliseconds integer for currency-service errors.
+    CurrencySymbolsResponse:
+      type: object
+      required:
+      - currencySymbols
+      properties:
+        currencySymbols:
+          type: object
+          description: Map of currency codes to their full names. Each key is a currency code and the value is the currency name string.
+          additionalProperties:
+            title: CurrencySymbolName
+            type: string
+            description: Full name of the currency (e.g., US Dollar, Euro).
+      description: Currency symbols response containing the map of all currency codes to their names.
+    GeolocalizedCurrencyConverterResponse:
+      type: object
+      required:
+      - date
+      - from
+      - to
+      - rate
+      - ipAddress
+      - givenAmount
+      - convertedAmount
+      properties:
+        date:
+          type: string
+          description: Date and time with timezone (UTC) when the rate was recorded.
+        from:
+          type: string
+          description: Source currency code.
+        to:
+          type: string
+          description: Target currency code — the local currency of the IP.
+        rate:
+          type: string
+          description: Exchange rate from source to target currency.
+        ipAddress:
+          type: string
+          description: IP address used for geolocation.
+        givenAmount:
+          type: string
+          description: Amount provided for conversion.
+        convertedAmount:
+          type: string
+          description: Converted amount in the target (local) currency.
+      description: Geolocalized currency conversion response containing the rate and converted amount based on IP geolocation.
+    LatestExchangeRatesResponse:
+      type: object
+      required:
+      - date
+      - base
+      - rates
+      properties:
+        date:
+          type: string
+          description: Date and time with timezone (UTC) when the rates were recorded.
+        base:
+          type: string
+          description: Base currency used for calculating exchange rates.
+        rates:
+          type: object
+          description: Map of currency codes to their exchange rate against the base currency. Each key is a currency code and the value is an exchange rate string.
+          additionalProperties:
+            title: ExchangeRateString
+            type: string
+            description: Exchange rate value as a string for this currency code.
+      description: Exchange rate response containing date, base currency, and rates map.
+    HistoricalDataLimitsResponse:
+      type: object
+      required:
+      - availabilityPeriod
+      properties:
+        availabilityPeriod:
+          type: object
+          description: Map of currency codes to their historical data availability range. Each key is a currency code and the value is a date range string.
+          additionalProperties:
+            title: AvailabilityPeriodString
+            type: string
+            description: Historical data availability date range in YYYY-MM-DD to YYYY-MM-DD format.
+      description: Historical data limits response containing the availability period map.
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests. Gateway-level validation errors use an ISO 8601 timestamp and the public endpoint path; currency-service errors use a Unix millisecond timestamp and an internal service path instead.
+      required:
+      - message
+      properties:
+        timestamp:
+          type:
+          - string
+          - integer
+          description: Timestamp when the error occurred — ISO 8601 string for gateway errors, Unix milliseconds integer for currency-service errors.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        error:
+          type: string
+          description: Specific error type (e.g., Invalid Param Exception, Method Argument Type Mismatch, Not Found Exception).
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path (gateway errors) or internal service path (currency-service errors) that produced the error.
+    HistoricalCurrencyConverterResponse:
+      type: object
+      required:
+      - date
+      - from
+      - to
+      - rate
+      - givenAmount
+      - convertedAmount
+      properties:
+        date:
+          type: string
+          description: Date and time with timezone (UTC) when the rate was recorded.
+        from:
+          type: string
+          description: Source currency code.
+        to:
+          type: string
+          description: Target currency code.
+        rate:
+          type: string
+          description: Conversion rate from source to target currency.
+        givenAmount:
+          type: string
+          description: The amount provided for conversion.
+        convertedAmount:
+          type: string
+          description: The converted amount in the target currency.
+      description: Historical currency conversion response containing the historical rate and converted amount.
+  securitySchemes:
+    ApiKeyAuthHeader:
+      type: apiKey
+      in: header
+      name: X-apiKey
+      description: Pass your API key via the X-apiKey request header.
+    ApiKeyAuthQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: Pass your API key via the apiKey query parameter.
+x-refined-from:
+- apifreaks-api-hub-for-developers-currency-converter-openapi.json
+- apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json
+- apifreaks-api-hub-for-developers-currency-historical-data-limit-openapi.json
+- apifreaks-api-hub-for-developers-currency-rate-openapi.json
+- apifreaks-api-hub-for-developers-currency-supported-openapi.json
+- apifreaks-api-hub-for-developers-currency-symbols-openapi.json
+- apifreaks-api-hub-for-developers-currency-time-series-openapi.json
+- apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json
+- apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json
+- apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json

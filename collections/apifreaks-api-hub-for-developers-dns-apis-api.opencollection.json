@@ -1,0 +1,172 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers DNS APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DNS APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Perform a live DNS lookup for any hostname or IP address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/domain/dns/live",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "host-name",
+                "value": "",
+                "type": "query",
+                "description": "Hostname or URL whose DNS records are required."
+              },
+              {
+                "name": "ipAddress",
+                "value": "",
+                "type": "query",
+                "description": "The IP address for requested DNS's PTR record. 'type' parameter must be set to 'all'."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of DNS record types for lookup. Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all. When ipAddress is provided, type must be \"all\"."
+              }
+            ]
+          },
+          "docs": "Retrieve real-time DNS records for any hostname or IP address. Returns A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, and PTR records with full parsed fields."
+        },
+        {
+          "info": {
+            "name": "Retrieve A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of multiple hostnames in a single request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/domain/dns/live",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of DNS record types for lookup."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Perform DNS lookups for multiple hostnames in a single request. Supports up to 100 hostnames per request and returns DNS records including A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records."
+        },
+        {
+          "info": {
+            "name": "Get all historical A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of a hostname",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/domain/dns/history",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "host-name",
+                "value": "",
+                "type": "query",
+                "description": "Hostname or URL whose historical DNS records are required"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of DNS record types for lookup.\nPossible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results."
+              }
+            ]
+          },
+          "docs": "Retrieve historical DNS records for any hostname. Access unique historical data for A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records,\nincluding subdomains. Results are paginated with up to 100 unique records per page.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve all hostnames associated with any A, AAAA, MX, NS, SOA, SPF, TXT, or CNAME DNS record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/domain/dns/reverse",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The type of reverse DNS lookup to perform. Determines how the value parameter is interpreted:\n- A: IPv4 CIDR block\n- AAAA: IPv6 CIDR block\n- MX: Mail provider domain\n- NS: Name server provider hostname\n- SOA: SOA record admin domain\n- SPF/TXT: Target verification strings\n- CNAME: Target hostname"
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "query",
+                "description": "Provide an IP or CIDR for A/AAAA lookups, or a hostname/selector for MX, NS, SOA, SPF, TXT, and CNAME queries. Wildcard regex patterns are also supported (e.g., mail.google.com, m*.google.com, _spf.g*.com, s*.g*.com)."
+              },
+              {
+                "name": "exact",
+                "value": "",
+                "type": "query",
+                "description": "When true, returns only records that exactly match the input (NS, MX, CNAME, SOA, SPF, TXT). When false, returns all matches (default when omitted)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to paginate through results (defaults to 1)."
+              }
+            ]
+          },
+          "docs": "Perform a reverse DNS lookup by providing an IP or CIDR for A/AAAA lookups, or a hostname selector for MX, NS, SOA, SPF, TXT, and CNAME queries. Returns paginated results with dated DNS snapshots for each matched domain."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

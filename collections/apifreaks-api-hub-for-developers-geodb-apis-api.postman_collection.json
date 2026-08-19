@@ -1,0 +1,1606 @@
+{
+  "item": [
+    {
+      "id": "37cfca8f-d00e-43a7-9609-442fedc3a1b6",
+      "name": "GeoDB APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "340a4f01-5fd7-4e0d-9ca8-344f1c97c8c6",
+          "name": "Retrieve detailed information about a specific administrative unit",
+          "request": {
+            "name": "Retrieve detailed information about a specific administrative unit",
+            "description": {
+              "content": "Returns comprehensive details for a single administrative unit identified by country code and admin code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geo",
+                "admin-unit",
+                "details"
+              ],
+              "host": [
+                "{{geo-admin-unit-details-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) Country code in ISO 3166-1 alpha-2 format (e.g., US, PK)."
+                },
+                {
+                  "disabled": false,
+                  "key": "admin_unit",
+                  "value": "<string>",
+                  "description": "(Required) Admin code of the administrative unit being requested."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6cd4b14e-c33c-4958-9114-a82f33d3d362",
+              "name": "Successful response with admin unit details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "admin-unit",
+                    "details"
+                  ],
+                  "host": [
+                    "{{geo-admin-unit-details-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "admin_unit",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"California\",\n  \"admin_code\": \"CA\",\n  \"admin_iso3166_2\": \"US-CA\",\n  \"admin_level\": \"state\",\n  \"country_iso3166_2\": \"US\",\n  \"country_name\": \"United States\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d93a5c41-f43e-49ad-9874-ee57ec6d2308",
+              "name": "Bad Request — Missing country/admin_unit parameter, invalid country code, or invalid admin code",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "admin-unit",
+                    "details"
+                  ],
+                  "host": [
+                    "{{geo-admin-unit-details-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "admin_unit",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/geo/admin-unit/details\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-24T10:46:22.210Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cc18ca2-8a82-4366-9350-6e40b25d79b1",
+              "name": "Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no published admin units (e.g. Vatican City)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "admin-unit",
+                    "details"
+                  ],
+                  "host": [
+                    "{{geo-admin-unit-details-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "admin_unit",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-24T10:46:24.259Z\",\n  \"path\": \"/v1/admin-unit/details\",\n  \"status\": 404,\n  \"error\": \"No Admin Unit present in country\",\n  \"message\": \"This Country does not have any admin units associated with it.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "376b04a4-dcc8-4cfc-a689-0d28a4d90dda",
+          "name": "Retrieve administrative level types for a country",
+          "request": {
+            "name": "Retrieve administrative level types for a country",
+            "description": {
+              "content": "Returns the distinct administrative level types (e.g., province, district, state) defined for a given country using ISO 3166-1 alpha-2 country code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geo",
+                "admin-levels"
+              ],
+              "host": [
+                "{{geo-admin-levels-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) Country code in ISO 3166-1 alpha-2 format (e.g., US, PK)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dfa95273-2a6f-4074-adf4-ee3f5b38f9fa",
+              "name": "Successful response with list of administrative levels",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "admin-levels"
+                  ],
+                  "host": [
+                    "{{geo-admin-levels-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"admin_levels\": [\n    \"outlying area\",\n    \"district\",\n    \"state\",\n    \"military postal region\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77bf08fa-d2c3-426d-b483-e2b862d91265",
+              "name": "Bad Request — Missing country parameter, or country is not a valid/known ISO 3166-1 alpha-2 code",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "admin-levels"
+                  ],
+                  "host": [
+                    "{{geo-admin-levels-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/geo/admin-levels\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-24T10:42:02.477Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc58b988-8f06-450b-8710-90c6c8c82929",
+              "name": "Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no published admin levels (e.g. Vatican City)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "admin-levels"
+                  ],
+                  "host": [
+                    "{{geo-admin-levels-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-24T10:42:15.470Z\",\n  \"path\": \"/v1/admin-levels\",\n  \"status\": 404,\n  \"error\": \"No Admin Unit present in country\",\n  \"message\": \"This Country does not have any admin units associated with it.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7eacfdfe-e848-4970-af11-c5df0ac91c74",
+          "name": "Retrieve administrative units for a country with optional level filtering",
+          "request": {
+            "name": "Retrieve administrative units for a country with optional level filtering",
+            "description": {
+              "content": "Returns all administrative units (states, provinces, districts) for a country using ISO 3166-1 alpha-2 country code. Optionally filter by one or more admin levels.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geo",
+                "admin-units"
+              ],
+              "host": [
+                "{{geo-admin-units-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) Country code in ISO 3166-1 alpha-2 format (e.g., US, PK)."
+                },
+                {
+                  "disabled": false,
+                  "key": "admin_level",
+                  "value": "<string>",
+                  "description": "Comma-separated list to filter results by one or more administrative levels (e.g., state, district). A level name that doesn't exist for the country returns a 200 with an empty admin_units array rather than an error."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "467ab831-89ae-4846-9dab-bc0b36b844ef",
+              "name": "Successful response with list of administrative units",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "admin-units"
+                  ],
+                  "host": [
+                    "{{geo-admin-units-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "admin_level",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"admin_units\": [\n    {\n      \"name\": \"California\",\n      \"admin_code\": \"CA\",\n      \"admin_level\": \"state\"\n    },\n    {\n      \"name\": \"Texas\",\n      \"admin_code\": \"TX\",\n      \"admin_level\": \"state\"\n    },\n    {\n      \"name\": \"New York\",\n      \"admin_code\": \"NY\",\n      \"admin_level\": \"state\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e2eb7e3-5af1-4f3f-ae66-00d9e1438d9a",
+              "name": "Bad Request — Missing country parameter, or country is not a valid/known ISO 3166-1 alpha-2 code",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "admin-units"
+                  ],
+                  "host": [
+                    "{{geo-admin-units-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "admin_level",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/geo/admin-units\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-24T10:44:10.185Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09197eff-6234-4bea-8bc4-f216bcc20fef",
+              "name": "Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no published admin units (e.g. Vatican City)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "admin-units"
+                  ],
+                  "host": [
+                    "{{geo-admin-units-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "admin_level",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-24T10:44:11.244Z\",\n  \"path\": \"/v1/admin-units\",\n  \"status\": 404,\n  \"error\": \"No Admin Unit present in country\",\n  \"message\": \"This Country does not have any admin units associated with it.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a776d19e-04b6-416a-ac5e-a501b90999c6",
+          "name": "Retrieve cities for a country with optional admin unit filtering",
+          "request": {
+            "name": "Retrieve cities for a country with optional admin unit filtering",
+            "description": {
+              "content": "Returns all cities for a country, optionally filtered by administrative unit. Each city includes name, coordinates, admin unit details, and ISO country code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geo",
+                "cities"
+              ],
+              "host": [
+                "{{geo-cities-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) Country code in ISO 3166-1 alpha-2 format (e.g., US, PK)."
+                },
+                {
+                  "disabled": false,
+                  "key": "admin_unit",
+                  "value": "<string>",
+                  "description": "Administrative unit code used to filter cities within a specific region. An admin_unit code that doesn't exist for the specified country returns a 400 error, not an empty result."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce514b24-ff54-4399-a0ee-1e942beb0e53",
+              "name": "Successful response with list of cities",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "cities"
+                  ],
+                  "host": [
+                    "{{geo-cities-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "admin_unit",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cities\": [\n    {\n      \"name\": \"Aberdeen\",\n      \"latitude\": 57.14369,\n      \"longitude\": -2.09814,\n      \"admin_unit\": {\n        \"name\": \"Aberdeen\",\n        \"admin_code\": \"ABE\",\n        \"admin_level\": \"council area\"\n      },\n      \"iso_alpha_2\": \"GB\"\n    },\n    {\n      \"name\": \"Balmedie\",\n      \"latitude\": 57.25052,\n      \"longitude\": -2.06163,\n      \"admin_unit\": {\n        \"name\": \"Aberdeen\",\n        \"admin_code\": \"ABE\",\n        \"admin_level\": \"council area\"\n      },\n      \"iso_alpha_2\": \"GB\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49cba826-394d-485f-940d-f5d78f062972",
+              "name": "Bad Request — Missing country parameter, invalid country code, or admin_unit code not found for the country",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "cities"
+                  ],
+                  "host": [
+                    "{{geo-cities-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "admin_unit",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/geo/cities\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-24T10:56:41.424Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcd87ad7-7554-4ace-a6c5-373f96e7f256",
+              "name": "Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no cities in the database (e.g. Vatican City)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "cities"
+                  ],
+                  "host": [
+                    "{{geo-cities-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "admin_unit",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-24T10:56:42.941Z\",\n  \"path\": \"/v1/cities\",\n  \"status\": 404,\n  \"error\": \"No Cities present in country\",\n  \"message\": \"This country does not have any cities associated with it.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d8fb3ed-e6ab-45e0-ae84-0d38d7df3c11",
+          "name": "Retrieve comprehensive metadata for a specific country",
+          "request": {
+            "name": "Retrieve comprehensive metadata for a specific country",
+            "description": {
+              "content": "Returns complete country details for a single country identified by its ISO 3166-1 alpha-2 code, including ISO codes, capital, currency, phone code, nationality, and flag emoji.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geo",
+                "country",
+                "details"
+              ],
+              "host": [
+                "{{geo-country-details-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) Country code in ISO 3166-1 alpha-2 format (e.g., US, PK)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c953fcca-06fe-42a4-b3e1-9f2243c3cc44",
+              "name": "Successful response with country details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "country",
+                    "details"
+                  ],
+                  "host": [
+                    "{{geo-country-details-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"United States\",\n  \"iso_alpha_2\": \"US\",\n  \"iso_alpha_3\": \"USA\",\n  \"iso_numeric\": 840,\n  \"phone_code\": 1,\n  \"capital\": \"Washington\",\n  \"top_level_domain\": \".us\",\n  \"native_name\": \"United States\",\n  \"region\": \"Americas\",\n  \"subregion\": \"Northern America\",\n  \"nationality\": \"American\",\n  \"flag_emoji\": \"🇺🇸\",\n  \"currency_code\": \"USD\",\n  \"currency_name\": \"United States dollar\",\n  \"currency_symbol\": \"$\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "627670d7-d6a9-4334-a1a7-ab077d857bde",
+              "name": "Bad Request — Missing country parameter, or country is not a valid/known ISO 3166-1 alpha-2 code",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "country",
+                    "details"
+                  ],
+                  "host": [
+                    "{{geo-country-details-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/geo/country/details\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-24T10:54:42.188Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df570d23-6b1f-485f-80e3-37100a055d7c",
+          "name": "Retrieve a list of countries with optional region or subregion filtering",
+          "request": {
+            "name": "Retrieve a list of countries with optional region or subregion filtering",
+            "description": {
+              "content": "Returns all countries with their ISO codes, capital cities, regions, and subregions. Optional region and subregion parameters narrow results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geo",
+                "countries"
+              ],
+              "host": [
+                "{{geo-countries-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "<string>",
+                  "description": "Optional filter to return countries within a specific region (e.g., Europe, Asia)."
+                },
+                {
+                  "disabled": false,
+                  "key": "subregion",
+                  "value": "<string>",
+                  "description": "Optional filter to return countries within a specific subregion (e.g., Northern Europe, Southern Asia)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2695f601-bdaa-485b-917e-54b87c358f8d",
+              "name": "Successful response with list of countries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "countries"
+                  ],
+                  "host": [
+                    "{{geo-countries-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subregion",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"countries\": [\n    {\n      \"name\": \"United Kingdom\",\n      \"iso_alpha_2\": \"GB\",\n      \"iso_alpha_3\": \"GBR\",\n      \"iso_numeric\": 826,\n      \"capital\": \"London\",\n      \"region\": \"Europe\",\n      \"subregion\": \"Northern Europe\"\n    },\n    {\n      \"name\": \"France\",\n      \"iso_alpha_2\": \"FR\",\n      \"iso_alpha_3\": \"FRA\",\n      \"iso_numeric\": 250,\n      \"capital\": \"Paris\",\n      \"region\": \"Europe\",\n      \"subregion\": \"Western Europe\"\n    },\n    {\n      \"name\": \"Germany\",\n      \"iso_alpha_2\": \"DE\",\n      \"iso_alpha_3\": \"DEU\",\n      \"iso_numeric\": 276,\n      \"capital\": \"Berlin\",\n      \"region\": \"Europe\",\n      \"subregion\": \"Western Europe\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48f034e7-b8d7-494f-b229-8a50fb7242bc",
+              "name": "Bad Request — Invalid region or subregion name",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "countries"
+                  ],
+                  "host": [
+                    "{{geo-countries-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subregion",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-24T10:51:01.695Z\",\n  \"path\": \"/v1/countries\",\n  \"status\": 400,\n  \"error\": \"Invalid Region Name provided\",\n  \"message\": \"Please provide a valid region name.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a50a705e-87c4-47b9-bd15-4839bd7a9d31",
+          "name": "Retrieve all geographical regions",
+          "request": {
+            "name": "Retrieve all geographical regions",
+            "description": {
+              "content": "Returns all geographical regions supported by the service, such as Africa, Americas, Asia, Europe, Oceania, and Polar.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geo",
+                "regions"
+              ],
+              "host": [
+                "{{geo-regions-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "297ef3b9-29ce-460a-a5eb-f107b83fec95",
+              "name": "Successful response with list of regions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "regions"
+                  ],
+                  "host": [
+                    "{{geo-regions-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"regions\": [\n    \"Africa\",\n    \"Americas\",\n    \"Asia\",\n    \"Europe\",\n    \"Oceania\",\n    \"Polar\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3365be6c-3086-4070-a319-00c879f8eccb",
+          "name": "Retrieve subregions for a specific geographical region",
+          "request": {
+            "name": "Retrieve subregions for a specific geographical region",
+            "description": {
+              "content": "Returns all subregions within a specified region, or all subregions across every region when the region parameter is omitted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geo",
+                "subregions"
+              ],
+              "host": [
+                "{{geo-subregions-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "<string>",
+                  "description": "Name of the region to retrieve subregions for. Omit to return all subregions across every region."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "294381e2-32b7-4f4e-94d4-70aa42ca6ddb",
+              "name": "Successful response with list of subregions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "subregions"
+                  ],
+                  "host": [
+                    "{{geo-subregions-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subregions\": [\n    \"Eastern Europe\",\n    \"Northern Europe\",\n    \"Southern Europe\",\n    \"Western Europe\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45a4bf56-d007-47b6-80d6-6c70bdb1560c",
+              "name": "Bad Request — Region name is not a recognized region",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "subregions"
+                  ],
+                  "host": [
+                    "{{geo-subregions-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-24T11:00:12.748Z\",\n  \"path\": \"/v1/subregions\",\n  \"status\": 400,\n  \"error\": \"Invalid Region Name provided\",\n  \"message\": \"Please provide a valid region name.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e497b56-6c44-4456-bc54-611b641ac7e5",
+              "name": "Not Found — Region is valid but has no subregions (e.g. Polar)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geo",
+                    "subregions"
+                  ],
+                  "host": [
+                    "{{geo-subregions-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-24T11:00:06.003Z\",\n  \"path\": \"/v1/subregions\",\n  \"status\": 404,\n  \"error\": \"No subregions exist\",\n  \"message\": \"This region does not have any subregions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "geo-admin-unit-details-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "geo-admin-levels-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "geo-admin-units-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "geo-cities-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "geo-country-details-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "geo-countries-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "geo-regions-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "geo-subregions-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9938e9cf-4a80-410e-a858-de29ac326752",
+    "name": "Apifreaks Api Hub For Developers GeoDB APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged GeoDB APIs across 8 of this provider's published API definitions: apifreaks-api-hub-for-developers-administrative-units-details-openapi.json, apifreaks-api-hub-for-developers-administrative-units-levels-openapi.json, apifreaks-api-hub-for-developers-administrative-units-openapi.json, apifreaks-api-hub-for-developers-cities-openapi.json, apifreaks-api-hub-for-developers-countries-details-openapi.json, apifreaks-api-hub-for-developers-countries-openapi.json, apifreaks-api-hub-for-developers-regions-openapi.json, apifreaks-api-hub-for-developers-subregions-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

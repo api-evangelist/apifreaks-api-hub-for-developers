@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers Commodity APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Commodity APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get commodity price fluctuations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/commodity/fluctuation",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Currently only `json` is supported."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of commodity symbols."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date in `YYYY-MM-DD` format."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date in `YYYY-MM-DD` format."
+              }
+            ]
+          },
+          "docs": "Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range."
+        },
+        {
+          "info": {
+            "name": "Get latest commodity prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/commodity/rates/latest",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Currently only `json` is supported."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of commodity symbols (e.g., `XAU`, `WTIOIL-SPOT`)."
+              },
+              {
+                "name": "updates",
+                "value": "",
+                "type": "query",
+                "description": "Update frequency. Accepted values: `1m` (default), `10m`."
+              },
+              {
+                "name": "quote",
+                "value": "",
+                "type": "query",
+                "description": "Target currency for the exchange rate. Defaults to the market currency of each commodity."
+              }
+            ]
+          },
+          "docs": "Returns the current live price for the requested commodity symbols."
+        },
+        {
+          "info": {
+            "name": "Get all supported commodity symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/commodity/symbols",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Accepted values: `json` (default) or `xml`."
+              }
+            ]
+          },
+          "docs": "Returns the list of supported commodity symbols with metadata."
+        },
+        {
+          "info": {
+            "name": "Get commodity price time series",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/commodity/time-series",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Currently only `json` is supported."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of commodity symbols."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date in `YYYY-MM-DD` format."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date in `YYYY-MM-DD` format. Maximum range is 365 days."
+              }
+            ]
+          },
+          "docs": "Returns day-by-day OHLC data for the requested commodity symbols within a date range."
+        },
+        {
+          "info": {
+            "name": "Get historical commodity prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/commodity/rates/historical",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Currently only `json` is supported."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of commodity symbols."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date in `YYYY-MM-DD` format. Data available from 1990 onwards."
+              }
+            ]
+          },
+          "docs": "Returns OHLC price data for the requested commodity symbols on a specific date."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

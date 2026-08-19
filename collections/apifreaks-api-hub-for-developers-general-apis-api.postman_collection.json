@@ -1,0 +1,193 @@
+{
+  "item": [
+    {
+      "id": "0ea4a74b-689a-4b6c-9ea1-c96ea49d0207",
+      "name": "General APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2afa7e10-130b-4de9-89b2-ff4f7f85d19a",
+          "name": "Get remaining and consumed API credit balances for the organization",
+          "request": {
+            "name": "Get remaining and consumed API credit balances for the organization",
+            "description": {
+              "content": "Returns subscription, subscription-surcharge, and one-off credit balances for the authenticated organization's account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credits",
+                "usage",
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Possible values: json, xml."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ccfb0b0f-9a02-4571-bdfb-0b1a191803fc",
+              "name": "Successful response with credit balances",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credits",
+                    "usage",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiKey\": \"demo\",\n  \"userStatus\": \"active\",\n  \"subActive\": true,\n  \"subStatus\": \"active\",\n  \"subAllowedCredits\": 10000,\n  \"subUsedCredits\": 2500,\n  \"subSurchargeStatus\": \"none\",\n  \"subSurchargeAllowedCredits\": 0,\n  \"subSurchargeUsedCredits\": 0,\n  \"subSurchargeAllowed\": false,\n  \"oneOffCreditsActive\": true,\n  \"oneOffAllowedCredits\": 5000,\n  \"oneOffUsedCredits\": 1000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9e9464d-a92e-421e-9eb6-0b7a6bfe0f78",
+              "name": "Forbidden — Caller is not an organization admin",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credits",
+                    "usage",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T10:23:16.548Z\",\n  \"path\": \"/v1.0/credits/usage/info\",\n  \"status\": 403,\n  \"error\": \"API Access Exception\",\n  \"message\": \"You need to be organization admin to access this endpoint.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8d2544b6-0ef7-4b2c-96d0-de9a73378c0f",
+    "name": "Credits Usage General APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Retrieve the remaining and consumed API credit balances for the authenticated organization. Returns subscription-plan credits, subscription surcharge (overage) credits, and one-off credit purchases as separate balances, each with allowed and used counts. Only an organization admin API key can call this endpoint; all other keys receive a 403. There are no optional data modules for this endpoint — the response always includes the full credit breakdown.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

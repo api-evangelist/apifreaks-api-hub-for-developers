@@ -1,0 +1,1013 @@
+{
+  "item": [
+    {
+      "id": "0fd30ac1-0004-4811-9ace-d8a9ff7c72bd",
+      "name": "DNS APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5426a5d0-4314-486f-984a-4d699c7d2d6f",
+          "name": "Retrieve A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of multiple hostnames in a single request",
+          "request": {
+            "name": "Retrieve A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of multiple hostnames in a single request",
+            "description": {
+              "content": "Perform DNS lookups for multiple hostnames in a single request. Supports up to 100 hostnames per request and returns DNS records including A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain",
+                "dns",
+                "live"
+              ],
+              "host": [
+                "{{domain-dns-live-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) A comma-separated list of DNS record types for lookup."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"domainNames\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ipAddresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5da8b54b-ea87-41c5-9c70-e5b065b67998",
+              "name": "Successful DNS lookup response. Each entry in the bulk_dns_info array corresponds to one queried domain or IP address, in request order.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "dns",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-dns-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainNames\": [\n    \"google.com\",\n    \"example.com\"\n  ],\n  \"ipAddresses\": [\n    \"8.8.8.8\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bulk_dns_info\": [\n    {\n      \"status\": true,\n      \"queryTime\": \"2026-06-17 09:43:40\",\n      \"ipAddress\": \"8.8.8.8\",\n      \"dnsTypes\": {\n        \"PTR\": 12\n      },\n      \"dnsRecords\": [\n        {\n          \"name\": \"8.8.8.8.in-addr.arpa\",\n          \"type\": 12,\n          \"dnsType\": \"PTR\",\n          \"ttl\": 3933,\n          \"rawText\": \"8.8.8.8.in-addr.arpa.\\t3933\\tIN\\tPTR\\tdns.google.\",\n          \"rRsetType\": 12,\n          \"singleName\": \"dns.google.\"\n        }\n      ]\n    },\n    {\n      \"status\": true,\n      \"queryTime\": \"2026-06-17 09:43:40\",\n      \"domainName\": \"google.com\",\n      \"domainRegistered\": true,\n      \"dnsTypes\": {\n        \"A\": 1,\n        \"NS\": 2,\n        \"SOA\": 6,\n        \"MX\": 15,\n        \"TXT\": 16,\n        \"AAAA\": 28,\n        \"SPF\": 99\n      },\n      \"dnsRecords\": [\n        {\n          \"name\": \"google.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 266,\n          \"rawText\": \"google.com.\\t\\t266\\tIN\\tA\\t142.250.27.113\",\n          \"rRsetType\": 1,\n          \"address\": \"142.250.27.113\"\n        },\n        {\n          \"name\": \"google.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 266,\n          \"rawText\": \"google.com.\\t\\t266\\tIN\\tA\\t142.250.27.100\",\n          \"rRsetType\": 1,\n          \"address\": \"142.250.27.100\"\n        },\n        {\n          \"name\": \"google.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 266,\n          \"rawText\": \"google.com.\\t\\t266\\tIN\\tA\\t142.250.27.101\",\n          \"rRsetType\": 1,\n          \"address\": \"142.250.27.101\"\n        },\n        {\n          \"name\": \"google.com\",\n          \"type\": 2,\n          \"dnsType\": \"NS\",\n          \"ttl\": 21600,\n          \"rawText\": \"google.com.\\t\\t21600\\tIN\\tNS\\tns3.google.com.\",\n          \"rRsetType\": 2,\n          \"singleName\": \"ns3.google.com.\"\n        },\n        {\n          \"name\": \"google.com\",\n          \"type\": 2,\n          \"dnsType\": \"NS\",\n          \"ttl\": 21600,\n          \"rawText\": \"google.com.\\t\\t21600\\tIN\\tNS\\tns4.google.com.\",\n          \"rRsetType\": 2,\n          \"singleName\": \"ns4.google.com.\"\n        },\n        {\n          \"name\": \"google.com\",\n          \"type\": 2,\n          \"dnsType\": \"NS\",\n          \"ttl\": 21600,\n          \"rawText\": \"google.com.\\t\\t21600\\tIN\\tNS\\tns2.google.com.\",\n          \"rRsetType\": 2,\n          \"singleName\": \"ns2.google.com.\"\n        },\n        {\n          \"name\": \"google.com\",\n          \"type\": 2,\n          \"dnsType\": \"NS\",\n          \"ttl\": 21600,\n          \"rawText\": \"google.com.\\t\\t21600\\tIN\\tNS\\tns1.google.com.\",\n          \"rRsetType\": 2,\n          \"singleName\": \"ns1.google.com.\"\n        },\n        {\n          \"name\": \"google.com\",\n          \"type\": 6,\n          \"dnsType\": \"SOA\",\n          \"ttl\": 20,\n          \"rawText\": \"google.com.\\t\\t20\\tIN\\tSOA\\tns1.google.com. dns-admin.google.com. 932992649 900 900 1800 60\",\n          \"rRsetType\": 6,\n          \"admin\": \"dns-admin.google.com.\",\n          \"host\": \"ns1.google.com.\",\n          \"expire\": 1800,\n          \"minimum\": 60,\n          \"refresh\": 900,\n          \"retry\": 900,\n          \"serial\": 932992649\n        },\n        {\n          \"name\": \"google.com\",\n          \"type\": 15,\n          \"dnsType\": \"MX\",\n          \"ttl\": 198,\n          \"rawText\": \"google.com.\\t\\t198\\tIN\\tMX\\t10 smtp.google.com.\",\n          \"rRsetType\": 15,\n          \"target\": \"smtp.google.com.\",\n          \"priority\": 10\n        },\n        {\n          \"name\": \"google.com\",\n          \"type\": 16,\n          \"dnsType\": \"TXT\",\n          \"ttl\": 300,\n          \"rawText\": \"google.com.\\t\\t300\\tIN\\tTXT\\t\\\"google-site-verification=TV9-DBe4R80X4v0M4U_bd_J9cpOJM0nikft0jAgjmsQ\\\"\",\n          \"rRsetType\": 16,\n          \"strings\": [\n            \"google-site-verification=TV9-DBe4R80X4v0M4U_bd_J9cpOJM0nikft0jAgjmsQ\"\n          ]\n        },\n        {\n          \"name\": \"google.com\",\n          \"type\": 28,\n          \"dnsType\": \"AAAA\",\n          \"ttl\": 106,\n          \"rawText\": \"google.com.\\t\\t106\\tIN\\tAAAA\\t2a00:1450:4025:401:0:0:0:8b\",\n          \"rRsetType\": 28,\n          \"address\": \"2a00:1450:4025:401:0:0:0:8b\"\n        },\n        {\n          \"name\": \"google.com\",\n          \"type\": 99,\n          \"dnsType\": \"SPF\",\n          \"ttl\": 300,\n          \"rawText\": \"google.com.\\t\\t300\\tIN\\tSPF\\t\\\"v=spf1 include:_spf.google.com ~all\\\"\",\n          \"rRsetType\": 99,\n          \"strings\": [\n            \"v=spf1 include:_spf.google.com ~all\"\n          ]\n        }\n      ]\n    },\n    {\n      \"status\": true,\n      \"queryTime\": \"2026-06-17 09:43:40\",\n      \"domainName\": \"example.com\",\n      \"domainRegistered\": true,\n      \"dnsTypes\": {\n        \"A\": 1,\n        \"NS\": 2,\n        \"SOA\": 6,\n        \"MX\": 15,\n        \"TXT\": 16,\n        \"AAAA\": 28,\n        \"SPF\": 99\n      },\n      \"dnsRecords\": [\n        {\n          \"name\": \"example.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 300,\n          \"rawText\": \"example.com.\\t\\t300\\tIN\\tA\\t104.20.23.154\",\n          \"rRsetType\": 1,\n          \"address\": \"104.20.23.154\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 2,\n          \"dnsType\": \"NS\",\n          \"ttl\": 21600,\n          \"rawText\": \"example.com.\\t\\t21600\\tIN\\tNS\\telliott.ns.cloudflare.com.\",\n          \"rRsetType\": 2,\n          \"singleName\": \"elliott.ns.cloudflare.com.\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 6,\n          \"dnsType\": \"SOA\",\n          \"ttl\": 1800,\n          \"rawText\": \"example.com.\\t\\t1800\\tIN\\tSOA\\telliott.ns.cloudflare.com. dns.cloudflare.com. 2405749864 10000 2400 604800 1800\",\n          \"rRsetType\": 6,\n          \"admin\": \"dns.cloudflare.com.\",\n          \"host\": \"elliott.ns.cloudflare.com.\",\n          \"expire\": 604800,\n          \"minimum\": 1800,\n          \"refresh\": 10000,\n          \"retry\": 2400,\n          \"serial\": 2405749864\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 15,\n          \"dnsType\": \"MX\",\n          \"ttl\": 86,\n          \"rawText\": \"example.com.\\t\\t86\\tIN\\tMX\\t0 .\",\n          \"rRsetType\": 15,\n          \"target\": \".\",\n          \"priority\": 0\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 16,\n          \"dnsType\": \"TXT\",\n          \"ttl\": 300,\n          \"rawText\": \"example.com.\\t\\t300\\tIN\\tTXT\\t\\\"_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9\\\"\",\n          \"rRsetType\": 16,\n          \"strings\": [\n            \"_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9\"\n          ]\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 28,\n          \"dnsType\": \"AAAA\",\n          \"ttl\": 300,\n          \"rawText\": \"example.com.\\t\\t300\\tIN\\tAAAA\\t2606:4700:10:0:0:0:ac42:93f3\",\n          \"rRsetType\": 28,\n          \"address\": \"2606:4700:10:0:0:0:ac42:93f3\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 99,\n          \"dnsType\": \"SPF\",\n          \"ttl\": 300,\n          \"rawText\": \"example.com.\\t\\t300\\tIN\\tSPF\\t\\\"v=spf1 -all\\\"\",\n          \"rRsetType\": 99,\n          \"strings\": [\n            \"v=spf1 -all\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9185e393-da02-4416-aae8-194584e4a0ea",
+              "name": "Bad Request — Missing type parameter or malformed request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "dns",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-dns-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainNames\": [\n    \"google.com\",\n    \"example.com\"\n  ],\n  \"ipAddresses\": [\n    \"8.8.8.8\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-23T09:52:48.563Z\",\n  \"path\": \"/v1.0/domain/dns/live\",\n  \"status\": 400,\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb9da49d-4f3c-4a06-bbe1-bbad07a33e45",
+              "name": "Payload Too Large — Request exceeds the 100-hostname batch limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "dns",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-dns-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainNames\": [\n    \"google.com\",\n    \"example.com\"\n  ],\n  \"ipAddresses\": [\n    \"8.8.8.8\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Payload too large Exception\",\n  \"message\": \"Maximum request body size limit exceeded\",\n  \"path\": \"/v1.0/domain/dns/live\",\n  \"status\": 413,\n  \"timestamp\": \"2026-07-23T09:52:49.621Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "585a523b-6be5-4018-8bda-ffe62bda2ea7",
+          "name": "Perform a live DNS lookup for any hostname or IP address",
+          "request": {
+            "name": "Perform a live DNS lookup for any hostname or IP address",
+            "description": {
+              "content": "Retrieve real-time DNS records for any hostname or IP address. Returns A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, and PTR records with full parsed fields.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain",
+                "dns",
+                "live"
+              ],
+              "host": [
+                "{{domain-dns-live-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "host-name",
+                  "value": "<string>",
+                  "description": "(Required) Hostname or URL whose DNS records are required."
+                },
+                {
+                  "disabled": false,
+                  "key": "ipAddress",
+                  "value": "<string>",
+                  "description": "The IP address for requested DNS's PTR record. 'type' parameter must be set to 'all'."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) A comma-separated list of DNS record types for lookup. Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all. When ipAddress is provided, type must be \"all\"."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6d138ece-30c4-4d43-8f57-e07b2dbdad0c",
+              "name": "Successful DNS lookup response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "dns",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-dns-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "host-name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ipAddress",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": true,\n  \"queryTime\": \"2026-06-06 10:43:05\",\n  \"domainName\": \"example.com\",\n  \"domainRegistered\": true,\n  \"dnsTypes\": {\n    \"A\": 1,\n    \"NS\": 2,\n    \"SOA\": 6,\n    \"MX\": 15,\n    \"TXT\": 16,\n    \"AAAA\": 28,\n    \"SPF\": 99\n  },\n  \"dnsRecords\": [\n    {\n      \"name\": \"example.com\",\n      \"type\": 1,\n      \"dnsType\": \"A\",\n      \"ttl\": 300,\n      \"rawText\": \"example.com.\\t\\t300\\tIN\\tA\\t104.20.23.154\",\n      \"rRsetType\": 1,\n      \"address\": \"104.20.23.154\"\n    },\n    {\n      \"name\": \"example.com\",\n      \"type\": 1,\n      \"dnsType\": \"A\",\n      \"ttl\": 300,\n      \"rawText\": \"example.com.\\t\\t300\\tIN\\tA\\t172.66.147.243\",\n      \"rRsetType\": 1,\n      \"address\": \"172.66.147.243\"\n    },\n    {\n      \"name\": \"example.com\",\n      \"type\": 2,\n      \"dnsType\": \"NS\",\n      \"ttl\": 21600,\n      \"rawText\": \"example.com.\\t\\t21600\\tIN\\tNS\\telliott.ns.cloudflare.com.\",\n      \"rRsetType\": 2,\n      \"singleName\": \"elliott.ns.cloudflare.com.\"\n    },\n    {\n      \"name\": \"example.com\",\n      \"type\": 2,\n      \"dnsType\": \"NS\",\n      \"ttl\": 21600,\n      \"rawText\": \"example.com.\\t\\t21600\\tIN\\tNS\\thera.ns.cloudflare.com.\",\n      \"rRsetType\": 2,\n      \"singleName\": \"hera.ns.cloudflare.com.\"\n    },\n    {\n      \"name\": \"example.com\",\n      \"type\": 6,\n      \"dnsType\": \"SOA\",\n      \"ttl\": 1800,\n      \"rawText\": \"example.com.\\t\\t1800\\tIN\\tSOA\\telliott.ns.cloudflare.com. dns.cloudflare.com. 2405749864 10000 2400 604800 1800\",\n      \"rRsetType\": 6,\n      \"admin\": \"dns.cloudflare.com.\",\n      \"host\": \"elliott.ns.cloudflare.com.\",\n      \"expire\": 604800,\n      \"minimum\": 1800,\n      \"refresh\": 10000,\n      \"retry\": 2400,\n      \"serial\": 2405749864\n    },\n    {\n      \"name\": \"example.com\",\n      \"type\": 15,\n      \"dnsType\": \"MX\",\n      \"ttl\": 236,\n      \"rawText\": \"example.com.\\t\\t236\\tIN\\tMX\\t0 .\",\n      \"rRsetType\": 15,\n      \"target\": \".\",\n      \"priority\": 0\n    },\n    {\n      \"name\": \"example.com\",\n      \"type\": 16,\n      \"dnsType\": \"TXT\",\n      \"ttl\": 300,\n      \"rawText\": \"example.com.\\t\\t300\\tIN\\tTXT\\t\\\"_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9\\\"\",\n      \"rRsetType\": 16,\n      \"strings\": [\n        \"_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9\"\n      ]\n    },\n    {\n      \"name\": \"example.com\",\n      \"type\": 28,\n      \"dnsType\": \"AAAA\",\n      \"ttl\": 300,\n      \"rawText\": \"example.com.\\t\\t300\\tIN\\tAAAA\\t2606:4700:10:0:0:0:ac42:93f3\",\n      \"rRsetType\": 28,\n      \"address\": \"2606:4700:10:0:0:0:ac42:93f3\"\n    },\n    {\n      \"name\": \"example.com\",\n      \"type\": 28,\n      \"dnsType\": \"AAAA\",\n      \"ttl\": 300,\n      \"rawText\": \"example.com.\\t\\t300\\tIN\\tAAAA\\t2606:4700:10:0:0:0:6814:179a\",\n      \"rRsetType\": 28,\n      \"address\": \"2606:4700:10:0:0:0:6814:179a\"\n    },\n    {\n      \"name\": \"example.com\",\n      \"type\": 99,\n      \"dnsType\": \"SPF\",\n      \"ttl\": 300,\n      \"rawText\": \"example.com.\\t\\t300\\tIN\\tSPF\\t\\\"v=spf1 -all\\\"\",\n      \"rRsetType\": 99,\n      \"strings\": [\n        \"v=spf1 -all\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b699ece-37e4-4112-b7e9-56cbdbfb9611",
+              "name": "Bad Request — Missing or invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "dns",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-dns-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "host-name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ipAddress",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/domain/dns/live\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-23T09:50:58.722Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2b8efb0-86c2-48dc-ad97-81faa8568aaf",
+          "name": "Get all historical A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of a hostname",
+          "request": {
+            "name": "Get all historical A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of a hostname",
+            "description": {
+              "content": "Retrieve historical DNS records for any hostname. Access unique historical data for A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records,\nincluding subdomains. Results are paginated with up to 100 unique records per page.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain",
+                "dns",
+                "history"
+              ],
+              "host": [
+                "{{domain-dns-history-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "host-name",
+                  "value": "<string>",
+                  "description": "(Required) Hostname or URL whose historical DNS records are required"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) A comma-separated list of DNS record types for lookup.\nPossible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d942b86f-6385-4d71-baca-074e9c273f90",
+              "name": "Successful DNS history lookup response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "dns",
+                    "history"
+                  ],
+                  "host": [
+                    "{{domain-dns-history-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "host-name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalRecords\": 46,\n  \"totalPages\": 1,\n  \"currentPage\": 1,\n  \"historicalDnsRecords\": [\n    {\n      \"queryTime\": \"2025-12-16\",\n      \"domainName\": \"example.com.\",\n      \"dnsTypes\": {\n        \"SOA\": 6,\n        \"AAAA\": 28,\n        \"A\": 1,\n        \"NS\": 2\n      },\n      \"dnsRecords\": [\n        {\n          \"name\": \"example.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 4,\n          \"rawText\": \"example.com.\\t\\t4\\tIN\\tA\\t23.192.228.84\",\n          \"rRsetType\": 1,\n          \"address\": \"23.192.228.84\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 4,\n          \"rawText\": \"example.com.\\t\\t4\\tIN\\tA\\t23.215.0.136\",\n          \"rRsetType\": 1,\n          \"address\": \"23.215.0.136\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 278,\n          \"rawText\": \"example.com.\\t\\t278\\tIN\\tA\\t23.220.75.245\",\n          \"rRsetType\": 1,\n          \"address\": \"23.220.75.245\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 278,\n          \"rawText\": \"example.com.\\t\\t278\\tIN\\tA\\t23.220.75.232\",\n          \"rRsetType\": 1,\n          \"address\": \"23.220.75.232\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 4,\n          \"rawText\": \"example.com.\\t\\t4\\tIN\\tA\\t23.215.0.138\",\n          \"rRsetType\": 1,\n          \"address\": \"23.215.0.138\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 4,\n          \"rawText\": \"example.com.\\t\\t4\\tIN\\tA\\t23.192.228.80\",\n          \"rRsetType\": 1,\n          \"address\": \"23.192.228.80\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 28,\n          \"dnsType\": \"AAAA\",\n          \"ttl\": 89,\n          \"rawText\": \"example.com.\\t\\t89\\tIN\\tAAAA\\t2600:1406:5e00:6:0:0:17ce:bc12\",\n          \"rRsetType\": 28,\n          \"address\": \"2600:1406:5e00:6:0:0:17ce:bc12\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 28,\n          \"dnsType\": \"AAAA\",\n          \"ttl\": 202,\n          \"rawText\": \"example.com.\\t\\t202\\tIN\\tAAAA\\t2600:1406:bc00:53:0:0:b81e:94ce\",\n          \"rRsetType\": 28,\n          \"address\": \"2600:1406:bc00:53:0:0:b81e:94ce\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 28,\n          \"dnsType\": \"AAAA\",\n          \"ttl\": 89,\n          \"rawText\": \"example.com.\\t\\t89\\tIN\\tAAAA\\t2600:1406:5e00:6:0:0:17ce:bc1b\",\n          \"rRsetType\": 28,\n          \"address\": \"2600:1406:5e00:6:0:0:17ce:bc1b\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 28,\n          \"dnsType\": \"AAAA\",\n          \"ttl\": 202,\n          \"rawText\": \"example.com.\\t\\t202\\tIN\\tAAAA\\t2600:1408:ec00:36:0:0:1736:7f31\",\n          \"rRsetType\": 28,\n          \"address\": \"2600:1408:ec00:36:0:0:1736:7f31\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 28,\n          \"dnsType\": \"AAAA\",\n          \"ttl\": 202,\n          \"rawText\": \"example.com.\\t\\t202\\tIN\\tAAAA\\t2600:1408:ec00:36:0:0:1736:7f24\",\n          \"rRsetType\": 28,\n          \"address\": \"2600:1408:ec00:36:0:0:1736:7f24\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 28,\n          \"dnsType\": \"AAAA\",\n          \"ttl\": 202,\n          \"rawText\": \"example.com.\\t\\t202\\tIN\\tAAAA\\t2600:1406:bc00:53:0:0:b81e:94c8\",\n          \"rRsetType\": 28,\n          \"address\": \"2600:1406:bc00:53:0:0:b81e:94c8\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 6,\n          \"dnsType\": \"SOA\",\n          \"ttl\": 3600,\n          \"rawText\": \"example.com.\\t\\t3600\\tIN\\tSOA\\tns.icann.org. noc.dns.icann.org. 2022091323 7200 3600 1209600 3600\",\n          \"rRsetType\": 6,\n          \"admin\": \"noc.dns.icann.org.\",\n          \"host\": \"ns.icann.org.\",\n          \"expire\": 1209600,\n          \"minimum\": 3600,\n          \"refresh\": 7200,\n          \"retry\": 3600,\n          \"serial\": 2022091323\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 2,\n          \"dnsType\": \"NS\",\n          \"ttl\": 21600,\n          \"rawText\": \"example.com.\\t\\t21600\\tIN\\tNS\\ta.iana-servers.net.\",\n          \"rRsetType\": 2,\n          \"singleName\": \"a.iana-servers.net.\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 2,\n          \"dnsType\": \"NS\",\n          \"ttl\": 21600,\n          \"rawText\": \"example.com.\\t\\t21600\\tIN\\tNS\\tb.iana-servers.net.\",\n          \"rRsetType\": 2,\n          \"singleName\": \"b.iana-servers.net.\"\n        }\n      ]\n    },\n    {\n      \"queryTime\": \"2025-12-17\",\n      \"domainName\": \"example.com.\",\n      \"dnsTypes\": {\n        \"AAAA\": 28,\n        \"A\": 1,\n        \"NS\": 2\n      },\n      \"dnsRecords\": [\n        {\n          \"name\": \"example.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 300,\n          \"rawText\": \"example.com.\\t\\t300\\tIN\\tA\\t104.20.34.220\",\n          \"rRsetType\": 1,\n          \"address\": \"104.20.34.220\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 300,\n          \"rawText\": \"example.com.\\t\\t300\\tIN\\tA\\t172.66.144.113\",\n          \"rRsetType\": 1,\n          \"address\": \"172.66.144.113\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 28,\n          \"dnsType\": \"AAAA\",\n          \"ttl\": 300,\n          \"rawText\": \"example.com.\\t\\t300\\tIN\\tAAAA\\t2606:4700:10:0:0:0:ac42:9071\",\n          \"rRsetType\": 28,\n          \"address\": \"2606:4700:10:0:0:0:ac42:9071\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 28,\n          \"dnsType\": \"AAAA\",\n          \"ttl\": 300,\n          \"rawText\": \"example.com.\\t\\t300\\tIN\\tAAAA\\t2606:4700:10:0:0:0:6814:22dc\",\n          \"rRsetType\": 28,\n          \"address\": \"2606:4700:10:0:0:0:6814:22dc\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 2,\n          \"dnsType\": \"NS\",\n          \"ttl\": 128,\n          \"rawText\": \"example.com.\\t\\t128\\tIN\\tNS\\ta.iana-servers.net.\",\n          \"rRsetType\": 2,\n          \"singleName\": \"a.iana-servers.net.\"\n        },\n        {\n          \"name\": \"example.com\",\n          \"type\": 2,\n          \"dnsType\": \"NS\",\n          \"ttl\": 128,\n          \"rawText\": \"example.com.\\t\\t128\\tIN\\tNS\\tb.iana-servers.net.\",\n          \"rRsetType\": 2,\n          \"singleName\": \"b.iana-servers.net.\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbfcde02-b5eb-4bd9-a810-8dbce491fa7a",
+              "name": "Bad Request — Invalid DNS type or malformed hostname",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "dns",
+                    "history"
+                  ],
+                  "host": [
+                    "{{domain-dns-history-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "host-name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-23T09:52:28.093Z\",\n  \"status\": 400,\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"Please provide correct dns records type(s) [For Technical Support: support@whoisfreaks.com]\",\n  \"path\": \"/v2.0/dns/historical\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9607d6e9-60f2-4b42-9783-ece968c2c7ed",
+              "name": "Not Found — No DNS history records for the hostname",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "dns",
+                    "history"
+                  ],
+                  "host": [
+                    "{{domain-dns-history-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "host-name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-23T09:52:28.643Z\",\n  \"status\": 404,\n  \"error\": \"Record not Found\",\n  \"message\": \"No Record Found across: zzsuperrandomnonexistent998877.com\",\n  \"path\": \"/v2.0/dns/historical\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72874368-9bb7-4fe3-bd10-2cd7d8477e5b",
+          "name": "Retrieve all hostnames associated with any A, AAAA, MX, NS, SOA, SPF, TXT, or CNAME DNS record",
+          "request": {
+            "name": "Retrieve all hostnames associated with any A, AAAA, MX, NS, SOA, SPF, TXT, or CNAME DNS record",
+            "description": {
+              "content": "Perform a reverse DNS lookup by providing an IP or CIDR for A/AAAA lookups, or a hostname selector for MX, NS, SOA, SPF, TXT, and CNAME queries. Returns paginated results with dated DNS snapshots for each matched domain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain",
+                "dns",
+                "reverse"
+              ],
+              "host": [
+                "{{domain-dns-reverse-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) The type of reverse DNS lookup to perform. Determines how the value parameter is interpreted:\n- A: IPv4 CIDR block\n- AAAA: IPv6 CIDR block\n- MX: Mail provider domain\n- NS: Name server provider hostname\n- SOA: SOA record admin domain\n- SPF/TXT: Target verification strings\n- CNAME: Target hostname"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "(Required) Provide an IP or CIDR for A/AAAA lookups, or a hostname/selector for MX, NS, SOA, SPF, TXT, and CNAME queries. Wildcard regex patterns are also supported (e.g., mail.google.com, m*.google.com, _spf.g*.com, s*.g*.com)."
+                },
+                {
+                  "disabled": false,
+                  "key": "exact",
+                  "value": "false",
+                  "description": "When true, returns only records that exactly match the input (NS, MX, CNAME, SOA, SPF, TXT). When false, returns all matches (default when omitted)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to paginate through results (defaults to 1)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ccfc7d09-67fd-4fa7-8e92-e5ba03e03705",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "dns",
+                    "reverse"
+                  ],
+                  "host": [
+                    "{{domain-dns-reverse-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalRecords\": 89950,\n  \"totalPages\": 900,\n  \"currentPage\": 1,\n  \"reverseDnsRecords\": [\n    {\n      \"queryTime\": \"2024-05-30\",\n      \"domainName\": \"www.maguire.romamenu.cotest.avalon-invest.pro\",\n      \"dnsTypes\": {\n        \"A\": 1\n      },\n      \"dnsRecords\": [\n        {\n          \"name\": \"www.maguire.romamenu.cotest.avalon-invest.pro\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 300,\n          \"rawText\": \"www.maguire.romamenu.cotest.avalon-invest.pro.\\t300\\tIN\\tA\\t8.8.8.8\",\n          \"rRsetType\": 1,\n          \"address\": \"8.8.8.8\"\n        }\n      ]\n    },\n    {\n      \"queryTime\": \"2026-06-13\",\n      \"domainName\": \"qa-allure.salt-dev.ws\",\n      \"dnsTypes\": {\n        \"A\": 1\n      },\n      \"dnsRecords\": [\n        {\n          \"name\": \"qa-allure.salt-dev.ws\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 300,\n          \"rawText\": \"qa-allure.salt-dev.ws.\\t300\\tIN\\tA\\t8.8.8.8\",\n          \"rRsetType\": 1,\n          \"address\": \"8.8.8.8\"\n        }\n      ]\n    },\n    {\n      \"queryTime\": \"2026-03-21\",\n      \"domainName\": \"www.hailibu.cn\",\n      \"dnsTypes\": {\n        \"A\": 1\n      },\n      \"dnsRecords\": [\n        {\n          \"name\": \"www.hailibu.cn\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 1,\n          \"rawText\": \"www.hailibu.cn.\\t\\t1\\tIN\\tA\\t8.8.8.8\",\n          \"rRsetType\": 1,\n          \"address\": \"8.8.8.8\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e48bd279-203f-4d6b-bce8-586fdce70c84",
+              "name": "Invalid DNS type or missing required parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "dns",
+                    "reverse"
+                  ],
+                  "host": [
+                    "{{domain-dns-reverse-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-23T09:51:58.340Z\",\n  \"path\": \"/v2.1/dns/reverse\",\n  \"status\": 400,\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"Invalid dns Record Type. Kindly use the supported record types.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7988692f-6acb-4afb-b1eb-b6c550cca767",
+              "name": "No reverse DNS records found for the given input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "dns",
+                    "reverse"
+                  ],
+                  "host": [
+                    "{{domain-dns-reverse-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-23T09:52:07.079Z\",\n  \"path\": \"/v2.1/dns/reverse\",\n  \"status\": 404,\n  \"error\": \"Record not Found\",\n  \"message\": \"No Record Found across: zzsuperrandomnonexistentmxprovider99988.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "domain-dns-live-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "domain-dns-history-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "domain-dns-reverse-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6d38a7b5-a193-4ee2-a71e-8946d1528dc6",
+    "name": "Apifreaks Api Hub For Developers DNS APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged DNS APIs across 4 of this provider's published API definitions: apifreaks-api-hub-for-developers-bulk-dns-lookup-openapi.json, apifreaks-api-hub-for-developers-dns-history-lookup-openapi.json, apifreaks-api-hub-for-developers-dns-lookup-openapi.json, apifreaks-api-hub-for-developers-reverse-dns-lookup-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

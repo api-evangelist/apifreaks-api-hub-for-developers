@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers Phone Validation APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Phone Validation APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bulk validate phone numbers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/phone/validation/bulk",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object. If not provided, the API defaults to JSON format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates up to 100 phone numbers in a single request. Each number is processed independently — invalid entries return per-number errors without affecting the rest of the batch."
+        },
+        {
+          "info": {
+            "name": "Validate a single phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/phone/validation",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object. If not provided, the API defaults to JSON format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates a single phone number and returns detailed metadata including carrier, line type, geolocation, time zones, and standardized formats."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

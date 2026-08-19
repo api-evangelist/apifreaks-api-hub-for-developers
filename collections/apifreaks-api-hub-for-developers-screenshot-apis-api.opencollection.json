@@ -1,0 +1,511 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers Screenshot APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Screenshot APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Build screenshots the way real users see the web — not just what fits on the screen.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/screenshot",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: 'json'."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "Output format for screenshot results"
+              },
+              {
+                "name": "file_type",
+                "value": "",
+                "type": "query",
+                "description": "File type for screenshot output"
+              },
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "URLs to capture screenshots of"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "Browser viewport width in pixels"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "Browser viewport height in pixels"
+              },
+              {
+                "name": "full_page",
+                "value": "",
+                "type": "query",
+                "description": "Capture a full-page screenshot"
+              },
+              {
+                "name": "fresh",
+                "value": "",
+                "type": "query",
+                "description": "Bypass cache and take a fresh screenshot"
+              },
+              {
+                "name": "no_cookie_banners",
+                "value": "",
+                "type": "query",
+                "description": "Remove cookie banners from the screenshot"
+              },
+              {
+                "name": "enable_caching",
+                "value": "",
+                "type": "query",
+                "description": "Enable caching for repeated requests"
+              },
+              {
+                "name": "block_ads",
+                "value": "",
+                "type": "query",
+                "description": "Block advertisements on the page"
+              },
+              {
+                "name": "block_chat_widgets",
+                "value": "",
+                "type": "query",
+                "description": "Block chat widget scripts from loading"
+              },
+              {
+                "name": "extract_text",
+                "value": "",
+                "type": "query",
+                "description": "Extract visible text from the page"
+              },
+              {
+                "name": "extract_html",
+                "value": "",
+                "type": "query",
+                "description": "Extract HTML content of the page"
+              },
+              {
+                "name": "destroy_screenshot",
+                "value": "",
+                "type": "query",
+                "description": "Auto-destroy screenshot after fetch"
+              },
+              {
+                "name": "lazy_load",
+                "value": "",
+                "type": "query",
+                "description": "Enable lazy-loading content before screenshot"
+              },
+              {
+                "name": "retina",
+                "value": "",
+                "type": "query",
+                "description": "Capture screenshot in high-DPI (Retina) mode"
+              },
+              {
+                "name": "dark_mode",
+                "value": "",
+                "type": "query",
+                "description": "Render page in dark mode"
+              },
+              {
+                "name": "block_tracking",
+                "value": "",
+                "type": "query",
+                "description": "Block common user-tracking scripts"
+              },
+              {
+                "name": "enable_incognito",
+                "value": "",
+                "type": "query",
+                "description": "Enable private/incognito mode for browser session"
+              },
+              {
+                "name": "omit_background",
+                "value": "",
+                "type": "query",
+                "description": "Omit background color (transparent background)"
+              },
+              {
+                "name": "thumbnail_width",
+                "value": "",
+                "type": "query",
+                "description": "Thumbnail width in pixels"
+              },
+              {
+                "name": "adjust_top",
+                "value": "",
+                "type": "query",
+                "description": "Adjust top in pixels"
+              },
+              {
+                "name": "wait_for_event",
+                "value": "",
+                "type": "query",
+                "description": "Wait for a specific load event before capturing the screenshot."
+              },
+              {
+                "name": "grayscale",
+                "value": "",
+                "type": "query",
+                "description": "Range:0 to 100 for grayscale filter"
+              },
+              {
+                "name": "delay",
+                "value": "",
+                "type": "query",
+                "description": "How many milliseconds to wait before taking the screenshot"
+              },
+              {
+                "name": "timeout",
+                "value": "",
+                "type": "query",
+                "description": "Maximum timeout in milliseconds. Defalut is `10,000`"
+              },
+              {
+                "name": "ttl",
+                "value": "",
+                "type": "query",
+                "description": "Number of seconds the screenshot should be cached"
+              },
+              {
+                "name": "clip[x]",
+                "value": "",
+                "type": "query",
+                "description": "X position of the clipping rectangle in pixels"
+              },
+              {
+                "name": "clip[y]",
+                "value": "",
+                "type": "query",
+                "description": "Y position of the clipping rectangle in pixels"
+              },
+              {
+                "name": "clip[width]",
+                "value": "",
+                "type": "query",
+                "description": "Width of the clipping rectangle in pixels"
+              },
+              {
+                "name": "clip[height]",
+                "value": "",
+                "type": "query",
+                "description": "Height of the clipping rectangle in pixels"
+              },
+              {
+                "name": "css_url",
+                "value": "",
+                "type": "query",
+                "description": "URL to CSS file"
+              },
+              {
+                "name": "css",
+                "value": "",
+                "type": "query",
+                "description": "Your custom CSS code"
+              },
+              {
+                "name": "js_url",
+                "value": "",
+                "type": "query",
+                "description": "URL to JS file"
+              },
+              {
+                "name": "js",
+                "value": "",
+                "type": "query",
+                "description": "Your JS code"
+              },
+              {
+                "name": "block_js",
+                "value": "",
+                "type": "query",
+                "description": "Block Scripts"
+              },
+              {
+                "name": "block_stylesheets",
+                "value": "",
+                "type": "query",
+                "description": "Block Stylesheets"
+              },
+              {
+                "name": "block_images",
+                "value": "",
+                "type": "query",
+                "description": "Block Images"
+              },
+              {
+                "name": "block_media",
+                "value": "",
+                "type": "query",
+                "description": "Block Media"
+              },
+              {
+                "name": "block_font",
+                "value": "",
+                "type": "query",
+                "description": "Block Fonts"
+              },
+              {
+                "name": "block_text_track",
+                "value": "",
+                "type": "query",
+                "description": "Block Text Tracks"
+              },
+              {
+                "name": "block_xhr",
+                "value": "",
+                "type": "query",
+                "description": "Block XHR Requests"
+              },
+              {
+                "name": "block_fetch",
+                "value": "",
+                "type": "query",
+                "description": "Block Fetch Requests"
+              },
+              {
+                "name": "block_event_source",
+                "value": "",
+                "type": "query",
+                "description": "Block Event Source"
+              },
+              {
+                "name": "block_web_socket",
+                "value": "",
+                "type": "query",
+                "description": "Block Web Sockets"
+              },
+              {
+                "name": "block_manifest",
+                "value": "",
+                "type": "query",
+                "description": "Block Manifest"
+              },
+              {
+                "name": "block_specific_requests",
+                "value": "",
+                "type": "query",
+                "description": "Comma- or newline-separated list of specific requests to block. Each line and comma are treated as separate requests for processing. Example: https://example.com, https://example.js"
+              },
+              {
+                "name": "blur_selector",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of indexed CSS selectors to blur. Format: index:<selector>, e.g., 0:.banner,1:#ads."
+              },
+              {
+                "name": "remove_selector",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of indexed CSS selectors to remove. Format: index:<selector>, e.g., 0:.banner,1:#ads."
+              },
+              {
+                "name": "result_file_name",
+                "value": "",
+                "type": "query",
+                "description": "Specify a meaningful and unique file name to easily identify the screenshot result. Avoid using spaces or special characters; use hyphens or underscores to separate words."
+              },
+              {
+                "name": "scrolling_screenshot",
+                "value": "",
+                "type": "query",
+                "description": "**`Scrolling Screenshot`**: Capture a long scrolling screenshot. When true, disable `fullPage` and `freshScreenshot`."
+              },
+              {
+                "name": "scroll_speed",
+                "value": "",
+                "type": "query",
+                "description": "Speed of scrolling during the screenshot."
+              },
+              {
+                "name": "scroll_back",
+                "value": "",
+                "type": "query",
+                "description": "If true, the scroll will reverse back to the top after reaching the bottom."
+              },
+              {
+                "name": "start_immediately",
+                "value": "",
+                "type": "query",
+                "description": "If true, the scrolling capture will start immediately upon page load."
+              },
+              {
+                "name": "multiple_scrolling",
+                "value": "",
+                "type": "query",
+                "description": "If true, multiple scrolling screenshots will be taken at different viewport sizes."
+              },
+              {
+                "name": "sizes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of viewport sizes in format index:XXw:YYh. Example: sizes=0:120w:300h,1:240w:500h"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration in seconds for the scrolling capture. Acceptable range is 0 to 60 seconds."
+              },
+              {
+                "name": "fail_on_error",
+                "value": "",
+                "type": "query",
+                "description": "If true, returns an error when the target page responds with 4xx or 5xx status."
+              },
+              {
+                "name": "longitude",
+                "value": "",
+                "type": "query",
+                "description": "Specify longitude for the browser Geolocation API."
+              },
+              {
+                "name": "latitude",
+                "value": "",
+                "type": "query",
+                "description": "Specify latitude for the browser Geolocation API."
+              },
+              {
+                "name": "proxy",
+                "value": "",
+                "type": "query",
+                "description": "Allows defining a proxy for the connection. Provide a JSON string with keys: server (include port number), username, and password."
+              },
+              {
+                "name": "headers",
+                "value": "",
+                "type": "query",
+                "description": "Custom HTTP headers to include as key=value pairs. Use a semicolon to separate multiple headers (e.g., key1=value1;key2=value2)."
+              },
+              {
+                "name": "cookies",
+                "value": "",
+                "type": "query",
+                "description": "Cookies to include in the request before rendering. Supports single or multiple cookies. Example: cookie=value; otherCookie=otherValue;"
+              },
+              {
+                "name": "scroll_to_element",
+                "value": "",
+                "type": "query",
+                "description": "Scrolls the page to bring the specified CSS selector into view before capture."
+              },
+              {
+                "name": "selector",
+                "value": "",
+                "type": "query",
+                "description": "CSS selector to capture a specific element. Only that element is rendered."
+              },
+              {
+                "name": "selector_to_click",
+                "value": "",
+                "type": "query",
+                "description": "CSS selector for an element to click before capturing the screenshot."
+              },
+              {
+                "name": "click_recursion",
+                "value": "",
+                "type": "query",
+                "description": "Number of times to click the selector (when set via selector_to_click). Default: 1."
+              },
+              {
+                "name": "user_agent",
+                "value": "",
+                "type": "query",
+                "description": "Custom User-Agent string sent in the request headers."
+              },
+              {
+                "name": "accept_languages",
+                "value": "",
+                "type": "query",
+                "description": "Sets the accepted languages for the HTTP request. Sent as the Accept-Language header."
+              },
+              {
+                "name": "scroll_delay",
+                "value": "",
+                "type": "query",
+                "description": "Delay in milliseconds between scroll steps when lazy_load is enabled."
+              },
+              {
+                "name": "custom_html",
+                "value": "",
+                "type": "query",
+                "description": "Custom HTML to render instead of loading a URL. Overrides the url option."
+              },
+              {
+                "name": "image_quality",
+                "value": "",
+                "type": "query",
+                "description": "Compression level for JPEG output (0–100). Lower = smaller file, higher = better quality. Only applies to JPEG."
+              },
+              {
+                "name": "extract_markdown",
+                "value": "",
+                "type": "query",
+                "description": "Extracts rendered page content as a structured .md (Markdown) file."
+              },
+              {
+                "name": "get_image_urls",
+                "value": "",
+                "type": "query",
+                "description": "Extracts all image URLs from the rendered DOM and returns them in structured format."
+              }
+            ]
+          },
+          "docs": "Capture full-page screenshots and videos of websites with advanced options like device simulation, custom code injection, cookie banner blocking, and scrollable content recording.\nSupports multiple output formats including JSON, image, GIF, MP4, and WebM.\n"
+        },
+        {
+          "info": {
+            "name": "Capture screenshots of multiple websites in a single request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/screenshot",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Our Bulk Screenshot API allows you to capture screenshots of multiple webpages simultaneously, saving you time and effort. Instead of manually capturing each page one by one, you can batch process URLs and receive high-quality screenshots in the format you choose.\n Maximum `50 URLs` per request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

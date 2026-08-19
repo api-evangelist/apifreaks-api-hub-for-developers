@@ -1,0 +1,2354 @@
+{
+  "item": [
+    {
+      "id": "0f5097c3-3dcb-49f3-968a-150e03f27ba3",
+      "name": "Currency APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e027e279-682c-411f-870b-75eaede58322",
+          "name": "Convert currency with latest rates",
+          "request": {
+            "name": "Convert currency with latest rates",
+            "description": {
+              "content": "Converts an amount from one currency to another using the latest exchange rates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currency",
+                "converter",
+                "latest",
+                "prices"
+              ],
+              "host": [
+                "{{currency-converter-latest-prices-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format: `json` (default) or `xml`."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) Source currency code."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) Target currency code."
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "1",
+                  "description": "Amount to convert, as a decimal. Defaults to `1`. Must be numeric — non-numeric values return a 400 (negative values are accepted despite the error message's wording)."
+                },
+                {
+                  "disabled": false,
+                  "key": "updates",
+                  "value": "1m",
+                  "description": "Update frequency: `1m` (default), `10m`, `1h`, or `1d`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e5e105ad-9ae3-4941-98b4-50b71a68afad",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "converter",
+                    "latest",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{currency-converter-latest-prices-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"2026-07-27 12:05:00+00\",\n  \"from\": \"USD\",\n  \"to\": \"EUR\",\n  \"rate\": \"0.87800\",\n  \"givenAmount\": \"100.0\",\n  \"convertedAmount\": \"87.800\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5321cd51-46f1-41b0-979c-4c0a6c396ffc",
+              "name": "Bad request - Invalid amount or updates parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "converter",
+                    "latest",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{currency-converter-latest-prices-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/currency/converter/latest/prices\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T12:05:29.609Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75416e8f-e140-4fd5-96f6-8cff40cf5ca1",
+              "name": "Not found - Currency not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "converter",
+                    "latest",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{currency-converter-latest-prices-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": 1785153930704,\n  \"status\": 404,\n  \"error\": \"Not Found Exception\",\n  \"message\": \"Rates of provided currency ZZZ are not available in our database!\",\n  \"path\": \"/v2.0/convert/latest\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38d9dee1-a76d-4533-b527-b73bc27a4588",
+          "name": "Get exchange rate fluctuations",
+          "request": {
+            "name": "Get exchange rate fluctuations",
+            "description": {
+              "content": "Returns exchange rate fluctuations between two dates for the requested symbols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currency",
+                "fluctuation"
+              ],
+              "host": [
+                "{{currency-fluctuation-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format: `json` (default) or `xml`."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<string>",
+                  "description": "(Required) Start date in `YYYY-MM-DD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<string>",
+                  "description": "End date in `YYYY-MM-DD` format. Defaults to yesterday."
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "USD",
+                  "description": "Base currency code. Defaults to `USD`."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "Comma-separated currency codes. Omit to get all available rates."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "18930c04-8603-44d8-8a99-aa3a783edf8d",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "fluctuation"
+                  ],
+                  "host": [
+                    "{{currency-fluctuation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"startDate\": \"2025-01-01\",\n  \"endDate\": \"2025-01-10\",\n  \"base\": \"USD\",\n  \"rateFluctuations\": {\n    \"EUR\": {\n      \"startRate\": \"0.96605\",\n      \"endRate\": \"0.97620\",\n      \"change\": \"-0.010150\",\n      \"percentChange\": \"-1.05\"\n    },\n    \"PKR\": {\n      \"startRate\": \"278.400\",\n      \"endRate\": \"278.650\",\n      \"change\": \"-0.25\",\n      \"percentChange\": \"-0.09\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0105f80-67f1-497c-9481-472c04c3a403",
+              "name": "Bad request - Invalid dates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "fluctuation"
+                  ],
+                  "host": [
+                    "{{currency-fluctuation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/currency/fluctuation\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T12:09:21.348Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5067fefe-0858-441b-8c13-d664be176b1a",
+              "name": "Not found - No data for interval",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "fluctuation"
+                  ],
+                  "host": [
+                    "{{currency-fluctuation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": 1785154173332,\n  \"status\": 404,\n  \"error\": \"Not Found Exception\",\n  \"message\": \"Rates of provided base and symbols are not found for given intervals.\",\n  \"path\": \"/v2.0/fluctuation\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2dd839c2-af6d-4c1d-a2b9-9196df01c24e",
+          "name": "Get historical data availability limits",
+          "request": {
+            "name": "Get historical data availability limits",
+            "description": {
+              "content": "Returns the date range when historical data is available for each currency.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currency",
+                "historical",
+                "data",
+                "limits"
+              ],
+              "host": [
+                "{{currency-historical-data-limits-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format: `json` (default) or `xml`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "99d82eff-d83f-4368-a09f-e41c932b542b",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "historical",
+                    "data",
+                    "limits"
+                  ],
+                  "host": [
+                    "{{currency-historical-data-limits-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"availabilityPeriod\": {\n    \"FJD\": \"1989-08-18 to 2026-07-27\",\n    \"SCR\": \"1998-07-31 to 2026-07-27\",\n    \"STPT\": \"2025-02-27 to 2025-05-28\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5006de85-72a9-4f8d-98a9-156f45eef5d5",
+              "name": "Unsupported Media Type — format is not json or xml",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "historical",
+                    "data",
+                    "limits"
+                  ],
+                  "host": [
+                    "{{currency-historical-data-limits-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Unsupported Media Type\",\n  \"message\": \"The media type specified in the request is not supported. For more details, please refer to the API documentation.\",\n  \"path\": \"/v1.0/currency/historical/data/limits\",\n  \"status\": 406,\n  \"timestamp\": \"2026-07-27T12:14:01.189Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf104983-b281-4e16-a23a-9ab09421e853",
+          "name": "Get the latest exchange rates",
+          "request": {
+            "name": "Get the latest exchange rates",
+            "description": {
+              "content": "Returns the latest exchange rates for the requested base currency and symbols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currency",
+                "rates",
+                "latest"
+              ],
+              "host": [
+                "{{currency-rates-latest-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format: `json` (default) or `xml`."
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "USD",
+                  "description": "Base currency code. Defaults to `USD`. Supports fiat, crypto, and metals."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "Comma-separated currency codes. Omit to get all available rates."
+                },
+                {
+                  "disabled": false,
+                  "key": "updates",
+                  "value": "1m",
+                  "description": "Update frequency: `1m` (default), `10m`, `1h`, or `1d`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0dd1548e-5d7d-4e62-a200-ec9126c1d7a0",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "rates",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{currency-rates-latest-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"2026-07-27 12:01:00+00\",\n  \"base\": \"USD\",\n  \"rates\": {\n    \"EUR\": \"0.878156\",\n    \"PKR\": \"277.863\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e8c6958-c946-4f58-9252-89422a6c9347",
+              "name": "Bad request - Invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "rates",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{currency-rates-latest-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": 1785153665906,\n  \"status\": 400,\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"Please provide valid updates parameter (1d,1h,10m,1m)\",\n  \"path\": \"/v2.0/rates/latest\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "496637f9-6ab3-44f2-9f75-5c39d9770258",
+              "name": "Not found - Currency or symbol not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "rates",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{currency-rates-latest-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": 1785153666449,\n  \"status\": 404,\n  \"error\": \"Not Found Exception\",\n  \"message\": \"Rates of provided currency ZZZ are not available in our database!\",\n  \"path\": \"/v2.0/rates/latest\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "206572f0-8092-4109-b777-c58be8ea3203",
+          "name": "Get all supported currencies",
+          "request": {
+            "name": "Get all supported currencies",
+            "description": {
+              "content": "Returns a map of all supported currencies with metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currency",
+                "supported"
+              ],
+              "host": [
+                "{{currency-supported-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format: `json` (default) or `xml`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c00510da-faa2-4bc2-9c82-7270aed16047",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "supported"
+                  ],
+                  "host": [
+                    "{{currency-supported-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"supportedCurrenciesMap\": {\n    \"USD\": {\n      \"currencyCode\": \"USD\",\n      \"currencyName\": \"US Dollar\",\n      \"countryCode\": \"AS\",\n      \"countryName\": \"American Samoa\",\n      \"status\": \"AVAILABLE\",\n      \"availableFrom\": \"2020-01-01\",\n      \"availableUntil\": \"2026-06-18\",\n      \"icon\": \"https://currencyfreaks.com/photos/flags/usd.png\"\n    },\n    \"BTC\": {\n      \"currencyCode\": \"BTC\",\n      \"currencyName\": \"Bitcoin\",\n      \"countryCode\": \"Crypto\",\n      \"countryName\": \"Global\",\n      \"status\": \"AVAILABLE\",\n      \"availableFrom\": \"2014-01-01\",\n      \"availableUntil\": \"2026-06-18\",\n      \"icon\": \"https://currencyfreaks.com/photos/flags/btc.png\"\n    },\n    \"XAU\": {\n      \"currencyCode\": \"XAU\",\n      \"currencyName\": \"Gold Ounce\",\n      \"countryCode\": \"Metal\",\n      \"countryName\": \"Precious Metal\",\n      \"status\": \"AVAILABLE\",\n      \"availableFrom\": \"2020-01-01\",\n      \"availableUntil\": \"2026-06-18\",\n      \"icon\": \"https://currencyfreaks.com/photos/flags/xau.png\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac264903-6a0b-4e6b-b217-8d2c6fbfa347",
+              "name": "Unsupported Media Type — format is not json or xml",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "supported"
+                  ],
+                  "host": [
+                    "{{currency-supported-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Unsupported Media Type\",\n  \"message\": \"The media type specified in the request is not supported. For more details, please refer to the API documentation.\",\n  \"path\": \"/v1.0/currency/supported\",\n  \"status\": 406,\n  \"timestamp\": \"2026-07-27T12:12:35.587Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86997bb3-00b3-46fe-9555-59dec52390dc",
+          "name": "Get all currency symbols",
+          "request": {
+            "name": "Get all currency symbols",
+            "description": {
+              "content": "Returns a map of currency codes to their full names.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currency",
+                "symbols"
+              ],
+              "host": [
+                "{{currency-symbols-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format: `json` (default) or `xml`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63afc38d-40be-47a2-95f2-00c11645d437",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "symbols"
+                  ],
+                  "host": [
+                    "{{currency-symbols-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"currencySymbols\": {\n    \"USD\": \"US Dollar\",\n    \"EUR\": \"Euro\",\n    \"GBP\": \"British Pound Sterling\",\n    \"PKR\": \"Pakistani Rupee\",\n    \"BTC\": \"Bitcoin\",\n    \"XAU\": \"Gold (troy ounce)\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ecdce53-4f52-49b1-9a42-e3beebbaf44f",
+              "name": "Unsupported Media Type — format is not json or xml",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "symbols"
+                  ],
+                  "host": [
+                    "{{currency-symbols-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Unsupported Media Type\",\n  \"message\": \"The media type specified in the request is not supported. For more details, please refer to the API documentation.\",\n  \"path\": \"/v1.0/currency/symbols\",\n  \"status\": 406,\n  \"timestamp\": \"2026-07-27T12:13:24.369Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0c52fa8-6916-4790-a3e7-c11e1c868246",
+          "name": "Get time series of exchange rates",
+          "request": {
+            "name": "Get time series of exchange rates",
+            "description": {
+              "content": "Returns day-by-day historical exchange rates for a custom date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currency",
+                "time-series"
+              ],
+              "host": [
+                "{{currency-time-series-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format: `json` (default) or `xml`."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<string>",
+                  "description": "(Required) Start date in `YYYY-MM-DD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<string>",
+                  "description": "End date in `YYYY-MM-DD` format. Defaults to yesterday."
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "USD",
+                  "description": "Base currency code. Defaults to `USD`."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "Comma-separated currency codes. Omit to get all available rates."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86c39df6-d637-4bc5-9df1-e80e165f7142",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "time-series"
+                  ],
+                  "host": [
+                    "{{currency-time-series-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"startDate\": \"2025-01-01\",\n  \"endDate\": \"2025-01-07\",\n  \"base\": \"USD\",\n  \"historicalRatesList\": [\n    {\n      \"date\": \"2025-01-01\",\n      \"rates\": {\n        \"EUR\": \"0.96605\",\n        \"PKR\": \"278.4\"\n      }\n    },\n    {\n      \"date\": \"2025-01-02\",\n      \"rates\": {\n        \"EUR\": \"0.9739\",\n        \"PKR\": \"278.4\"\n      }\n    },\n    {\n      \"date\": \"2025-01-03\",\n      \"rates\": {\n        \"EUR\": \"0.97005\",\n        \"PKR\": \"278.4\"\n      }\n    },\n    {\n      \"date\": \"2025-01-04\",\n      \"rates\": {\n        \"EUR\": \"0.97005\",\n        \"PKR\": \"278.4\"\n      }\n    },\n    {\n      \"date\": \"2025-01-05\",\n      \"rates\": {\n        \"EUR\": \"0.9704\",\n        \"PKR\": \"278.4\"\n      }\n    },\n    {\n      \"date\": \"2025-01-06\",\n      \"rates\": {\n        \"EUR\": \"0.96305\",\n        \"PKR\": \"278.4\"\n      }\n    },\n    {\n      \"date\": \"2025-01-07\",\n      \"rates\": {\n        \"EUR\": \"0.967\",\n        \"PKR\": \"278.4\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2be58e80-fb14-4877-b1c9-c24fdda0aa45",
+              "name": "Bad request - Invalid dates or range exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "time-series"
+                  ],
+                  "host": [
+                    "{{currency-time-series-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/currency/time-series\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T12:08:01.002Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e901d098-3d43-4b46-a9f1-bcbf4dafb7cf",
+              "name": "Not found - No data for interval",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "time-series"
+                  ],
+                  "host": [
+                    "{{currency-time-series-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": 1785154125982,\n  \"status\": 404,\n  \"error\": \"Not Found Exception\",\n  \"message\": \"Rates of provided base and symbols are not found for given intervals.\",\n  \"path\": \"/v2.0/timeseries\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "148b5e33-6386-4937-8ef5-9a5dbedcdd93",
+          "name": "Convert currency based on IP geolocation",
+          "request": {
+            "name": "Convert currency based on IP geolocation",
+            "description": {
+              "content": "Converts an amount to the local currency of a given IP address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currency",
+                "converter",
+                "ip-to-currency"
+              ],
+              "host": [
+                "{{currency-converter-ip-to-currency-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format: `json` (default) or `xml`."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) Source currency code."
+                },
+                {
+                  "disabled": false,
+                  "key": "ip",
+                  "value": "<string>",
+                  "description": "IPv4 or IPv6 address. Defaults to the request IP."
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "1",
+                  "description": "Amount to convert, as a decimal. Defaults to `1`. Non-numeric values return a 400."
+                },
+                {
+                  "disabled": false,
+                  "key": "updates",
+                  "value": "1m",
+                  "description": "Update frequency: `1m` (default), `10m`, `1h`, or `1d`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d185f79c-4a02-4484-87cd-36612059106c",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "converter",
+                    "ip-to-currency"
+                  ],
+                  "host": [
+                    "{{currency-converter-ip-to-currency-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"2026-07-27 12:10:00+00\",\n  \"from\": \"USD\",\n  \"to\": \"PKR\",\n  \"rate\": \"277.863\",\n  \"ipAddress\": \"182.186.18.91\",\n  \"givenAmount\": \"100.0\",\n  \"convertedAmount\": \"27786.300\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9f0aaa2-f04e-4908-8e9d-e6d7f5efd946",
+              "name": "Bad request - Invalid IP, amount, or updates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "converter",
+                    "ip-to-currency"
+                  ],
+                  "host": [
+                    "{{currency-converter-ip-to-currency-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/currency/converter/ip-to-currency\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T12:10:31.824Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a486c54d-be85-4536-b15c-c69cbbc426bb",
+              "name": "Not found - IP geolocation or currency not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "converter",
+                    "ip-to-currency"
+                  ],
+                  "host": [
+                    "{{currency-converter-ip-to-currency-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": "updates",
+                      "value": "1m"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": 1785154233555,\n  \"status\": 404,\n  \"error\": \"Not Found Exception\",\n  \"message\": \"Geolocation of provided IP 0.0.0.0 is unknown.\",\n  \"path\": \"/v2.0/iptocurrency\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9aae443-9800-4b02-bb17-e3f835144d3c",
+          "name": "Convert currency with historical rates",
+          "request": {
+            "name": "Convert currency with historical rates",
+            "description": {
+              "content": "Converts an amount using exchange rates from a specific historical date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currency",
+                "converter",
+                "historical",
+                "prices"
+              ],
+              "host": [
+                "{{currency-converter-historical-prices-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format: `json` (default) or `xml`."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) Source currency code."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) Target currency code."
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "1",
+                  "description": "Amount to convert, as a decimal. Defaults to `1`. Must be numeric — non-numeric values return a 400 (negative values are accepted despite the error message's wording)."
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "(Required) Historical date in `YYYY-MM-DD` format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10a73bd3-12c6-4133-b9a7-9003597000d6",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "converter",
+                    "historical",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{currency-converter-historical-prices-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"2025-01-10\",\n  \"from\": \"USD\",\n  \"to\": \"EUR\",\n  \"rate\": \"0.97620\",\n  \"givenAmount\": \"100.0\",\n  \"convertedAmount\": \"97.620\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b819b069-796e-4f61-8271-cbd3f8f8ccdf",
+              "name": "Bad request - Invalid amount or date format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "converter",
+                    "historical",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{currency-converter-historical-prices-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/currency/converter/historical/prices\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T12:07:03.772Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2fc59557-4b12-4b5a-bad3-14ee2dee47ea",
+              "name": "Not found - Currency or date not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "converter",
+                    "historical",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{currency-converter-historical-prices-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": 1785154025547,\n  \"status\": 404,\n  \"error\": \"Not Found Exception\",\n  \"message\": \"Rates of provided date 2099-01-01 are not available in our database.\",\n  \"path\": \"/v2.0/convert/historical\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4e1b1ac-152f-4b60-be53-8d1c7a90d820",
+          "name": "Get historical exchange rates",
+          "request": {
+            "name": "Get historical exchange rates",
+            "description": {
+              "content": "Returns exchange rates for a specific historical date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currency",
+                "rates",
+                "historical"
+              ],
+              "host": [
+                "{{currency-rates-historical-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format: `json` (default) or `xml`."
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "USD",
+                  "description": "Base currency code. Defaults to `USD`. Supports fiat, crypto, and metals."
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>",
+                  "description": "Comma-separated currency codes. Omit to get all available rates."
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "(Required) Historical date in `YYYY-MM-DD` format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e169994a-f46d-49f5-89e7-dd1784e4cd55",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "rates",
+                    "historical"
+                  ],
+                  "host": [
+                    "{{currency-rates-historical-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"2025-01-10\",\n  \"base\": \"USD\",\n  \"rates\": {\n    \"EUR\": \"0.9762\",\n    \"PKR\": \"278.65\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8aeffd28-a056-463c-ae22-1cd2865f909e",
+              "name": "Bad Request — Missing or malformed date",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "rates",
+                    "historical"
+                  ],
+                  "host": [
+                    "{{currency-rates-historical-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/currency/rates/historical\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T12:01:57.285Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64127112-0144-44ff-b9c0-95261ced0fb9",
+              "name": "Not found - Currency, symbol, or date not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currency",
+                    "rates",
+                    "historical"
+                  ],
+                  "host": [
+                    "{{currency-rates-historical-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "base",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": 1785153718397,\n  \"status\": 404,\n  \"error\": \"Not Found Exception\",\n  \"message\": \"Rates of provided date 2099-01-01 are not available in our database.\",\n  \"path\": \"/v2.0/rates/historical\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "currency-converter-latest-prices-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "currency-fluctuation-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "currency-historical-data-limits-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "currency-rates-latest-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "currency-supported-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "currency-symbols-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "currency-time-series-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "currency-converter-ip-to-currency-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "currency-converter-historical-prices-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "currency-rates-historical-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9a208e9d-8eb8-4a21-b520-9ae218caf705",
+    "name": "Apifreaks Api Hub For Developers Currency APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Currency APIs across 10 of this provider's published API definitions: apifreaks-api-hub-for-developers-currency-converter-openapi.json, apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json, apifreaks-api-hub-for-developers-currency-historical-data-limit-openapi.json, apifreaks-api-hub-for-developers-currency-rate-openapi.json, apifreaks-api-hub-for-developers-currency-supported-openapi.json, apifreaks-api-hub-for-developers-currency-symbols-openapi.json, apifreaks-api-hub-for-developers-currency-time-series-openapi.json, apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json, apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json, apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

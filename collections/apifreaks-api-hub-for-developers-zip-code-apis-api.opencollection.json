@@ -1,0 +1,273 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers ZIP Code APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ZIP Code APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Look up a ZIP/postal code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/zipcode/lookup",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "The postal/ZIP code to look up. Only one code is accepted per request."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-2 format. Limits results to that country. If not provided, matching locations from all countries are returned."
+              }
+            ]
+          },
+          "docs": "Returns every location worldwide that matches the given postal/ZIP code, optionally narrowed to one country."
+        },
+        {
+          "info": {
+            "name": "Look up multiple ZIP/postal codes in one request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/zipcode/lookup",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Looks up up to 100 ZIP/postal codes in a single request and returns matching location data for each code that resolves."
+        },
+        {
+          "info": {
+            "name": "Get matching ZIP/postal code pairs within a distance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/zipcode/distance/match",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns every pair of the requested ZIP/postal codes whose distance from each other is at or below the given threshold."
+        },
+        {
+          "info": {
+            "name": "Get distance between postal codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/zipcode/distance",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Calculates the distance from a base ZIP/postal code or coordinate pair to up to 100 comparison postal codes."
+        },
+        {
+          "info": {
+            "name": "Search ZIP/postal codes by city",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/zipcode/search/city",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query",
+                "description": "Name of the city to find ZIP/postal codes for."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-2 format."
+              },
+              {
+                "name": "state_name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the state or province associated with the country. Useful to disambiguate cities with the same name in different states."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve paginated results."
+              }
+            ]
+          },
+          "docs": "Returns every ZIP/postal code associated with the given city and country, optionally narrowed by state or province."
+        },
+        {
+          "info": {
+            "name": "Search ZIP codes by region",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/zipcode/search/region",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-2 format."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Name of the region, state, or province associated with the country. Either region or region_code is required."
+              },
+              {
+                "name": "region_code",
+                "value": "",
+                "type": "query",
+                "description": "ISO code of the region, state, or province associated with the country. Either region or region_code is required. region_code takes priority if both are given."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve. Each page returns up to 500 results."
+              }
+            ]
+          },
+          "docs": "Returns every ZIP/postal code within the given region, state, or province of a country."
+        },
+        {
+          "info": {
+            "name": "Find ZIP/postal codes within a radius",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/zipcode/search/radius",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response. Possible values: json, xml."
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Postal/ZIP code to use as the center point for the search. Requires country to be set. Alternative to lat/long."
+              },
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude coordinate for the center point. Alternative to code/country."
+              },
+              {
+                "name": "long",
+                "value": "",
+                "type": "query",
+                "description": "Longitude coordinate for the center point. Alternative to code/country."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-2 format. Required only when using the code parameter."
+              },
+              {
+                "name": "radius",
+                "value": "",
+                "type": "query",
+                "description": "Search radius for the query. The maximum allowed values are: 100 km, 100 mi, 109361 yd, 100000 m, 328084 ft, 3937007.75 in."
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Unit for the radius and returned distance values. Supported distance units are m, km, mi, ft, yd, in."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve. Each page returns up to 500 results."
+              }
+            ]
+          },
+          "docs": "Returns every ZIP/postal code within the given radius of a center point, specified either by code plus country or by latitude/longitude coordinates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

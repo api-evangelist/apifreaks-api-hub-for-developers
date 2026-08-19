@@ -1,0 +1,627 @@
+{
+  "item": [
+    {
+      "id": "e8f41c3f-5a64-4b95-9a9a-e165ad032323",
+      "name": "Email Validation APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0bbab013-45bb-4452-a05b-fc6087c9ac68",
+          "name": "Validate multiple email addresses",
+          "request": {
+            "name": "Validate multiple email addresses",
+            "description": {
+              "content": "Validates a bulk of email addresses and returns result for each. Maximum `100` email addresses per request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "email-validation",
+                "bulk"
+              ],
+              "host": [
+                "{{email-validation-bulk-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"emailData\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"ip\": \"<ip>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"ip\": \"<ip>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dcd0bdcb-76b7-4ea3-932c-a692704b8686",
+              "name": "Successful response. Each item corresponds to one requested email, in the same order as the request; invalid emails are reflected via validEmail/validSyntax on that item, not as a separate error object — every item has success=true regardless of validation outcome.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-validation",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{email-validation-bulk-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emailData\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"ip\": \"<ip>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"ip\": \"<ip>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"emailValidationResponses\": [\n    {\n      \"success\": true,\n      \"email\": \"abc.def@gmail.com\",\n      \"validEmail\": \"valid\",\n      \"validSyntax\": true,\n      \"domain\": {\n        \"name\": \"gmail.com\",\n        \"disposable\": false,\n        \"spam\": false,\n        \"free\": true,\n        \"validDomain\": true,\n        \"catchAll\": false\n      },\n      \"account\": {\n        \"role\": false,\n        \"fullMailBox\": false\n      },\n      \"dns\": {\n        \"mxRecords\": [\n          \"gmail-smtp-in.l.google.com.\",\n          \"alt1.gmail-smtp-in.l.google.com.\",\n          \"alt2.gmail-smtp-in.l.google.com.\",\n          \"alt3.gmail-smtp-in.l.google.com.\",\n          \"alt4.gmail-smtp-in.l.google.com.\"\n        ]\n      }\n    },\n    {\n      \"success\": true,\n      \"email\": \"not-an-email\",\n      \"validEmail\": \"INVALID_EMAIL\",\n      \"validSyntax\": false,\n      \"domain\": {\n        \"name\": \"not-an-email\",\n        \"validDomain\": false\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "343abebd-a3a9-4a13-8d57-9e757211d49d",
+              "name": "Bad Request – Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-validation",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{email-validation-bulk-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emailData\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"ip\": \"<ip>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"ip\": \"<ip>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T12:53:14.628Z\",\n  \"path\": \"/v1.0/email-validation/bulk\",\n  \"status\": 400,\n  \"error\": \"Invalid request body Exception\",\n  \"message\": \"Please provide data in required format in request body\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72fcb268-3d11-42cb-a3aa-245cc5a08d66",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-validation",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{email-validation-bulk-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emailData\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"ip\": \"<ip>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"ip\": \"<ip>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-06-06T13:00:00.000Z\",\n  \"path\": \"/v1.0/email-validation/bulk\",\n  \"status\": 408,\n  \"error\": \"Request Timeout\",\n  \"message\": \"Timed out while connecting to the remote URL.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77a1d402-d5ca-41b6-9395-871431ec6e0e",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-validation",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{email-validation-bulk-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emailData\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"ip\": \"<ip>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"ip\": \"<ip>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-06-06T13:00:00.000Z\",\n  \"path\": \"/v1.0/email-validation/bulk\",\n  \"status\": 429,\n  \"error\": \"Too Many Requests\",\n  \"message\": \"API rate limit exceeded.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "492e125b-4708-4cc1-9b54-96a45da10cef",
+          "name": "Validate a single email",
+          "request": {
+            "name": "Validate a single email",
+            "description": {
+              "content": "Validates a single email address and returns result.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "email-validation",
+                "single"
+              ],
+              "host": [
+                "{{email-validation-single-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Format of the response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"ip\": \"<ip>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "99f91d36-e17f-4d51-a2e5-75230257e084",
+              "name": "Successful response with Email Validation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-validation",
+                    "single"
+                  ],
+                  "host": [
+                    "{{email-validation-single-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"ip\": \"<ip>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"email\": \"abc.def@gmail.com\",\n  \"validEmail\": \"valid\",\n  \"validSyntax\": true,\n  \"domain\": {\n    \"name\": \"gmail.com\",\n    \"disposable\": false,\n    \"spam\": false,\n    \"free\": true,\n    \"validDomain\": true,\n    \"catchAll\": false\n  },\n  \"account\": {\n    \"role\": false,\n    \"fullMailBox\": false\n  },\n  \"dns\": {\n    \"mxRecords\": [\n      \"gmail-smtp-in.l.google.com.\",\n      \"alt1.gmail-smtp-in.l.google.com.\",\n      \"alt2.gmail-smtp-in.l.google.com.\",\n      \"alt3.gmail-smtp-in.l.google.com.\",\n      \"alt4.gmail-smtp-in.l.google.com.\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ce13e6c-b7da-4f7d-b739-d5949efa978d",
+              "name": "Bad Request – Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-validation",
+                    "single"
+                  ],
+                  "host": [
+                    "{{email-validation-single-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"ip\": \"<ip>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-27T12:51:23.593986185Z\",\n  \"path\": \"/v2.0/email-validation/single\",\n  \"status\": 400,\n  \"error\": \"External API Error\",\n  \"message\": \"Please pass valid value for 'email' in body.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e88497a2-5fd5-4b15-af87-fcc3df48abd0",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-validation",
+                    "single"
+                  ],
+                  "host": [
+                    "{{email-validation-single-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"ip\": \"<ip>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-06-06T13:00:00.000Z\",\n  \"path\": \"/v1.0/email-validation/single\",\n  \"status\": 408,\n  \"error\": \"Request Timeout\",\n  \"message\": \"Timed out while connecting to the remote URL.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c2fce9c-5083-4aa6-9cfa-3d986a813f5a",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email-validation",
+                    "single"
+                  ],
+                  "host": [
+                    "{{email-validation-single-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"ip\": \"<ip>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-06-06T13:00:00.000Z\",\n  \"path\": \"/v1.0/email-validation/single\",\n  \"status\": 429,\n  \"error\": \"Too Many Requests\",\n  \"message\": \"API rate limit exceeded.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "email-validation-bulk-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "email-validation-single-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "81d2b4ff-f8bd-4be3-810a-024893328c61",
+    "name": "Apifreaks Api Hub For Developers Email Validation APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Email Validation APIs across 2 of this provider's published API definitions: apifreaks-api-hub-for-developers-bulk-email-validation-openapi.json, apifreaks-api-hub-for-developers-email-checker-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

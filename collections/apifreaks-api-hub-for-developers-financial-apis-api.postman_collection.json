@@ -1,0 +1,1631 @@
+{
+  "item": [
+    {
+      "id": "58850a60-51a1-4a8a-9a7c-36666561cdf3",
+      "name": "Financial APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e3650894-b196-4c0c-958b-5a5c1f295212",
+          "name": "Bulk VAT lookup by country",
+          "request": {
+            "name": "Bulk VAT lookup by country",
+            "description": {
+              "content": "Retrieves VAT details for multiple countries or country-state combinations in a single request. Maximum of `100` entries per request are allowed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vat",
+                "rates",
+                "country"
+              ],
+              "host": [
+                "{{vat-rates-country-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"countries\": [\n    {\n      \"country\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    {\n      \"country\": \"<string>\",\n      \"state\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "96d88e57-9a23-40e5-a754-15e4107f3c6a",
+              "name": "Successful response — a JSON array of VAT results, one entry per country that resolved successfully, in request order. Countries that fail to resolve are omitted rather than represented as error entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "rates",
+                    "country"
+                  ],
+                  "host": [
+                    "{{vat-rates-country-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"countries\": [\n    {\n      \"country\": \"DE\"\n    },\n    {\n      \"country\": \"United_States\",\n      \"state\": \"New_York\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"country\": \"DE\",\n    \"type\": \"vat\",\n    \"currency\": \"EUR\",\n    \"standard_rate\": 0.19,\n    \"reduced_rate\": [\n      0.07,\n      0\n    ],\n    \"categories\": {\n      \"books\": 0.07,\n      \"newspapers\": 0.07,\n      \"periodicals\": 0.07,\n      \"broadcasting\": 0\n    }\n  },\n  {\n    \"country\": \"United_States\",\n    \"state\": \"New_York\",\n    \"type\": \"vat\",\n    \"currency\": \"\",\n    \"standard_rate\": 0.04\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e416204f-1954-4fbc-8614-be2e1f002ee9",
+              "name": "Bad Request — Missing or malformed request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "rates",
+                    "country"
+                  ],
+                  "host": [
+                    "{{vat-rates-country-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"countries\": [\n    {\n      \"country\": \"DE\"\n    },\n    {\n      \"country\": \"United_States\",\n      \"state\": \"New_York\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request body Exception\",\n  \"message\": \"Please provide data in required format in request body\",\n  \"path\": \"/v1.0/vat/rates/country\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:46:29.315Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8756310-50ea-4f59-a80c-ba2affcaf71a",
+              "name": "Payload Too Large — Request body exceeds the size limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "rates",
+                    "country"
+                  ],
+                  "host": [
+                    "{{vat-rates-country-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"countries\": [\n    {\n      \"country\": \"DE\"\n    },\n    {\n      \"country\": \"United_States\",\n      \"state\": \"New_York\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Payload too large Exception\",\n  \"message\": \"Maximum request body size limit exceeded\",\n  \"path\": \"/v1.0/vat/rates/country\",\n  \"status\": 413,\n  \"timestamp\": \"2026-07-27T11:46:29.925Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6785f26-acb5-48fe-a8a4-ff5e8d74c133",
+          "name": "Get VAT rate by country code",
+          "request": {
+            "name": "Get VAT rate by country code",
+            "description": {
+              "content": "Fetches VAT rates for a single country or state provided via query parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vat",
+                "rates",
+                "country"
+              ],
+              "host": [
+                "{{vat-rates-country-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) Country identifier in Alpha-2 (PK), Alpha-3 (PAK), or full name (Pakistan). Combine with the optional \"state\" query for sub-national VAT; values are case-insensitive and may use underscores instead of spaces."
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Optional state or region in Alpha-2 (NY) or full name (New_York). Use with \"country\" for state-level VAT; values are case-insensitive and may use underscores."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "edba06e5-0ebb-45cc-b73f-1210e4d18425",
+              "name": "Successful response with a JSON array containing VAT rate objects for the requested country or state.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "rates",
+                    "country"
+                  ],
+                  "host": [
+                    "{{vat-rates-country-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"country\": \"DE\",\n    \"type\": \"vat\",\n    \"currency\": \"EUR\",\n    \"standard_rate\": 0.19,\n    \"reduced_rate\": [\n      0.07,\n      0\n    ],\n    \"categories\": {\n      \"books\": 0.07,\n      \"newspapers\": 0.07,\n      \"periodicals\": 0.07,\n      \"broadcasting\": 0\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f39eed32-cf7d-4726-a9f8-1527cc294055",
+              "name": "Bad Request — Missing required country parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "rates",
+                    "country"
+                  ],
+                  "host": [
+                    "{{vat-rates-country-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/vat/rates/country\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:45:34.183Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19403f19-df58-4210-bd79-2be82759f710",
+              "name": "Not Found — No VAT data for the given country/state",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "rates",
+                    "country"
+                  ],
+                  "host": [
+                    "{{vat-rates-country-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"No VAT data found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62d00d06-57ca-4e5b-99c9-3517154eb1b2",
+          "name": "Get supported countries",
+          "request": {
+            "name": "Get supported countries",
+            "description": {
+              "content": "Returns the countries and states supported by the VAT, IBAN, and SWIFT APIs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vat",
+                "supported-countries"
+              ],
+              "host": [
+                "{{vat-supported-countries-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response. Default is JSON."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Accepted by the endpoint but currently has no effect — all three categories (VAT, IBAN, SWIFT) are always returned regardless of this value."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dbe3bb3b-c617-4099-a441-d9ba9be8e3cd",
+              "name": "Successful response — always returns all three categories",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "supported-countries"
+                  ],
+                  "host": [
+                    "{{vat-supported-countries-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"VAT_Supported_Countries_And_States\": [\n    {\n      \"germany\": {\n        \"code\": \"de\"\n      }\n    },\n    {\n      \"united_states\": {\n        \"code\": \"us\",\n        \"states\": {\n          \"california\": \"us:ca\",\n          \"new_york\": \"us:ny\",\n          \"texas\": \"us:tx\"\n        }\n      }\n    }\n  ],\n  \"IBAN_Supported_Countries\": [\n    {\n      \"countryCode\": \"DE\",\n      \"name\": \"Germany\"\n    },\n    {\n      \"countryCode\": \"GB\",\n      \"name\": \"United Kingdom\"\n    }\n  ],\n  \"SWIFT_Supported_Countries\": [\n    {\n      \"name\": \"Germany\",\n      \"countryCode\": \"DE\"\n    },\n    {\n      \"name\": \"United States\",\n      \"countryCode\": \"US\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc92b3bb-fc79-4a66-8d58-f7081d3087f1",
+          "name": "Validate IBAN",
+          "request": {
+            "name": "Validate IBAN",
+            "description": {
+              "content": "Checks an IBAN for structural validity, checksum accuracy, and bank metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iban",
+                "validation"
+              ],
+              "host": [
+                "{{iban-validation-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+                },
+                {
+                  "disabled": false,
+                  "key": "iban",
+                  "value": "<string>",
+                  "description": "(Required) IBAN to validate."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e3c8e13b-8387-44b2-955e-874c6cf73f9a",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iban",
+                    "validation"
+                  ],
+                  "host": [
+                    "{{iban-validation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "iban",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"valid\": true,\n  \"iban\": \"GB29NWBK60161331926819\",\n  \"validation\": {\n    \"is_alpha_numeric\": true,\n    \"is_iban_supported_country\": true,\n    \"is_valid_length\": true,\n    \"is_valid_structure\": true,\n    \"is_iban_check_digit_valid\": true,\n    \"bban\": \"valid\"\n  },\n  \"bank_data\": {\n    \"bic\": \"NWBKGB2LBHM\",\n    \"bank\": \"NATIONAL WESTMINSTER BANK PLC\",\n    \"bank_code\": \"NWBK\",\n    \"branch_code\": \"601613\",\n    \"country\": \"United Kingdom\",\n    \"country_iso2\": \"GB\",\n    \"city\": \"BIRMINGHAM\",\n    \"address\": \"6 BRINDLEY PLACE - BIRMINGHAM, B1\",\n    \"account\": \"31926819\",\n    \"sepa\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "180aa25f-4495-4a06-8bb3-df566e3989dd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iban",
+                    "validation"
+                  ],
+                  "host": [
+                    "{{iban-validation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "iban",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/iban/validation\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:49:29.286Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa6f580b-443d-4fdc-9e95-6595c4ed1d9b",
+          "name": "Find SWIFT codes",
+          "request": {
+            "name": "Find SWIFT codes",
+            "description": {
+              "content": "Drills down from countries to banks to cities to SWIFT/BIC codes, one parameter level at a time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "swift-code",
+                "finder"
+              ],
+              "host": [
+                "{{swift-code-finder-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Country name (accepts full name, e.g., Pakistan, United States). If supplied alone, returns the list of bank names in that country. If omitted entirely, returns the list of all supported countries."
+                },
+                {
+                  "disabled": false,
+                  "key": "bank",
+                  "value": "<string>",
+                  "description": "Bank name (upper case) to drill into. Requires country to also be set. If supplied without city, returns the list of cities that bank operates in."
+                },
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>",
+                  "description": "City (upper case) to narrow results to. Requires country and bank to also be set. Returns the matching SWIFT/BIC codes for that bank in that city."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b603d7d7-c8f7-4930-96f3-d44c484a785b",
+              "name": "Successful response. The array's contents depend on which parameters were supplied — see the examples for each drill-down level.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swift-code",
+                    "finder"
+                  ],
+                  "host": [
+                    "{{swift-code-finder-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bank",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"Albania\",\n  \"Algeria\",\n  \"Andorra\",\n  \"Germany\",\n  \"United States\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "edab97f7-4c6a-4794-bdb2-b62cd8a00314",
+              "name": "Bad Request — Parameters supplied out of order",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swift-code",
+                    "finder"
+                  ],
+                  "host": [
+                    "{{swift-code-finder-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bank",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid query parameters. Provide parameters in sequence: country → bank → city\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bfb4de6a-496c-45a7-8a05-b9357581439c",
+          "name": "Lookup SWIFT code details",
+          "request": {
+            "name": "Lookup SWIFT code details",
+            "description": {
+              "content": "Fetches detailed information about a SWIFT code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "swift-code",
+                "lookup"
+              ],
+              "host": [
+                "{{swift-code-lookup-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+                },
+                {
+                  "disabled": false,
+                  "key": "swiftCode",
+                  "value": "<string>",
+                  "description": "(Required) SWIFT/BIC code to lookup (must be 8 or 11 characters)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1cb3c777-030a-4dd9-a589-94cee88b1ef7",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swift-code",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{swift-code-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "swiftCode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"swiftCode\": \"NWBKGB2LXXX\",\n  \"countryCode\": \"GB\",\n  \"bankAddress\": \"250 BISHOPSGATE\",\n  \"bankCode\": \"NWBK\",\n  \"bankName\": \"NATIONAL WESTMINSTER BANK PLC\",\n  \"city\": \"LONDON\",\n  \"country\": \"United Kingdom\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f127f31-d6a5-479e-b92b-05a44f8fe16c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swift-code",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{swift-code-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "swiftCode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/swift-code/lookup\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:50:49.650Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2080c724-e91b-4c14-b68b-4ac13d5cde01",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swift-code",
+                    "lookup"
+                  ],
+                  "host": [
+                    "{{swift-code-lookup-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "swiftCode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"No bank found with the provided SWIFT code\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90eeb19d-e821-4ccd-80f9-fe049efc5303",
+          "name": "Validate EU and UK VAT number",
+          "request": {
+            "name": "Validate EU and UK VAT number",
+            "description": {
+              "content": "Validates an EU or UK VAT number and returns registration status details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vat",
+                "validation"
+              ],
+              "host": [
+                "{{vat-validation-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+                },
+                {
+                  "disabled": false,
+                  "key": "vatNumber",
+                  "value": "<string>",
+                  "description": "(Required) EU or UK VAT number to validate."
+                },
+                {
+                  "disabled": false,
+                  "key": "requesterVatNumber",
+                  "value": "<string>",
+                  "description": "Requester EU or UK VAT number."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dfaa1251-94a4-4bb0-9ba8-069f9420f6c9",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "validation"
+                  ],
+                  "host": [
+                    "{{vat-validation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "vatNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "requesterVatNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"country_code\": \"GB\",\n  \"vat_number\": \"289111588\",\n  \"requested_at\": \"2026-07-27T11:48:43.000Z\",\n  \"validation\": {\n    \"is_valid\": true,\n    \"consultation_authority\": \"HMRC\"\n  },\n  \"company\": {\n    \"company_name\": \"EVENTURED LTD\",\n    \"company_address\": \"SUITE 10, BEAUFORT COURT, ADMIRALS WAY, LONDON, E14 9XL, GB\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54df9497-058a-4002-99cc-028033f63bc3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "validation"
+                  ],
+                  "host": [
+                    "{{vat-validation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "vatNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "requesterVatNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/vat/validation\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-27T11:48:44.845Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eda865a3-ffc2-4a38-a9dc-48965172d290",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "validation"
+                  ],
+                  "host": [
+                    "{{vat-validation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "vatNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "requesterVatNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"targetVrn does not match a registered company\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd69484c-bc8b-4ab3-bd28-d9b0a38ce6fa",
+          "name": "Get VAT rate by IP address",
+          "request": {
+            "name": "Get VAT rate by IP address",
+            "description": {
+              "content": "Fetches VAT rate based on the specified or originating IP address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vat",
+                "rates",
+                "ip-address"
+              ],
+              "host": [
+                "{{vat-rates-ip-address-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
+                },
+                {
+                  "disabled": false,
+                  "key": "ipAddress",
+                  "value": "<string>",
+                  "description": "IPv4 or IPv6 address to look up VAT rate for. If omitted, the originating IP address will be used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "62f8afc7-8e88-4ca9-97f8-ff3b2f00976f",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "rates",
+                    "ip-address"
+                  ],
+                  "host": [
+                    "{{vat-rates-ip-address-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ipAddress",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"country\": \"GB\",\n    \"type\": \"vat\",\n    \"currency\": \"GBP\",\n    \"standard_rate\": 0.2,\n    \"reduced_rate\": [\n      0,\n      0.05\n    ],\n    \"categories\": {\n      \"books\": 0.2,\n      \"newspapers\": 0.2,\n      \"periodicals\": 0.2,\n      \"broadcasting\": 0.2\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eae86963-99c0-4696-b015-e463eb7eaae2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "rates",
+                    "ip-address"
+                  ],
+                  "host": [
+                    "{{vat-rates-ip-address-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ipAddress",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid IP address format. Please provide a valid IPv4 or IPv6 address.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f8bb6a2-346f-4aab-9409-418b465e257d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vat",
+                    "rates",
+                    "ip-address"
+                  ],
+                  "host": [
+                    "{{vat-rates-ip-address-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ipAddress",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"No VAT data found. Please provide a valid ipAddress.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "vat-rates-country-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "vat-supported-countries-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "iban-validation-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "swift-code-finder-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "swift-code-lookup-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "vat-validation-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "vat-rates-ip-address-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b8cfdc38-653c-4066-9506-188afeeec976",
+    "name": "Apifreaks Api Hub For Developers Financial APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Financial APIs across 8 of this provider's published API definitions: apifreaks-api-hub-for-developers-bulk-vat-rates-country-openapi.json, apifreaks-api-hub-for-developers-financial-apis-supported-countries-openapi.json, apifreaks-api-hub-for-developers-iban-validation-openapi.json, apifreaks-api-hub-for-developers-swift-code-finder-openapi.json, apifreaks-api-hub-for-developers-swift-code-lookup-openapi.json, apifreaks-api-hub-for-developers-vat-number-validation-openapi.json, apifreaks-api-hub-for-developers-vat-rates-by-ip-openapi.json, apifreaks-api-hub-for-developers-vat-rates-country-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers PDF Upload and Download APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PDF Upload and Download APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download PDF resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/pdf/resource/download",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: 'json' (default) or 'xml'."
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the file or ZIP archive to download."
+              }
+            ]
+          },
+          "docs": "This API downloads PDF files or ZIP archives from the server using their unique resource ID."
+        },
+        {
+          "info": {
+            "name": "Upload a PDF in binary format",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/resource/upload-binary",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              },
+              {
+                "name": "file_name",
+                "value": "",
+                "type": "query",
+                "description": "The desired name for the uploaded PDF file. This name will be used for storage on the server.\n\n\n **NOTE**: Please ensure file_name has extension `.pdf`."
+              }
+            ]
+          },
+          "docs": "This API uploads PDF files to the API Freaks server in binary format."
+        },
+        {
+          "info": {
+            "name": "Upload multiple PDFs and get file IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.apifreaks.com/v1.0/pdf/resource/upload",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This API uploads multiple PDF files to the API Freaks server and generates their unique file IDs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

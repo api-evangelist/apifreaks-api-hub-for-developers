@@ -1,0 +1,372 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Apifreaks Api Hub For Developers Currency APIs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-apiKey",
+      "value": "{{X-apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Currency APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert currency with latest rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/currency/converter/latest/prices",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: `json` (default) or `xml`."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Source currency code."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Target currency code."
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "Amount to convert, as a decimal. Defaults to `1`. Must be numeric — non-numeric values return a 400 (negative values are accepted despite the error message's wording)."
+              },
+              {
+                "name": "updates",
+                "value": "",
+                "type": "query",
+                "description": "Update frequency: `1m` (default), `10m`, `1h`, or `1d`."
+              }
+            ]
+          },
+          "docs": "Converts an amount from one currency to another using the latest exchange rates."
+        },
+        {
+          "info": {
+            "name": "Get exchange rate fluctuations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/currency/fluctuation",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: `json` (default) or `xml`."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date in `YYYY-MM-DD` format."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date in `YYYY-MM-DD` format. Defaults to yesterday."
+              },
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Base currency code. Defaults to `USD`."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated currency codes. Omit to get all available rates."
+              }
+            ]
+          },
+          "docs": "Returns exchange rate fluctuations between two dates for the requested symbols."
+        },
+        {
+          "info": {
+            "name": "Get historical data availability limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/currency/historical/data/limits",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: `json` (default) or `xml`."
+              }
+            ]
+          },
+          "docs": "Returns the date range when historical data is available for each currency."
+        },
+        {
+          "info": {
+            "name": "Get the latest exchange rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/currency/rates/latest",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: `json` (default) or `xml`."
+              },
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Base currency code. Defaults to `USD`. Supports fiat, crypto, and metals."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated currency codes. Omit to get all available rates."
+              },
+              {
+                "name": "updates",
+                "value": "",
+                "type": "query",
+                "description": "Update frequency: `1m` (default), `10m`, `1h`, or `1d`."
+              }
+            ]
+          },
+          "docs": "Returns the latest exchange rates for the requested base currency and symbols."
+        },
+        {
+          "info": {
+            "name": "Get all supported currencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/currency/supported",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: `json` (default) or `xml`."
+              }
+            ]
+          },
+          "docs": "Returns a map of all supported currencies with metadata."
+        },
+        {
+          "info": {
+            "name": "Get all currency symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/currency/symbols",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: `json` (default) or `xml`."
+              }
+            ]
+          },
+          "docs": "Returns a map of currency codes to their full names."
+        },
+        {
+          "info": {
+            "name": "Get time series of exchange rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/currency/time-series",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: `json` (default) or `xml`."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date in `YYYY-MM-DD` format."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date in `YYYY-MM-DD` format. Defaults to yesterday."
+              },
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Base currency code. Defaults to `USD`."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated currency codes. Omit to get all available rates."
+              }
+            ]
+          },
+          "docs": "Returns day-by-day historical exchange rates for a custom date range."
+        },
+        {
+          "info": {
+            "name": "Convert currency based on IP geolocation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/currency/converter/ip-to-currency",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: `json` (default) or `xml`."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Source currency code."
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "IPv4 or IPv6 address. Defaults to the request IP."
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "Amount to convert, as a decimal. Defaults to `1`. Non-numeric values return a 400."
+              },
+              {
+                "name": "updates",
+                "value": "",
+                "type": "query",
+                "description": "Update frequency: `1m` (default), `10m`, `1h`, or `1d`."
+              }
+            ]
+          },
+          "docs": "Converts an amount to the local currency of a given IP address."
+        },
+        {
+          "info": {
+            "name": "Convert currency with historical rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/currency/converter/historical/prices",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: `json` (default) or `xml`."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Source currency code."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Target currency code."
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "Amount to convert, as a decimal. Defaults to `1`. Must be numeric — non-numeric values return a 400 (negative values are accepted despite the error message's wording)."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Historical date in `YYYY-MM-DD` format."
+              }
+            ]
+          },
+          "docs": "Converts an amount using exchange rates from a specific historical date."
+        },
+        {
+          "info": {
+            "name": "Get historical exchange rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.apifreaks.com/v1.0/currency/rates/historical",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format: `json` (default) or `xml`."
+              },
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Base currency code. Defaults to `USD`. Supports fiat, crypto, and metals."
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated currency codes. Omit to get all available rates."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Historical date in `YYYY-MM-DD` format."
+              }
+            ]
+          },
+          "docs": "Returns exchange rates for a specific historical date."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

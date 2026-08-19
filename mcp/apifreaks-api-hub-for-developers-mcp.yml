@@ -4,16 +4,15 @@ status: published
 source: https://github.com/api-freaks/apifreaks-mcp/blob/main/server.json
 docs: https://apifreaks.com/integrations/mcp-server
 tools_reference: https://apifreaks.com/integrations/mcp-server/supported-tools
-summary: >-
-  APIFreaks publishes an official, first-party MCP server under an Apache-2.0 licence. It is a LOCAL stdio
-  server distributed on npm as @apifreaks/mcp and launched with `npx -y @apifreaks/mcp` — there is no hosted
-  or remote HTTP endpoint, so `tools/list` cannot be introspected over the network. The tool set below was
-  read verbatim from the published source (src/tools/*.ts, v1.1.2) and every tool is bound to a real OpenAPI
-  operation in mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml.
+summary: APIFreaks publishes an official, first-party MCP server under an Apache-2.0 licence. It is a
+  LOCAL stdio server distributed on npm as @apifreaks/mcp and launched with `npx -y @apifreaks/mcp` —
+  there is no hosted or remote HTTP endpoint, so `tools/list` cannot be introspected over the network.
+  The tool set below was read verbatim from the published source (src/tools/*.ts, v1.1.2) and every tool
+  is bound to a real OpenAPI operation in mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml.
 server:
   name: io.github.api-freaks/apifreaks-mcp
   title: APIFreaks MCP
-  package: "@apifreaks/mcp"
+  package: '@apifreaks/mcp'
   version: 1.1.2
   license: Apache-2.0
   transport: stdio
@@ -30,12 +29,11 @@ server:
     runtime_hint: npx
 authentication:
   environment_variables:
-    - name: APIFREAKS_API_KEY
-      required: true
-      secret: true
-      description: APIFreaks API key (32 characters), obtained free at apifreaks.com
-  note: >-
-    The server forwards the key to api.apifreaks.com as the `apiKey` query parameter on every call
+  - name: APIFREAKS_API_KEY
+    required: true
+    secret: true
+    description: APIFreaks API key (32 characters), obtained free at apifreaks.com
+  note: The server forwards the key to api.apifreaks.com as the `apiKey` query parameter on every call
     (src/client.ts). The key never leaves the operator's machine because the server runs locally.
 annotations:
   read_only_hint: true
@@ -44,92 +42,239 @@ annotations:
   open_world_hint: true
   note: Every registered tool carries the READ_ONLY annotation set from src/constants.ts.
 clients_documented:
-  - Claude
-  - Cursor
-  - VS Code
-  - Windsurf
-  - Cline
-  - Gemini CLI
-  - Codex CLI
+- Claude
+- Cursor
+- VS Code
+- Windsurf
+- Cline
+- Gemini CLI
+- Codex CLI
 categories:
-  - {name: astronomy, tools: 1}
-  - {name: commodity, tools: 7}
-  - {name: currency, tools: 10}
-  - {name: dns, tools: 4}
-  - {name: domain, tools: 3}
-  - {name: ip-intelligence, tools: 4}
-  - {name: screenshot, tools: 3}
-  - {name: ssl, tools: 2}
-  - {name: timezone, tools: 2}
-  - {name: user-agent, tools: 2}
-  - {name: weather, tools: 8}
-  - {name: whois, tools: 6}
-  - {name: zipcode, tools: 7}
+- name: astronomy
+  tools: 1
+- name: commodity
+  tools: 7
+- name: currency
+  tools: 10
+- name: dns
+  tools: 4
+- name: domain
+  tools: 3
+- name: ip-intelligence
+  tools: 4
+- name: screenshot
+  tools: 3
+- name: ssl
+  tools: 2
+- name: timezone
+  tools: 2
+- name: user-agent
+  tools: 2
+- name: weather
+  tools: 8
+- name: whois
+  tools: 6
+- name: zipcode
+  tools: 7
 tool_count: 59
 crosswalk: mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml
 tools:
-  - {name: astronomy_lookup, category: astronomy, source_operation: 'openapi/apifreaks-api-hub-for-developers-astronomy-data-openapi.json#getAstronomyData'}
-  - {name: commodity_symbols, category: commodity, source_operation: 'openapi/apifreaks-api-hub-for-developers-commodity-symbols-openapi.json#getCommoditySymbols'}
-  - {name: commodity_symbol_info, category: commodity, source_operation: 'openapi/apifreaks-api-hub-for-developers-commodity-symbols-openapi.json#getCommoditySymbols'}
-  - {name: commodity_quotes, category: commodity, source_operation: 'openapi/apifreaks-api-hub-for-developers-currency-supported-openapi.json#getSupportedCurrencies'}
-  - {name: commodity_latest_rates, category: commodity, source_operation: 'openapi/apifreaks-api-hub-for-developers-commodity-prices-openapi.json#getCommodityPrices'}
-  - {name: commodity_historical_rates, category: commodity, source_operation: 'openapi/apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json#getHistoricalCommodityPrices'}
-  - {name: commodity_fluctuation, category: commodity, source_operation: 'openapi/apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json#getCommodityFluctuation'}
-  - {name: commodity_time_series, category: commodity, source_operation: 'openapi/apifreaks-api-hub-for-developers-commodity-time-series-openapi.json#getCommodityTimeSeries'}
-  - {name: currency_latest_rates, category: currency, source_operation: 'openapi/apifreaks-api-hub-for-developers-currency-rate-openapi.json'}
-  - {name: currency_historical_rates, category: currency, source_operation: 'openapi/apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json'}
-  - {name: currency_latest_converter, category: currency, source_operation: 'openapi/apifreaks-api-hub-for-developers-currency-converter-openapi.json'}
-  - {name: currency_historical_converter, category: currency, source_operation: 'openapi/apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json'}
-  - {name: currency_time_series, category: currency, source_operation: 'openapi/apifreaks-api-hub-for-developers-currency-time-series-openapi.json'}
-  - {name: currency_fluctuation, category: currency, source_operation: 'openapi/apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json'}
-  - {name: currency_geo_convert, category: currency, source_operation: 'openapi/apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json'}
-  - {name: currency_supported, category: currency, source_operation: 'openapi/apifreaks-api-hub-for-developers-currency-supported-openapi.json'}
-  - {name: currency_symbols, category: currency, source_operation: 'openapi/apifreaks-api-hub-for-developers-currency-symbols-openapi.json'}
-  - {name: currency_symbol_info, category: currency, source_operation: 'openapi/apifreaks-api-hub-for-developers-currency-symbols-openapi.json'}
-  - {name: dns_lookup, category: dns, source_operation: 'openapi/apifreaks-api-hub-for-developers-dns-lookup-openapi.json'}
-  - {name: dns_history, category: dns, source_operation: 'openapi/apifreaks-api-hub-for-developers-dns-history-lookup-openapi.json'}
-  - {name: dns_reverse, category: dns, source_operation: 'openapi/apifreaks-api-hub-for-developers-reverse-dns-lookup-openapi.json'}
-  - {name: dns_bulk_lookup, category: dns, source_operation: 'openapi/apifreaks-api-hub-for-developers-bulk-dns-lookup-openapi.json'}
-  - {name: domain_check_availability, category: domain, source_operation: 'openapi/apifreaks-api-hub-for-developers-domain-search-openapi.json'}
-  - {name: domain_check_availability_with_suggestions, category: domain, source_operation: 'openapi/apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json'}
-  - {name: domain_bulk_check_availability, category: domain, source_operation: 'openapi/apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json'}
-  - {name: ipgeolocation_lookup, category: ip-intelligence, source_operation: 'openapi/apifreaks-api-hub-for-developers-ip-locator-openapi.json#ipLookup'}
-  - {name: ipgeolocation_bulk_lookup, category: ip-intelligence, source_operation: 'openapi/apifreaks-api-hub-for-developers-bulk-ip-lookup-openapi.json'}
-  - {name: ip_security_lookup, category: ip-intelligence, source_operation: 'openapi/apifreaks-api-hub-for-developers-ip-threat-intelligence-openapi.json'}
-  - {name: ip_security_bulk_lookup, category: ip-intelligence, source_operation: 'openapi/apifreaks-api-hub-for-developers-bulk-ip-threat-intelligence-openapi.json'}
-  - {name: screenshot_capture, category: screenshot, source_operation: 'openapi/apifreaks-api-hub-for-developers-website-screenshot-openapi.json'}
-  - {name: screenshot_capture_scrolling, category: screenshot, source_operation: 'openapi/apifreaks-api-hub-for-developers-website-screenshot-openapi.json'}
-  - {name: screenshot_bulk_capture, category: screenshot, source_operation: 'openapi/apifreaks-api-hub-for-developers-bulk-screenshot-openapi.json'}
-  - {name: ssl_live_lookup, category: ssl, source_operation: 'openapi/apifreaks-api-hub-for-developers-ssl-certificate-lookup-openapi.json'}
-  - {name: ssl_live_chain_lookup, category: ssl, source_operation: 'openapi/apifreaks-api-hub-for-developers-ssl-certificate-chain-lookup-openapi.json'}
-  - {name: timezone_lookup, category: timezone, source_operation: 'openapi/apifreaks-api-hub-for-developers-timezone-lookup-openapi.json'}
-  - {name: timezone_convert, category: timezone, source_operation: 'openapi/apifreaks-api-hub-for-developers-timezone-converter-openapi.json'}
-  - {name: user_agent_parse, category: user-agent, source_operation: 'openapi/apifreaks-api-hub-for-developers-user-agent-parser-openapi.json'}
-  - {name: user_agent_bulk_parse, category: user-agent, source_operation: 'openapi/apifreaks-api-hub-for-developers-bulk-user-agent-parser-openapi.json'}
-  - {name: weather_current, category: weather, source_operation: 'openapi/apifreaks-api-hub-for-developers-live-weather-openapi.json'}
-  - {name: weather_bulk_current, category: weather, source_operation: 'openapi/apifreaks-api-hub-for-developers-bulk-live-weather-openapi.json'}
-  - {name: weather_forecast, category: weather, source_operation: 'openapi/apifreaks-api-hub-for-developers-weather-forecast-openapi.json'}
-  - {name: weather_historical, category: weather, source_operation: 'openapi/apifreaks-api-hub-for-developers-historical-weather-openapi.json'}
-  - {name: weather_time_series, category: weather, source_operation: 'openapi/apifreaks-api-hub-for-developers-time-series-weather-openapi.json'}
-  - {name: weather_air_quality, category: weather, source_operation: 'openapi/apifreaks-api-hub-for-developers-air-quality-openapi.json'}
-  - {name: weather_marine, category: weather, source_operation: 'openapi/apifreaks-api-hub-for-developers-marine-weather-openapi.json'}
-  - {name: weather_flood_forecast, category: weather, source_operation: 'openapi/apifreaks-api-hub-for-developers-flood-forecast-openapi.json'}
-  - {name: whois_domain_lookup, category: whois, source_operation: 'openapi/apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json'}
-  - {name: whois_ip_lookup, category: whois, source_operation: 'openapi/apifreaks-api-hub-for-developers-whois-ip-lookup-openapi.json'}
-  - {name: whois_asn_lookup, category: whois, source_operation: 'openapi/apifreaks-api-hub-for-developers-asn-lookup-openapi.json'}
-  - {name: whois_domain_history, category: whois, source_operation: 'openapi/apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json'}
-  - {name: whois_reverse_lookup, category: whois, source_operation: 'openapi/apifreaks-api-hub-for-developers-reverse-whois-openapi.json'}
-  - {name: whois_bulk_domain_lookup, category: whois, source_operation: 'openapi/apifreaks-api-hub-for-developers-bulk-whois-lookup-openapi.json'}
-  - {name: zipcode_lookup, category: zipcode, source_operation: 'openapi/apifreaks-api-hub-for-developers-zip-code-api-openapi.json'}
-  - {name: zipcode_bulk_lookup, category: zipcode, source_operation: 'openapi/apifreaks-api-hub-for-developers-bulk-zip-code-lookup-openapi.json'}
-  - {name: zipcode_radius_search, category: zipcode, source_operation: 'openapi/apifreaks-api-hub-for-developers-zip-codes-radius-search-openapi.json'}
-  - {name: zipcode_distance, category: zipcode, source_operation: 'openapi/apifreaks-api-hub-for-developers-zip-code-distance-openapi.json'}
-  - {name: zipcode_distance_match, category: zipcode, source_operation: 'openapi/apifreaks-api-hub-for-developers-zip-code-distance-match-openapi.json'}
-  - {name: zipcode_by_city, category: zipcode, source_operation: 'openapi/apifreaks-api-hub-for-developers-zip-codes-by-city-openapi.json'}
-  - {name: zipcode_by_region, category: zipcode, source_operation: 'openapi/apifreaks-api-hub-for-developers-zip-codes-by-region-openapi.json'}
+- name: astronomy_lookup
+  category: astronomy
+  source_operation: openapi/apifreaks-api-hub-for-developers-astronomy-data-openapi.json#getAstronomyData
+- name: commodity_symbols
+  category: commodity
+  source_operation: openapi/apifreaks-api-hub-for-developers-commodity-symbols-openapi.json#getCommoditySymbols
+- name: commodity_symbol_info
+  category: commodity
+  source_operation: openapi/apifreaks-api-hub-for-developers-commodity-symbols-openapi.json#getCommoditySymbols
+- name: commodity_quotes
+  category: commodity
+  source_operation: openapi/apifreaks-api-hub-for-developers-currency-supported-openapi.json#getSupportedCurrencies
+- name: commodity_latest_rates
+  category: commodity
+  source_operation: openapi/apifreaks-api-hub-for-developers-commodity-prices-openapi.json#getCommodityPrices
+- name: commodity_historical_rates
+  category: commodity
+  source_operation: openapi/apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json#getHistoricalCommodityPrices
+- name: commodity_fluctuation
+  category: commodity
+  source_operation: openapi/apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json#getCommodityFluctuation
+- name: commodity_time_series
+  category: commodity
+  source_operation: openapi/apifreaks-api-hub-for-developers-commodity-time-series-openapi.json#getCommodityTimeSeries
+- name: currency_latest_rates
+  category: currency
+  source_operation: openapi/apifreaks-api-hub-for-developers-currency-rate-openapi.json
+- name: currency_historical_rates
+  category: currency
+  source_operation: openapi/apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json
+- name: currency_latest_converter
+  category: currency
+  source_operation: openapi/apifreaks-api-hub-for-developers-currency-converter-openapi.json
+- name: currency_historical_converter
+  category: currency
+  source_operation: openapi/apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json
+- name: currency_time_series
+  category: currency
+  source_operation: openapi/apifreaks-api-hub-for-developers-currency-time-series-openapi.json
+- name: currency_fluctuation
+  category: currency
+  source_operation: openapi/apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json
+- name: currency_geo_convert
+  category: currency
+  source_operation: openapi/apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json
+- name: currency_supported
+  category: currency
+  source_operation: openapi/apifreaks-api-hub-for-developers-currency-supported-openapi.json
+- name: currency_symbols
+  category: currency
+  source_operation: openapi/apifreaks-api-hub-for-developers-currency-symbols-openapi.json
+- name: currency_symbol_info
+  category: currency
+  source_operation: openapi/apifreaks-api-hub-for-developers-currency-symbols-openapi.json
+- name: dns_lookup
+  category: dns
+  source_operation: openapi/apifreaks-api-hub-for-developers-dns-lookup-openapi.json
+- name: dns_history
+  category: dns
+  source_operation: openapi/apifreaks-api-hub-for-developers-dns-history-lookup-openapi.json
+- name: dns_reverse
+  category: dns
+  source_operation: openapi/apifreaks-api-hub-for-developers-reverse-dns-lookup-openapi.json
+- name: dns_bulk_lookup
+  category: dns
+  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-dns-lookup-openapi.json
+- name: domain_check_availability
+  category: domain
+  source_operation: openapi/apifreaks-api-hub-for-developers-domain-search-openapi.json
+- name: domain_check_availability_with_suggestions
+  category: domain
+  source_operation: openapi/apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json
+- name: domain_bulk_check_availability
+  category: domain
+  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json
+- name: ipgeolocation_lookup
+  category: ip-intelligence
+  source_operation: openapi/apifreaks-api-hub-for-developers-ip-locator-openapi.json#ipLookup
+- name: ipgeolocation_bulk_lookup
+  category: ip-intelligence
+  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-ip-lookup-openapi.json
+- name: ip_security_lookup
+  category: ip-intelligence
+  source_operation: openapi/apifreaks-api-hub-for-developers-ip-threat-intelligence-openapi.json
+- name: ip_security_bulk_lookup
+  category: ip-intelligence
+  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-ip-threat-intelligence-openapi.json
+- name: screenshot_capture
+  category: screenshot
+  source_operation: openapi/apifreaks-api-hub-for-developers-website-screenshot-openapi.json
+- name: screenshot_capture_scrolling
+  category: screenshot
+  source_operation: openapi/apifreaks-api-hub-for-developers-website-screenshot-openapi.json
+- name: screenshot_bulk_capture
+  category: screenshot
+  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-screenshot-openapi.json
+- name: ssl_live_lookup
+  category: ssl
+  source_operation: openapi/apifreaks-api-hub-for-developers-ssl-certificate-lookup-openapi.json
+- name: ssl_live_chain_lookup
+  category: ssl
+  source_operation: openapi/apifreaks-api-hub-for-developers-ssl-certificate-chain-lookup-openapi.json
+- name: timezone_lookup
+  category: timezone
+  source_operation: openapi/apifreaks-api-hub-for-developers-timezone-lookup-openapi.json
+- name: timezone_convert
+  category: timezone
+  source_operation: openapi/apifreaks-api-hub-for-developers-timezone-converter-openapi.json
+- name: user_agent_parse
+  category: user-agent
+  source_operation: openapi/apifreaks-api-hub-for-developers-user-agent-parser-openapi.json
+- name: user_agent_bulk_parse
+  category: user-agent
+  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-user-agent-parser-openapi.json
+- name: weather_current
+  category: weather
+  source_operation: openapi/apifreaks-api-hub-for-developers-live-weather-openapi.json
+- name: weather_bulk_current
+  category: weather
+  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-live-weather-openapi.json
+- name: weather_forecast
+  category: weather
+  source_operation: openapi/apifreaks-api-hub-for-developers-weather-forecast-openapi.json
+- name: weather_historical
+  category: weather
+  source_operation: openapi/apifreaks-api-hub-for-developers-historical-weather-openapi.json
+- name: weather_time_series
+  category: weather
+  source_operation: openapi/apifreaks-api-hub-for-developers-time-series-weather-openapi.json
+- name: weather_air_quality
+  category: weather
+  source_operation: openapi/apifreaks-api-hub-for-developers-air-quality-openapi.json
+- name: weather_marine
+  category: weather
+  source_operation: openapi/apifreaks-api-hub-for-developers-marine-weather-openapi.json
+- name: weather_flood_forecast
+  category: weather
+  source_operation: openapi/apifreaks-api-hub-for-developers-flood-forecast-openapi.json
+- name: whois_domain_lookup
+  category: whois
+  source_operation: openapi/apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json
+- name: whois_ip_lookup
+  category: whois
+  source_operation: openapi/apifreaks-api-hub-for-developers-whois-ip-lookup-openapi.json
+- name: whois_asn_lookup
+  category: whois
+  source_operation: openapi/apifreaks-api-hub-for-developers-asn-lookup-openapi.json
+- name: whois_domain_history
+  category: whois
+  source_operation: openapi/apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json
+- name: whois_reverse_lookup
+  category: whois
+  source_operation: openapi/apifreaks-api-hub-for-developers-reverse-whois-openapi.json
+- name: whois_bulk_domain_lookup
+  category: whois
+  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-whois-lookup-openapi.json
+- name: zipcode_lookup
+  category: zipcode
+  source_operation: openapi/apifreaks-api-hub-for-developers-zip-code-api-openapi.json
+- name: zipcode_bulk_lookup
+  category: zipcode
+  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-zip-code-lookup-openapi.json
+- name: zipcode_radius_search
+  category: zipcode
+  source_operation: openapi/apifreaks-api-hub-for-developers-zip-codes-radius-search-openapi.json
+- name: zipcode_distance
+  category: zipcode
+  source_operation: openapi/apifreaks-api-hub-for-developers-zip-code-distance-openapi.json
+- name: zipcode_distance_match
+  category: zipcode
+  source_operation: openapi/apifreaks-api-hub-for-developers-zip-code-distance-match-openapi.json
+- name: zipcode_by_city
+  category: zipcode
+  source_operation: openapi/apifreaks-api-hub-for-developers-zip-codes-by-city-openapi.json
+- name: zipcode_by_region
+  category: zipcode
+  source_operation: openapi/apifreaks-api-hub-for-developers-zip-codes-by-region-openapi.json
 x-evidence:
   fetched: '2026-08-09'
   sources:
-    - {url: 'https://github.com/api-freaks/apifreaks-mcp', http_status: 200, kind: source-repository}
-    - {url: 'https://registry.npmjs.org/@apifreaks/mcp', http_status: 200, kind: npm-registry, version: 1.1.2}
-    - {url: 'https://apifreaks.com/llms.txt', http_status: 200, kind: provider-llms-txt}
+  - url: https://github.com/api-freaks/apifreaks-mcp
+    http_status: 200
+    kind: source-repository
+  - url: https://registry.npmjs.org/@apifreaks/mcp
+    http_status: 200
+    kind: npm-registry
+    version: 1.1.2
+  - url: https://apifreaks.com/llms.txt
+    http_status: 200
+    kind: provider-llms-txt
+deployment:
+  mode: none
+  endpoint: https://apifreaks.com/integrations/mcp-server
+  verified: probed
+  probe: dead
+  note: the endpoint this manifest claimed did not answer; recorded as none rather than deleted so the
+    claim stays auditable
+  checked: '2026-08-12'
+  source: catalog MCP census

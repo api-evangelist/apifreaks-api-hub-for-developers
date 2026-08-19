@@ -1,0 +1,1585 @@
+{
+  "item": [
+    {
+      "id": "9c22aa58-4075-4836-ae2a-7e3236cbb264",
+      "name": "WHOIS APIs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a02b76b7-7898-45ed-a76f-ee8b20ee6d34",
+          "name": "Retrieve WHOIS registration data, CIDR block inventory, and BGP peer relationships for an Autonomous System Number",
+          "request": {
+            "name": "Retrieve WHOIS registration data, CIDR block inventory, and BGP peer relationships for an Autonomous System Number",
+            "description": {
+              "content": "Returns the WHOIS record for the specified ASN, including organization details, IPv4/IPv6 route objects, upstream/downstream/peer relationships, and both parsed and raw WHOIS text. Accepts the ASN with or without the 'AS' prefix.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "asn",
+                "whois",
+                "live"
+              ],
+              "host": [
+                "{{asn-whois-live-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "asn",
+                  "value": "<string>",
+                  "description": "(Required) Autonomous System Number to retrieve WHOIS data for, with or without the 'AS' prefix (e.g. 15169 or AS15169)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b29dcd68-77a0-4a3b-9533-4e99ec6cb4aa",
+              "name": "Successful ASN WHOIS response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asn",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{asn-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "asn",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"asNumber\": \"15\",\n  \"asName\": \"NET-DYNAMICS-EXP\",\n  \"orgName\": \"DYNAMICS\",\n  \"description\": \"\",\n  \"orgHandle\": \"dynami-109\",\n  \"country\": \"US\",\n  \"domain\": \"nisc.sri.com\",\n  \"website\": \"\",\n  \"allocationStatus\": \"\",\n  \"numOfIPv4Routes\": \"0\",\n  \"numOfIPv6Routes\": \"0\",\n  \"whoisHost\": \"ARIN\",\n  \"dateAllocated\": \"\",\n  \"type\": \"ISP\",\n  \"routeObjects\": [],\n  \"whoisResponse\": \"\\n#\\n# ARIN WHOIS data and services are subject to the Terms of Use\\n# available at: https://www.arin.net/resources/registry/whois/tou/\\n#\\n# If you see inaccuracies in the results, please report at\\n# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/\\n#\\n# Copyright 1997-2026, American Registry for Internet Numbers, Ltd.\\n#\\n\\n\\nASNumber:       15\\nASName:         NET-DYNAMICS-EXP\\nASHandle:       AS15\\nRegDate:        \\nUpdated:        1991-06-27\\nRef:            https://rdap.arin.net/registry/autnum/15\\n\\n\\nOrgName:        DYNAMICS\\nOrgId:          DYNAMI-109\\nCity:           \\nStateProv:      \\nPostalCode:     \\nCountry:        US\\nRegDate:        \\nUpdated:        2012-10-10\\nRef:            https://rdap.arin.net/registry/entity/DYNAMI-109\\n\\n\\nOrgTechHandle: ZSU-ARIN\\nOrgTechName:   Su, Zaw-Sing \\nOrgTechPhone:  +1-415-859-4576 \\nOrgTechEmail:  zsu@nisc.sri.com\\nOrgTechRef:    https://rdap.arin.net/registry/entity/ZSU-ARIN\\n\\nOrgAbuseHandle: ZSU-ARIN\\nOrgAbuseName:   Su, Zaw-Sing \\nOrgAbusePhone:  +1-415-859-4576 \\nOrgAbuseEmail:  zsu@nisc.sri.com\\nOrgAbuseRef:    https://rdap.arin.net/registry/entity/ZSU-ARIN\\n\\nRTechHandle: ZSU-ARIN\\nRTechName:   Su, Zaw-Sing \\nRTechPhone:  +1-415-859-4576 \\nRTechEmail:  zsu@nisc.sri.com\\nRTechRef:    https://rdap.arin.net/registry/entity/ZSU-ARIN\\n\\n\\n#\\n# ARIN WHOIS data and services are subject to the Terms of Use\\n# available at: https://www.arin.net/resources/registry/whois/tou/\\n#\\n# If you see inaccuracies in the results, please report at\\n# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/\\n#\\n# Copyright 1997-2026, American Registry for Internet Numbers, Ltd.\\n#\\n\",\n  \"downstreams\": [],\n  \"parsedWhoisResponse\": {\n    \"status\": true,\n    \"whois_server\": \"whois.arin.net\",\n    \"aut_nums\": [\n      {\n        \"aut_num\": \"15\",\n        \"as_handle\": \"AS15\",\n        \"as_name\": \"NET-DYNAMICS-EXP\",\n        \"tech_contacts\": [\n          \"ZSU-ARIN\",\n          \"ZSU-ARIN\"\n        ],\n        \"abuse_contacts\": [\n          \"ZSU-ARIN\"\n        ],\n        \"date_updated\": \"1991-06-27\",\n        \"source\": \"https://rdap.arin.net/registry/autnum/15\"\n      }\n    ],\n    \"organization\": {\n      \"handle\": \"DYNAMI-109\",\n      \"name\": \"DYNAMICS\",\n      \"address\": [\n        \"US\"\n      ],\n      \"country\": [\n        \"US\"\n      ],\n      \"date_updated\": \"2012-10-10\",\n      \"source\": \"https://rdap.arin.net/registry/entity/DYNAMI-109\",\n      \"addressCountry\": \"US\"\n    },\n    \"technical_contacts\": [\n      {\n        \"handle\": \"ZSU-ARIN\",\n        \"name\": \"Su, Zaw-Sing\",\n        \"email\": [\n          \"zsu@nisc.sri.com\"\n        ],\n        \"phone\": [\n          \"+1-415-859-4576\"\n        ],\n        \"source\": \"https://rdap.arin.net/registry/entity/ZSU-ARIN\"\n      }\n    ],\n    \"abuse_contacts\": [\n      {\n        \"handle\": \"ZSU-ARIN\",\n        \"name\": \"Su, Zaw-Sing\",\n        \"email\": [\n          \"zsu@nisc.sri.com\"\n        ],\n        \"phone\": [\n          \"+1-415-859-4576\"\n        ],\n        \"source\": \"https://rdap.arin.net/registry/entity/ZSU-ARIN\"\n      }\n    ]\n  },\n  \"upstreams\": [],\n  \"peers\": [],\n  \"contacts\": {\n    \"emailContacts\": [\n      \"zsu@nisc.sri.com\"\n    ],\n    \"abuseContacts\": []\n  },\n  \"legacyRoutes\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5fae8af-5588-42ce-acbe-71da122e7f60",
+              "name": "Bad Request — Invalid asn parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asn",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{asn-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "asn",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-23T07:47:06.640Z\",\n  \"status\": 400,\n  \"error\": \"Input parameter is not valid\",\n  \"message\": \"Request-param 'asn' (ABC123) is not valid\",\n  \"path\": \"/v2.0/asn-whois\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f4afe23-8ad8-4b8b-97b1-c80058535255",
+              "name": "Not Found — ASN could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "asn",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{asn-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "asn",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-23T07:47:45.427Z\",\n  \"status\": 404,\n  \"error\": \"Data Not Found\",\n  \"message\": \"ASN data for 999999999 could not be found.\",\n  \"path\": \"/v2.0/asn-whois\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2459eefe-a058-4e76-87f3-40a8490fa21d",
+          "name": "Retrieve real-time WHOIS registration and ownership data for up to 100 domain names in a single request",
+          "request": {
+            "name": "Retrieve real-time WHOIS registration and ownership data for up to 100 domain names in a single request",
+            "description": {
+              "content": "Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain",
+                "whois",
+                "live"
+              ],
+              "host": [
+                "{{domain-whois-live-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"domainNames\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "09ce2f76-d13c-4819-b367-0e5696f8a99f",
+              "name": "WHOIS data retrieved successfully for every requested domain",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainNames\": [\n    \"microsoft.com\",\n    \"example.xn--tckwe\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bulk_whois_response\": [\n    {\n      \"status\": true,\n      \"domain_name\": \"example.xn--tckwe\",\n      \"query_time\": \"2026-07-23 09:28:42\",\n      \"whois_server\": \"https://tld-rdap.verisign.com/xn--tckwe/v1/\",\n      \"domain_registered\": \"no\"\n    },\n    {\n      \"status\": true,\n      \"domain_name\": \"microsoft.com\",\n      \"query_time\": \"2026-07-23 09:28:43\",\n      \"whois_server\": \"whois.verisign-grs.com\",\n      \"domain_registered\": \"yes\",\n      \"create_date\": \"1991-05-02\",\n      \"update_date\": \"2026-01-29\",\n      \"expiry_date\": \"2027-05-03\",\n      \"domain_registrar\": {\n        \"iana_id\": \"292\",\n        \"status\": \"accredited\",\n        \"registrar_name\": \"MarkMonitor, Inc\",\n        \"normalized_name\": \"markmonitor\",\n        \"whois_server\": \"whois.markmonitor.com\",\n        \"rdap_server\": \"https://rdap.markmonitor.com/rdap/\",\n        \"website_url\": \"http://www.markmonitor.com\",\n        \"email_address\": \"abusecomplaints@markmonitor.com\",\n        \"phone_number\": \"+12086851750\"\n      },\n      \"registrant_contact\": {\n        \"name\": \"Domain Administrator\",\n        \"company\": \"Microsoft Corporation\",\n        \"street\": \"One Microsoft Way,\",\n        \"city\": \"Redmond\",\n        \"state\": \"WA\",\n        \"zip_code\": \"98052\",\n        \"country_name\": \"United States\",\n        \"country_code\": \"US\",\n        \"email_address\": \"admin@domains.microsoft\",\n        \"phone\": \"+14258828080\",\n        \"fax\": \"+14259367329\"\n      },\n      \"technical_contact\": {\n        \"name\": \"MSN Hostmaster\",\n        \"country_name\": \"United States\",\n        \"country_code\": \"US\",\n        \"email_address\": \"msnhst@microsoft.com\",\n        \"phone\": \"+14258828080\"\n      },\n      \"name_servers\": [\n        \"ns4-39.azure-dns.info\",\n        \"ns3-39.azure-dns.org\",\n        \"ns1-39.azure-dns.com\",\n        \"ns2-39.azure-dns.net\"\n      ],\n      \"domain_status\": [\n        \"clientupdateprohibited\",\n        \"clienttransferprohibited\",\n        \"clientdeleteprohibited\",\n        \"serverdeleteprohibited\",\n        \"serverupdateprohibited\",\n        \"servertransferprohibited\"\n      ],\n      \"whois_raw_domain\": \"\\nDomain Name: microsoft.com\\nRegistry Domain ID: 2724960_DOMAIN_COM-VRSN\\nRegistrar WHOIS Server: whois.markmonitor.com\\nRegistrar URL: http://www.markmonitor.com\\nUpdated Date: 2026-01-29T18:46:57+0000\\nCreation Date: 1991-05-02T04:00:00+0000\\nRegistrar Registration Expiration Date: 2027-05-03T00:00:00+0000\\nRegistrar: MarkMonitor, Inc.\\nRegistrar IANA ID: 292\\nRegistrar Abuse Contact: https://corp.markmonitor.com/domain/ui/abuse-report\\nRegistrar Abuse Contact Phone: +1.2086851750\\nDomain Status: clientUpdateProhibited (https://www.icann.org/epp#clientUpdateProhibited)\\nDomain Status: clientTransferProhibited (https://www.icann.org/epp#clientTransferProhibited)\\nDomain Status: clientDeleteProhibited (https://www.icann.org/epp#clientDeleteProhibited)\\nDomain Status: serverUpdateProhibited (https://www.icann.org/epp#serverUpdateProhibited)\\nDomain Status: serverTransferProhibited (https://www.icann.org/epp#serverTransferProhibited)\\nDomain Status: serverDeleteProhibited (https://www.icann.org/epp#serverDeleteProhibited)\\nRegistrant Name: Domain Administrator\\nRegistrant Organization: Microsoft Corporation\\nRegistrant Street: One Microsoft Way, \\nRegistrant City: Redmond\\nRegistrant State/Province: WA\\nRegistrant Postal Code: 98052\\nRegistrant Country: US\\nRegistrant Phone: +1.4258828080\\nRegistrant Phone Ext: \\nRegistrant Fax: +1.4259367329\\nRegistrant Fax Ext: \\nRegistrant Email: admin@domains.microsoft\\nTech Name: MSN Hostmaster\\nTech Phone: +1.4258828080\\nTech Email: msnhst@microsoft.com\\nName Server: ns1-39.azure-dns.com\\nName Server: ns3-39.azure-dns.org\\nName Server: ns2-39.azure-dns.net\\nName Server: ns4-39.azure-dns.info\\nDNSSEC: unsigned\\nURL of the ICANN WHOIS Data Problem Reporting System: http://wdprs.internic.net/\\n>>> Last update of WHOIS database: 2026-07-23T09:28:02+0000 <<<\\n\\nFor more information on WHOIS status codes, please visit:\\n  https://www.icann.org/resources/pages/epp-status-codes\\n\\nIf you wish to contact this domain’s Registrant or Technical\\ncontact, and such email address is not visible above, you may do so via our web\\nform, pursuant to ICANN’s Temporary Specification. To verify that you are not a\\nrobot, please enter your email address to receive a link to a page that\\nfacilitates email communication with the relevant contact(s).\\n\\nWeb-based WHOIS:\\n  https://domains.markmonitor.com/whois/contact/microsoft.com\\n\\nIf you have a legitimate interest in viewing the non-public WHOIS details, send\\nyour request and the reasons for your request to whoisrequest@markmonitor.com\\nand specify the domain name in the subject line. We will review that request and\\nmay ask for supporting documentation and explanation.\\n\\nThe data in MarkMonitor’s WHOIS database is provided for information purposes,\\nand to assist persons in obtaining information about or related to a domain\\nname’s registration record. While MarkMonitor believes the data to be accurate,\\nthe data is provided \\\"as is\\\" with no guarantee or warranties regarding its\\naccuracy.\\n\\nBy submitting a WHOIS query, you agree that you will use this data only for\\nlawful purposes and that, under no circumstances will you use this data to:\\n  (1) allow, enable, or otherwise support the transmission by email, telephone,\\nor facsimile of mass, unsolicited, commercial advertising, or spam; or\\n  (2) enable high volume, automated, or electronic processes that send queries,\\ndata, or email to MarkMonitor (or its systems) or the domain name contacts (or\\nits systems).\\n\\nMarkMonitor reserves the right to modify these terms at any time.\\n\\nBy submitting this query, you agree to abide by this policy.\\n\\nMarkMonitor Domain Management(TM)\\nProtecting companies and consumers in a digital world.\\n\\nVisit MarkMonitor at https://www.markmonitor.com\\nContact us at +1.8007459229\\nIn Europe, at +44.02032062220\\n----\",\n      \"registry_data\": {\n        \"domain_name\": \"MICROSOFT.COM\",\n        \"query_time\": \"2026-07-23 09:28:42\",\n        \"whois_server\": \"whois.verisign-grs.com\",\n        \"domain_registered\": \"yes\",\n        \"create_date\": \"1991-05-02\",\n        \"update_date\": \"2026-01-29\",\n        \"expiry_date\": \"2027-05-03\",\n        \"domain_registrar\": {\n          \"iana_id\": \"292\",\n          \"registrar_name\": \"MarkMonitor Inc\",\n          \"whois_server\": \"whois.markmonitor.com\",\n          \"website_url\": \"http://www.markmonitor.com\"\n        },\n        \"name_servers\": [\n          \"ns4-39.azure-dns.info\",\n          \"ns3-39.azure-dns.org\",\n          \"ns1-39.azure-dns.com\",\n          \"ns2-39.azure-dns.net\"\n        ],\n        \"domain_status\": [\n          \"clientupdateprohibited\",\n          \"clientdeleteprohibited\",\n          \"clienttransferprohibited\",\n          \"serverdeleteprohibited\",\n          \"serverupdateprohibited\",\n          \"servertransferprohibited\"\n        ],\n        \"whois_raw_registery\": \"\\nDomain Name: MICROSOFT.COM\\n   Registry Domain ID: 2724960_DOMAIN_COM-VRSN\\n   Registrar WHOIS Server: whois.markmonitor.com\\n   Registrar URL: http://www.markmonitor.com\\n   Updated Date: 2026-01-29T18:46:57Z\\n   Creation Date: 1991-05-02T04:00:00Z\\n   Registry Expiry Date: 2027-05-03T04:00:00Z\\n   Registrar: MarkMonitor Inc.\\n   Registrar IANA ID: 292\\n   Registrar Abuse Contact Email: abusecomplaints@markmonitor.com\\n   Registrar Abuse Contact Phone: +1.2086851750\\n   Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited\\n   Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited\\n   Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited\\n   Domain Status: serverDeleteProhibited https://icann.org/epp#serverDeleteProhibited\\n   Domain Status: serverTransferProhibited https://icann.org/epp#serverTransferProhibited\\n   Domain Status: serverUpdateProhibited https://icann.org/epp#serverUpdateProhibited\\n   Name Server: NS1-39.AZURE-DNS.COM\\n   Name Server: NS2-39.AZURE-DNS.NET\\n   Name Server: NS3-39.AZURE-DNS.ORG\\n   Name Server: NS4-39.AZURE-DNS.INFO\\n   DNSSEC: unsigned\\n   URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/\\n>>> Last update of whois database: 2026-07-23T09:28:23Z <<<\\n\\nFor more information on Whois status codes, please visit https://icann.org/epp\\n\\nNOTICE: The expiration date displayed in this record is the date the\\nregistrar's sponsorship of the domain name registration in the registry is\\ncurrently set to expire. This date does not necessarily reflect the expiration\\ndate of the domain name registrant's agreement with the sponsoring\\nregistrar.  Users may consult the sponsoring registrar's Whois database to\\nview the registrar's reported date of expiration for this registration.\\n\\nTERMS OF USE: You are not authorized to access or query our Whois\\ndatabase through the use of electronic processes that are high-volume and\\nautomated except as reasonably necessary to register domain names or\\nmodify existing registrations; the Data in VeriSign Global Registry\\nServices' (\\\"VeriSign\\\") Whois database is provided by VeriSign for\\ninformation purposes only, and to assist persons in obtaining information\\nabout or related to a domain name registration record. VeriSign does not\\nguarantee its accuracy. By submitting a Whois query, you agree to abide\\nby the following terms of use: You agree that you may use this Data only\\nfor lawful purposes and that under no circumstances will you use this Data\\nto: (1) allow, enable, or otherwise support the transmission of mass\\nunsolicited, commercial advertising or solicitations via e-mail, telephone,\\nor facsimile; or (2) enable high volume, automated, electronic processes\\nthat apply to VeriSign (or its computer systems). The compilation,\\nrepackaging, dissemination or other use of this Data is expressly\\nprohibited without the prior written consent of VeriSign. You agree not to\\nuse electronic processes that are automated and high-volume to access or\\nquery the Whois database except as reasonably necessary to register\\ndomain names or modify existing registrations. VeriSign reserves the right\\nto restrict your access to the Whois database in its sole discretion to ensure\\noperational stability.  VeriSign may restrict or terminate your access to the\\nWhois database for failure to abide by these terms of use. VeriSign\\nreserves the right to modify these terms at any time.\\n\\nThe Registry database contains ONLY .COM, .NET, .EDU domains and\\nRegistrars.\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20de37dd-e0b6-4953-bf56-6472c9e6adb6",
+              "name": "Partial Content — At least one domain in the batch returned an error; other domains in the same batch still resolved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainNames\": [\n    \"microsoft.com\",\n    \"example.xn--tckwe\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Partial Content",
+              "code": 206,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bulk_whois_response\": [\n    {\n      \"status\": false,\n      \"domain_name\": \"zzzz.local\",\n      \"status_code\": 403,\n      \"error\": \"NotSupportedDomainExtException\",\n      \"message\": \"We are not providing the whois of this domain extension (local)\"\n    },\n    {\n      \"status\": true,\n      \"domain_name\": \"microsoft.com\",\n      \"query_time\": \"2026-07-23 09:28:55\",\n      \"whois_server\": \"whois.verisign-grs.com\",\n      \"domain_registered\": \"yes\",\n      \"create_date\": \"1991-05-02\",\n      \"update_date\": \"2026-01-29\",\n      \"expiry_date\": \"2027-05-03\",\n      \"domain_registrar\": {\n        \"iana_id\": \"292\",\n        \"status\": \"accredited\",\n        \"registrar_name\": \"MarkMonitor, Inc\",\n        \"normalized_name\": \"markmonitor\",\n        \"whois_server\": \"whois.markmonitor.com\",\n        \"rdap_server\": \"https://rdap.markmonitor.com/rdap/\",\n        \"website_url\": \"http://www.markmonitor.com\",\n        \"email_address\": \"abusecomplaints@markmonitor.com\",\n        \"phone_number\": \"+12086851750\"\n      },\n      \"registrant_contact\": {\n        \"name\": \"Domain Administrator\",\n        \"company\": \"Microsoft Corporation\",\n        \"street\": \"One Microsoft Way,\",\n        \"city\": \"Redmond\",\n        \"state\": \"WA\",\n        \"zip_code\": \"98052\",\n        \"country_name\": \"United States\",\n        \"country_code\": \"US\",\n        \"email_address\": \"admin@domains.microsoft\",\n        \"phone\": \"+14258828080\",\n        \"fax\": \"+14259367329\"\n      },\n      \"technical_contact\": {\n        \"name\": \"MSN Hostmaster\",\n        \"country_name\": \"United States\",\n        \"country_code\": \"US\",\n        \"email_address\": \"msnhst@microsoft.com\",\n        \"phone\": \"+14258828080\"\n      },\n      \"name_servers\": [\n        \"ns4-39.azure-dns.info\",\n        \"ns3-39.azure-dns.org\",\n        \"ns1-39.azure-dns.com\",\n        \"ns2-39.azure-dns.net\"\n      ],\n      \"domain_status\": [\n        \"clientupdateprohibited\",\n        \"clienttransferprohibited\",\n        \"clientdeleteprohibited\",\n        \"serverdeleteprohibited\",\n        \"serverupdateprohibited\",\n        \"servertransferprohibited\"\n      ],\n      \"whois_raw_domain\": \"\\nDomain Name: microsoft.com\\nRegistry Domain ID: 2724960_DOMAIN_COM-VRSN\\nRegistrar WHOIS Server: whois.markmonitor.com\\nRegistrar URL: http://www.markmonitor.com\\nUpdated Date: 2026-01-29T18:46:57+0000\\nCreation Date: 1991-05-02T04:00:00+0000\\nRegistrar Registration Expiration Date: 2027-05-03T00:00:00+0000\\nRegistrar: MarkMonitor, Inc.\\nRegistrar IANA ID: 292\\nRegistrar Abuse Contact: https://corp.markmonitor.com/domain/ui/abuse-report\\nRegistrar Abuse Contact Phone: +1.2086851750\\nDomain Status: clientUpdateProhibited (https://www.icann.org/epp#clientUpdateProhibited)\\nDomain Status: clientTransferProhibited (https://www.icann.org/epp#clientTransferProhibited)\\nDomain Status: clientDeleteProhibited (https://www.icann.org/epp#clientDeleteProhibited)\\nDomain Status: serverUpdateProhibited (https://www.icann.org/epp#serverUpdateProhibited)\\nDomain Status: serverTransferProhibited (https://www.icann.org/epp#serverTransferProhibited)\\nDomain Status: serverDeleteProhibited (https://www.icann.org/epp#serverDeleteProhibited)\\nRegistrant Name: Domain Administrator\\nRegistrant Organization: Microsoft Corporation\\nRegistrant Street: One Microsoft Way, \\nRegistrant City: Redmond\\nRegistrant State/Province: WA\\nRegistrant Postal Code: 98052\\nRegistrant Country: US\\nRegistrant Phone: +1.4258828080\\nRegistrant Phone Ext: \\nRegistrant Fax: +1.4259367329\\nRegistrant Fax Ext: \\nRegistrant Email: admin@domains.microsoft\\nTech Name: MSN Hostmaster\\nTech Phone: +1.4258828080\\nTech Email: msnhst@microsoft.com\\nName Server: ns1-39.azure-dns.com\\nName Server: ns3-39.azure-dns.org\\nName Server: ns2-39.azure-dns.net\\nName Server: ns4-39.azure-dns.info\\nDNSSEC: unsigned\\nURL of the ICANN WHOIS Data Problem Reporting System: http://wdprs.internic.net/\\n>>> Last update of WHOIS database: 2026-07-23T09:28:02+0000 <<<\\n\\nFor more information on WHOIS status codes, please visit:\\n  https://www.icann.org/resources/pages/epp-status-codes\\n\\nIf you wish to contact this domain’s Registrant or Technical\\ncontact, and such email address is not visible above, you may do so via our web\\nform, pursuant to ICANN’s Temporary Specification. To verify that you are not a\\nrobot, please enter your email address to receive a link to a page that\\nfacilitates email communication with the relevant contact(s).\\n\\nWeb-based WHOIS:\\n  https://domains.markmonitor.com/whois/contact/microsoft.com\\n\\nIf you have a legitimate interest in viewing the non-public WHOIS details, send\\nyour request and the reasons for your request to whoisrequest@markmonitor.com\\nand specify the domain name in the subject line. We will review that request and\\nmay ask for supporting documentation and explanation.\\n\\nThe data in MarkMonitor’s WHOIS database is provided for information purposes,\\nand to assist persons in obtaining information about or related to a domain\\nname’s registration record. While MarkMonitor believes the data to be accurate,\\nthe data is provided \\\"as is\\\" with no guarantee or warranties regarding its\\naccuracy.\\n\\nBy submitting a WHOIS query, you agree that you will use this data only for\\nlawful purposes and that, under no circumstances will you use this data to:\\n  (1) allow, enable, or otherwise support the transmission by email, telephone,\\nor facsimile of mass, unsolicited, commercial advertising, or spam; or\\n  (2) enable high volume, automated, or electronic processes that send queries,\\ndata, or email to MarkMonitor (or its systems) or the domain name contacts (or\\nits systems).\\n\\nMarkMonitor reserves the right to modify these terms at any time.\\n\\nBy submitting this query, you agree to abide by this policy.\\n\\nMarkMonitor Domain Management(TM)\\nProtecting companies and consumers in a digital world.\\n\\nVisit MarkMonitor at https://www.markmonitor.com\\nContact us at +1.8007459229\\nIn Europe, at +44.02032062220\\n----\",\n      \"registry_data\": {\n        \"domain_name\": \"MICROSOFT.COM\",\n        \"query_time\": \"2026-07-23 09:28:54\",\n        \"whois_server\": \"whois.verisign-grs.com\",\n        \"domain_registered\": \"yes\",\n        \"create_date\": \"1991-05-02\",\n        \"update_date\": \"2026-01-29\",\n        \"expiry_date\": \"2027-05-03\",\n        \"domain_registrar\": {\n          \"iana_id\": \"292\",\n          \"registrar_name\": \"MarkMonitor Inc\",\n          \"whois_server\": \"whois.markmonitor.com\",\n          \"website_url\": \"http://www.markmonitor.com\"\n        },\n        \"name_servers\": [\n          \"ns4-39.azure-dns.info\",\n          \"ns3-39.azure-dns.org\",\n          \"ns1-39.azure-dns.com\",\n          \"ns2-39.azure-dns.net\"\n        ],\n        \"domain_status\": [\n          \"clientupdateprohibited\",\n          \"clientdeleteprohibited\",\n          \"clienttransferprohibited\",\n          \"serverdeleteprohibited\",\n          \"serverupdateprohibited\",\n          \"servertransferprohibited\"\n        ],\n        \"whois_raw_registery\": \"\\nDomain Name: MICROSOFT.COM\\n   Registry Domain ID: 2724960_DOMAIN_COM-VRSN\\n   Registrar WHOIS Server: whois.markmonitor.com\\n   Registrar URL: http://www.markmonitor.com\\n   Updated Date: 2026-01-29T18:46:57Z\\n   Creation Date: 1991-05-02T04:00:00Z\\n   Registry Expiry Date: 2027-05-03T04:00:00Z\\n   Registrar: MarkMonitor Inc.\\n   Registrar IANA ID: 292\\n   Registrar Abuse Contact Email: abusecomplaints@markmonitor.com\\n   Registrar Abuse Contact Phone: +1.2086851750\\n   Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited\\n   Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited\\n   Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited\\n   Domain Status: serverDeleteProhibited https://icann.org/epp#serverDeleteProhibited\\n   Domain Status: serverTransferProhibited https://icann.org/epp#serverTransferProhibited\\n   Domain Status: serverUpdateProhibited https://icann.org/epp#serverUpdateProhibited\\n   Name Server: NS1-39.AZURE-DNS.COM\\n   Name Server: NS2-39.AZURE-DNS.NET\\n   Name Server: NS3-39.AZURE-DNS.ORG\\n   Name Server: NS4-39.AZURE-DNS.INFO\\n   DNSSEC: unsigned\\n   URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/\\n>>> Last update of whois database: 2026-07-23T09:28:38Z <<<\\n\\nFor more information on Whois status codes, please visit https://icann.org/epp\\n\\nNOTICE: The expiration date displayed in this record is the date the\\nregistrar's sponsorship of the domain name registration in the registry is\\ncurrently set to expire. This date does not necessarily reflect the expiration\\ndate of the domain name registrant's agreement with the sponsoring\\nregistrar.  Users may consult the sponsoring registrar's Whois database to\\nview the registrar's reported date of expiration for this registration.\\n\\nTERMS OF USE: You are not authorized to access or query our Whois\\ndatabase through the use of electronic processes that are high-volume and\\nautomated except as reasonably necessary to register domain names or\\nmodify existing registrations; the Data in VeriSign Global Registry\\nServices' (\\\"VeriSign\\\") Whois database is provided by VeriSign for\\ninformation purposes only, and to assist persons in obtaining information\\nabout or related to a domain name registration record. VeriSign does not\\nguarantee its accuracy. By submitting a Whois query, you agree to abide\\nby the following terms of use: You agree that you may use this Data only\\nfor lawful purposes and that under no circumstances will you use this Data\\nto: (1) allow, enable, or otherwise support the transmission of mass\\nunsolicited, commercial advertising or solicitations via e-mail, telephone,\\nor facsimile; or (2) enable high volume, automated, electronic processes\\nthat apply to VeriSign (or its computer systems). The compilation,\\nrepackaging, dissemination or other use of this Data is expressly\\nprohibited without the prior written consent of VeriSign. You agree not to\\nuse electronic processes that are automated and high-volume to access or\\nquery the Whois database except as reasonably necessary to register\\ndomain names or modify existing registrations. VeriSign reserves the right\\nto restrict your access to the Whois database in its sole discretion to ensure\\noperational stability.  VeriSign may restrict or terminate your access to the\\nWhois database for failure to abide by these terms of use. VeriSign\\nreserves the right to modify these terms at any time.\\n\\nThe Registry database contains ONLY .COM, .NET, .EDU domains and\\nRegistrars.\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65d66da0-df0f-458f-98d8-538e2fdfb55d",
+              "name": "Bad Request — Missing or malformed request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainNames\": [\n    \"microsoft.com\",\n    \"example.xn--tckwe\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request body Exception\",\n  \"message\": \"Please provide data in required format in request body\",\n  \"path\": \"/v2.0/domain/whois/live\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-23T09:28:56.641Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c68d75f-e01d-410b-8d50-1e63f9c3f56c",
+              "name": "Payload Too Large — Request exceeds the 100-domain batch limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainNames\": [\n    \"microsoft.com\",\n    \"example.xn--tckwe\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Payload too large Exception\",\n  \"message\": \"Maximum request body size limit exceeded\",\n  \"path\": \"/v2.0/domain/whois/live\",\n  \"status\": 413,\n  \"timestamp\": \"2026-07-23T09:28:57.228Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "147126a9-0e4d-4fc7-a07c-821c027f50a9",
+          "name": "Retrieve real-time WHOIS registration and ownership data for a domain name",
+          "request": {
+            "name": "Retrieve real-time WHOIS registration and ownership data for a domain name",
+            "description": {
+              "content": "Returns the current WHOIS record for the specified domain, including registrar details, registrant/administrative/technical/billing/reseller contacts, name servers, status codes, and raw WHOIS text.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain",
+                "whois",
+                "live"
+              ],
+              "host": [
+                "{{domain-whois-live-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "domainName",
+                  "value": "<string>",
+                  "description": "(Required) Domain name to retrieve WHOIS data for (e.g. example.com)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f92b4f7f-fda1-4028-a3c1-56b158b621d6",
+              "name": "Successful WHOIS lookup response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domainName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": true,\n  \"domain_name\": \"google.com\",\n  \"query_time\": \"2026-07-23 08:22:19\",\n  \"whois_server\": \"whois.verisign-grs.com\",\n  \"domain_registered\": \"yes\",\n  \"create_date\": \"1997-09-15\",\n  \"update_date\": \"2024-08-02\",\n  \"expiry_date\": \"2028-09-13\",\n  \"domain_registrar\": {\n    \"iana_id\": \"292\",\n    \"status\": \"accredited\",\n    \"registrar_name\": \"MarkMonitor, Inc\",\n    \"normalized_name\": \"markmonitor\",\n    \"whois_server\": \"whois.markmonitor.com\",\n    \"rdap_server\": \"https://rdap.markmonitor.com/rdap/\",\n    \"website_url\": \"http://www.markmonitor.com\",\n    \"email_address\": \"abusecomplaints@markmonitor.com\",\n    \"phone_number\": \"+12086851750\"\n  },\n  \"registrant_contact\": {\n    \"company\": \"Google LLC\",\n    \"country_name\": \"United States\",\n    \"country_code\": \"US\",\n    \"email_address\": \"Select Request Email Form at https://domains.markmonitor.com/whois/google.com\"\n  },\n  \"technical_contact\": {\n    \"email_address\": \"Select Request Email Form at https://domains.markmonitor.com/whois/google.com\"\n  },\n  \"name_servers\": [\n    \"ns1.google.com\",\n    \"ns2.google.com\",\n    \"ns3.google.com\",\n    \"ns4.google.com\"\n  ],\n  \"domain_status\": [\n    \"clientupdateprohibited\",\n    \"clienttransferprohibited\",\n    \"clientdeleteprohibited\",\n    \"serverdeleteprohibited\",\n    \"serverupdateprohibited\",\n    \"servertransferprohibited\"\n  ],\n  \"whois_raw_domain\": \"\\nDomain Name: google.com\\nRegistry Domain ID: 2138514_DOMAIN_COM-VRSN\\nRegistrar WHOIS Server: whois.markmonitor.com\\nRegistrar URL: http://www.markmonitor.com\\nUpdated Date: 2024-08-02T02:17:33+0000\\nCreation Date: 1997-09-15T07:00:00+0000\\nRegistrar Registration Expiration Date: 2028-09-13T07:00:00+0000\\nRegistrar: MarkMonitor, Inc.\\nRegistrar IANA ID: 292\\nRegistrar Abuse Contact: https://corp.markmonitor.com/domain/ui/abuse-report\\nRegistrar Abuse Contact Phone: +1.2086851750\\nDomain Status: clientUpdateProhibited (https://www.icann.org/epp#clientUpdateProhibited)\\nDomain Status: clientTransferProhibited (https://www.icann.org/epp#clientTransferProhibited)\\nDomain Status: clientDeleteProhibited (https://www.icann.org/epp#clientDeleteProhibited)\\nDomain Status: serverUpdateProhibited (https://www.icann.org/epp#serverUpdateProhibited)\\nDomain Status: serverTransferProhibited (https://www.icann.org/epp#serverTransferProhibited)\\nDomain Status: serverDeleteProhibited (https://www.icann.org/epp#serverDeleteProhibited)\\nRegistrant Organization: Google LLC\\nRegistrant Country: US\\nRegistrant Email: Select Request Email Form at https://domains.markmonitor.com/whois/google.com\\nTech Email: Select Request Email Form at https://domains.markmonitor.com/whois/google.com\\nName Server: ns1.google.com\\nName Server: ns4.google.com\\nName Server: ns3.google.com\\nName Server: ns2.google.com\\nDNSSEC: unsigned\\nURL of the ICANN WHOIS Data Problem Reporting System: http://wdprs.internic.net/\\n>>> Last update of WHOIS database: 2026-07-23T08:17:26+0000 <<<\\n\\nFor more information on WHOIS status codes, please visit:\\n  https://www.icann.org/resources/pages/epp-status-codes\\n\\nIf you wish to contact this domain’s Registrant or Technical\\ncontact, and such email address is not visible above, you may do so via our web\\nform, pursuant to ICANN’s Temporary Specification. To verify that you are not a\\nrobot, please enter your email address to receive a link to a page that\\nfacilitates email communication with the relevant contact(s).\\n\\nWeb-based WHOIS:\\n  https://domains.markmonitor.com/whois/contact/google.com\\n\\nIf you have a legitimate interest in viewing the non-public WHOIS details, send\\nyour request and the reasons for your request to whoisrequest@markmonitor.com\\nand specify the domain name in the subject line. We will review that request and\\nmay ask for supporting documentation and explanation.\\n\\nThe data in MarkMonitor’s WHOIS database is provided for information purposes,\\nand to assist persons in obtaining information about or related to a domain\\nname’s registration record. While MarkMonitor believes the data to be accurate,\\nthe data is provided \\\"as is\\\" with no guarantee or warranties regarding its\\naccuracy.\\n\\nBy submitting a WHOIS query, you agree that you will use this data only for\\nlawful purposes and that, under no circumstances will you use this data to:\\n  (1) allow, enable, or otherwise support the transmission by email, telephone,\\nor facsimile of mass, unsolicited, commercial advertising, or spam; or\\n  (2) enable high volume, automated, or electronic processes that send queries,\\ndata, or email to MarkMonitor (or its systems) or the domain name contacts (or\\nits systems).\\n\\nMarkMonitor reserves the right to modify these terms at any time.\\n\\nBy submitting this query, you agree to abide by this policy.\\n\\nMarkMonitor Domain Management(TM)\\nProtecting companies and consumers in a digital world.\\n\\nVisit MarkMonitor at https://www.markmonitor.com\\nContact us at +1.8007459229\\nIn Europe, at +44.02032062220\\n--\",\n  \"registry_data\": {\n    \"domain_name\": \"GOOGLE.COM\",\n    \"query_time\": \"2026-07-23 08:22:18\",\n    \"whois_server\": \"whois.verisign-grs.com\",\n    \"domain_registered\": \"yes\",\n    \"create_date\": \"1997-09-15\",\n    \"update_date\": \"2019-09-09\",\n    \"expiry_date\": \"2028-09-14\",\n    \"domain_registrar\": {\n      \"iana_id\": \"292\",\n      \"registrar_name\": \"MarkMonitor Inc\",\n      \"whois_server\": \"whois.markmonitor.com\",\n      \"website_url\": \"http://www.markmonitor.com\"\n    },\n    \"name_servers\": [\n      \"ns1.google.com\",\n      \"ns2.google.com\",\n      \"ns3.google.com\",\n      \"ns4.google.com\"\n    ],\n    \"domain_status\": [\n      \"clientupdateprohibited\",\n      \"clientdeleteprohibited\",\n      \"clienttransferprohibited\",\n      \"serverdeleteprohibited\",\n      \"serverupdateprohibited\",\n      \"servertransferprohibited\"\n    ],\n    \"whois_raw_registery\": \"\\nDomain Name: GOOGLE.COM\\n   Registry Domain ID: 2138514_DOMAIN_COM-VRSN\\n   Registrar WHOIS Server: whois.markmonitor.com\\n   Registrar URL: http://www.markmonitor.com\\n   Updated Date: 2019-09-09T15:39:04Z\\n   Creation Date: 1997-09-15T04:00:00Z\\n   Registry Expiry Date: 2028-09-14T04:00:00Z\\n   Registrar: MarkMonitor Inc.\\n   Registrar IANA ID: 292\\n   Registrar Abuse Contact Email: abusecomplaints@markmonitor.com\\n   Registrar Abuse Contact Phone: +1.2086851750\\n   Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited\\n   Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited\\n   Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited\\n   Domain Status: serverDeleteProhibited https://icann.org/epp#serverDeleteProhibited\\n   Domain Status: serverTransferProhibited https://icann.org/epp#serverTransferProhibited\\n   Domain Status: serverUpdateProhibited https://icann.org/epp#serverUpdateProhibited\\n   Name Server: NS1.GOOGLE.COM\\n   Name Server: NS2.GOOGLE.COM\\n   Name Server: NS3.GOOGLE.COM\\n   Name Server: NS4.GOOGLE.COM\\n   DNSSEC: unsigned\\n   URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/\\n>>> Last update of whois database: 2026-07-23T08:22:08Z <<<\\n\\nFor more information on Whois status codes, please visit https://icann.org/epp\\n\\nNOTICE: The expiration date displayed in this record is the date the\\nregistrar's sponsorship of the domain name registration in the registry is\\ncurrently set to expire. This date does not necessarily reflect the expiration\\ndate of the domain name registrant's agreement with the sponsoring\\nregistrar.  Users may consult the sponsoring registrar's Whois database to\\nview the registrar's reported date of expiration for this registration.\\n\\nTERMS OF USE: You are not authorized to access or query our Whois\\ndatabase through the use of electronic processes that are high-volume and\\nautomated except as reasonably necessary to register domain names or\\nmodify existing registrations; the Data in VeriSign Global Registry\\nServices' (\\\"VeriSign\\\") Whois database is provided by VeriSign for\\ninformation purposes only, and to assist persons in obtaining information\\nabout or related to a domain name registration record. VeriSign does not\\nguarantee its accuracy. By submitting a Whois query, you agree to abide\\nby the following terms of use: You agree that you may use this Data only\\nfor lawful purposes and that under no circumstances will you use this Data\\nto: (1) allow, enable, or otherwise support the transmission of mass\\nunsolicited, commercial advertising or solicitations via e-mail, telephone,\\nor facsimile; or (2) enable high volume, automated, electronic processes\\nthat apply to VeriSign (or its computer systems). The compilation,\\nrepackaging, dissemination or other use of this Data is expressly\\nprohibited without the prior written consent of VeriSign. You agree not to\\nuse electronic processes that are automated and high-volume to access or\\nquery the Whois database except as reasonably necessary to register\\ndomain names or modify existing registrations. VeriSign reserves the right\\nto restrict your access to the Whois database in its sole discretion to ensure\\noperational stability.  VeriSign may restrict or terminate your access to the\\nWhois database for failure to abide by these terms of use. VeriSign\\nreserves the right to modify these terms at any time.\\n\\nThe Registry database contains ONLY .COM, .NET, .EDU domains and\\nRegistrars.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "563f9d25-852e-4d05-99b7-8373f248001f",
+              "name": "Partial Content — The response contains partial data because an error occurred while processing the request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domainName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Partial Content",
+              "code": 206,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2025-08-14T09:25:32.271Z\",\n  \"status\": 206,\n  \"error\": \"Partial Content\",\n  \"message\": \"The response contains partial data due to an error while processing the request.\",\n  \"path\": \"/v2.0/domain/whois/live\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27d9b104-2ead-4f07-a7f2-01ea844a779e",
+              "name": "Bad Request — Missing or invalid domainName parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domainName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v2.0/domain/whois/live\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-23T08:04:19.197Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb05592b-70d9-41c3-9e91-d377afdfaa41",
+              "name": "Forbidden — Domain extension not supported for live WHOIS",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{domain-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domainName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-23T08:11:12.380Z\",\n  \"status\": 403,\n  \"error\": \"Not Supported Domain extension\",\n  \"message\": \"We are not providing the whois of this domain extension (local)\",\n  \"path\": \"/v2.0/whois/live\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "78704437-d0c9-490b-89f8-c2a9cc62a01f",
+          "name": "Retrieve the complete historical WHOIS record timeline for a domain name",
+          "request": {
+            "name": "Retrieve the complete historical WHOIS record timeline for a domain name",
+            "description": {
+              "content": "Returns every recorded WHOIS snapshot for the specified domain in chronological order, including registrar, contact, name server, and status changes over time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain",
+                "whois",
+                "history"
+              ],
+              "host": [
+                "{{domain-whois-history-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "domainName",
+                  "value": "<string>",
+                  "description": "(Required) Domain name to retrieve historical WHOIS records for (e.g. example.com)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b47ba8a-f9dd-4d1f-a3fd-31872e82c2d2",
+              "name": "Successful historical WHOIS response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "history"
+                  ],
+                  "host": [
+                    "{{domain-whois-history-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domainName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": true,\n  \"whois\": \"historical\",\n  \"total_records\": \"18\",\n  \"whois_domains_historical\": [\n    {\n      \"num\": 1,\n      \"status\": true,\n      \"domain_name\": \"example.com\",\n      \"query_time\": \"2022-04-28 12:56:13\",\n      \"create_date\": \"1992-01-01\",\n      \"update_date\": \"2021-08-14\",\n      \"expiry_date\": \"2022-08-13\"\n    },\n    {\n      \"num\": 18,\n      \"status\": true,\n      \"domain_name\": \"example.com\",\n      \"query_time\": \"2026-07-23 07:47:26\",\n      \"whois_server\": \"whois.verisign-grs.com\",\n      \"domain_registered\": \"yes\",\n      \"create_date\": \"1992-01-01\",\n      \"update_date\": \"2026-01-16\",\n      \"expiry_date\": \"2026-08-13\",\n      \"name_servers\": [\n        \"elliott.ns.cloudflare.com\",\n        \"hera.ns.cloudflare.com\"\n      ],\n      \"whois_raw_domain\": \"\\n% IANA WHOIS server\\n% for more information on IANA, visit http://www.iana.org\\n% This query returned 1 object\\n\\ndomain:       EXAMPLE.COM\\n\\norganisation: Internet Assigned Numbers Authority\\n\\ncreated:      1992-01-01\\nsource:       IANA\",\n      \"registry_data\": {\n        \"domain_name\": \"EXAMPLE.COM\",\n        \"query_time\": \"2026-07-23 07:47:25\",\n        \"whois_server\": \"whois.verisign-grs.com\",\n        \"domain_registered\": \"yes\",\n        \"create_date\": \"1995-08-14\",\n        \"update_date\": \"2026-01-16\",\n        \"expiry_date\": \"2026-08-13\",\n        \"domain_registrar\": {\n          \"iana_id\": \"376\",\n          \"registrar_name\": \"RESERVED-Internet Assigned Numbers Authority\",\n          \"whois_server\": \"whois.iana.org\",\n          \"website_url\": \"http://res-dom.iana.org\"\n        },\n        \"name_servers\": [\n          \"elliott.ns.cloudflare.com\",\n          \"hera.ns.cloudflare.com\"\n        ],\n        \"domain_status\": [\n          \"clientupdateprohibited\",\n          \"clientdeleteprohibited\",\n          \"clienttransferprohibited\"\n        ],\n        \"whois_raw_registery\": \"\\nDomain Name: EXAMPLE.COM\\n   Registry Domain ID: 2336799_DOMAIN_COM-VRSN\\n   Registrar WHOIS Server: whois.iana.org\\n   Registrar URL: http://res-dom.iana.org\\n   Updated Date: 2026-01-16T18:26:50Z\\n   Creation Date: 1995-08-14T04:00:00Z\\n   Registry Expiry Date: 2026-08-13T04:00:00Z\\n   Registrar: RESERVED-Internet Assigned Numbers Authority\\n   Registrar IANA ID: 376\\n   Registrar Abuse Contact Email:\\n   Registrar Abuse Contact Phone:\\n   Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited\\n   Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited\\n   Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited\\n   Name Server: ELLIOTT.NS.CLOUDFLARE.COM\\n   Name Server: HERA.NS.CLOUDFLARE.COM\\n   DNSSEC: signedDelegation\\n   DNSSEC DS Data: 2371 13 2 C988EC423E3880EB8DD8A46FE06CA230EE23F35B578D64E78B29C3E1C83D245A\\n   URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/\\n>>> Last update of whois database: 2026-07-23T08:16:23Z <<<\\n\\nFor more information on Whois status codes, please visit https://icann.org/epp\\n\\nNOTICE: The expiration date displayed in this record is the date the\\nregistrar's sponsorship of the domain name registration in the registry is\\ncurrently set to expire. This date does not necessarily reflect the expiration\\ndate of the domain name registrant's agreement with the sponsoring\\nregistrar.  Users may consult the sponsoring registrar's Whois database to\\nview the registrar's reported date of expiration for this registration.\\n\\nTERMS OF USE: You are not authorized to access or query our Whois\\ndatabase through the use of electronic processes that are high-volume and\\nautomated except as reasonably necessary to register domain names or\\nmodify existing registrations; the Data in VeriSign Global Registry\\nServices' (\\\"VeriSign\\\") Whois database is provided by VeriSign for\\ninformation purposes only, and to assist persons in obtaining information\\nabout or related to a domain name registration record. VeriSign does not\\nguarantee its accuracy. By submitting a Whois query, you agree to abide\\nby the following terms of use: You agree that you may use this Data only\\nfor lawful purposes and that under no circumstances will you use this Data\\nto: (1) allow, enable, or otherwise support the transmission of mass\\nunsolicited, commercial advertising or solicitations via e-mail, telephone,\\nor facsimile; or (2) enable high volume, automated, electronic processes\\nthat apply to VeriSign (or its computer systems). The compilation,\\nrepackaging, dissemination or other use of this Data is expressly\\nprohibited without the prior written consent of VeriSign. You agree not to\\nuse electronic processes that are automated and high-volume to access or\\nquery the Whois database except as reasonably necessary to register\\ndomain names or modify existing registrations. VeriSign reserves the right\\nto restrict your access to the Whois database in its sole discretion to ensure\\noperational stability.  VeriSign may restrict or terminate your access to the\\nWhois database for failure to abide by these terms of use. VeriSign\\nreserves the right to modify these terms at any time.\\n\\nThe Registry database contains ONLY .COM, .NET, .EDU domains and\\nRegistrars.\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00bc723f-ca1e-4afb-aa77-0e8afd4d7e78",
+              "name": "Bad Request — Invalid domainName parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "history"
+                  ],
+                  "host": [
+                    "{{domain-whois-history-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domainName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-23T07:47:39.105Z\",\n  \"status\": 400,\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"Please pass domain param correct value [For Technical Support: support@whoisfreaks.com]\",\n  \"path\": \"/v1.0/whois\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd23d51f-363d-43aa-b228-06d7fc53368e",
+              "name": "Not Found — No historical WHOIS records for the domain",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "history"
+                  ],
+                  "host": [
+                    "{{domain-whois-history-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "domainName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-07-23T07:47:40.893Z\",\n  \"status\": 404,\n  \"error\": \"Record Not Found\",\n  \"message\": \"Record not found\",\n  \"path\": \"/v1.0/whois\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f37cf12c-fb0b-4ae8-8bf7-e610625a59cc",
+          "name": "Search domains by owner name, email, company, or keyword",
+          "request": {
+            "name": "Search domains by owner name, email, company, or keyword",
+            "description": {
+              "content": "Performs a reverse WHOIS search returning matching domains with registration details. Use mode=default for full WHOIS data or mode=mini for a condensed summary. When mode=default, each item in whois_domains_historical matches the ReverseWhoisDomainDefault schema (full registrar, contacts, name servers, status, and registry data). When mode=mini, each item matches the ReverseWhoisDomainMini schema (domain name, create/update/expiry dates, owner name, email, and company only).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "domain",
+                "whois",
+                "reverse"
+              ],
+              "host": [
+                "{{domain-whois-reverse-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "keyword",
+                  "value": "<string>",
+                  "description": "Keyword to search for in domain names (case-insensitive pattern matching)."
+                },
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<string>",
+                  "description": "Email address to search for in registrant records (case-insensitive exact or regex match; * wildcard supported)."
+                },
+                {
+                  "disabled": false,
+                  "key": "owner",
+                  "value": "<string>",
+                  "description": "Registrant or owner name to search for (full-text phrase matching)."
+                },
+                {
+                  "disabled": false,
+                  "key": "company",
+                  "value": "<string>",
+                  "description": "Organization or company name to search for (full-text phrase matching)."
+                },
+                {
+                  "disabled": false,
+                  "key": "exact",
+                  "value": "false",
+                  "description": "Set to true to return only exact matches for keyword, owner, or company. Default is false."
+                },
+                {
+                  "disabled": false,
+                  "key": "mode",
+                  "value": "default",
+                  "description": "Response detail level. 'default' returns full WHOIS data per domain; 'mini' returns only key fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "89a1a543-af53-4ccd-8639-14842f578a39",
+              "name": "Successful reverse WHOIS search response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "reverse"
+                  ],
+                  "host": [
+                    "{{domain-whois-reverse-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "mode",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_Result\": 8,\n  \"total_Pages\": 1,\n  \"current_Page\": 1,\n  \"whois_domains_historical\": [\n    {\n      \"num\": 1,\n      \"status\": true,\n      \"domain_name\": \"ipgeolocationdatabase.com\",\n      \"query_time\": \"2026-05-21 04:00:28\",\n      \"create_date\": \"2010-04-14\",\n      \"update_date\": \"2026-05-19\",\n      \"expiry_date\": \"2027-04-14\",\n      \"domain_registrar\": {\n        \"iana_id\": \"269\",\n        \"registrar_name\": \"Key-Systems GmbH\",\n        \"whois_server\": \"whois.rrpproxy.net\",\n        \"website_url\": \"http://www.key-systems.net\",\n        \"email_address\": \"abuse@key-systems.net\",\n        \"phone_number\": \"+4968949396850\"\n      },\n      \"registrant_contact\": {\n        \"id\": \"Not Available From Registry\",\n        \"name\": \"On behalf of ipgeolocationdatabase.com OWNER\",\n        \"company\": \"c/o whoisproxy.com\",\n        \"city\": \"Alexandria\",\n        \"state\": \"VA\",\n        \"zip_code\": \"22314\",\n        \"country_name\": \"United States\",\n        \"country_code\": \"US\",\n        \"email_address\": \"720ed14de67db24c4eb07295ecae369f9f1bfe8a4dd5cd0c51f0e4754ee24895@ipgeolocationdatabase.com.whoisproxy.org\",\n        \"phone\": \"+6448319528\"\n      },\n      \"name_servers\": [\n        \"dale.ns.cloudflare.com\",\n        \"olga.ns.cloudflare.com\"\n      ],\n      \"domain_status\": [\n        \"clienttransferprohibited\"\n      ],\n      \"whois_raw_domain\": \"Domain Name: ipgeolocationdatabase.com\\nRegistry Domain ID: ...\\nRegistrar WHOIS Server: whois.rrpproxy.net\\n...\",\n      \"registry_data\": {\n        \"domain_name\": \"ipgeolocationdatabase.com\",\n        \"domain_registrar\": {\n          \"registrar_name\": \"Key-Systems GmbH\"\n        },\n        \"name_servers\": [\n          \"dale.ns.cloudflare.com\",\n          \"olga.ns.cloudflare.com\"\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ada3fdd9-36f4-4919-a732-55149b62e8fd",
+              "name": "Bad Request -- Missing or invalid search parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "reverse"
+                  ],
+                  "host": [
+                    "{{domain-whois-reverse-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "mode",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2025-08-14T10:01:46.601Z\",\n  \"status\": 400,\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"Please pass param value.\",\n  \"path\": \"/v1.0/domain/whois/reverse\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79febecd-facf-419e-b20f-925141367efb",
+              "name": "Not Found -- No domains match the search criteria",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "domain",
+                    "whois",
+                    "reverse"
+                  ],
+                  "host": [
+                    "{{domain-whois-reverse-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "keyword",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "mode",
+                      "value": "default"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2025-08-14T10:01:54.778Z\",\n  \"status\": 404,\n  \"error\": \"Record not found\",\n  \"message\": \"Record not found.\",\n  \"path\": \"/v1.0/domain/whois/reverse\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9249f9c-416a-4100-9269-4204cfcdfbe2",
+          "name": "Retrieve WHOIS registration and ownership data for an IP address",
+          "request": {
+            "name": "Retrieve WHOIS registration and ownership data for an IP address",
+            "description": {
+              "content": "Returns WHOIS details for an IPv4 or IPv6 address including IP range, organization, contacts, routes, and raw WHOIS output.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ip",
+                "whois",
+                "live"
+              ],
+              "host": [
+                "{{ip-whois-live-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Format of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "ip",
+                  "value": "<string>",
+                  "description": "(Required) IPv4 or IPv6 address to look up."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02e8fa6c-ea4e-49dd-9210-c8eebca10335",
+              "name": "Successful WHOIS lookup response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ip",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{ip-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": true,\n  \"ip_address\": \"8.8.8.8\",\n  \"query_time\": \"2026-07-23 08:23:30\",\n  \"whois_server\": \"whois.arin.net\",\n  \"inet_nums\": [\n    {\n      \"start_ip\": \"8.8.8.0\",\n      \"end_ip\": \"8.8.8.255\",\n      \"cidr\": [\n        \"8.8.8.0/24\"\n      ],\n      \"net_name\": \"GOGL\",\n      \"net_handle\": \"NET-8-8-8-0-2\",\n      \"status\": \"Direct Allocation\",\n      \"organization\": \"Google LLC (GOGL)\",\n      \"date_created\": \"2023-12-28\",\n      \"date_updated\": \"2023-12-28\",\n      \"source\": \"https://rdap.arin.net/registry/ip/8.8.8.0\",\n      \"parents\": [\n        \"NET8 (NET-8-0-0-0-0)\"\n      ]\n    }\n  ],\n  \"organization\": {\n    \"handle\": \"GOGL\",\n    \"name\": \"Google LLC\",\n    \"address\": [\n      \"1600 Amphitheatre Parkway\",\n      \"Mountain View\",\n      \"CA\",\n      \"94043\",\n      \"US\"\n    ],\n    \"street\": \"Amphitheatre Parkway\",\n    \"city\": \"Mountain View\",\n    \"state\": \"CA\",\n    \"zip_code\": \"94043\",\n    \"country\": [\n      \"US\"\n    ],\n    \"date_created\": \"2000-03-30\",\n    \"date_updated\": \"2019-10-31\",\n    \"source\": \"https://rdap.arin.net/registry/entity/GOGL\"\n  },\n  \"technical_contacts\": [\n    {\n      \"handle\": \"ZG39-ARIN\",\n      \"name\": \"Google LLC\",\n      \"email\": [\n        \"arin-contact@google.com\"\n      ],\n      \"phone\": [\n        \"+1-650-253-0000\"\n      ],\n      \"source\": \"https://rdap.arin.net/registry/entity/ZG39-ARIN\"\n    }\n  ],\n  \"abuse_contacts\": [\n    {\n      \"handle\": \"ABUSE5250-ARIN\",\n      \"name\": \"Abuse\",\n      \"email\": [\n        \"network-abuse@google.com\"\n      ],\n      \"phone\": [\n        \"+1-650-253-0000\"\n      ],\n      \"source\": \"https://rdap.arin.net/registry/entity/ABUSE5250-ARIN\"\n    }\n  ],\n  \"routes\": [\n    {\n      \"source\": \"https://rdap.arin.net/registry/ip/8.8.8.0\"\n    }\n  ],\n  \"whois_raw_response\": \"\\n#\\n# ARIN WHOIS data and services are subject to the Terms of Use\\n# available at: https://www.arin.net/resources/registry/whois/tou/\\n#\\n# If you see inaccuracies in the results, please report at\\n# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/\\n#\\n# Copyright 1997-2026, American Registry for Internet Numbers, Ltd.\\n#\\n\\n\\nNetRange:       8.8.8.0 - 8.8.8.255\\nCIDR:           8.8.8.0/24\\nNetName:        GOGL\\nNetHandle:      NET-8-8-8-0-2\\nParent:         NET8 (NET-8-0-0-0-0)\\nNetType:        Direct Allocation\\nOriginAS:       \\nOrganization:   Google LLC (GOGL)\\nRegDate:        2023-12-28\\nUpdated:        2023-12-28\\nRef:            https://rdap.arin.net/registry/ip/8.8.8.0\\n\\n\\n\\nOrgName:        Google LLC\\nOrgId:          GOGL\\nAddress:        1600 Amphitheatre Parkway\\nCity:           Mountain View\\nStateProv:      CA\\nPostalCode:     94043\\nCountry:        US\\nRegDate:        2000-03-30\\nUpdated:        2019-10-31\\nComment:        Please note that the recommended way to file abuse complaints are located in the following links. \\nComment:        \\nComment:        To report abuse and illegal activity: https://www.google.com/contact/\\nComment:        \\nComment:        For legal requests: http://support.google.com/legal \\nComment:        \\nComment:        Regards, \\nComment:        The Google Team\\nRef:            https://rdap.arin.net/registry/entity/GOGL\\n\\n\\nOrgAbuseHandle: ABUSE5250-ARIN\\nOrgAbuseName:   Abuse\\nOrgAbusePhone:  +1-650-253-0000 \\nOrgAbuseEmail:  network-abuse@google.com\\nOrgAbuseRef:    https://rdap.arin.net/registry/entity/ABUSE5250-ARIN\\n\\nOrgTechHandle: ZG39-ARIN\\nOrgTechName:   Google LLC\\nOrgTechPhone:  +1-650-253-0000 \\nOrgTechEmail:  arin-contact@google.com\\nOrgTechRef:    https://rdap.arin.net/registry/entity/ZG39-ARIN\\n\\n\\n#\\n# ARIN WHOIS data and services are subject to the Terms of Use\\n# available at: https://www.arin.net/resources/registry/whois/tou/\\n#\\n# If you see inaccuracies in the results, please report at\\n# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/\\n#\\n# Copyright 1997-2026, American Registry for Internet Numbers, Ltd.\\n#\\n\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2f6a7f9-ad62-48b0-8457-b8abbda22d37",
+              "name": "Partial Content -- The WHOIS server returned an incomplete response. Some fields may be missing or truncated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ip",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{ip-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Partial Content",
+              "code": 206,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2025-08-14T09:25:32.271Z\",\n  \"status\": 206,\n  \"error\": \"Partial Response\",\n  \"message\": \"Partial response due to an error occurred while processing the request.\",\n  \"path\": \"/v1.0/ip/whois/live\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18df4d38-56a8-4491-a75d-61745bcbb89b",
+              "name": "Bad Request -- Missing or invalid ip parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ip",
+                    "whois",
+                    "live"
+                  ],
+                  "host": [
+                    "{{ip-whois-live-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid Param Exception\",\n  \"message\": \"please pass correct parameters\",\n  \"path\": \"/v1.0/ip/whois/live\",\n  \"status\": 400,\n  \"timestamp\": \"2026-07-23T07:50:28.230Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "asn-whois-live-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v2.0",
+      "key": "domain-whois-live-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "domain-whois-history-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "domain-whois-reverse-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.apifreaks.com/v1.0",
+      "key": "ip-whois-live-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4e08415a-0724-443b-a311-3185d39645f7",
+    "name": "Apifreaks Api Hub For Developers WHOIS APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged WHOIS APIs across 6 of this provider's published API definitions: apifreaks-api-hub-for-developers-asn-lookup-openapi.json, apifreaks-api-hub-for-developers-bulk-whois-lookup-openapi.json, apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json, apifreaks-api-hub-for-developers-reverse-whois-openapi.json, apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json, apifreaks-api-hub-for-developers-whois-ip-lookup-openapi.json. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: APIFreaks Support\n Email: support@apifreaks.com",
+      "type": "text/plain"
+    }
+  }
+}
