@@ -16,6 +16,33 @@ created: '2026-07-29'
 modified: '2026-08-09'
 specificationVersion: '0.23'
 tags:
+  - IP Intelligence
+  - Geolocation
+  - WHOIS
+  - Domain Intelligence
+  - DNS
+  - Geocoding
+  - Email Validation
+  - Phone Validation
+  - SSL
+  - Web Scraping
+  - Screenshots
+  - PDF Processing
+  - Currency
+  - Forex
+  - Commodities
+  - financial validation
+  - ZIP Codes
+  - Weather
+  - Timezone
+  - GeoDB
+  - User-Agent Parsing
+  - Astronomy
+  - Developer Tools
+  - MCP
+  - Agent Ready
+  - OCR
+tags_raw:
   - IP intelligence
   - geolocation
   - WHOIS
@@ -53,6 +80,15 @@ apis:
   humanURL: https://apifreaks.com/integrations/mcp-server
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
+  - MCP
+  - Agent Ready
+  - Developer Tools
+  - IP Intelligence
+  - WHOIS
+  - DNS
+  - Weather
+  - Currency
+  tags_raw:
   - MCP
   - agent-ready
   - developer tools
