@@ -10,6 +10,20 @@ description: >-
   user-agent parsing and astronomy. Credits are charged only on successful 2xx responses and refunded on
   errors, new accounts get 10,000 free credits with no card, and the whole surface is published as 102
   OpenAPI 3.1 specifications plus an official Apache-2.0 MCP server exposing 59 agent tools.
+deliveryModel:
+  model: open-core
+  license: Apache-2.0
+  open_source: true
+  commercial: true
+  callable_host: true
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://apifreaks.com/img/opengraph-image.jpg
 url: https://raw.githubusercontent.com/api-evangelist/apifreaks-api-hub-for-developers/refs/heads/main/apis.yml
 created: '2026-07-29'
