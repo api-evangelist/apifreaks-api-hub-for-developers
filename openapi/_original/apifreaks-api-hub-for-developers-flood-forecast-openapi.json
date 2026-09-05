@@ -19,7 +19,9 @@
   "paths": {
     "/flood": {
       "get": {
-        "tags": ["Weather APIs"],
+        "tags": [
+          "Weather APIs"
+        ],
         "summary": "Get flood risk and river discharge forecast",
         "description": "Provides flood forecast data for a given location, including river discharge metrics such as mean, median, maximum, minimum, and percentile values (p25, p75). Requires a startDate and endDate, with the date range limited to 16 days. Location can be specified using city name, latitude/longitude, or IP address; if omitted entirely, the caller's IP is used.",
         "operationId": "getFloodForecast",
@@ -31,7 +33,9 @@
             "description": "Format of the response. Possible values: json.",
             "schema": {
               "type": "string",
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "default": "json"
             }
           },
@@ -98,7 +102,9 @@
             "description": "Forecast data granularity. Only 'daily' is supported; any other value returns a 400 error.",
             "schema": {
               "type": "string",
-              "enum": ["daily"],
+              "enum": [
+                "daily"
+              ],
               "default": "daily"
             }
           },
@@ -220,6 +226,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -312,6 +323,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -333,6 +349,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -366,7 +387,10 @@
             "$ref": "#/components/schemas/FloodForecastData"
           }
         },
-        "required": ["location", "forecast"],
+        "required": [
+          "location",
+          "forecast"
+        ],
         "description": "Flood forecast response containing location data and date-keyed river discharge forecasts."
       },
       "LocationByCoordinates": {
@@ -620,7 +644,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -673,11 +699,21 @@
       "FloodForecastDay": {
         "type": "object",
         "description": "Flood forecast data for a single day, containing river discharge metrics.",
-        "required": ["daily"],
+        "required": [
+          "daily"
+        ],
         "properties": {
           "daily": {
             "$ref": "#/components/schemas/FloodDaily"
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

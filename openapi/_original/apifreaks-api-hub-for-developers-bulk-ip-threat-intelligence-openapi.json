@@ -19,7 +19,9 @@
   "paths": {
     "/ip/security": {
       "post": {
-        "tags": ["IP Geolocation APIs"],
+        "tags": [
+          "IP Geolocation APIs"
+        ],
         "summary": "Retrieve threat intelligence data for multiple IP addresses in a single request",
         "description": "Get security profiles including threat score, VPN, proxy, Tor, bot, and spam detection for up to 50,000 IPs per request. Each item in the response array corresponds to one requested IP; invalid or bogon IPs return a per-item error object.",
         "operationId": "bulkIpSecurityLookup",
@@ -31,7 +33,10 @@
             "description": "Format of the response.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -65,7 +70,11 @@
                 "typicalRequest": {
                   "summary": "Typical bulk threat intelligence request",
                   "value": {
-                    "ips": ["8.8.8.8", "1.1.1.1", "45.33.32.156"]
+                    "ips": [
+                      "8.8.8.8",
+                      "1.1.1.1",
+                      "45.33.32.156"
+                    ]
                   }
                 }
               }
@@ -176,6 +185,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -197,6 +211,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -222,7 +241,9 @@
     "schemas": {
       "BulkIpSecurityRequest": {
         "type": "object",
-        "required": ["ips"],
+        "required": [
+          "ips"
+        ],
         "description": "Request body for bulk IP threat intelligence lookup.",
         "properties": {
           "ips": {
@@ -237,7 +258,9 @@
       },
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -265,7 +288,9 @@
       "BulkIpSecurityItemError": {
         "type": "object",
         "description": "Per-item error, returned in place of a security result when an individual IP is invalid, bogon/reserved, or not found in the database.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "message": {
             "type": "string",
@@ -276,7 +301,10 @@
       "BulkIpSecurityResultItem": {
         "type": "object",
         "description": "Threat intelligence result for one successfully resolved IP address.",
-        "required": ["ip", "security"],
+        "required": [
+          "ip",
+          "security"
+        ],
         "properties": {
           "ip": {
             "type": "string",
@@ -402,6 +430,14 @@
             "type": "string",
             "description": "Name of the cloud provider, if the IP address belongs to a cloud provider."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

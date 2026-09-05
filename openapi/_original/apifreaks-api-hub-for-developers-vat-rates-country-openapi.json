@@ -19,7 +19,9 @@
   "paths": {
     "/vat/rates/country": {
       "get": {
-        "tags": ["Financial APIs"],
+        "tags": [
+          "Financial APIs"
+        ],
         "summary": "Get VAT rate by country code",
         "description": "Fetches VAT rates for a single country or state provided via query parameters.",
         "operationId": "getVatRatesByCountry",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
@@ -71,7 +76,10 @@
                         "type": "vat",
                         "currency": "EUR",
                         "standard_rate": 0.19,
-                        "reduced_rate": [0.07, 0],
+                        "reduced_rate": [
+                          0.07,
+                          0
+                        ],
                         "categories": {
                           "books": 0.07,
                           "newspapers": 0.07,
@@ -95,6 +103,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -117,6 +130,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -134,6 +152,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -166,14 +189,22 @@
       },
       "VatRateItem": {
         "type": "object",
-        "required": ["country", "type", "currency", "standard_rate"],
+        "required": [
+          "country",
+          "type",
+          "currency",
+          "standard_rate"
+        ],
         "properties": {
           "country": {
             "type": "string",
             "description": "Country identifier returned by the API."
           },
           "state": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "State or region identifier for sub-national tax data."
           },
           "type": {
@@ -249,7 +280,9 @@
       },
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -274,6 +307,14 @@
           }
         },
         "description": "Standard error envelope returned by the API on failed requests."
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
       }
     }
   },

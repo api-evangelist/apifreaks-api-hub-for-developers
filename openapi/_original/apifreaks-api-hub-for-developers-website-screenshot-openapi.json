@@ -19,7 +19,9 @@
   "paths": {
     "/screenshot": {
       "get": {
-        "tags": ["Screenshot APIs"],
+        "tags": [
+          "Screenshot APIs"
+        ],
         "summary": "Build screenshots the way real users see the web — not just what fits on the screen.",
         "description": "Capture full-page screenshots and videos of websites with advanced options like device simulation, custom code injection, cookie banner blocking, and scrollable content recording.\nSupports multiple output formats including JSON, image, GIF, MP4, and WebM.\n",
         "operationId": "websiteScreenshot",
@@ -30,7 +32,9 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "default": "json"
             },
             "description": "Response format: 'json'."
@@ -41,7 +45,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "image"]
+              "enum": [
+                "json",
+                "image"
+              ]
             },
             "description": "Output format for screenshot results"
           },
@@ -51,7 +58,15 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["PNG", "JPEG", "WEBP", "PDF", "mp4", "gif", "webm"]
+              "enum": [
+                "PNG",
+                "JPEG",
+                "WEBP",
+                "PDF",
+                "mp4",
+                "gif",
+                "webm"
+              ]
             },
             "description": "File type for screenshot output"
           },
@@ -241,7 +256,11 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["load", "domcontentloaded", "networkidle"]
+              "enum": [
+                "load",
+                "domcontentloaded",
+                "networkidle"
+              ]
             },
             "description": "Wait for a specific load event before capturing the screenshot."
           },
@@ -507,7 +526,11 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["normal", "fast", "slow"]
+              "enum": [
+                "normal",
+                "fast",
+                "slow"
+              ]
             },
             "description": "Speed of scrolling during the screenshot."
           },
@@ -741,6 +764,17 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "400": {
@@ -773,6 +807,17 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "408": {
@@ -794,6 +839,17 @@
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
               }
             }
           }
@@ -820,7 +876,13 @@
       "ScreenshotResponse": {
         "type": "object",
         "description": "Website screenshot response containing the screenshot URL and metadata.",
-        "required": ["screenshot", "url", "created_at", "format", "ttl"],
+        "required": [
+          "screenshot",
+          "url",
+          "created_at",
+          "format",
+          "ttl"
+        ],
         "properties": {
           "screenshot": {
             "type": "string",
@@ -1109,7 +1171,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -1132,6 +1196,26 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads": {
+        "description": "Specifies the maximum number of concurrent requests allowed.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads-Active": {
+        "description": "Indicates the number of active concurrent requests being processed.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

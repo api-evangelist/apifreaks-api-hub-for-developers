@@ -17,9 +17,6 @@ tags:
 - name: PDF Upload and Download APIs
 paths:
   /pdf/resource/download:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: PDF Resource Download API Server
     get:
       tags:
       - PDF Upload and Download APIs
@@ -54,6 +51,9 @@ paths:
               schema:
                 type: string
                 format: binary
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing required resource_id parameter
           content:
@@ -69,6 +69,9 @@ paths:
                     timestamp: '2026-07-27T10:47:12.356Z'
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Resource ID Not Found
           content:
@@ -84,11 +87,14 @@ paths:
                     message: Please provide a valid resource ID.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: downloadResource
-  /pdf/resource/upload-binary:
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: PDF Binary Resource Upload API Server
+      description: PDF Resource Download API Server
+  /pdf/resource/upload-binary:
     post:
       tags:
       - PDF Upload and Download APIs
@@ -133,6 +139,9 @@ paths:
                   value:
                     fileName: binarytest.pdf
                     fileId: b0fbf78c-8fe2-49b6-ad3d-63efb4ac8e58
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing file_name or empty body
           content:
@@ -156,6 +165,9 @@ paths:
                     message: Invalid parameter value provided for 'dataBufferFlux'.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '415':
           description: Unsupported Media Type — File extension not supported
           content:
@@ -171,11 +183,14 @@ paths:
                     message: The provided file type is not supported. Refer to the documentation for valid file types.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: uploadResourceBinary
-  /pdf/resource/upload:
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: PDF Resource Upload API Server
+      description: PDF Binary Resource Upload API Server
+  /pdf/resource/upload:
     post:
       tags:
       - PDF Upload and Download APIs
@@ -227,6 +242,9 @@ paths:
                       fileId: 9922d104-25a0-432c-8c26-2be2ba14798a
                     - fileName: test.pdf
                       fileId: 8a6b3332-6fe0-42b0-a808-df7a36926a79
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing or invalid parameters
           content:
@@ -242,6 +260,9 @@ paths:
                     status: 400
                     error: Missing or Invalid Parameters
                     message: One or more required parameters are missing or incorrect.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '415':
           description: Unsupported Media Type — File type not supported
           content:
@@ -257,42 +278,14 @@ paths:
                     status: 415
                     error: Unsupported File Type
                     message: The provided file type is not supported. Refer to the documentation for valid file types.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: PDF Resource Upload API Server
 components:
   schemas:
-    ResourceUploadResponse:
-      type: object
-      required:
-      - files
-      properties:
-        files:
-          type: array
-          items:
-            type: object
-            required:
-            - fileName
-            - fileId
-            properties:
-              fileName:
-                type: string
-                description: Name of the uploaded file.
-              fileId:
-                type: string
-                description: Unique ID of the uploaded file, used to reference it in processing operations.
-          description: Array of uploaded file metadata objects.
-      description: Resource upload response containing file metadata.
-    BinaryResourceUploadResponse:
-      type: object
-      required:
-      - fileName
-      - fileId
-      properties:
-        fileName:
-          type: string
-          description: The name of the uploaded file.
-        fileId:
-          type: string
-          description: The unique identifier assigned to the uploaded file.
-      description: Binary resource upload response containing file metadata.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -315,6 +308,19 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
+    BinaryResourceUploadResponse:
+      type: object
+      required:
+      - fileName
+      - fileId
+      properties:
+        fileName:
+          type: string
+          description: The name of the uploaded file.
+        fileId:
+          type: string
+          description: The unique identifier assigned to the uploaded file.
+      description: Binary resource upload response containing file metadata.
     ResourceUploadRequest:
       type: object
       description: Multipart form-data request body containing the file to upload.
@@ -324,6 +330,32 @@ components:
           type: string
           format: binary
           description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Repeat this field to upload multiple files in one request.
+    ResourceUploadResponse:
+      type: object
+      required:
+      - files
+      properties:
+        files:
+          type: array
+          items:
+            type: object
+            required:
+            - fileName
+            - fileId
+            properties:
+              fileName:
+                type: string
+                description: Name of the uploaded file.
+              fileId:
+                type: string
+                description: Unique ID of the uploaded file, used to reference it in processing operations.
+          description: Array of uploaded file metadata objects.
+      description: Resource upload response containing file metadata.
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

@@ -19,7 +19,9 @@
   "paths": {
     "/domain/whois/live": {
       "get": {
-        "tags": ["WHOIS APIs"],
+        "tags": [
+          "WHOIS APIs"
+        ],
         "summary": "Retrieve real-time WHOIS registration and ownership data for a domain name",
         "description": "Returns the current WHOIS record for the specified domain, including registrar details, registrant/administrative/technical/billing/reseller contacts, name servers, status codes, and raw WHOIS text.",
         "operationId": "lookupDomainWhois",
@@ -31,7 +33,10 @@
             "description": "Format of the response.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -144,6 +149,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "206": {
@@ -165,6 +175,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -198,6 +213,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "403": {
@@ -219,6 +239,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -244,7 +269,9 @@
     "schemas": {
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -298,7 +325,11 @@
           },
           "domain_registered": {
             "type": "string",
-            "enum": ["yes", "no", "restricted"],
+            "enum": [
+              "yes",
+              "no",
+              "restricted"
+            ],
             "description": "Domain registration status; 'restricted' means the registry withholds registration details."
           },
           "create_date": {
@@ -478,7 +509,11 @@
           },
           "domain_registered": {
             "type": "string",
-            "enum": ["yes", "no", "restricted"],
+            "enum": [
+              "yes",
+              "no",
+              "restricted"
+            ],
             "description": "Domain registration status as recorded by the registry."
           },
           "create_date": {
@@ -518,6 +553,14 @@
             "$ref": "#/components/schemas/DomainRegistrar",
             "description": "Registrar of record as recorded directly by the registry."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

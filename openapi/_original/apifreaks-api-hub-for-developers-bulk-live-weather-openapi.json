@@ -19,7 +19,9 @@
   "paths": {
     "/current": {
       "post": {
-        "tags": ["Weather APIs"],
+        "tags": [
+          "Weather APIs"
+        ],
         "summary": "Get real-time weather data for multiple locations, coordinates, or IP addresses",
         "description": "Retrieve current weather conditions for up to `50 locations` in a single request. A maximum of 50 locations (city names, IP addresses, or geographic coordinates) can be included in the request body.",
         "parameters": [
@@ -30,7 +32,9 @@
             "description": "Format of the response. Possible values: json.",
             "schema": {
               "type": "string",
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "default": "json"
             }
           },
@@ -168,6 +172,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -199,6 +208,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -235,7 +249,9 @@
             "description": "Array of location objects to query. Maximum 50 items per request."
           }
         },
-        "required": ["locations"],
+        "required": [
+          "locations"
+        ],
         "description": "Request body for bulk live weather lookup, containing an array of location specifications."
       },
       "BulkLocationItem": {
@@ -262,7 +278,9 @@
       },
       "BulkCurrentResponse": {
         "type": "object",
-        "required": ["bulk"],
+        "required": [
+          "bulk"
+        ],
         "properties": {
           "bulk": {
             "type": "array",
@@ -285,7 +303,10 @@
       },
       "CurrentWeatherResponse": {
         "type": "object",
-        "required": ["location", "current"],
+        "required": [
+          "location",
+          "current"
+        ],
         "properties": {
           "location": {
             "$ref": "#/components/schemas/WeatherLocation"
@@ -300,7 +321,9 @@
       "BulkWeatherItemError": {
         "type": "object",
         "description": "Per-item error, returned in place of a weather result when an individual location could not be resolved.",
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -590,8 +613,34 @@
           "weather_code": {
             "type": "integer",
             "enum": [
-              0, 1, 2, 3, 45, 48, 51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 71,
-              73, 75, 77, 80, 81, 82, 85, 86, 95, 96, 99
+              0,
+              1,
+              2,
+              3,
+              45,
+              48,
+              51,
+              53,
+              55,
+              56,
+              57,
+              61,
+              63,
+              65,
+              66,
+              67,
+              71,
+              73,
+              75,
+              77,
+              80,
+              81,
+              82,
+              85,
+              86,
+              95,
+              96,
+              99
             ],
             "description": "WMO weather condition code representing current conditions. Supported codes: 0 clear sky; 1, 2, 3 varying cloud cover; 45, 48 fog; 51, 53, 55 drizzle; 56, 57 freezing drizzle; 61, 63, 65 rain; 66, 67 freezing rain; 71, 73, 75 snowfall; 77 snow grains; 80, 81, 82 rain showers; 85, 86 snow showers; 95 thunderstorm; 96, 99 thunderstorm with hail."
           },
@@ -795,7 +844,9 @@
       },
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -820,6 +871,14 @@
           }
         },
         "description": "Standard error envelope returned by the API on failed requests."
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
       }
     }
   },

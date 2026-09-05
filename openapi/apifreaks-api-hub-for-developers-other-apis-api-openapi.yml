@@ -292,6 +292,9 @@ paths:
                       moon_parallactic_angle: 53.576490644915204
                       moon_illumination_percentage: '77.00'
                       moon_angle: 122.67689249117335
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request – Invalid parameters provided
           content:
@@ -311,6 +314,9 @@ paths:
                   summary: Invalid date format
                   value:
                     message: You must provide date in the 'yyyy-MM-dd' format
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found
           content:
@@ -322,53 +328,33 @@ paths:
                   summary: Location not found
                   value:
                     message: We couldn't find the location (ZZZNOTEXIST). Try a city or state level location address only.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
 components:
   schemas:
-    AstronomyMorning:
+    ErrorResponse:
       type: object
-      description: Morning astronomical data including twilight, blue hour, and golden hour times.
+      description: Standard error envelope returned by the API on failed requests.
       required:
-      - astronomical_twilight_begin
-      - astronomical_twilight_end
-      - nautical_twilight_begin
-      - nautical_twilight_end
-      - civil_twilight_begin
-      - civil_twilight_end
-      - blue_hour_begin
-      - blue_hour_end
-      - golden_hour_begin
-      - golden_hour_end
+      - message
       properties:
-        astronomical_twilight_begin:
+        error:
           type: string
-          description: The start time of astronomical twilight in the morning
-        astronomical_twilight_end:
+          description: Short error category or exception type.
+        message:
           type: string
-          description: The end time of astronomical twilight in the morning
-        nautical_twilight_begin:
+          description: Human-readable error message describing the failure.
+        path:
           type: string
-          description: The start time of nautical twilight in the morning
-        nautical_twilight_end:
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
           type: string
-          description: The end time of nautical twilight in the morning
-        civil_twilight_begin:
-          type: string
-          description: The start time of civil twilight in the morning
-        civil_twilight_end:
-          type: string
-          description: The end time of civil twilight in the morning
-        blue_hour_begin:
-          type: string
-          description: The beginning of the blue hour in the morning
-        blue_hour_end:
-          type: string
-          description: The end of the blue hour in the morning
-        golden_hour_begin:
-          type: string
-          description: The beginning of the golden hour in the morning
-        golden_hour_end:
-          type: string
-          description: The end of the golden hour in the morning
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
     AstronomyEvening:
       type: object
       description: Evening astronomical data including golden hour, blue hour, and twilight times.
@@ -414,28 +400,6 @@ components:
         astronomical_twilight_end:
           type: string
           description: The end of astronomical twilight in the evening
-    ErrorResponse:
-      type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
     AstronomyResponse:
       type: object
       required:
@@ -449,6 +413,109 @@ components:
         astronomy:
           $ref: '#/components/schemas/AstronomyData'
       description: Astronomy data response containing location information and astronomical data.
+    AstronomyLocation:
+      type: object
+      description: 'Geographic location information for the astronomy calculation. The set of populated fields depends on which lookup mode the request used: (1) location param (geocode-by-address) returns location_string plus a basic field set (country_name, state_prov, city, locality, latitude, longitude, elevation); (2) lat + long params (geocode-by-coordinates) returns the same basic field set minus location_string, and locality may be an empty string when the coordinates don''t resolve to a named sub-area; (3) ip param, or no location/lat/long/ip param at all (falls back to geo-IP lookup of the client''s IP), returns the full geo-IP field set — continent_code, continent_name, country_code2, country_code3, country_name_official, is_eu, state_code, district, zipcode — in addition to the basic fields, but never location_string. elevation can be an empty string when elevation data is unavailable for the resolved location.'
+      properties:
+        location_string:
+          type: string
+          description: The location query parameter echoed back as-is. Present only for geocode-by-address lookups (location param); absent for lat/long and ip-based lookups.
+        continent_code:
+          type: string
+          description: 'The two-letter code of the continent (e.g., "NA"). Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
+        continent_name:
+          type: string
+          description: 'The full name of the continent (e.g., "North America"). Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
+        country_code2:
+          type: string
+          description: 'The ISO 3166-1 alpha-2 two-letter country code (e.g., "US"). Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
+        country_code3:
+          type: string
+          description: 'The ISO 3166-1 alpha-3 three-letter country code (e.g., "USA"). Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
+        country_name:
+          type: string
+          description: The common name of the country (e.g., "United States"). Present in all lookup modes.
+        country_name_official:
+          type: string
+          description: 'The official full name of the country (e.g., "United States of America"). Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
+        is_eu:
+          type: boolean
+          description: 'Whether the country belongs to the European Union. Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
+        state_prov:
+          type: string
+          description: Name of the state/province/region. Present in all lookup modes.
+        state_code:
+          type: string
+          description: 'Code of the state/province/region. Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
+        district:
+          type: string
+          description: 'Name of the district or county. Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
+        city:
+          type: string
+          description: Name of the city. Present in all lookup modes.
+        zipcode:
+          type: string
+          description: 'ZIP/Postal code of the place. Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
+        latitude:
+          type: string
+          description: The geographic latitude of the location. Present in all lookup modes.
+        longitude:
+          type: string
+          description: The geographic longitude of the location. Present in all lookup modes.
+        locality:
+          type: string
+          description: Smaller area, part or region of a city. Present in all lookup modes, but may be an empty string for lat/long or geo-IP lookups when no named sub-area resolves.
+        elevation:
+          type: string
+          description: The elevation of the geographical location, in meters. Present in all lookup modes, but may be an empty string when elevation data is unavailable for the resolved location.
+      required:
+      - latitude
+      - longitude
+    AstronomyMorning:
+      type: object
+      description: Morning astronomical data including twilight, blue hour, and golden hour times.
+      required:
+      - astronomical_twilight_begin
+      - astronomical_twilight_end
+      - nautical_twilight_begin
+      - nautical_twilight_end
+      - civil_twilight_begin
+      - civil_twilight_end
+      - blue_hour_begin
+      - blue_hour_end
+      - golden_hour_begin
+      - golden_hour_end
+      properties:
+        astronomical_twilight_begin:
+          type: string
+          description: The start time of astronomical twilight in the morning
+        astronomical_twilight_end:
+          type: string
+          description: The end time of astronomical twilight in the morning
+        nautical_twilight_begin:
+          type: string
+          description: The start time of nautical twilight in the morning
+        nautical_twilight_end:
+          type: string
+          description: The end time of nautical twilight in the morning
+        civil_twilight_begin:
+          type: string
+          description: The start time of civil twilight in the morning
+        civil_twilight_end:
+          type: string
+          description: The end time of civil twilight in the morning
+        blue_hour_begin:
+          type: string
+          description: The beginning of the blue hour in the morning
+        blue_hour_end:
+          type: string
+          description: The end of the blue hour in the morning
+        golden_hour_begin:
+          type: string
+          description: The beginning of the golden hour in the morning
+        golden_hour_end:
+          type: string
+          description: The end of the golden hour in the morning
     AstronomyData:
       type: object
       description: Complete astronomical data for the specified location and date.
@@ -563,64 +630,11 @@ components:
           type: number
           format: float
           description: The geometric angle of the moon relative to the observer
-    AstronomyLocation:
-      type: object
-      description: 'Geographic location information for the astronomy calculation. The set of populated fields depends on which lookup mode the request used: (1) location param (geocode-by-address) returns location_string plus a basic field set (country_name, state_prov, city, locality, latitude, longitude, elevation); (2) lat + long params (geocode-by-coordinates) returns the same basic field set minus location_string, and locality may be an empty string when the coordinates don''t resolve to a named sub-area; (3) ip param, or no location/lat/long/ip param at all (falls back to geo-IP lookup of the client''s IP), returns the full geo-IP field set — continent_code, continent_name, country_code2, country_code3, country_name_official, is_eu, state_code, district, zipcode — in addition to the basic fields, but never location_string. elevation can be an empty string when elevation data is unavailable for the resolved location.'
-      properties:
-        location_string:
-          type: string
-          description: The location query parameter echoed back as-is. Present only for geocode-by-address lookups (location param); absent for lat/long and ip-based lookups.
-        continent_code:
-          type: string
-          description: 'The two-letter code of the continent (e.g., "NA"). Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
-        continent_name:
-          type: string
-          description: 'The full name of the continent (e.g., "North America"). Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
-        country_code2:
-          type: string
-          description: 'The ISO 3166-1 alpha-2 two-letter country code (e.g., "US"). Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
-        country_code3:
-          type: string
-          description: 'The ISO 3166-1 alpha-3 three-letter country code (e.g., "USA"). Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
-        country_name:
-          type: string
-          description: The common name of the country (e.g., "United States"). Present in all lookup modes.
-        country_name_official:
-          type: string
-          description: 'The official full name of the country (e.g., "United States of America"). Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
-        is_eu:
-          type: boolean
-          description: 'Whether the country belongs to the European Union. Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
-        state_prov:
-          type: string
-          description: Name of the state/province/region. Present in all lookup modes.
-        state_code:
-          type: string
-          description: 'Code of the state/province/region. Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
-        district:
-          type: string
-          description: 'Name of the district or county. Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
-        city:
-          type: string
-          description: Name of the city. Present in all lookup modes.
-        zipcode:
-          type: string
-          description: 'ZIP/Postal code of the place. Geo-IP field only: present for ip param or default client-IP lookups; absent for location/lat/long geocode lookups.'
-        latitude:
-          type: string
-          description: The geographic latitude of the location. Present in all lookup modes.
-        longitude:
-          type: string
-          description: The geographic longitude of the location. Present in all lookup modes.
-        locality:
-          type: string
-          description: Smaller area, part or region of a city. Present in all lookup modes, but may be an empty string for lat/long or geo-IP lookups when no named sub-area resolves.
-        elevation:
-          type: string
-          description: The elevation of the geographical location, in meters. Present in all lookup modes, but may be an empty string when elevation data is unavailable for the resolved location.
-      required:
-      - latitude
-      - longitude
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

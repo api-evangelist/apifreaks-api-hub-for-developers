@@ -19,7 +19,9 @@
   "paths": {
     "/credits/usage/info": {
       "get": {
-        "tags": ["General APIs"],
+        "tags": [
+          "General APIs"
+        ],
         "summary": "Get remaining and consumed API credit balances for the organization",
         "description": "Returns subscription, subscription-surcharge, and one-off credit balances for the authenticated organization's account.",
         "operationId": "getCreditsUsage",
@@ -31,7 +33,10 @@
             "description": "Format of the response. Possible values: json, xml.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           }
@@ -65,6 +70,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "403": {
@@ -86,6 +96,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -126,41 +141,80 @@
           },
           "userStatus": {
             "type": "string",
-            "enum": ["active", "inactive", "deleted"],
+            "enum": [
+              "active",
+              "inactive",
+              "deleted"
+            ],
             "description": "Status of the user account."
           },
           "subActive": {
-            "type": ["boolean", "null"],
+            "type": [
+              "boolean",
+              "null"
+            ],
             "description": "Whether a subscription plan is currently active. Null if the account has no subscription."
           },
           "subStatus": {
-            "type": ["string", "null"],
-            "enum": ["active", "overdue", "cancelled", "deactivated", null],
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "active",
+              "overdue",
+              "cancelled",
+              "deactivated",
+              null
+            ],
             "description": "Status of the subscription credits. Null if the account has no subscription."
           },
           "subAllowedCredits": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Total credits allowed under the subscription plan. Null if the account has no subscription."
           },
           "subUsedCredits": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Credits consumed under the subscription plan. Null if the account has no subscription."
           },
           "subSurchargeStatus": {
-            "type": ["string", "null"],
-            "enum": ["none", "payment_added", "payment_cleared", null],
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "none",
+              "payment_added",
+              "payment_cleared",
+              null
+            ],
             "description": "Status of the subscription surcharge (overage) credits. Null if the account has no subscription."
           },
           "subSurchargeAllowedCredits": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Total surcharge credits allowed. Null if the account has no subscription."
           },
           "subSurchargeUsedCredits": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Surcharge credits consumed. Null if the account has no subscription."
           },
           "subSurchargeAllowed": {
-            "type": ["boolean", "null"],
+            "type": [
+              "boolean",
+              "null"
+            ],
             "description": "Whether surcharge (overage) usage is allowed on the subscription. Null if the account has no subscription."
           },
           "oneOffCreditsActive": {
@@ -180,7 +234,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -203,6 +259,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

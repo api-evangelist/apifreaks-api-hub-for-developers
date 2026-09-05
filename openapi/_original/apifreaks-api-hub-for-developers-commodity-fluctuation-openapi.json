@@ -19,7 +19,9 @@
   "paths": {
     "/commodity/fluctuation": {
       "get": {
-        "tags": ["Commodity APIs"],
+        "tags": [
+          "Commodity APIs"
+        ],
         "summary": "Get commodity price fluctuations",
         "description": "Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range.",
         "operationId": "getCommodityFluctuation",
@@ -32,7 +34,9 @@
             "schema": {
               "type": "string",
               "default": "json",
-              "enum": ["json"]
+              "enum": [
+                "json"
+              ]
             }
           },
           {
@@ -96,6 +100,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -148,6 +157,11 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -180,6 +194,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -204,7 +223,12 @@
     "schemas": {
       "CommodityFluctuationResponse": {
         "type": "object",
-        "required": ["success", "startDate", "endDate", "rates"],
+        "required": [
+          "success",
+          "startDate",
+          "endDate",
+          "rates"
+        ],
         "properties": {
           "success": {
             "type": "boolean",
@@ -231,7 +255,12 @@
           "title": "CommodityFluctuationItem",
           "type": "object",
           "description": "Fluctuation metrics for a single commodity over a date range.",
-          "required": ["startRate", "endRate", "change", "changePercent"],
+          "required": [
+            "startRate",
+            "endRate",
+            "change",
+            "changePercent"
+          ],
           "properties": {
             "startRate": {
               "type": "number",
@@ -259,7 +288,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests. Gateway-level validation errors populate status; commodity-service errors (date/symbol/data validation) populate code instead — check whichever is present.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -286,6 +317,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

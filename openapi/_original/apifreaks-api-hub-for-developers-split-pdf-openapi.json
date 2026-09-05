@@ -78,7 +78,7 @@
               },
               "default": []
             },
-            "description": "Defines the page numbers or ranges where the PDF should be split. Provide individual pages and/or ranges in any order (for example: \"1-4,9-5,16-last\"). Separate entries with commas and use hyphens for ranges.\n\nSpecial keywords (use alone):\n\n\u2022 `even` \u2014 split at every even-numbered page\n\n\u2022 `odd` \u2014 split at every odd-numbered page\n\n\u2022 `all` \u2014 split the PDF into single-page files\n\nThe keyword `last` can be used anywhere in the string, in combination with page numbers or ranges (for example: \"5-last\", \"last-2\", \"1,last,9\").\n\nExamples:\n- \"1,4-2,last\"\n- \"odd\"\n- \"all\"\n- \"last,2-5\"\n\nInvalid example: \"1,odd\" (mixing a keyword other than \"last\" with specific pages/ranges is not allowed). You can pass multiple pages entries to produce multiple output files."
+            "description": "Defines the page numbers or ranges where the PDF should be split. Provide individual pages and/or ranges in any order (for example: \"1-4,9-5,16-last\"). Separate entries with commas and use hyphens for ranges.\n\nSpecial keywords (use alone):\n\n• `even` — split at every even-numbered page\n\n• `odd` — split at every odd-numbered page\n\n• `all` — split the PDF into single-page files\n\nThe keyword `last` can be used anywhere in the string, in combination with page numbers or ranges (for example: \"5-last\", \"last-2\", \"1,last,9\").\n\nExamples:\n- \"1,4-2,last\"\n- \"odd\"\n- \"all\"\n- \"last,2-5\"\n\nInvalid example: \"1,odd\" (mixing a keyword other than \"last\" with specific pages/ranges is not allowed). You can pass multiple pages entries to produce multiple output files."
           },
           {
             "name": "webhook_url",
@@ -96,7 +96,7 @@
             "schema": {
               "type": "boolean"
             },
-            "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization\u2019s admin if part of one."
+            "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
           },
           {
             "name": "X-Webhook-Authorization",
@@ -121,7 +121,7 @@
         },
         "responses": {
           "200": {
-            "description": "Split task created successfully. Malformed or out-of-range page specifications are not rejected synchronously \u2014 the task is created, then fails asynchronously; poll the task status endpoint and check for status \"failed\" with an error/message pair.",
+            "description": "Split task created successfully. Malformed or out-of-range page specifications are not rejected synchronously — the task is created, then fails asynchronously; poll the task status endpoint and check for status \"failed\" with an error/message pair.",
             "content": {
               "application/json": {
                 "schema": {
@@ -139,10 +139,15 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
-            "description": "Bad Request \u2014 Invalid file ID",
+            "description": "Bad Request — Invalid file ID",
             "content": {
               "application/json": {
                 "examples": {
@@ -161,10 +166,15 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "415": {
-            "description": "Unsupported Media Type \u2014 File type not supported",
+            "description": "Unsupported Media Type — File type not supported",
             "content": {
               "application/json": {
                 "examples": {
@@ -182,6 +192,11 @@
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -266,6 +281,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

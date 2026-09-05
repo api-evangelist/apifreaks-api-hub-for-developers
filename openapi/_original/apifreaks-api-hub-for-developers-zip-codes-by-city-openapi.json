@@ -19,7 +19,9 @@
   "paths": {
     "/zipcode/search/city": {
       "get": {
-        "tags": ["ZIP Code APIs"],
+        "tags": [
+          "ZIP Code APIs"
+        ],
         "summary": "Search ZIP/postal codes by city",
         "description": "Returns every ZIP/postal code associated with the given city and country, optionally narrowed by state or province.",
         "operationId": "searchZipByCity",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response. Possible values: json, xml."
@@ -102,6 +107,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -144,6 +154,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -175,6 +190,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -241,7 +261,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -264,6 +286,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

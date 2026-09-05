@@ -19,7 +19,9 @@
   "paths": {
     "/domain/dns/live": {
       "post": {
-        "tags": ["DNS APIs"],
+        "tags": [
+          "DNS APIs"
+        ],
         "summary": "Retrieve A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of multiple hostnames in a single request",
         "description": "Perform DNS lookups for multiple hostnames in a single request. Supports up to 100 hostnames per request and returns DNS records including A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records.",
         "operationId": "bulkDnsLookup",
@@ -31,7 +33,10 @@
             "description": "Format of the response.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -67,8 +72,13 @@
                 "typicalRequest": {
                   "summary": "Bulk lookup for two domains and one IP",
                   "value": {
-                    "domainNames": ["google.com", "example.com"],
-                    "ipAddresses": ["8.8.8.8"]
+                    "domainNames": [
+                      "google.com",
+                      "example.com"
+                    ],
+                    "ipAddresses": [
+                      "8.8.8.8"
+                    ]
                   }
                 }
               }
@@ -237,7 +247,9 @@
                               "ttl": 300,
                               "rawText": "google.com.\t\t300\tIN\tSPF\t\"v=spf1 include:_spf.google.com ~all\"",
                               "rRsetType": 99,
-                              "strings": ["v=spf1 include:_spf.google.com ~all"]
+                              "strings": [
+                                "v=spf1 include:_spf.google.com ~all"
+                              ]
                             }
                           ]
                         },
@@ -306,7 +318,9 @@
                               "ttl": 300,
                               "rawText": "example.com.\t\t300\tIN\tTXT\t\"_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9\"",
                               "rRsetType": 16,
-                              "strings": ["_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9"]
+                              "strings": [
+                                "_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9"
+                              ]
                             },
                             {
                               "name": "example.com",
@@ -324,7 +338,9 @@
                               "ttl": 300,
                               "rawText": "example.com.\t\t300\tIN\tSPF\t\"v=spf1 -all\"",
                               "rRsetType": 99,
-                              "strings": ["v=spf1 -all"]
+                              "strings": [
+                                "v=spf1 -all"
+                              ]
                             }
                           ]
                         }
@@ -332,6 +348,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -365,6 +386,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "413": {
@@ -386,6 +412,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -412,7 +443,9 @@
       "BulkDNSLookupRequest": {
         "type": "object",
         "description": "Request body for bulk DNS lookup containing a list of hostnames and optional IP addresses.",
-        "required": ["domainNames"],
+        "required": [
+          "domainNames"
+        ],
         "properties": {
           "domainNames": {
             "type": "array",
@@ -434,7 +467,9 @@
       "BulkDNSLookupResponse": {
         "type": "object",
         "description": "Response containing an array of per-domain DNS lookup results.",
-        "required": ["bulk_dns_info"],
+        "required": [
+          "bulk_dns_info"
+        ],
         "properties": {
           "bulk_dns_info": {
             "type": "array",
@@ -458,15 +493,24 @@
             "description": "Time at which the query was made (YYYY-MM-DD HH:mm:ss)."
           },
           "domainName": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Queried domain name (present for domain lookups, null for IP lookups)."
           },
           "domainRegistered": {
-            "type": ["boolean", "null"],
+            "type": [
+              "boolean",
+              "null"
+            ],
             "description": "Indicates whether the domain is registered (present for domain lookups)."
           },
           "ipAddress": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "IP address queried (present for IP/PTR lookups)."
           },
           "dnsTypes": {
@@ -493,7 +537,14 @@
       "DnsRecord": {
         "type": "object",
         "description": "A single DNS resource record. name, type, dnsType, ttl, rawText, and rRsetType are always present; every other field is populated only for the dnsType(s) noted in its description.",
-        "required": ["name", "type", "dnsType", "ttl", "rawText", "rRsetType"],
+        "required": [
+          "name",
+          "type",
+          "dnsType",
+          "ttl",
+          "rawText",
+          "rRsetType"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -586,7 +637,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error response returned when a request fails.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "timestamp": {
             "type": "string",
@@ -609,6 +662,14 @@
             "type": "string",
             "description": "Error message."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

@@ -19,7 +19,9 @@
   "paths": {
     "/commodity/symbols": {
       "get": {
-        "tags": ["Commodity APIs"],
+        "tags": [
+          "Commodity APIs"
+        ],
         "summary": "Get all supported commodity symbols",
         "description": "Returns the list of supported commodity symbols with metadata.",
         "operationId": "getCommoditySymbols",
@@ -31,7 +33,9 @@
             "description": "Response format. Accepted values: `json` (default) or `xml`.",
             "schema": {
               "type": "string",
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "default": "json"
             }
           }
@@ -87,6 +91,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -111,7 +120,10 @@
     "schemas": {
       "CommoditySymbolsResponse": {
         "type": "object",
-        "required": ["success", "symbols"],
+        "required": [
+          "success",
+          "symbols"
+        ],
         "properties": {
           "success": {
             "type": "boolean",
@@ -171,7 +183,11 @@
       "CommodityCurrency": {
         "type": "object",
         "description": "Currency information for a commodity.",
-        "required": ["code", "name", "symbol"],
+        "required": [
+          "code",
+          "name",
+          "symbol"
+        ],
         "properties": {
           "code": {
             "type": "string",
@@ -190,7 +206,10 @@
       "CommodityUnit": {
         "type": "object",
         "description": "Unit of measurement for a commodity.",
-        "required": ["symbol", "name"],
+        "required": [
+          "symbol",
+          "name"
+        ],
         "properties": {
           "symbol": {
             "type": "string",
@@ -200,6 +219,14 @@
             "type": "string",
             "description": "Full name of the unit of measurement (e.g., Troy Ounce)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

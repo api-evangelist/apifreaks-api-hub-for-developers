@@ -19,7 +19,9 @@
   "paths": {
     "/forecast": {
       "get": {
-        "tags": ["Weather APIs"],
+        "tags": [
+          "Weather APIs"
+        ],
         "summary": "Retrieve daily, hourly, or minutely weather forecasts for up to 16 days ahead",
         "description": "Returns forecast data for a location resolved from GPS coordinates, a place name/address, or an IP address, plus astronomy data for each requested day. Configure the date range with `forecastDays` or `startDate`/`endDate`, and choose forecast granularity with `precision`.",
         "operationId": "getWeatherForecast",
@@ -31,7 +33,9 @@
             "description": "Format of the response. Possible values: json.",
             "schema": {
               "type": "string",
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "default": "json"
             }
           },
@@ -109,7 +113,11 @@
             "description": "Forecast granularity. Possible values: daily (default), hourly, minutely. Only one of the corresponding daily/hourly/minutely blocks is returned per day — astronomy data is always included regardless of precision. An unsupported value returns a 400.",
             "schema": {
               "type": "string",
-              "enum": ["daily", "hourly", "minutely"],
+              "enum": [
+                "daily",
+                "hourly",
+                "minutely"
+              ],
               "default": "daily"
             }
           },
@@ -272,6 +280,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -384,6 +397,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -409,7 +427,10 @@
       "ForecastResponse": {
         "type": "object",
         "description": "Weather forecast response containing location and forecast data for the requested date range.",
-        "required": ["location", "forecast"],
+        "required": [
+          "location",
+          "forecast"
+        ],
         "properties": {
           "location": {
             "$ref": "#/components/schemas/WeatherLocation"
@@ -1110,7 +1131,9 @@
       "ForecastDay": {
         "type": "object",
         "description": "Forecast data for a single day. Contains an astronomy block plus exactly one of daily/hourly/minutely, chosen by the precision parameter.",
-        "required": ["astronomy"],
+        "required": [
+          "astronomy"
+        ],
         "properties": {
           "daily": {
             "$ref": "#/components/schemas/ForecastDaily",
@@ -1164,7 +1187,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -1187,6 +1212,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

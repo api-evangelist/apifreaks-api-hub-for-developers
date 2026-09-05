@@ -1,19 +1,22 @@
-generated: '2026-08-09'
+generated: '2026-09-04'
 method: searched
 status: published
-source: https://github.com/api-freaks/apifreaks-mcp/blob/main/server.json
+source: https://github.com/api-freaks/apifreaks-mcp (server.json + src/, @apifreaks/mcp v2.0.1)
 docs: https://apifreaks.com/integrations/mcp-server
 tools_reference: https://apifreaks.com/integrations/mcp-server/supported-tools
-summary: APIFreaks publishes an official, first-party MCP server under an Apache-2.0 licence. It is a
-  LOCAL stdio server distributed on npm as @apifreaks/mcp and launched with `npx -y @apifreaks/mcp` —
-  there is no hosted or remote HTTP endpoint, so `tools/list` cannot be introspected over the network.
-  The tool set below was read verbatim from the published source (src/tools/*.ts, v1.1.2) and every tool
-  is bound to a real OpenAPI operation in mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml.
+summary: 'APIFreaks publishes an official, first-party, Apache-2.0 MCP server. It is a LOCAL stdio server distributed
+  on npm as @apifreaks/mcp and launched with `npx -y @apifreaks/mcp`; there is no hosted or remote HTTP endpoint,
+  so tools/list cannot be introspected over the network and the tool set below was read verbatim from the published
+  source (src/tools/*.ts + src/endpoints.ts at v2.0.1). v2.0.0 (2026-08-21) was a rewrite, not an increment: the tool
+  surface grew from 59 tools in 13 categories to 109 tools in 19 modules — adding geocoding, scraping, email and phone
+  validation, VAT/IBAN/SWIFT financial validation, GeoDB geography and the whole PDF pipeline — and it introduced
+  MANDATORY module gating. Every tool is bound to a real OpenAPI operation in mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml.'
 server:
   name: io.github.api-freaks/apifreaks-mcp
   title: APIFreaks MCP
   package: '@apifreaks/mcp'
-  version: 1.1.2
+  version: 2.0.1
+  published: '2026-08-24'
   license: Apache-2.0
   transport: stdio
   hosted: false
@@ -27,254 +30,423 @@ server:
     file: server.json
     registry_type: npm
     runtime_hint: npx
+    declared_version: 2.0.2
+    note: server.json on main declares 2.0.2; the latest version actually published to npm at probe time is 2.0.1.
+      The manifest is ahead of the registry.
+  quick_start: claude mcp add apifreaks -e APIFREAKS_API_KEY=<key> -e ENABLE_MODULES=ip-intelligence,currency,whois,dns,weather
+    -- npx -y @apifreaks/mcp
+deployment:
+  mode: local-stdio
+  endpoint: null
+  install: npx -y @apifreaks/mcp
+  package: https://www.npmjs.com/package/@apifreaks/mcp
+  auth: api-key
+  verified: searched
+  note: 'No remote endpoint exists. server.json declares a single npm package with transport.type "stdio" and no remoteEndpoint,
+    and the README documents only local client configs. An agent cannot reach this provider over MCP without a human
+    first installing and running the server on a machine. A previous round recorded mode: none with an endpoint of
+    https://apifreaks.com/integrations/mcp-server — that URL is the marketing page, never an MCP transport, and the
+    server it describes is real and shipping. Corrected here to local-stdio.'
+  corrected: '2026-09-04'
+module_gating:
+  variable: ENABLE_MODULES
+  required: true
+  modules: 19
+  default_behaviour: If ENABLE_MODULES is unset or empty the server registers NO API tools — tools/list returns only
+    `list_modules`.
+  discovery_tool: list_modules
+  syntax: comma-separated module names; hyphens and underscores interchangeable; unknown names ignored and logged
+    to stderr
+  rationale_published: Advertising all 109 tools in tools/list would fill the client context window, so the operator
+    opts in per module.
+  consequence: Agent reach here is a configuration outcome. A default install of this server exposes ONE tool. Any
+    claim about how many APIFreaks tools an agent can call must name the enabled modules.
 authentication:
   environment_variables:
   - name: APIFREAKS_API_KEY
     required: true
     secret: true
-    description: APIFreaks API key (32 characters), obtained free at apifreaks.com
-  note: The server forwards the key to api.apifreaks.com as the `apiKey` query parameter on every call
-    (src/client.ts). The key never leaves the operator's machine because the server runs locally.
+    description: APIFreaks API key, obtained free at apifreaks.com
+  - name: ENABLE_MODULES
+    required: true
+    secret: false
+    description: Comma-separated modules to expose as tools
+  note: The server forwards the key to api.apifreaks.com as the `apiKey` query parameter on every call (src/client.ts).
+    The key never leaves the operator machine because the server runs locally.
 annotations:
-  read_only_hint: true
-  destructive_hint: false
-  idempotent_hint: true
-  open_world_hint: true
-  note: Every registered tool carries the READ_ONLY annotation set from src/constants.ts.
+  classes_declared:
+  - READ_ONLY
+  - WRITE
+  - DESTRUCTIVE
+  read_only_tools: 92
+  write_tools: 16
+  destructive_tools: 1
+  destructive_list:
+  - pdf_file_delete
+  note: 'v1.x annotated EVERY tool READ_ONLY. v2 introduced a genuine write surface: the 16 write-annotated PDF tools
+    create server-side resources and consume credits, and pdf_file_delete is annotated DESTRUCTIVE. None of them is
+    idempotent (idempotentHint false) and the API publishes no replay-protection mechanism — see conventions/.'
 clients_documented:
-- Claude
+- Claude Code
+- Claude Desktop
+- Codex CLI
 - Cursor
-- VS Code
 - Windsurf
 - Cline
+- OpenCode
 - Gemini CLI
-- Codex CLI
-categories:
-- name: astronomy
-  tools: 1
-- name: commodity
-  tools: 7
-- name: currency
-  tools: 10
-- name: dns
-  tools: 4
-- name: domain
-  tools: 3
-- name: ip-intelligence
-  tools: 4
-- name: screenshot
-  tools: 3
-- name: ssl
-  tools: 2
-- name: timezone
-  tools: 2
-- name: user-agent
-  tools: 2
-- name: weather
-  tools: 8
-- name: whois
-  tools: 6
-- name: zipcode
-  tools: 7
-tool_count: 59
+- VS Code (Copilot / Continue)
+- Glama
+tool_count: 109
+tool_count_note: 109 API tools across 19 modules, plus the always-registered `list_modules` discovery tool.
 crosswalk: mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml
-tools:
-- name: astronomy_lookup
-  category: astronomy
-  source_operation: openapi/apifreaks-api-hub-for-developers-astronomy-data-openapi.json#getAstronomyData
-- name: commodity_symbols
-  category: commodity
-  source_operation: openapi/apifreaks-api-hub-for-developers-commodity-symbols-openapi.json#getCommoditySymbols
-- name: commodity_symbol_info
-  category: commodity
-  source_operation: openapi/apifreaks-api-hub-for-developers-commodity-symbols-openapi.json#getCommoditySymbols
-- name: commodity_quotes
-  category: commodity
-  source_operation: openapi/apifreaks-api-hub-for-developers-currency-supported-openapi.json#getSupportedCurrencies
-- name: commodity_latest_rates
-  category: commodity
-  source_operation: openapi/apifreaks-api-hub-for-developers-commodity-prices-openapi.json#getCommodityPrices
-- name: commodity_historical_rates
-  category: commodity
-  source_operation: openapi/apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json#getHistoricalCommodityPrices
-- name: commodity_fluctuation
-  category: commodity
-  source_operation: openapi/apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json#getCommodityFluctuation
-- name: commodity_time_series
-  category: commodity
-  source_operation: openapi/apifreaks-api-hub-for-developers-commodity-time-series-openapi.json#getCommodityTimeSeries
-- name: currency_latest_rates
-  category: currency
-  source_operation: openapi/apifreaks-api-hub-for-developers-currency-rate-openapi.json
-- name: currency_historical_rates
-  category: currency
-  source_operation: openapi/apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json
-- name: currency_latest_converter
-  category: currency
-  source_operation: openapi/apifreaks-api-hub-for-developers-currency-converter-openapi.json
-- name: currency_historical_converter
-  category: currency
-  source_operation: openapi/apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json
-- name: currency_time_series
-  category: currency
-  source_operation: openapi/apifreaks-api-hub-for-developers-currency-time-series-openapi.json
-- name: currency_fluctuation
-  category: currency
-  source_operation: openapi/apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json
-- name: currency_geo_convert
-  category: currency
-  source_operation: openapi/apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json
-- name: currency_supported
-  category: currency
-  source_operation: openapi/apifreaks-api-hub-for-developers-currency-supported-openapi.json
-- name: currency_symbols
-  category: currency
-  source_operation: openapi/apifreaks-api-hub-for-developers-currency-symbols-openapi.json
-- name: currency_symbol_info
-  category: currency
-  source_operation: openapi/apifreaks-api-hub-for-developers-currency-symbols-openapi.json
-- name: dns_lookup
-  category: dns
-  source_operation: openapi/apifreaks-api-hub-for-developers-dns-lookup-openapi.json
-- name: dns_history
-  category: dns
-  source_operation: openapi/apifreaks-api-hub-for-developers-dns-history-lookup-openapi.json
-- name: dns_reverse
-  category: dns
-  source_operation: openapi/apifreaks-api-hub-for-developers-reverse-dns-lookup-openapi.json
-- name: dns_bulk_lookup
-  category: dns
-  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-dns-lookup-openapi.json
-- name: domain_check_availability
-  category: domain
-  source_operation: openapi/apifreaks-api-hub-for-developers-domain-search-openapi.json
-- name: domain_check_availability_with_suggestions
-  category: domain
-  source_operation: openapi/apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json
-- name: domain_bulk_check_availability
-  category: domain
-  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json
-- name: ipgeolocation_lookup
-  category: ip-intelligence
-  source_operation: openapi/apifreaks-api-hub-for-developers-ip-locator-openapi.json#ipLookup
-- name: ipgeolocation_bulk_lookup
-  category: ip-intelligence
-  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-ip-lookup-openapi.json
-- name: ip_security_lookup
-  category: ip-intelligence
-  source_operation: openapi/apifreaks-api-hub-for-developers-ip-threat-intelligence-openapi.json
-- name: ip_security_bulk_lookup
-  category: ip-intelligence
-  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-ip-threat-intelligence-openapi.json
-- name: screenshot_capture
-  category: screenshot
-  source_operation: openapi/apifreaks-api-hub-for-developers-website-screenshot-openapi.json
-- name: screenshot_capture_scrolling
-  category: screenshot
-  source_operation: openapi/apifreaks-api-hub-for-developers-website-screenshot-openapi.json
-- name: screenshot_bulk_capture
-  category: screenshot
-  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-screenshot-openapi.json
-- name: ssl_live_lookup
-  category: ssl
-  source_operation: openapi/apifreaks-api-hub-for-developers-ssl-certificate-lookup-openapi.json
-- name: ssl_live_chain_lookup
-  category: ssl
-  source_operation: openapi/apifreaks-api-hub-for-developers-ssl-certificate-chain-lookup-openapi.json
-- name: timezone_lookup
-  category: timezone
-  source_operation: openapi/apifreaks-api-hub-for-developers-timezone-lookup-openapi.json
-- name: timezone_convert
-  category: timezone
-  source_operation: openapi/apifreaks-api-hub-for-developers-timezone-converter-openapi.json
-- name: user_agent_parse
-  category: user-agent
-  source_operation: openapi/apifreaks-api-hub-for-developers-user-agent-parser-openapi.json
-- name: user_agent_bulk_parse
-  category: user-agent
-  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-user-agent-parser-openapi.json
-- name: weather_current
-  category: weather
-  source_operation: openapi/apifreaks-api-hub-for-developers-live-weather-openapi.json
-- name: weather_bulk_current
-  category: weather
-  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-live-weather-openapi.json
-- name: weather_forecast
-  category: weather
-  source_operation: openapi/apifreaks-api-hub-for-developers-weather-forecast-openapi.json
-- name: weather_historical
-  category: weather
-  source_operation: openapi/apifreaks-api-hub-for-developers-historical-weather-openapi.json
-- name: weather_time_series
-  category: weather
-  source_operation: openapi/apifreaks-api-hub-for-developers-time-series-weather-openapi.json
-- name: weather_air_quality
-  category: weather
-  source_operation: openapi/apifreaks-api-hub-for-developers-air-quality-openapi.json
-- name: weather_marine
-  category: weather
-  source_operation: openapi/apifreaks-api-hub-for-developers-marine-weather-openapi.json
-- name: weather_flood_forecast
-  category: weather
-  source_operation: openapi/apifreaks-api-hub-for-developers-flood-forecast-openapi.json
-- name: whois_domain_lookup
-  category: whois
-  source_operation: openapi/apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json
-- name: whois_ip_lookup
-  category: whois
-  source_operation: openapi/apifreaks-api-hub-for-developers-whois-ip-lookup-openapi.json
-- name: whois_asn_lookup
-  category: whois
-  source_operation: openapi/apifreaks-api-hub-for-developers-asn-lookup-openapi.json
-- name: whois_domain_history
-  category: whois
-  source_operation: openapi/apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json
-- name: whois_reverse_lookup
-  category: whois
-  source_operation: openapi/apifreaks-api-hub-for-developers-reverse-whois-openapi.json
-- name: whois_bulk_domain_lookup
-  category: whois
-  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-whois-lookup-openapi.json
-- name: zipcode_lookup
-  category: zipcode
-  source_operation: openapi/apifreaks-api-hub-for-developers-zip-code-api-openapi.json
-- name: zipcode_bulk_lookup
-  category: zipcode
-  source_operation: openapi/apifreaks-api-hub-for-developers-bulk-zip-code-lookup-openapi.json
-- name: zipcode_radius_search
-  category: zipcode
-  source_operation: openapi/apifreaks-api-hub-for-developers-zip-codes-radius-search-openapi.json
-- name: zipcode_distance
-  category: zipcode
-  source_operation: openapi/apifreaks-api-hub-for-developers-zip-code-distance-openapi.json
-- name: zipcode_distance_match
-  category: zipcode
-  source_operation: openapi/apifreaks-api-hub-for-developers-zip-code-distance-match-openapi.json
-- name: zipcode_by_city
-  category: zipcode
-  source_operation: openapi/apifreaks-api-hub-for-developers-zip-codes-by-city-openapi.json
-- name: zipcode_by_region
-  category: zipcode
-  source_operation: openapi/apifreaks-api-hub-for-developers-zip-codes-by-region-openapi.json
+modules:
+- module: commodity
+  summary: Live/historical prices, fluctuation, time series, symbols
+  tool_count: 7
+  writes: 0
+  tools:
+  - name: commodity_fluctuation
+    annotation: read-only
+  - name: commodity_historical_rates
+    annotation: read-only
+  - name: commodity_latest_rates
+    annotation: read-only
+  - name: commodity_quotes
+    annotation: read-only
+  - name: commodity_symbol_info
+    annotation: read-only
+  - name: commodity_symbols
+    annotation: read-only
+  - name: commodity_time_series
+    annotation: read-only
+- module: currency
+  summary: Live/historical rates, converters, time series, symbols, limits
+  tool_count: 12
+  writes: 0
+  tools:
+  - name: currency_fluctuation
+    annotation: read-only
+  - name: currency_geo_convert
+    annotation: read-only
+  - name: currency_historical_converter
+    annotation: read-only
+  - name: currency_historical_data_limit_info
+    annotation: read-only
+  - name: currency_historical_data_limits
+    annotation: read-only
+  - name: currency_historical_rates
+    annotation: read-only
+  - name: currency_latest_converter
+    annotation: read-only
+  - name: currency_latest_rates
+    annotation: read-only
+  - name: currency_supported
+    annotation: read-only
+  - name: currency_symbol_info
+    annotation: read-only
+  - name: currency_symbols
+    annotation: read-only
+  - name: currency_time_series
+    annotation: read-only
+- module: dns
+  summary: Live lookup, history, reverse, bulk
+  tool_count: 4
+  writes: 0
+  tools:
+  - name: dns_bulk_lookup
+    annotation: read-only
+  - name: dns_history
+    annotation: read-only
+  - name: dns_lookup
+    annotation: read-only
+  - name: dns_reverse
+    annotation: read-only
+- module: domain
+  summary: Availability checks, suggestions, bulk, subdomain lookup
+  tool_count: 4
+  writes: 0
+  tools:
+  - name: domain_bulk_check_availability
+    annotation: read-only
+  - name: domain_check_availability
+    annotation: read-only
+  - name: domain_check_availability_with_suggestions
+    annotation: read-only
+  - name: domain_subdomain_lookup
+    annotation: read-only
+- module: email-validation
+  summary: Single and bulk email validation
+  tool_count: 2
+  writes: 0
+  tools:
+  - name: email_bulk_validate
+    annotation: read-only
+  - name: email_validate
+    annotation: read-only
+- module: financial
+  summary: VAT rates, VAT numbers, IBAN, SWIFT/BIC
+  tool_count: 9
+  writes: 0
+  tools:
+  - name: financial_iban_validate
+    annotation: read-only
+  - name: financial_supported_countries
+    annotation: read-only
+  - name: financial_supported_country_info
+    annotation: read-only
+  - name: financial_swift_finder
+    annotation: read-only
+  - name: financial_swift_lookup
+    annotation: read-only
+  - name: financial_vat_rates_bulk
+    annotation: read-only
+  - name: financial_vat_rates_by_country
+    annotation: read-only
+  - name: financial_vat_rates_by_ip
+    annotation: read-only
+  - name: financial_vat_validate
+    annotation: read-only
+- module: geocoding
+  summary: Forward and reverse geocoding
+  tool_count: 2
+  writes: 0
+  tools:
+  - name: geocode_forward
+    annotation: read-only
+  - name: geocode_reverse
+    annotation: read-only
+- module: geography
+  summary: Admin units, countries, cities, regions, flags
+  tool_count: 10
+  writes: 0
+  tools:
+  - name: geodb_admin_levels
+    annotation: read-only
+  - name: geodb_admin_unit_details
+    annotation: read-only
+  - name: geodb_admin_units
+    annotation: read-only
+  - name: geodb_cities
+    annotation: read-only
+  - name: geodb_countries
+    annotation: read-only
+  - name: geodb_country_details
+    annotation: read-only
+  - name: geodb_flag
+    annotation: read-only
+  - name: geodb_flags_supported
+    annotation: read-only
+  - name: geodb_regions
+    annotation: read-only
+  - name: geodb_subregions
+    annotation: read-only
+- module: ip-intelligence
+  summary: IP geolocation and threat intelligence (single + bulk)
+  tool_count: 4
+  writes: 0
+  tools:
+  - name: ip_security_bulk_lookup
+    annotation: read-only
+  - name: ip_security_lookup
+    annotation: read-only
+  - name: ipgeolocation_bulk_lookup
+    annotation: read-only
+  - name: ipgeolocation_lookup
+    annotation: read-only
+- module: pdf
+  summary: Merge, split, compress, protect, generate, convert
+  tool_count: 20
+  writes: 17
+  tools:
+  - name: pdf_compress
+    annotation: write
+  - name: pdf_decrypt
+    annotation: write
+  - name: pdf_encrypt
+    annotation: write
+  - name: pdf_extract_pages
+    annotation: write
+  - name: pdf_file_delete
+    annotation: destructive
+  - name: pdf_file_status
+    annotation: read-only
+  - name: pdf_files
+    annotation: read-only
+  - name: pdf_generate
+    annotation: write
+  - name: pdf_generate_bulk
+    annotation: write
+  - name: pdf_linearize
+    annotation: write
+  - name: pdf_merge
+    annotation: write
+  - name: pdf_remove_pages
+    annotation: write
+  - name: pdf_restrict
+    annotation: write
+  - name: pdf_rotate
+    annotation: write
+  - name: pdf_split
+    annotation: write
+  - name: pdf_task_status
+    annotation: read-only
+  - name: pdf_to_image
+    annotation: write
+  - name: pdf_unrestrict
+    annotation: write
+  - name: pdf_upload
+    annotation: write
+  - name: pdf_upload_binary
+    annotation: write
+- module: phone-validation
+  summary: Single and bulk phone validation
+  tool_count: 2
+  writes: 0
+  tools:
+  - name: phone_bulk_validate
+    annotation: read-only
+  - name: phone_validate
+    annotation: read-only
+- module: scraper
+  summary: Static HTML scrape and JS-rendered scrape
+  tool_count: 2
+  writes: 0
+  tools:
+  - name: scraper_scrape
+    annotation: read-only
+  - name: scraper_scrape_js
+    annotation: read-only
+- module: screenshot
+  summary: Capture, scrolling capture, bulk
+  tool_count: 3
+  writes: 0
+  tools:
+  - name: screenshot_bulk_capture
+    annotation: read-only
+  - name: screenshot_capture
+    annotation: read-only
+  - name: screenshot_capture_scrolling
+    annotation: read-only
+- module: ssl
+  summary: Live certificate and full chain
+  tool_count: 2
+  writes: 0
+  tools:
+  - name: ssl_live_chain_lookup
+    annotation: read-only
+  - name: ssl_live_lookup
+    annotation: read-only
+- module: timezone
+  summary: Lookup and convert
+  tool_count: 2
+  writes: 0
+  tools:
+  - name: timezone_convert
+    annotation: read-only
+  - name: timezone_lookup
+    annotation: read-only
+- module: user-agent
+  summary: Parse single or bulk user-agent strings
+  tool_count: 2
+  writes: 0
+  tools:
+  - name: user_agent_bulk_parse
+    annotation: read-only
+  - name: user_agent_parse
+    annotation: read-only
+- module: weather
+  summary: Current, forecast, historical, air quality, marine, flood, astronomy
+  tool_count: 9
+  writes: 0
+  tools:
+  - name: astronomy_lookup
+    annotation: read-only
+  - name: weather_air_quality
+    annotation: read-only
+  - name: weather_bulk_current
+    annotation: read-only
+  - name: weather_current
+    annotation: read-only
+  - name: weather_flood_forecast
+    annotation: read-only
+  - name: weather_forecast
+    annotation: read-only
+  - name: weather_historical
+    annotation: read-only
+  - name: weather_marine
+    annotation: read-only
+  - name: weather_time_series
+    annotation: read-only
+- module: whois
+  summary: Domain, IP, ASN, history, reverse, bulk
+  tool_count: 6
+  writes: 0
+  tools:
+  - name: whois_asn_lookup
+    annotation: read-only
+  - name: whois_bulk_domain_lookup
+    annotation: read-only
+  - name: whois_domain_history
+    annotation: read-only
+  - name: whois_domain_lookup
+    annotation: read-only
+  - name: whois_ip_lookup
+    annotation: read-only
+  - name: whois_reverse_lookup
+    annotation: read-only
+- module: zipcode
+  summary: Lookup, radius, distance, city/region
+  tool_count: 7
+  writes: 0
+  tools:
+  - name: zipcode_bulk_lookup
+    annotation: read-only
+  - name: zipcode_by_city
+    annotation: read-only
+  - name: zipcode_by_region
+    annotation: read-only
+  - name: zipcode_distance
+    annotation: read-only
+  - name: zipcode_distance_match
+    annotation: read-only
+  - name: zipcode_lookup
+    annotation: read-only
+  - name: zipcode_radius_search
+    annotation: read-only
 x-evidence:
-  fetched: '2026-08-09'
+  fetched: '2026-09-04'
   sources:
-  - url: https://github.com/api-freaks/apifreaks-mcp
+  - url: https://raw.githubusercontent.com/api-freaks/apifreaks-mcp/main/server.json
     http_status: 200
-    kind: source-repository
+    kind: mcp-registry-manifest
+  - url: https://raw.githubusercontent.com/api-freaks/apifreaks-mcp/main/README.md
+    http_status: 200
+    kind: source-readme
+  - url: https://raw.githubusercontent.com/api-freaks/apifreaks-mcp/main/src/endpoints.ts
+    http_status: 200
+    kind: tool-to-rest-endpoint-map
   - url: https://registry.npmjs.org/@apifreaks/mcp
     http_status: 200
     kind: npm-registry
-    version: 1.1.2
-  - url: https://apifreaks.com/llms.txt
+    version: 2.0.1
+    published: '2026-08-24'
+  - url: https://apifreaks.com/integrations/mcp-server
     http_status: 200
-    kind: provider-llms-txt
-deployment:
-  mode: none
-  endpoint: https://apifreaks.com/integrations/mcp-server
-  verified: probed
-  probe: dead
-  note: the endpoint this manifest claimed did not answer; recorded as none rather than deleted so the
-    claim stays auditable
-  checked: '2026-08-12'
-  source: catalog MCP census
+    kind: provider-docs
+x-history:
+- version: 1.1.2
+  published: '2026-07-10'
+  tools: 59
+  modules: 13
+  note: all tools READ_ONLY; no module gating
+- version: 2.0.0
+  published: '2026-08-21'
+  tools: 109
+  modules: 19
+  note: module gating introduced; PDF, scraper, geocoding, financial, email/phone validation and GeoDB added; write
+    + destructive annotations introduced
+- version: 2.0.1
+  published: '2026-08-24'
+  tools: 109
+  modules: 19

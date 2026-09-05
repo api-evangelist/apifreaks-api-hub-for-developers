@@ -19,7 +19,9 @@
   "paths": {
     "/current": {
       "get": {
-        "tags": ["Weather APIs"],
+        "tags": [
+          "Weather APIs"
+        ],
         "summary": "Real-time weather conditions for any location on demand",
         "description": "Get current weather data including temperature, humidity, precipitation, wind conditions, atmospheric pressure, and air quality for any location. Accepts city names, coordinates, or IP addresses. Also includes astronomy data and timezone-aware timestamps.",
         "operationId": "getLiveWeather",
@@ -153,6 +155,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -205,6 +212,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -226,6 +238,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -251,7 +268,10 @@
     "schemas": {
       "CurrentWeatherResponse": {
         "type": "object",
-        "required": ["location", "current"],
+        "required": [
+          "location",
+          "current"
+        ],
         "properties": {
           "location": {
             "$ref": "#/components/schemas/WeatherLocation"
@@ -545,8 +565,34 @@
           "weather_code": {
             "type": "integer",
             "enum": [
-              0, 1, 2, 3, 45, 48, 51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 71,
-              73, 75, 77, 80, 81, 82, 85, 86, 95, 96, 99
+              0,
+              1,
+              2,
+              3,
+              45,
+              48,
+              51,
+              53,
+              55,
+              56,
+              57,
+              61,
+              63,
+              65,
+              66,
+              67,
+              71,
+              73,
+              75,
+              77,
+              80,
+              81,
+              82,
+              85,
+              86,
+              95,
+              96,
+              99
             ],
             "description": "WMO weather condition code representing current conditions. Supported codes: 0 clear sky; 1, 2, 3 varying cloud cover; 45, 48 fog; 51, 53, 55 drizzle; 56, 57 freezing drizzle; 61, 63, 65 rain; 66, 67 freezing rain; 71, 73, 75 snowfall; 77 snow grains; 80, 81, 82 rain showers; 85, 86 snow showers; 95 thunderstorm; 96, 99 thunderstorm with hail."
           },
@@ -750,7 +796,9 @@
       },
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -775,6 +823,14 @@
           }
         },
         "description": "Standard error envelope returned by the API on failed requests."
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
       }
     }
   },

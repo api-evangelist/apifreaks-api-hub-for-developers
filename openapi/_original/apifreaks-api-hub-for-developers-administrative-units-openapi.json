@@ -19,7 +19,9 @@
   "paths": {
     "/geo/admin-units": {
       "get": {
-        "tags": ["GeoDB APIs"],
+        "tags": [
+          "GeoDB APIs"
+        ],
         "summary": "Retrieve administrative units for a country with optional level filtering",
         "description": "Returns all administrative units (states, provinces, districts) for a country using ISO 3166-1 alpha-2 country code. Optionally filter by one or more admin levels.",
         "operationId": "getAdminUnits",
@@ -31,7 +33,10 @@
             "description": "Format of the response. Possible values: json, xml.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -87,6 +92,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -119,6 +129,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -140,6 +155,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -166,7 +186,9 @@
       "AdminUnitsResponse": {
         "type": "object",
         "description": "Response containing the administrative units for the requested country, optionally filtered by admin_level.",
-        "required": ["admin_units"],
+        "required": [
+          "admin_units"
+        ],
         "properties": {
           "admin_units": {
             "type": "array",
@@ -180,7 +202,11 @@
       "AdminUnit": {
         "type": "object",
         "description": "An administrative unit object.",
-        "required": ["name", "admin_code", "admin_level"],
+        "required": [
+          "name",
+          "admin_code",
+          "admin_level"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -199,7 +225,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -222,6 +250,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

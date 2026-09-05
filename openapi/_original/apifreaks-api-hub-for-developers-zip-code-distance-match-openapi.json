@@ -19,7 +19,9 @@
   "paths": {
     "/zipcode/distance/match": {
       "post": {
-        "tags": ["ZIP Code APIs"],
+        "tags": [
+          "ZIP Code APIs"
+        ],
         "summary": "Get matching ZIP/postal code pairs within a distance",
         "operationId": "getZipcodeDistanceMatch",
         "description": "Returns every pair of the requested ZIP/postal codes whose distance from each other is at or below the given threshold.",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response. Possible values: json, xml."
@@ -48,7 +53,12 @@
                 "typicalRequest": {
                   "summary": "Find pairs within 5km",
                   "value": {
-                    "codes": ["90210", "90211", "90212", "10001"],
+                    "codes": [
+                      "90210",
+                      "90211",
+                      "90212",
+                      "10001"
+                    ],
                     "country": "US",
                     "distance": 5
                   }
@@ -92,6 +102,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -155,6 +170,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -176,6 +196,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -202,7 +227,10 @@
       "ZipcodeDistanceMatchResponse": {
         "type": "object",
         "description": "Matching ZIP/postal code pairs within the requested distance threshold.",
-        "required": ["result_count", "results"],
+        "required": [
+          "result_count",
+          "results"
+        ],
         "properties": {
           "result_count": {
             "type": "integer",
@@ -220,7 +248,11 @@
       "ZipcodeDistanceMatchItem": {
         "type": "object",
         "description": "A single matched pair of ZIP/postal codes with the distance between them.",
-        "required": ["code_1", "code_2", "distance"],
+        "required": [
+          "code_1",
+          "code_2",
+          "distance"
+        ],
         "properties": {
           "code_1": {
             "type": "string",
@@ -240,7 +272,10 @@
       "DistanceMatchRequest": {
         "type": "object",
         "description": "Request body specifying the codes, country, and distance threshold to match pairs within.",
-        "required": ["codes", "country"],
+        "required": [
+          "codes",
+          "country"
+        ],
         "properties": {
           "codes": {
             "type": "array",
@@ -260,7 +295,14 @@
           },
           "unit": {
             "type": "string",
-            "enum": ["km", "mi", "yd", "m", "ft", "in"],
+            "enum": [
+              "km",
+              "mi",
+              "yd",
+              "m",
+              "ft",
+              "in"
+            ],
             "default": "km",
             "description": "Distance unit. Default: km."
           }
@@ -273,7 +315,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -296,6 +340,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

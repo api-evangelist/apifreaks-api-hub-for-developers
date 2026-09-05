@@ -19,7 +19,9 @@
   "paths": {
     "/domain/whois/reverse": {
       "get": {
-        "tags": ["WHOIS APIs"],
+        "tags": [
+          "WHOIS APIs"
+        ],
         "summary": "Search domains by owner name, email, company, or keyword",
         "description": "Performs a reverse WHOIS search returning matching domains with registration details. Use mode=default for full WHOIS data or mode=mini for a condensed summary. When mode=default, each item in whois_domains_historical matches the ReverseWhoisDomainDefault schema (full registrar, contacts, name servers, status, and registry data). When mode=mini, each item matches the ReverseWhoisDomainMini schema (domain name, create/update/expiry dates, owner name, email, and company only).",
         "operationId": "reverseWhoisLookup",
@@ -31,7 +33,10 @@
             "description": "Format of the response.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -88,7 +93,10 @@
             "description": "Response detail level. 'default' returns full WHOIS data per domain; 'mini' returns only key fields.",
             "schema": {
               "type": "string",
-              "enum": ["default", "mini"],
+              "enum": [
+                "default",
+                "mini"
+              ],
               "default": "default"
             }
           },
@@ -151,7 +159,9 @@
                             "dale.ns.cloudflare.com",
                             "olga.ns.cloudflare.com"
                           ],
-                          "domain_status": ["clienttransferprohibited"],
+                          "domain_status": [
+                            "clienttransferprohibited"
+                          ],
                           "whois_raw_domain": "Domain Name: ipgeolocationdatabase.com\nRegistry Domain ID: ...\nRegistrar WHOIS Server: whois.rrpproxy.net\n...",
                           "registry_data": {
                             "domain_name": "ipgeolocationdatabase.com",
@@ -189,6 +199,17 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "400": {
@@ -211,6 +232,17 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "404": {
@@ -232,6 +264,17 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
               }
             }
           }
@@ -257,7 +300,9 @@
     "schemas": {
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -323,7 +368,11 @@
       "ReverseWhoisDomainDefault": {
         "type": "object",
         "description": "Full WHOIS record for a matching domain in default mode, including registrar, contacts, name servers, status, and registry data.",
-        "required": ["num", "status", "domain_name"],
+        "required": [
+          "num",
+          "status",
+          "domain_name"
+        ],
         "properties": {
           "num": {
             "type": "integer",
@@ -338,30 +387,52 @@
             "description": "The matched domain name."
           },
           "query_time": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Timestamp of the WHOIS query (YYYY-MM-DD HH:mm:ss)."
           },
           "whois_server": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "WHOIS server that provided the domain information."
           },
           "domain_registered": {
-            "type": ["string", "null"],
-            "enum": ["yes", "no", "restricted"],
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "yes",
+              "no",
+              "restricted"
+            ],
             "description": "Registration status: 'yes' if registered, 'no' if available, 'restricted' if locked by the registry."
           },
           "create_date": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Date when the domain was initially registered (YYYY-MM-DD)."
           },
           "update_date": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Date of the most recent update to the domain registration (YYYY-MM-DD)."
           },
           "expiry_date": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Date when the domain registration expires if not renewed (YYYY-MM-DD)."
           },
@@ -384,21 +455,30 @@
             "$ref": "#/components/schemas/WhoisContact"
           },
           "name_servers": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "List of authoritative name servers for the domain.",
             "items": {
               "type": "string"
             }
           },
           "domain_status": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "List of domain status codes (EPP status codes).",
             "items": {
               "type": "string"
             }
           },
           "whois_raw_domain": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Raw WHOIS output returned by the registrar's WHOIS server."
           },
           "registry_data": {
@@ -409,7 +489,10 @@
       "ReverseWhoisDomainMini": {
         "type": "object",
         "description": "Condensed WHOIS record for a matching domain in mini mode, containing only key registration fields.",
-        "required": ["num", "domain_name"],
+        "required": [
+          "num",
+          "domain_name"
+        ],
         "properties": {
           "num": {
             "type": "integer",
@@ -420,30 +503,48 @@
             "description": "The matched domain name."
           },
           "create_date": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Date when the domain was initially registered (YYYY-MM-DD)."
           },
           "update_date": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Date of the most recent update to the domain registration (YYYY-MM-DD)."
           },
           "expiry_date": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Date when the domain registration expires if not renewed (YYYY-MM-DD)."
           },
           "name": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Registrant or owner name."
           },
           "email": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Registrant email address."
           },
           "company_name": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Registrant company or organization name."
           }
         }
@@ -454,41 +555,68 @@
         "required": [],
         "properties": {
           "iana_id": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "IANA (Internet Assigned Numbers Authority) ID of the registrar."
           },
           "status": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Accreditation status of the registrar (e.g., 'accredited')."
           },
           "registrar_name": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Name of the registrar managing the domain."
           },
           "normalized_name": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Normalized (lowercase, stripped) registrar name."
           },
           "whois_server": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "WHOIS server of the registrar."
           },
           "rdap_server": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "uri",
             "description": "RDAP (Registration Data Access Protocol) server URL of the registrar."
           },
           "website_url": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "uri",
             "description": "Website URL of the registrar."
           },
           "email_address": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Contact or abuse email address of the registrar."
           },
           "phone_number": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Contact phone number of the registrar."
           }
         }
@@ -499,55 +627,94 @@
         "required": [],
         "properties": {
           "id": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Contact identifier."
           },
           "name": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Name of the contact person."
           },
           "company": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Company or organization name."
           },
           "street": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Street address."
           },
           "city": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "City."
           },
           "state": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "State or province."
           },
           "zip_code": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "ZIP or postal code."
           },
           "country_name": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Country name."
           },
           "country_code": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "ISO 3166-1 alpha-2 country code."
           },
           "email_address": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Email address of the contact."
           },
           "phone": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Phone number of the contact."
           },
           "fax": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Fax number of the contact."
           },
           "mailing_address": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Full mailing address as a single string."
           }
         }
@@ -558,34 +725,59 @@
         "required": [],
         "properties": {
           "domain_name": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Domain name as recorded by the registry."
           },
           "query_time": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Timestamp of the registry WHOIS query (YYYY-MM-DD HH:mm:ss)."
           },
           "whois_server": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Registry WHOIS server that provided this data."
           },
           "domain_registered": {
-            "type": ["string", "null"],
-            "enum": ["yes", "no", "restricted"],
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "yes",
+              "no",
+              "restricted"
+            ],
             "description": "Registration status from the registry."
           },
           "create_date": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Domain creation date as recorded by the registry (YYYY-MM-DD)."
           },
           "update_date": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Last update date as recorded by the registry (YYYY-MM-DD)."
           },
           "expiry_date": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Domain expiry date as recorded by the registry (YYYY-MM-DD)."
           },
@@ -593,23 +785,52 @@
             "$ref": "#/components/schemas/DomainRegistrar"
           },
           "name_servers": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "List of name servers as recorded by the registry.",
             "items": {
               "type": "string"
             }
           },
           "domain_status": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "List of domain status codes from the registry.",
             "items": {
               "type": "string"
             }
           },
           "whois_raw_registery": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Raw WHOIS output from the registry server."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads": {
+        "description": "Specifies the maximum number of concurrent requests allowed.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads-Active": {
+        "description": "Indicates the number of active concurrent requests being processed.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

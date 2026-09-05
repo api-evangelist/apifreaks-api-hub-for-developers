@@ -3,7 +3,7 @@
   "info": {
     "title": "Bulk Email Validation API - Validate and Verify Emails in Bulk",
     "version": "1.0.0",
-    "description": "Validate up to 100 email addresses in a single POST request. Each email is processed independently. Returns an array of validation results with deliverability assessment per email, plus per-item error objects for failed validations. Maximum 100 email addresses per request.",
+    "description": "Validate up to 10 email addresses in a single POST request. Each email is processed independently. Returns an array of validation results with deliverability assessment per email, plus per-item error objects for failed validations. Maximum 10 email addresses per request.",
     "contact": {
       "name": "APIFreaks Support",
       "url": "https://apifreaks.com/contact",
@@ -19,9 +19,11 @@
   "paths": {
     "/email-validation/bulk": {
       "post": {
-        "tags": ["Email Validation APIs"],
+        "tags": [
+          "Email Validation APIs"
+        ],
         "summary": "Validate multiple email addresses",
-        "description": "Validates a bulk of email addresses and returns result for each. Maximum `100` email addresses per request.",
+        "description": "Validates a bulk of email addresses and returns result for each. Maximum `10` email addresses per request.",
         "parameters": [
           {
             "name": "format",
@@ -29,7 +31,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response"
@@ -57,7 +62,7 @@
                   "bulkEmailsValidated": {
                     "summary": "Mix of a valid and a syntactically invalid email",
                     "value": {
-                      "emailValidationResponses": [
+                      "emailResponse": [
                         {
                           "success": true,
                           "email": "abc.def@gmail.com",
@@ -76,7 +81,7 @@
                             "fullMailBox": false
                           },
                           "dns": {
-                            "mxRecords": [
+                            "mxRecord": [
                               "gmail-smtp-in.l.google.com.",
                               "alt1.gmail-smtp-in.l.google.com.",
                               "alt2.gmail-smtp-in.l.google.com.",
@@ -100,6 +105,17 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "400": {
@@ -122,6 +138,63 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found – The requested resource could not be found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "Resource Not Found": {
+                    "value": {
+                      "timestamp": "2026-09-02T11:57:55.592Z",
+                      "path": "/v1.0/email-validation/bulkx",
+                      "status": 404,
+                      "error": "Resource Not Found",
+                      "message": "The requested resource could not be found. Please verify the URL and try again."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large – emailData exceeds the maximum of 10 entries per request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "Payload Too Large": {
+                    "value": {
+                      "timestamp": "2026-09-02T11:57:34.223Z",
+                      "path": "/v2/email-validation/bulk",
+                      "status": 413,
+                      "error": "Payload too large Exception",
+                      "message": "Maximum request body size limit exceeded"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "408": {
@@ -143,6 +216,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "429": {
@@ -163,6 +241,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -190,9 +273,11 @@
       "BulkEmailValidationResponse": {
         "type": "object",
         "description": "Wrapper containing the per-email results array.",
-        "required": ["emailValidationResponses"],
+        "required": [
+          "emailResponse"
+        ],
         "properties": {
-          "emailValidationResponses": {
+          "emailResponse": {
             "type": "array",
             "description": "Array of per-email results, one entry per requested email, in the same order as the request. Invalid emails are reflected via validEmail/validSyntax, not a separate error shape.",
             "items": {
@@ -203,7 +288,13 @@
       },
       "SingleEmailValidationResponse": {
         "type": "object",
-        "required": ["success", "email", "validEmail", "validSyntax", "domain"],
+        "required": [
+          "success",
+          "email",
+          "validEmail",
+          "validSyntax",
+          "domain"
+        ],
         "properties": {
           "success": {
             "type": "boolean",
@@ -224,8 +315,15 @@
           },
           "validEmail": {
             "type": "string",
-            "enum": ["valid", "invalid", "INVALID_EMAIL", "unknown", "risky"],
-            "description": "Comprehensive deliverability assessment. Casing is inconsistent in the live API: syntactically invalid addresses return INVALID_EMAIL, while semantically invalid (undeliverable) addresses return lowercase invalid. unknown/risky are documented possibilities not observed during testing."
+            "enum": [
+              "valid",
+              "invalid",
+              "INVALID_EMAIL",
+              "unknown",
+              "risky",
+              "app_server_blocked"
+            ],
+            "description": "Comprehensive deliverability assessment. Casing is inconsistent in the live API: syntactically invalid addresses return INVALID_EMAIL, while semantically invalid (undeliverable) addresses return lowercase invalid. risky is a documented possibility not observed during testing. app_server_blocked is returned when the recipient mail server blocked the live verification attempt (reason explains that retrying later may succeed)."
           },
           "validSyntax": {
             "type": "boolean",
@@ -253,7 +351,10 @@
       },
       "DomainObject": {
         "type": "object",
-        "required": ["name", "validDomain"],
+        "required": [
+          "name",
+          "validDomain"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -284,7 +385,9 @@
       },
       "AccountObject": {
         "type": "object",
-        "required": ["role"],
+        "required": [
+          "role"
+        ],
         "properties": {
           "role": {
             "type": "boolean",
@@ -299,16 +402,18 @@
       },
       "DnsObject": {
         "type": "object",
-        "required": ["mxRecords"],
+        "required": [
+          "mxRecord"
+        ],
         "properties": {
-          "mxRecords": {
+          "mxRecord": {
             "type": "array",
             "items": {
               "type": "string"
             },
             "description": "Collection of MX (Mail Exchange) hostname records from DNS queries."
           },
-          "aRecords": {
+          "aRecord": {
             "type": "array",
             "items": {
               "type": "string"
@@ -460,12 +565,14 @@
       "BulkEmailRequest": {
         "type": "object",
         "description": "Request body for bulk email validation.",
-        "required": ["emailData"],
+        "required": [
+          "emailData"
+        ],
         "properties": {
           "emailData": {
             "type": "array",
-            "description": "Array of email objects to validate. Maximum 100 per request.",
-            "maxItems": 100,
+            "description": "Array of email objects to validate. Maximum 10 per request.",
+            "maxItems": 10,
             "items": {
               "$ref": "#/components/schemas/BulkEmailRequestItem"
             }
@@ -475,7 +582,9 @@
       "BulkEmailRequestItem": {
         "type": "object",
         "description": "A single email entry in a bulk validation request.",
-        "required": ["email"],
+        "required": [
+          "email"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -496,7 +605,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -519,6 +630,26 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads": {
+        "description": "Specifies the maximum number of concurrent requests allowed.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads-Active": {
+        "description": "Indicates the number of active concurrent requests being processed.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

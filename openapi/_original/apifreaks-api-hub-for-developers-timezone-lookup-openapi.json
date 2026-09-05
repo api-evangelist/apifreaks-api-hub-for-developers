@@ -19,7 +19,9 @@
   "paths": {
     "/geolocation/timezone": {
       "get": {
-        "tags": ["Timezone APIs"],
+        "tags": [
+          "Timezone APIs"
+        ],
         "summary": "Retrieve current time, date, and timezone information for any location identifier",
         "description": "Get current time, date, and timezone details by specifying a timezone name, location address, GPS coordinates, IP address, IATA/ICAO airport code, UN/LOCODE, or use the client IP if no parameter is provided.",
         "operationId": "getTimezone",
@@ -31,7 +33,10 @@
             "description": "Format of the response. Possible values: json, xml.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -421,6 +426,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -463,6 +473,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -486,6 +501,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -511,7 +531,9 @@
     "schemas": {
       "TimezoneResponse": {
         "type": "object",
-        "required": ["time_zone"],
+        "required": [
+          "time_zone"
+        ],
         "properties": {
           "ip": {
             "type": "string",
@@ -577,7 +599,7 @@
           },
           "current_time": {
             "type": "string",
-            "description": "The current date and time with timezone offset in YYYY-MM-DD HH:mm:ss.SSS\u00b1ZZZZ format."
+            "description": "The current date and time with timezone offset in YYYY-MM-DD HH:mm:ss.SSS±ZZZZ format."
           },
           "current_time_unix": {
             "type": "number",
@@ -602,7 +624,7 @@
           },
           "date_time_ymd": {
             "type": "string",
-            "description": "The date and time with timezone offset in ISO 8601 format YYYY-MM-DDTHH:mm:ss\u00b1HHMM."
+            "description": "The date and time with timezone offset in ISO 8601 format YYYY-MM-DDTHH:mm:ss±HHMM."
           },
           "time_24": {
             "type": "string",
@@ -872,7 +894,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -895,6 +919,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

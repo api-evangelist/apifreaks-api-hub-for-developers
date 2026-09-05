@@ -19,7 +19,9 @@
   "paths": {
     "/flags": {
       "get": {
-        "tags": ["Flags APIs"],
+        "tags": [
+          "Flags APIs"
+        ],
         "summary": "Retrieve a country or organization flag image",
         "description": "Returns a flag image for a specified country or international organization. Supports PNG, WEBP, and SVG formats with flat or round shapes.",
         "operationId": "getFlag",
@@ -40,7 +42,10 @@
             "description": "Type of flag to retrieve. Possible values: country, organization.",
             "schema": {
               "type": "string",
-              "enum": ["country", "organization"]
+              "enum": [
+                "country",
+                "organization"
+              ]
             }
           },
           {
@@ -50,7 +55,10 @@
             "description": "Shape of the flag image. Possible values: flat, round.",
             "schema": {
               "type": "string",
-              "enum": ["flat", "round"]
+              "enum": [
+                "flat",
+                "round"
+              ]
             }
           },
           {
@@ -60,7 +68,11 @@
             "description": "Image format. Possible values: png, webp, svg. Default: png.",
             "schema": {
               "type": "string",
-              "enum": ["png", "webp", "svg"],
+              "enum": [
+                "png",
+                "webp",
+                "svg"
+              ],
               "default": "png"
             }
           },
@@ -71,7 +83,13 @@
             "description": "Size of the flag image in pixels. Possible values: 16px, 24px, 32px, 48px, 64px. Default is 64px when omitted. Applies to PNG and WEBP formats only; silently ignored (no error) when format is svg, since SVG is vector-scalable.",
             "schema": {
               "type": "string",
-              "enum": ["16px", "24px", "32px", "48px", "64px"]
+              "enum": [
+                "16px",
+                "24px",
+                "32px",
+                "48px",
+                "64px"
+              ]
             }
           }
         ],
@@ -93,6 +111,11 @@
                 "schema": {
                   "$ref": "#/components/schemas/ApiResponseSchemas"
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -136,6 +159,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -157,6 +185,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -189,7 +222,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests. path and timestamp formatting differ between the missing-parameter case (versioned path, Z-suffixed timestamp) and the invalid-value/not-found cases (unversioned path, offset timestamp with microseconds), since this endpoint is served by a different backend than most of the API.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -212,6 +247,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

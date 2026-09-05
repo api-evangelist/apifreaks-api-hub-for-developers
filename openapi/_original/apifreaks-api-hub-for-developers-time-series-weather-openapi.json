@@ -19,7 +19,9 @@
   "paths": {
     "/time-series": {
       "get": {
-        "tags": ["Weather APIs"],
+        "tags": [
+          "Weather APIs"
+        ],
         "summary": "Get historical weather data across a date range",
         "description": "Pull historical weather information for date ranges up to 90 days (daily data) or 7 days (hourly data). Get consistent formatting across your specified date range with reliable historical weather patterns.",
         "operationId": "getTimeSeriesData",
@@ -31,7 +33,9 @@
             "description": "Format of the response. Possible values: json.",
             "schema": {
               "type": "string",
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "default": "json"
             }
           },
@@ -95,7 +99,10 @@
             "name": "precision",
             "in": "query",
             "schema": {
-              "enum": ["daily", "hourly"],
+              "enum": [
+                "daily",
+                "hourly"
+              ],
               "type": "string",
               "default": "daily"
             },
@@ -252,6 +259,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -384,6 +396,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -416,7 +433,10 @@
             "$ref": "#/components/schemas/TimeSeriesData"
           }
         },
-        "required": ["location", "historical"],
+        "required": [
+          "location",
+          "historical"
+        ],
         "description": "Time-series weather response containing location data and date-keyed time-series data."
       },
       "LocationByCoordinates": {
@@ -841,7 +861,10 @@
             "description": "Wind gusts at 10 meters (km/h)"
           },
           "albedo": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Reflectivity of the Earth's surface. Observed as null in every sampled response; this field is not currently populated by the upstream data source."
           },
           "shortwave_radiation": {
@@ -968,7 +991,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -1014,7 +1039,9 @@
       "TimeSeriesDay": {
         "type": "object",
         "description": "Time-series weather data for a single day. Contains astronomy data plus exactly one of daily or hourly, depending on the request's precision parameter — the other key is absent, not empty, in the actual response.",
-        "required": ["astronomy"],
+        "required": [
+          "astronomy"
+        ],
         "properties": {
           "daily": {
             "$ref": "#/components/schemas/HistoricalDaily",
@@ -1041,7 +1068,17 @@
             "$ref": "#/components/schemas/TimeSeriesDay"
           }
         },
-        "required": ["date"]
+        "required": [
+          "date"
+        ]
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
       }
     }
   },

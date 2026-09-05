@@ -19,7 +19,9 @@
   "paths": {
     "/domain/dns/history": {
       "get": {
-        "tags": ["DNS APIs"],
+        "tags": [
+          "DNS APIs"
+        ],
         "summary": "Get all historical A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of a hostname",
         "description": "Retrieve historical DNS records for any hostname. Access unique historical data for A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records,\nincluding subdomains. Results are paginated with up to 100 unique records per page.\n",
         "operationId": "dnsHistoryLookup",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response."
@@ -315,6 +320,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -347,6 +357,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -368,6 +383,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -393,7 +413,9 @@
     "schemas": {
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -452,7 +474,12 @@
       "DnsHistoryRecord": {
         "type": "object",
         "description": "A single dated DNS snapshot for the queried hostname.",
-        "required": ["queryTime", "domainName", "dnsTypes", "dnsRecords"],
+        "required": [
+          "queryTime",
+          "domainName",
+          "dnsTypes",
+          "dnsRecords"
+        ],
         "properties": {
           "queryTime": {
             "type": "string",
@@ -486,7 +513,14 @@
       "DnsRecord": {
         "type": "object",
         "description": "A single DNS resource record. name, type, dnsType, ttl, rawText, and rRsetType are always present; every other field is populated only for the dnsType(s) noted in its description.",
-        "required": ["name", "type", "dnsType", "ttl", "rawText", "rRsetType"],
+        "required": [
+          "name",
+          "type",
+          "dnsType",
+          "ttl",
+          "rawText",
+          "rRsetType"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -498,7 +532,16 @@
           },
           "dnsType": {
             "type": "string",
-            "enum": ["A", "AAAA", "CNAME", "MX", "NS", "SOA", "TXT", "SPF"],
+            "enum": [
+              "A",
+              "AAAA",
+              "CNAME",
+              "MX",
+              "NS",
+              "SOA",
+              "TXT",
+              "SPF"
+            ],
             "description": "DNS record type as a string."
           },
           "ttl": {
@@ -564,6 +607,14 @@
               "type": "string"
             }
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

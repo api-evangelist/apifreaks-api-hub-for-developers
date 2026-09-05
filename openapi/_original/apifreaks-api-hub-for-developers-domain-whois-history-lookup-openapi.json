@@ -19,7 +19,9 @@
   "paths": {
     "/domain/whois/history": {
       "get": {
-        "tags": ["WHOIS APIs"],
+        "tags": [
+          "WHOIS APIs"
+        ],
         "summary": "Retrieve the complete historical WHOIS record timeline for a domain name",
         "description": "Returns every recorded WHOIS snapshot for the specified domain in chronological order, including registrar, contact, name server, and status changes over time.",
         "operationId": "whoisHistoryLookup",
@@ -31,7 +33,10 @@
             "description": "Format of the response.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -116,6 +121,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -138,6 +148,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -159,6 +174,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -184,7 +204,9 @@
     "schemas": {
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -225,7 +247,9 @@
           },
           "whois": {
             "type": "string",
-            "enum": ["historical"],
+            "enum": [
+              "historical"
+            ],
             "description": "Indicates that this response contains historical WHOIS data."
           },
           "total_records": {
@@ -260,7 +284,9 @@
           },
           "status": {
             "type": "boolean",
-            "enum": [true],
+            "enum": [
+              true
+            ],
             "description": "Always true for a returned historical record."
           },
           "domain_name": {
@@ -277,7 +303,11 @@
           },
           "domain_registered": {
             "type": "string",
-            "enum": ["yes", "no", "restricted"],
+            "enum": [
+              "yes",
+              "no",
+              "restricted"
+            ],
             "description": "Domain registration status at the time of this snapshot, when recorded."
           },
           "create_date": {
@@ -445,7 +475,11 @@
           },
           "domain_registered": {
             "type": "string",
-            "enum": ["yes", "no", "restricted"],
+            "enum": [
+              "yes",
+              "no",
+              "restricted"
+            ],
             "description": "Domain registration status as recorded by the registry."
           },
           "create_date": {
@@ -485,6 +519,14 @@
             "$ref": "#/components/schemas/DomainRegistrar",
             "description": "Registrar of record as recorded directly by the registry."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

@@ -19,7 +19,9 @@
   "paths": {
     "/zipcode/search/radius": {
       "get": {
-        "tags": ["ZIP Code APIs"],
+        "tags": [
+          "ZIP Code APIs"
+        ],
         "summary": "Find ZIP/postal codes within a radius",
         "description": "Returns every ZIP/postal code within the given radius of a center point, specified either by code plus country or by latitude/longitude coordinates.",
         "operationId": "searchZipByRadius",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response. Possible values: json, xml."
@@ -90,7 +95,14 @@
             "schema": {
               "type": "string",
               "default": "km",
-              "enum": ["m", "km", "mi", "ft", "yd", "in"]
+              "enum": [
+                "m",
+                "km",
+                "mi",
+                "ft",
+                "yd",
+                "in"
+              ]
             },
             "description": "Unit for the radius and returned distance values. Supported distance units are m, km, mi, ft, yd, in."
           },
@@ -144,6 +156,17 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "400": {
@@ -196,6 +219,17 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "404": {
@@ -217,6 +251,17 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
               }
             }
           }
@@ -279,7 +324,13 @@
       "ZipRadiusResultItem": {
         "type": "object",
         "description": "A ZIP code result within the search radius, including distance from the center point.",
-        "required": ["code", "region", "region_code", "city", "distance"],
+        "required": [
+          "code",
+          "region",
+          "region_code",
+          "city",
+          "distance"
+        ],
         "properties": {
           "code": {
             "type": "string",
@@ -311,7 +362,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -334,6 +387,26 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads": {
+        "description": "Specifies the maximum number of concurrent requests allowed.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads-Active": {
+        "description": "Indicates the number of active concurrent requests being processed.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

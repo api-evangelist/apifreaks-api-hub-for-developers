@@ -19,7 +19,9 @@
   "paths": {
     "/currency/rates/historical": {
       "get": {
-        "tags": ["Currency APIs"],
+        "tags": [
+          "Currency APIs"
+        ],
         "summary": "Get historical exchange rates",
         "description": "Returns exchange rates for a specific historical date.",
         "operationId": "getHistoricalExchangeRates",
@@ -31,7 +33,10 @@
             "description": "Response format: `json` (default) or `xml`.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -86,6 +91,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -117,6 +127,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -160,6 +175,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -185,7 +205,11 @@
       "HistoricalExchangeRatesResponse": {
         "type": "object",
         "description": "Historical exchange rate response containing date, base currency, and rates map.",
-        "required": ["date", "base", "rates"],
+        "required": [
+          "date",
+          "base",
+          "rates"
+        ],
         "properties": {
           "date": {
             "type": "string",
@@ -209,7 +233,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests. Gateway-level validation errors use an ISO 8601 timestamp and the public endpoint path; currency-service errors (date/symbol validation) use a Unix millisecond timestamp and an internal service path instead.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -228,9 +254,20 @@
             "description": "HTTP status code returned with the error."
           },
           "timestamp": {
-            "type": ["string", "integer"],
+            "type": [
+              "string",
+              "integer"
+            ],
             "description": "Timestamp when the error occurred — ISO 8601 string for gateway errors, Unix milliseconds integer for currency-service errors."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

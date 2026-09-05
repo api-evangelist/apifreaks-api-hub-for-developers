@@ -1,15 +1,15 @@
 name: APIFreaks - API Hub for Developers
-description: >-
-  APIFreaks is a first-party REST API hub built by JFreaks Software Solutions (Lahore, Pakistan) that ships
-  more than 100 production endpoints behind a single API key and a single shared credit pool. The catalog
-  spans IP geolocation and threat intelligence, WHOIS (live, historical, reverse, ASN), DNS (live, history,
-  reverse), SSL certificate inspection, domain availability and subdomain discovery, forward and reverse
-  geocoding, email and phone validation, VAT/IBAN/SWIFT financial validation, web scraping, website
-  screenshots, an asynchronous PDF processing pipeline, currency and commodity market data, ZIP code and
-  GeoDB reference data, weather (current, forecast, historical, marine, air quality, flood), timezones,
-  user-agent parsing and astronomy. Credits are charged only on successful 2xx responses and refunded on
-  errors, new accounts get 10,000 free credits with no card, and the whole surface is published as 102
-  OpenAPI 3.1 specifications plus an official Apache-2.0 MCP server exposing 59 agent tools.
+description: APIFreaks is a first-party REST API hub built by JFreaks Software Solutions (Lahore, Pakistan) that
+  ships more than 100 production endpoints behind a single API key and a single shared credit pool. The catalog
+  spans IP geolocation and threat intelligence, WHOIS (live, historical, reverse, ASN), DNS (live, history, reverse),
+  SSL certificate inspection, domain availability and subdomain discovery, forward and reverse geocoding, email
+  and phone validation, VAT/IBAN/SWIFT financial validation, web scraping, website screenshots, an asynchronous
+  PDF processing pipeline, browser-designed PDF template rendering, currency and commodity market data, ZIP code
+  and GeoDB reference data, weather (current, forecast, historical, marine, air quality, flood), timezones, user-agent
+  parsing and astronomy. Credits are charged only on successful 2xx responses and refunded on errors, new accounts
+  get 10,000 free credits with no card, and the whole surface is published as 104 OpenAPI 3.1 specifications, 68
+  markdown reference twins served at text/markdown for agents, and an official Apache-2.0 MCP server exposing 109
+  tools across 19 opt-in modules.
 deliveryModel:
   model: open-core
   license: Apache-2.0
@@ -43,70 +43,69 @@ accessModel:
 image: https://apifreaks.com/img/opengraph-image.jpg
 url: https://raw.githubusercontent.com/api-evangelist/apifreaks-api-hub-for-developers/refs/heads/main/apis.yml
 created: '2026-07-29'
-modified: '2026-08-09'
+modified: '2026-09-04'
 specificationVersion: '0.23'
 tags:
-  - IP Intelligence
-  - Geolocation
-  - WHOIS
-  - Domain Intelligence
-  - DNS
-  - Geocoding
-  - Email Validation
-  - Phone Validation
-  - SSL
-  - Web Scraping
-  - Screenshots
-  - PDF Processing
-  - Currency
-  - Forex
-  - Commodities
-  - financial validation
-  - ZIP Codes
-  - Weather
-  - Timezone
-  - GeoDB
-  - User-Agent Parsing
-  - Astronomy
-  - Developer Tools
-  - MCP
-  - Agent Ready
-  - OCR
+- IP Intelligence
+- Geolocation
+- WHOIS
+- Domain Intelligence
+- DNS
+- Geocoding
+- Email Validation
+- Phone Validation
+- SSL
+- Web Scraping
+- Screenshots
+- PDF Processing
+- Currency
+- Forex
+- Commodities
+- financial validation
+- ZIP Codes
+- Weather
+- Timezone
+- GeoDB
+- User-Agent Parsing
+- Astronomy
+- Developer Tools
+- MCP
+- Agent Ready
+- OCR
 tags_raw:
-  - IP intelligence
-  - geolocation
-  - WHOIS
-  - domain intelligence
-  - DNS
-  - geocoding
-  - email validation
-  - phone validation
-  - SSL
-  - web scraping
-  - screenshots
-  - PDF processing
-  - currency
-  - forex
-  - commodities
-  - financial validation
-  - ZIP codes
-  - weather
-  - timezone
-  - GeoDB
-  - user-agent parsing
-  - astronomy
-  - developer tools
-  - MCP
-  - agent-ready
-  - OCR
+- IP intelligence
+- geolocation
+- WHOIS
+- domain intelligence
+- DNS
+- geocoding
+- email validation
+- phone validation
+- SSL
+- web scraping
+- screenshots
+- PDF processing
+- currency
+- forex
+- commodities
+- financial validation
+- ZIP codes
+- weather
+- timezone
+- GeoDB
+- user-agent parsing
+- astronomy
+- developer tools
+- MCP
+- agent-ready
+- OCR
 apis:
 - name: APIFreaks MCP Server
-  description: >-
-    Official first-party Model Context Protocol server (Apache-2.0) exposing 59 read-only tools across
-    13 categories — IP intelligence, WHOIS, DNS, SSL, domain, weather, currency, commodity, ZIP code,
-    screenshot, timezone, user-agent and astronomy. Distributed on npm as @apifreaks/mcp and run locally
-    over stdio with `npx -y @apifreaks/mcp`; there is no hosted remote endpoint. Authenticates with the
-    same single APIFREAKS_API_KEY as the REST API.
+  description: Official first-party Model Context Protocol server (Apache-2.0) exposing 59 read-only tools across
+    13 categories — IP intelligence, WHOIS, DNS, SSL, domain, weather, currency, commodity, ZIP code, screenshot,
+    timezone, user-agent and astronomy. Distributed on npm as @apifreaks/mcp and run locally over stdio with `npx
+    -y @apifreaks/mcp`; there is no hosted remote endpoint. Authenticates with the same single APIFREAKS_API_KEY
+    as the REST API.
   humanURL: https://apifreaks.com/integrations/mcp-server
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -140,8 +139,7 @@ apis:
     url: https://github.com/api-freaks/apifreaks-mcp
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-commodity-apis-api
   name: APIFreaks - API Hub for Developers Commodity APIs API
-  description: >-
-    The Commodity APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for commodity apis.
+  description: The Commodity APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for commodity apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -167,8 +165,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-currency-apis-api
   name: APIFreaks - API Hub for Developers Currency APIs API
-  description: >-
-    The Currency APIs API from APIFreaks - API Hub for Developers — 10 operation(s) for currency apis.
+  description: The Currency APIs API from APIFreaks - API Hub for Developers — 10 operation(s) for currency apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -220,8 +217,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-domain-apis-api
   name: APIFreaks - API Hub for Developers Domain APIs API
-  description: >-
-    The Domain APIs API from APIFreaks - API Hub for Developers — 3 operation(s) for domain apis.
+  description: The Domain APIs API from APIFreaks - API Hub for Developers — 3 operation(s) for domain apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -245,12 +241,10 @@ apis:
     url: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
   - type: Webhooks
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
-- aid: >-
-    apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-email-validation-apis-api
+- aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-email-validation-apis-api
   name: APIFreaks - API Hub for Developers Email Validation APIs API
-  description: >-
-    The Email Validation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for email validation
-    apis.
+  description: The Email Validation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for email
+    validation apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -276,8 +270,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-financial-apis-api
   name: APIFreaks - API Hub for Developers Financial APIs API
-  description: >-
-    The Financial APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for financial apis.
+  description: The Financial APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for financial apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -303,8 +296,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-flags-apis-api
   name: APIFreaks - API Hub for Developers Flags APIs API
-  description: >-
-    The Flags APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for flags apis.
+  description: The Flags APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for flags apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -330,8 +322,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-general-apis-api
   name: APIFreaks - API Hub for Developers General APIs API
-  description: >-
-    The General APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for general apis.
+  description: The General APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for general apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -357,8 +348,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-geocoder-apis-api
   name: APIFreaks - API Hub for Developers Geocoder APIs API
-  description: >-
-    The Geocoder APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for geocoder apis.
+  description: The Geocoder APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for geocoder apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -384,8 +374,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-geodb-apis-api
   name: APIFreaks - API Hub for Developers GeoDB APIs API
-  description: >-
-    The GeoDB APIs API from APIFreaks - API Hub for Developers — 8 operation(s) for geodb apis.
+  description: The GeoDB APIs API from APIFreaks - API Hub for Developers — 8 operation(s) for geodb apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -409,11 +398,9 @@ apis:
     url: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
   - type: Webhooks
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
-- aid: >-
-    apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-ip-geolocation-apis-api
+- aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-ip-geolocation-apis-api
   name: APIFreaks - API Hub for Developers IP Geolocation APIs API
-  description: >-
-    The IP Geolocation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for ip geolocation
+  description: The IP Geolocation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for ip geolocation
     apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
@@ -440,8 +427,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-other-apis-api
   name: APIFreaks - API Hub for Developers Other APIs API
-  description: >-
-    The Other APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for other apis.
+  description: The Other APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for other apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -465,11 +451,9 @@ apis:
     url: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
   - type: Webhooks
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
-- aid: >-
-    apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-pdf-operations-apis-api
+- aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-pdf-operations-apis-api
   name: APIFreaks - API Hub for Developers PDF Operations APIs API
-  description: >-
-    The PDF Operations APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for pdf operations
+  description: The PDF Operations APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for pdf operations
     apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
@@ -496,8 +480,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-pdf-security-apis-api
   name: APIFreaks - API Hub for Developers PDF Security APIs API
-  description: >-
-    The PDF Security APIs API from APIFreaks - API Hub for Developers — 4 operation(s) for pdf security
+  description: The PDF Security APIs API from APIFreaks - API Hub for Developers — 4 operation(s) for pdf security
     apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
@@ -524,8 +507,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-pdf-to-image-apis-api
   name: APIFreaks - API Hub for Developers PDF To Image APIs API
-  description: >-
-    The PDF To Image APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for pdf to image
+  description: The PDF To Image APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for pdf to image
     apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
@@ -550,11 +532,9 @@ apis:
     url: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
   - type: Webhooks
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
-- aid: >-
-    apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-pdf-upload-and-download-apis-api
+- aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-pdf-upload-and-download-apis-api
   name: APIFreaks - API Hub for Developers PDF Upload and Download APIs API
-  description: >-
-    The PDF Upload and Download APIs API from APIFreaks - API Hub for Developers — 3 operation(s) for
+  description: The PDF Upload and Download APIs API from APIFreaks - API Hub for Developers — 3 operation(s) for
     pdf upload and download apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
@@ -579,12 +559,10 @@ apis:
     url: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
   - type: Webhooks
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
-- aid: >-
-    apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-phone-validation-apis-api
+- aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-phone-validation-apis-api
   name: APIFreaks - API Hub for Developers Phone Validation APIs API
-  description: >-
-    The Phone Validation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for phone validation
-    apis.
+  description: The Phone Validation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for phone
+    validation apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -610,8 +588,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-scraping-apis-api
   name: APIFreaks - API Hub for Developers Scraping APIs API
-  description: >-
-    The Scraping APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for scraping apis.
+  description: The Scraping APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for scraping apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -637,8 +614,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-screenshot-apis-api
   name: APIFreaks - API Hub for Developers Screenshot APIs API
-  description: >-
-    The Screenshot APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for screenshot apis.
+  description: The Screenshot APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for screenshot apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -688,11 +664,9 @@ apis:
     url: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
   - type: Webhooks
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
-- aid: >-
-    apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-task-status-and-file-info-apis-api
+- aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-task-status-and-file-info-apis-api
   name: APIFreaks - API Hub for Developers Task Status and File Info APIs API
-  description: >-
-    The Task Status and File Info APIs API from APIFreaks - API Hub for Developers — 4 operation(s) for
+  description: The Task Status and File Info APIs API from APIFreaks - API Hub for Developers — 4 operation(s) for
     task status and file info apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
@@ -719,8 +693,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-timezone-apis-api
   name: APIFreaks - API Hub for Developers Timezone APIs API
-  description: >-
-    The Timezone APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for timezone apis.
+  description: The Timezone APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for timezone apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -746,8 +719,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-user-agent-apis-api
   name: APIFreaks - API Hub for Developers User Agent APIs API
-  description: >-
-    The User Agent APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for user agent apis.
+  description: The User Agent APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for user agent apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -773,8 +745,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-weather-apis-api
   name: APIFreaks - API Hub for Developers Weather APIs API
-  description: >-
-    The Weather APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for weather apis.
+  description: The Weather APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for weather apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -800,8 +771,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-whois-apis-api
   name: APIFreaks - API Hub for Developers WHOIS APIs API
-  description: >-
-    The WHOIS APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for whois apis.
+  description: The WHOIS APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for whois apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -827,8 +797,7 @@ apis:
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
 - aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-zip-code-apis-api
   name: APIFreaks - API Hub for Developers ZIP Code APIs API
-  description: >-
-    The ZIP Code APIs API from APIFreaks - API Hub for Developers — 6 operation(s) for zip code apis.
+  description: The ZIP Code APIs API from APIFreaks - API Hub for Developers — 6 operation(s) for zip code apis.
   humanURL: https://apifreaks.com/api
   baseURL: https://api.apifreaks.com/v1.0/
   tags:
@@ -852,16 +821,47 @@ apis:
     url: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
   - type: Webhooks
     url: asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml
+- aid: apifreaks-api-hub-for-developers:apifreaks-api-hub-for-developers-pdf-template-apis-api
+  name: APIFreaks - API Hub for Developers PDF Template APIs API
+  description: The PDF Template APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for rendering
+    a PDF from a template designed in the browser Template Builder. Unlike every other PDF surface these render
+    synchronously and return a hosted pdf_url with a machine-readable expiration_time rather than a taskId. Shipped
+    2026-08-11.
+  humanURL: https://apifreaks.com/api
+  baseURL: https://api.apifreaks.com/v1.0/
+  tags:
+  - PDF Template APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/apifreaks-api-hub-for-developers-pdf-template-apis-api-openapi.yml
+  - type: Documentation
+    url: https://apifreaks.com/docs
+  - type: APIReference
+    url: https://apifreaks.com/api/swagger
+  - type: Playground
+    url: https://apifreaks.com/api/playground
+  - type: Authentication
+    url: authentication/apifreaks-api-hub-for-developers-authentication.yml
+  - type: Conventions
+    url: conventions/apifreaks-api-hub-for-developers-conventions.yml
+  - type: ErrorCatalog
+    url: errors/apifreaks-api-hub-for-developers-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
+  - type: AgentSkill
+    url: skills/apifreaks-api-hub-for-developers-pdf-template-render.md
 maintainers:
-  - FN: JFreaks Software Solutions
-    url: https://apifreaks.com
-    email: support@apifreaks.com
+- FN: JFreaks Software Solutions
+  url: https://apifreaks.com
+  email: support@apifreaks.com
 generated:
   by: apis.io/add
   model: claude-opus-4-8
   confidence: 95
   at: '2026-07-29T05:10:30.144Z'
 common:
+- type: Website
+  url: https://apifreaks.com
 - type: CapabilityMap
   url: capabilities/apifreaks-api-hub-for-developers-capability-edges.yml
   name: APIFreaks - API Hub for Developers Business Capability Map
@@ -908,8 +908,6 @@ common:
   url: rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml
 - type: LLMsTxt
   url: llms/apifreaks-api-hub-for-developers-llms.txt
-- type: WellKnown
-  url: well-known/apifreaks-api-hub-for-developers-well-known.yml
 - type: Packages
   url: packages/apifreaks-api-hub-for-developers-packages.yml
 - type: SDKs
@@ -918,6 +916,8 @@ common:
   url: mcp/apifreaks-api-hub-for-developers-mcp.yml
 - type: ToolCrosswalk
   url: mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml
+- type: DataModel
+  url: data-model/apifreaks-api-hub-for-developers-data-model.yml
 - type: AgentSkill
   url: skills/_index.yml
 - type: Authentication
@@ -943,7 +943,7 @@ common:
 - type: DomainSecurity
   url: security/apifreaks-api-hub-for-developers-domain-security.yml
 x-enrichment:
-  date: '2026-08-09'
-  status: enriched
-  artifacts_added: 125
-  pass: local-v1
+  date: '2026-09-05'
+  status: nochange
+  artifacts_added: 0
+  pass: local-v3

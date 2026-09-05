@@ -19,7 +19,9 @@
   "paths": {
     "/vat/rates/country": {
       "post": {
-        "tags": ["Financial APIs"],
+        "tags": [
+          "Financial APIs"
+        ],
         "summary": "Bulk VAT lookup by country",
         "description": "Retrieves VAT details for multiple countries or country-state combinations in a single request. Maximum of `100` entries per request are allowed.",
         "operationId": "bulkVatRatesByCountry",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
@@ -79,7 +84,10 @@
                         "type": "vat",
                         "currency": "EUR",
                         "standard_rate": 0.19,
-                        "reduced_rate": [0.07, 0],
+                        "reduced_rate": [
+                          0.07,
+                          0
+                        ],
                         "categories": {
                           "books": 0.07,
                           "newspapers": 0.07,
@@ -104,7 +112,10 @@
                         "type": "vat",
                         "currency": "EUR",
                         "standard_rate": 0.19,
-                        "reduced_rate": [0.07, 0],
+                        "reduced_rate": [
+                          0.07,
+                          0
+                        ],
                         "categories": {
                           "books": 0.07,
                           "newspapers": 0.07,
@@ -115,6 +126,11 @@
                     ]
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -138,6 +154,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "413": {
@@ -159,6 +180,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -192,7 +218,12 @@
       "VatBulkResponseItem": {
         "type": "object",
         "description": "A VAT rate result for a single country or state in a bulk response.",
-        "required": ["country", "type", "currency", "standard_rate"],
+        "required": [
+          "country",
+          "type",
+          "currency",
+          "standard_rate"
+        ],
         "properties": {
           "country": {
             "type": "string",
@@ -274,7 +305,9 @@
       "BulkVatRequest": {
         "type": "object",
         "description": "Request body for bulk VAT rate lookup by country.",
-        "required": ["countries"],
+        "required": [
+          "countries"
+        ],
         "properties": {
           "countries": {
             "type": "array",
@@ -288,7 +321,9 @@
       "BulkVatRequestItem": {
         "type": "object",
         "description": "A single country entry in a bulk VAT request.",
-        "required": ["country"],
+        "required": [
+          "country"
+        ],
         "properties": {
           "country": {
             "type": "string",
@@ -303,7 +338,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -326,6 +363,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

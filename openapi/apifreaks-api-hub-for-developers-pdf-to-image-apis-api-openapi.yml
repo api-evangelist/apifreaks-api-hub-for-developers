@@ -121,6 +121,9 @@ paths:
                     taskId: b48e5ed0-e5ce-41bd-953c-6c590ded4b20
                     inputIds:
                     - 6d994947-3909-46cf-91fe-24316c457e2a
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing/invalid parameters or file ID
           content:
@@ -168,6 +171,9 @@ paths:
                     message: Please provide a valid image resolution(dpi). Refer to the documentation for valid resolution values.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: pdfToImage
   /pdf/jpg:
     post:
@@ -277,6 +283,9 @@ paths:
                     taskId: 04a06cd5-158d-4191-a45b-6f58249c599d
                     inputIds:
                     - 7a9e4b12-f3c8-4d56-b7e1-8c2f9d0a3e6f
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing/invalid parameters or file ID
           content:
@@ -332,6 +341,9 @@ paths:
                     message: Please provide a valid image resolution(dpi). Refer to the documentation for valid resolution values.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
   /pdf/tif:
     post:
       tags:
@@ -436,6 +448,9 @@ paths:
                     taskId: 04a06cd5-158d-4191-a45b-6f58249c599d
                     inputIds:
                     - 7a9e4b12-f3c8-4d56-b7e1-8c2f9d0a3e6f
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing/invalid parameters or file ID
           content:
@@ -483,6 +498,9 @@ paths:
                     message: Please provide a valid image resolution(dpi). Refer to the documentation for valid resolution values.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
   /pdf/bmp:
     post:
       tags:
@@ -587,6 +605,9 @@ paths:
                     taskId: 04a06cd5-158d-4191-a45b-6f58249c599d
                     inputIds:
                     - 7a9e4b12-f3c8-4d56-b7e1-8c2f9d0a3e6f
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing/invalid parameters or file ID
           content:
@@ -634,6 +655,9 @@ paths:
                     message: Please provide a valid image resolution(dpi). Refer to the documentation for valid resolution values.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
   /pdf/gif:
     post:
       tags:
@@ -739,6 +763,9 @@ paths:
                     taskId: 04a06cd5-158d-4191-a45b-6f58249c599d
                     inputIds:
                     - 7a9e4b12-f3c8-4d56-b7e1-8c2f9d0a3e6f
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing/invalid parameters or file ID
           content:
@@ -786,17 +813,11 @@ paths:
                     message: Please provide a valid image resolution(dpi). Refer to the documentation for valid resolution values.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
 components:
   schemas:
-    PdfFileUploadRequest:
-      type: object
-      description: Multipart form-data request body containing the PDF file to process.
-      required: []
-      properties:
-        file:
-          type: string
-          format: binary
-          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -833,6 +854,20 @@ components:
           items:
             type: string
           description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
+    PdfFileUploadRequest:
+      type: object
+      description: Multipart form-data request body containing the PDF file to process.
+      required: []
+      properties:
+        file:
+          type: string
+          format: binary
+          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

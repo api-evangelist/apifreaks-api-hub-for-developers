@@ -19,7 +19,9 @@
   "paths": {
     "/historical": {
       "get": {
-        "tags": ["Weather APIs"],
+        "tags": [
+          "Weather APIs"
+        ],
         "summary": "Retrieve historical weather conditions for a specific past date and location, coordinates, or IP address",
         "description": "Return daily aggregate or hourly weather readings plus astronomy data for a single past date going back to 1940, resolved by city/address, GPS coordinates, or IP address.",
         "operationId": "getHistoricalData",
@@ -31,7 +33,9 @@
             "description": "Format of the response. Possible values: json.",
             "schema": {
               "type": "string",
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "default": "json"
             }
           },
@@ -88,7 +92,10 @@
             "description": "Precision of the returned historical data. Possible values: daily (aggregated daily figures), hourly (24 hourly readings for the date). Default: daily.",
             "schema": {
               "type": "string",
-              "enum": ["daily", "hourly"],
+              "enum": [
+                "daily",
+                "hourly"
+              ],
               "default": "daily"
             }
           },
@@ -238,6 +245,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -330,6 +342,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -351,6 +368,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -377,7 +399,10 @@
       "HistoricalResponse": {
         "type": "object",
         "description": "Historical weather response containing location data and historical weather data for the requested date.",
-        "required": ["location", "historical"],
+        "required": [
+          "location",
+          "historical"
+        ],
         "properties": {
           "location": {
             "$ref": "#/components/schemas/WeatherLocation"
@@ -604,7 +629,9 @@
       "HistoricalData": {
         "type": "object",
         "description": "Historical weather data for the requested date, containing an astronomy block plus one of daily or hourly readings depending on the precision parameter. It is not keyed by date --- each request covers exactly one date.",
-        "required": ["astronomy"],
+        "required": [
+          "astronomy"
+        ],
         "properties": {
           "daily": {
             "$ref": "#/components/schemas/HistoricalDaily",
@@ -666,8 +693,34 @@
           "weather_code": {
             "type": "integer",
             "enum": [
-              0, 1, 2, 3, 45, 48, 51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 71,
-              73, 75, 77, 80, 81, 82, 85, 86, 95, 96, 99
+              0,
+              1,
+              2,
+              3,
+              45,
+              48,
+              51,
+              53,
+              55,
+              56,
+              57,
+              61,
+              63,
+              65,
+              66,
+              67,
+              71,
+              73,
+              75,
+              77,
+              80,
+              81,
+              82,
+              85,
+              86,
+              95,
+              96,
+              99
             ],
             "description": "WMO weather condition code representing the day's dominant conditions. Supported codes: 0 clear sky; 1, 2, 3 varying cloud cover; 45, 48 fog; 51, 53, 55 drizzle; 56, 57 freezing drizzle; 61, 63, 65 rain; 66, 67 freezing rain; 71, 73, 75 snowfall; 77 snow grains; 80, 81, 82 rain showers; 85, 86 snow showers; 95 thunderstorm; 96, 99 thunderstorm with hail."
           },
@@ -845,8 +898,34 @@
           "weather_code": {
             "type": "integer",
             "enum": [
-              0, 1, 2, 3, 45, 48, 51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 71,
-              73, 75, 77, 80, 81, 82, 85, 86, 95, 96, 99
+              0,
+              1,
+              2,
+              3,
+              45,
+              48,
+              51,
+              53,
+              55,
+              56,
+              57,
+              61,
+              63,
+              65,
+              66,
+              67,
+              71,
+              73,
+              75,
+              77,
+              80,
+              81,
+              82,
+              85,
+              86,
+              95,
+              96,
+              99
             ],
             "description": "WMO weather condition code representing conditions during this hour. Supported codes: 0 clear sky; 1, 2, 3 varying cloud cover; 45, 48 fog; 51, 53, 55 drizzle; 56, 57 freezing drizzle; 61, 63, 65 rain; 66, 67 freezing rain; 71, 73, 75 snowfall; 77 snow grains; 80, 81, 82 rain showers; 85, 86 snow showers; 95 thunderstorm; 96, 99 thunderstorm with hail."
           },
@@ -879,7 +958,10 @@
             "description": "Wind gusts at 10 meters (km/h)."
           },
           "albedo": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Reflectivity of the Earth's surface. Currently always returned as null."
           },
           "shortwave_radiation": {
@@ -981,7 +1063,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -1004,6 +1088,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

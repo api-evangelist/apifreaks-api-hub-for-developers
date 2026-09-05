@@ -6,7 +6,7 @@ info:
     name: APIFreaks Support
     url: https://apifreaks.com/contact
     email: support@apifreaks.com
-  description: 'Operations tagged Phone Validation APIs across 2 of this provider''s published API definitions: apifreaks-api-hub-for-developers-bulk-phone-number-validation-openapi.json, apifreaks-api-hub-for-developers-phone-number-validation-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Phone Validation APIs across 2 of this provider''s published API definitions: apifreaks-api-hub-for-developers-bulk-phone-number-validation-openapi.json, apifreaks-api-hub-for-developers-phone-validation-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.apifreaks.com/v1.0
   description: Bulk Phone Validation API Server
@@ -17,9 +17,6 @@ tags:
 - name: Phone Validation APIs
 paths:
   /phone/validation/bulk:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: Bulk Phone Validation API Server
     post:
       tags:
       - Phone Validation APIs
@@ -135,6 +132,9 @@ paths:
                     valid: false
                     error: Invalid Number Format
                     message: The input does not match the expected structure of a phone number.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request – Missing or malformed request body
           content:
@@ -150,36 +150,9 @@ paths:
                     path: /v1.0/phone/validation/bulk
                     status: 400
                     timestamp: '2026-07-27T12:56:50.387Z'
-        '413':
-          description: Payload Too Large – Request body exceeds the size limit
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                payloadTooLarge:
-                  summary: Too many numbers / body too large
-                  value:
-                    error: Payload too large Exception
-                    message: Maximum request body size limit exceeded
-                    path: /v1.0/phone/validation/bulk
-                    status: 413
-                    timestamp: '2026-07-27T12:57:03.711Z'
-        '408':
-          description: Request Timeout – Timed out while connecting to the remote server
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                error:
-                  summary: Error response
-                  value:
-                    timestamp: '2026-06-06T14:00:00.000Z'
-                    path: /v1.0/phone/validation/bulk
-                    status: 408
-                    error: Request Timeout
-                    message: Timed out while connecting to the remote URL.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found – Wrong HTTP method used on the endpoint (e.g. GET instead of POST)
           content:
@@ -195,6 +168,45 @@ paths:
                     path: /v1.0/phone/validation/bulk
                     status: 404
                     timestamp: '2026-07-27T12:58:41.535Z'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+        '408':
+          description: Request Timeout – Timed out while connecting to the remote server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                error:
+                  summary: Error response
+                  value:
+                    timestamp: '2026-06-06T14:00:00.000Z'
+                    path: /v1.0/phone/validation/bulk
+                    status: 408
+                    error: Request Timeout
+                    message: Timed out while connecting to the remote URL.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+        '413':
+          description: Payload Too Large – Request body exceeds the size limit
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                payloadTooLarge:
+                  summary: Too many numbers / body too large
+                  value:
+                    error: Payload too large Exception
+                    message: Maximum request body size limit exceeded
+                    path: /v1.0/phone/validation/bulk
+                    status: 413
+                    timestamp: '2026-07-27T12:57:03.711Z'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '429':
           description: Rate Limit Exceeded – API rate limit exceeded
           content:
@@ -210,11 +222,14 @@ paths:
                     status: 429
                     error: Too Many Requests
                     message: API rate limit exceeded.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: bulkValidatePhoneNumbers
-  /phone/validation:
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: Phone Validation API Server
+      description: Bulk Phone Validation API Server
+  /phone/validation:
     post:
       tags:
       - Phone Validation APIs
@@ -298,6 +313,9 @@ paths:
                       region: US
                     possible: false
                     valid: false
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request – e.g. missing required field or both region codes provided
           content:
@@ -353,6 +371,9 @@ paths:
                     error: Number Too Long
                     message: The phone number has more digits than any valid phone number can have.
                     path: /v1.0/phone-number/info
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found – Wrong HTTP method used on the endpoint (e.g. GET instead of POST)
           content:
@@ -368,6 +389,9 @@ paths:
                     path: /v1.0/phone/validation
                     status: 404
                     timestamp: '2026-07-27T12:56:14.351Z'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '408':
           description: Request Timeout – Timed out while connecting to the remote server
           content:
@@ -383,6 +407,9 @@ paths:
                     status: 408
                     error: Request Timeout
                     message: Timed out while connecting to the remote URL.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '429':
           description: Rate Limit Exceeded – API rate limit exceeded
           content:
@@ -398,123 +425,15 @@ paths:
                     status: 429
                     error: Too Many Requests
                     message: API rate limit exceeded.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: validatePhoneNumber
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Phone Validation API Server
 components:
   schemas:
-    PhoneFormats:
-      type: object
-      description: Four standardized representations of the phone number.
-      properties:
-        E164:
-          type: string
-          description: Number in E.164 format.
-        International:
-          type: string
-          description: Human-readable international format.
-        National:
-          type: string
-          description: Local format as dialed within the country.
-        RFC3966:
-          type: string
-          description: URI format following RFC 3966.
-      required: []
-    BulkPhoneValidationResponse:
-      type: array
-      description: Array of per-number results, one entry per requested phone number that had a number field, in the same order as the request. Items missing number are silently omitted rather than erroring.
-      items:
-        $ref: '#/components/schemas/PhoneValidationResponse'
-    PhoneValidationResponse_2:
-      type: object
-      properties:
-        raw_input:
-          $ref: '#/components/schemas/PhoneRawInput_2'
-        possible:
-          type: boolean
-          description: Whether the number is possible (length and format checks only). A number can be possible but not valid.
-        valid:
-          type: boolean
-          description: Whether the number is valid according to the numbering plan.
-        country_prefix:
-          type: integer
-          description: The international dialing prefix for the number's country (e.g., 1 for US/Canada, 44 for United Kingdom).
-        national_number:
-          type: integer
-          description: The national significant number (the phone number without the country code).
-        country_code:
-          type: string
-          description: ISO-2 country code inferred from the number (e.g., US, GB).
-        carrier:
-          type: string
-          description: Carrier name associated with the number (if available). May not reflect ported carriers.
-        location:
-          type: string
-          description: Geographic description (city/region) for the number (if applicable).
-        time_zones:
-          type: array
-          items:
-            type: string
-          description: Array of possible time zones associated with the number.
-        line_type:
-          type: string
-          description: Classification of the phone line (MOBILE, FIXED_LINE, VOIP, etc.).
-          enum:
-          - MOBILE
-          - FIXED_LINE
-          - FIXED_LINE_OR_MOBILE
-          - VOIP
-          - TOLL_FREE
-          - PREMIUM_RATE
-          - SHARED_COST
-          - PERSONAL_NUMBER
-          - PAGER
-          - UAN
-          - VOICEMAIL
-          - UNKNOWN
-        formats:
-          $ref: '#/components/schemas/PhoneFormats_2'
-        area_code_length:
-          type: integer
-          description: Length of the geographic area code. Only applies to geographically-assigned numbers.
-        ndc_length:
-          type: integer
-          description: Length of the National Destination Code (NDC), the routing prefix within a country.
-        can_be_internationally_dialled:
-          type: boolean
-          description: Whether the number can be dialled internationally. false for short codes, emergency numbers, and domestic-only services.
-      description: Phone validation response containing validation status and metadata.
-      required:
-      - raw_input
-      - possible
-      - valid
-    BulkPhoneValidationRequest:
-      type: object
-      description: Request body for bulk phone validation.
-      required:
-      - numbers
-      properties:
-        numbers:
-          type: array
-          description: Array of phone number objects. Maximum 100 per request.
-          maxItems: 100
-          items:
-            $ref: '#/components/schemas/BulkPhoneNumberItem'
-    PhoneFormats_2:
-      type: object
-      description: Four standardized representations of the phone number.
-      properties:
-        E164:
-          type: string
-          description: Number in E.164 format, the standard machine-readable format.
-        International:
-          type: string
-          description: Human-readable international format with country code.
-        National:
-          type: string
-          description: Local format as dialed within the country.
-        RFC3966:
-          type: string
-          description: 'URI format following RFC 3966 for tel: links.'
-      required: []
     ErrorResponse:
       type: object
       properties:
@@ -537,36 +456,11 @@ components:
       description: Standard error envelope returned by the API on failed requests.
       required:
       - message
-    PhoneRawInput:
-      type: object
-      description: Original request payload sent by the caller.
-      properties:
-        number:
-          type: string
-          description: The phone number as entered by the user.
-        region:
-          type: string
-          description: ISO-2 country code.
-        dialer_region:
-          type: string
-          description: ISO-2 country code of the dialing origin.
-      required:
-      - number
-    PhoneValidationRequest:
-      type: object
-      description: Request body for phone validation.
-      required:
-      - number
-      properties:
-        number:
-          type: string
-          description: Phone number to validate. Accepts international format (+14155552671), local format (4155552671) with region, or IDD format (0014155552671) with dialer_region.
-        region:
-          type: string
-          description: Two-letter ISO country code (e.g., US, GB). Required when number is in local format without + prefix. Cannot be used together with dialer_region.
-        dialer_region:
-          type: string
-          description: Two-letter ISO country code indicating the country the number is being dialed from. Required when number uses IDD exit code. Cannot be used together with region.
+    BulkPhoneValidationResponse:
+      type: array
+      description: Array of per-number results, one entry per requested phone number that had a number field, in the same order as the request. Items missing number are silently omitted rather than erroring.
+      items:
+        $ref: '#/components/schemas/PhoneValidationResponse'
     BulkPhoneNumberItem:
       type: object
       description: A single phone number entry in a bulk validation request.
@@ -582,6 +476,50 @@ components:
         dialer_region:
           type: string
           description: Two-letter ISO country code of the dialing origin. Required for IDD format numbers.
+    PhoneFormats:
+      type: object
+      description: Four standardized representations of the phone number.
+      properties:
+        E164:
+          type: string
+          description: Number in E.164 format.
+        International:
+          type: string
+          description: Human-readable international format.
+        National:
+          type: string
+          description: Local format as dialed within the country.
+        RFC3966:
+          type: string
+          description: URI format following RFC 3966.
+      required: []
+    BulkPhoneValidationRequest:
+      type: object
+      description: Request body for bulk phone validation.
+      required:
+      - numbers
+      properties:
+        numbers:
+          type: array
+          description: Array of phone number objects. Maximum 100 per request.
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/BulkPhoneNumberItem'
+    PhoneRawInput:
+      type: object
+      description: Original request payload sent by the caller.
+      properties:
+        number:
+          type: string
+          description: The phone number as entered by the user.
+        region:
+          type: string
+          description: ISO-2 country code.
+        dialer_region:
+          type: string
+          description: ISO-2 country code of the dialing origin.
+      required:
+      - number
     PhoneValidationResponse:
       type: object
       properties:
@@ -651,6 +589,38 @@ components:
       - raw_input
       - possible
       - valid
+    PhoneValidationRequest:
+      type: object
+      description: Request body for phone validation.
+      required:
+      - number
+      properties:
+        number:
+          type: string
+          description: Phone number to validate. Accepts international format (+14155552671), local format (4155552671) with region, or IDD format (0014155552671) with dialer_region.
+        region:
+          type: string
+          description: Two-letter ISO country code (e.g., US, GB). Required when number is in local format without + prefix. Cannot be used together with dialer_region.
+        dialer_region:
+          type: string
+          description: Two-letter ISO country code indicating the country the number is being dialed from. Required when number uses IDD exit code. Cannot be used together with region.
+    PhoneFormats_2:
+      type: object
+      description: Four standardized representations of the phone number.
+      properties:
+        E164:
+          type: string
+          description: Number in E.164 format, the standard machine-readable format.
+        International:
+          type: string
+          description: Human-readable international format with country code.
+        National:
+          type: string
+          description: Local format as dialed within the country.
+        RFC3966:
+          type: string
+          description: 'URI format following RFC 3966 for tel: links.'
+      required: []
     PhoneRawInput_2:
       type: object
       description: Original request payload sent by the caller.
@@ -666,6 +636,74 @@ components:
           description: ISO-2 country code of the dialing origin. Present when provided in the request.
       required:
       - number
+    PhoneValidationResponse_2:
+      type: object
+      properties:
+        raw_input:
+          $ref: '#/components/schemas/PhoneRawInput_2'
+        possible:
+          type: boolean
+          description: Whether the number is possible (length and format checks only). A number can be possible but not valid.
+        valid:
+          type: boolean
+          description: Whether the number is valid according to the numbering plan.
+        country_prefix:
+          type: integer
+          description: The international dialing prefix for the number's country (e.g., 1 for US/Canada, 44 for United Kingdom).
+        national_number:
+          type: integer
+          description: The national significant number (the phone number without the country code).
+        country_code:
+          type: string
+          description: ISO-2 country code inferred from the number (e.g., US, GB).
+        carrier:
+          type: string
+          description: Carrier name associated with the number (if available). May not reflect ported carriers.
+        location:
+          type: string
+          description: Geographic description (city/region) for the number (if applicable).
+        time_zones:
+          type: array
+          items:
+            type: string
+          description: Array of possible time zones associated with the number.
+        line_type:
+          type: string
+          description: Classification of the phone line (MOBILE, FIXED_LINE, VOIP, etc.).
+          enum:
+          - MOBILE
+          - FIXED_LINE
+          - FIXED_LINE_OR_MOBILE
+          - VOIP
+          - TOLL_FREE
+          - PREMIUM_RATE
+          - SHARED_COST
+          - PERSONAL_NUMBER
+          - PAGER
+          - UAN
+          - VOICEMAIL
+          - UNKNOWN
+        formats:
+          $ref: '#/components/schemas/PhoneFormats_2'
+        area_code_length:
+          type: integer
+          description: Length of the geographic area code. Only applies to geographically-assigned numbers.
+        ndc_length:
+          type: integer
+          description: Length of the National Destination Code (NDC), the routing prefix within a country.
+        can_be_internationally_dialled:
+          type: boolean
+          description: Whether the number can be dialled internationally. false for short codes, emergency numbers, and domestic-only services.
+      description: Phone validation response containing validation status and metadata.
+      required:
+      - raw_input
+      - possible
+      - valid
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey
@@ -679,4 +717,4 @@ components:
       description: Pass your API key via the apiKey query parameter.
 x-refined-from:
 - apifreaks-api-hub-for-developers-bulk-phone-number-validation-openapi.json
-- apifreaks-api-hub-for-developers-phone-number-validation-openapi.json
+- apifreaks-api-hub-for-developers-phone-validation-openapi.json

@@ -19,7 +19,9 @@
   "paths": {
     "/domain/whois/live": {
       "post": {
-        "tags": ["WHOIS APIs"],
+        "tags": [
+          "WHOIS APIs"
+        ],
         "summary": "Retrieve real-time WHOIS registration and ownership data for up to 100 domain names in a single request",
         "description": "Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch.",
         "operationId": "bulkWhoisLookup",
@@ -31,7 +33,10 @@
             "description": "Format of the response.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           }
@@ -47,7 +52,10 @@
                 "typicalRequest": {
                   "summary": "Typical bulk lookup request",
                   "value": {
-                    "domainNames": ["microsoft.com", "example.xn--tckwe"]
+                    "domainNames": [
+                      "microsoft.com",
+                      "example.xn--tckwe"
+                    ]
                   }
                 }
               }
@@ -165,6 +173,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "206": {
@@ -277,6 +290,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -299,6 +317,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "413": {
@@ -320,6 +343,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -345,7 +373,9 @@
     "schemas": {
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -373,7 +403,9 @@
       "BulkWhoisLookupRequest": {
         "type": "object",
         "description": "Request body for bulk domain WHOIS lookup.",
-        "required": ["domainNames"],
+        "required": [
+          "domainNames"
+        ],
         "properties": {
           "domainNames": {
             "type": "array",
@@ -388,7 +420,9 @@
       "BulkWhoisLookupResponse": {
         "type": "object",
         "description": "Wrapper object containing one WHOIS result or error per requested domain, in request order.",
-        "required": ["bulk_whois_response"],
+        "required": [
+          "bulk_whois_response"
+        ],
         "properties": {
           "bulk_whois_response": {
             "type": "array",
@@ -409,11 +443,18 @@
       "BulkWhoisLookupItemError": {
         "type": "object",
         "description": "Per-item error, returned in place of a WHOIS result when an individual domain's extension is unsupported or its lookup otherwise fails.",
-        "required": ["status", "domain_name", "status_code", "message"],
+        "required": [
+          "status",
+          "domain_name",
+          "status_code",
+          "message"
+        ],
         "properties": {
           "status": {
             "type": "boolean",
-            "enum": [false],
+            "enum": [
+              false
+            ],
             "description": "Always false for a per-item error."
           },
           "domain_name": {
@@ -463,7 +504,11 @@
           },
           "domain_registered": {
             "type": "string",
-            "enum": ["yes", "no", "restricted"],
+            "enum": [
+              "yes",
+              "no",
+              "restricted"
+            ],
             "description": "Domain registration status; 'restricted' means the registry withholds registration details."
           },
           "create_date": {
@@ -643,7 +688,11 @@
           },
           "domain_registered": {
             "type": "string",
-            "enum": ["yes", "no", "restricted"],
+            "enum": [
+              "yes",
+              "no",
+              "restricted"
+            ],
             "description": "Domain registration status as recorded by the registry."
           },
           "create_date": {
@@ -683,6 +732,14 @@
             "$ref": "#/components/schemas/DomainRegistrar",
             "description": "Registrar of record as recorded directly by the registry."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

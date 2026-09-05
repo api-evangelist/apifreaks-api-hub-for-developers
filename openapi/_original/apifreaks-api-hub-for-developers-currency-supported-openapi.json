@@ -19,7 +19,9 @@
   "paths": {
     "/currency/supported": {
       "get": {
-        "tags": ["Currency APIs"],
+        "tags": [
+          "Currency APIs"
+        ],
         "summary": "Get all supported currencies",
         "description": "Returns a map of all supported currencies with metadata.",
         "operationId": "getSupportedCurrencies",
@@ -31,7 +33,10 @@
             "description": "Response format: `json` (default) or `xml`.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           }
@@ -84,6 +89,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "406": {
@@ -105,6 +115,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -130,7 +145,9 @@
     "schemas": {
       "SupportedCurrenciesResponse": {
         "type": "object",
-        "required": ["supportedCurrenciesMap"],
+        "required": [
+          "supportedCurrenciesMap"
+        ],
         "properties": {
           "supportedCurrenciesMap": {
             "type": "object",
@@ -175,7 +192,10 @@
           },
           "status": {
             "type": "string",
-            "enum": ["AVAILABLE", "DEPRECIATED"],
+            "enum": [
+              "AVAILABLE",
+              "DEPRECIATED"
+            ],
             "description": "Availability status."
           },
           "availableFrom": {
@@ -196,7 +216,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -219,6 +241,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

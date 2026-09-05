@@ -19,7 +19,9 @@
   "paths": {
     "/swift-code/finder": {
       "get": {
-        "tags": ["Financial APIs"],
+        "tags": [
+          "Financial APIs"
+        ],
         "summary": "Find SWIFT codes",
         "description": "Drills down from countries to banks to cities to SWIFT/BIC codes, one parameter level at a time.",
         "operationId": "findSwiftCode",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
@@ -74,15 +79,30 @@
                 "examples": {
                   "allCountries": {
                     "summary": "No parameters — all supported countries",
-                    "value": ["Albania", "Algeria", "Andorra", "Germany", "United States"]
+                    "value": [
+                      "Albania",
+                      "Algeria",
+                      "Andorra",
+                      "Germany",
+                      "United States"
+                    ]
                   },
                   "banksInCountry": {
                     "summary": "country only — bank names in that country",
-                    "value": ["1NCE GMBH", "AAREAL BANK AG", "DEUTSCHE BANK AG"]
+                    "value": [
+                      "1NCE GMBH",
+                      "AAREAL BANK AG",
+                      "DEUTSCHE BANK AG"
+                    ]
                   },
                   "citiesForBank": {
                     "summary": "country + bank — cities that bank operates in",
-                    "value": ["AACHEN", "BERLIN", "FRANKFURT AM MAIN", "MUENCHEN"]
+                    "value": [
+                      "AACHEN",
+                      "BERLIN",
+                      "FRANKFURT AM MAIN",
+                      "MUENCHEN"
+                    ]
                   },
                   "swiftCodes": {
                     "summary": "country + bank + city — matching SWIFT/BIC codes",
@@ -99,6 +119,11 @@
                     "value": []
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -117,6 +142,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -154,7 +184,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -177,6 +209,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

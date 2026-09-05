@@ -17,9 +17,6 @@ tags:
 - name: Screenshot APIs
 paths:
   /screenshot:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: Bulk Screenshot API Server
     post:
       tags:
       - Screenshot APIs
@@ -86,6 +83,13 @@ paths:
                         path: /v3/screenshot
                       status: fulfilled
                       error_message: null
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
         '400':
           description: Invalid request body
           content:
@@ -101,6 +105,13 @@ paths:
                     timestamp: '2026-07-27T10:18:42.036Z'
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
         '413':
           description: Payload too large
           content:
@@ -116,6 +127,13 @@ paths:
                     timestamp: '2026-07-27T10:18:57.172Z'
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
     get:
       tags:
       - Screenshot APIs
@@ -627,6 +645,13 @@ paths:
                     created_at: '2026-07-27T10:19:08.668Z'
                     format: json
                     ttl: '2026-08-26T10:19:05.486Z'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
         '400':
           description: Bad Request — Invalid or missing parameters
           content:
@@ -650,6 +675,13 @@ paths:
                     timestamp: '2026-07-27T10:19:11.922Z'
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
         '408':
           description: Request Timeout — Screenshot capture exceeded the configured timeout
           content:
@@ -665,68 +697,18 @@ paths:
                     path: /v3/screenshot
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Bulk Screenshot API Server
 components:
   schemas:
-    BulkScreenshotSuccessItem:
-      type: object
-      description: Per-URL result entry. The `url` field holds either the screenshot metadata or an error object, depending on whether that specific URL was captured successfully.
-      required:
-      - status
-      - url
-      properties:
-        status:
-          type: string
-          description: Processing status for this item (fulfilled).
-        url:
-          description: Screenshot metadata for this URL, or an error object if this specific URL could not be captured.
-          oneOf:
-          - description: Screenshot metadata with the same structure as the single Website Screenshot API response.
-            $ref: '#/components/schemas/BulkScreenshotUrlData'
-          - description: Per-item error returned when this specific URL cannot be captured.
-            $ref: '#/components/schemas/ErrorResponse'
-        error_message:
-          type:
-          - string
-          - 'null'
-          description: Observed to always be null; per-item error details are returned inside `url` instead.
-    BulkScreenshotMetaData:
-      type: object
-      description: Metadata about the bulk screenshot request results.
-      required:
-      - total_urls
-      - successful_urls
-      - failed_urls
-      properties:
-        total_urls:
-          type: integer
-          description: Total number of URLs processed.
-        successful_urls:
-          type: integer
-          description: Number of URLs successfully processed.
-        failed_urls:
-          type: integer
-          description: Number of URLs that failed to process.
-    ClipRect:
-      type: object
-      description: Clipping rectangle dimensions for the captured area.
-      required:
-      - x
-      - y
-      - width
-      - height
-      properties:
-        x:
-          type: integer
-          description: X position of the clip rectangle in pixels.
-        y:
-          type: integer
-          description: Y position of the clip rectangle in pixels.
-        width:
-          type: integer
-          description: Width of the clip rectangle in pixels.
-        height:
-          type: integer
-          description: Height of the clip rectangle in pixels.
     BulkScreenshotUrlData:
       type: object
       description: Screenshot result data for a single URL. Contains the same fields as the single Website Screenshot API response.
@@ -964,229 +946,6 @@ components:
         video:
           type: boolean
           description: Whether viewport recording mode was enabled.
-    ScreenshotResponse:
-      type: object
-      description: Website screenshot response containing the screenshot URL and metadata.
-      required:
-      - screenshot
-      - url
-      - created_at
-      - format
-      - ttl
-      properties:
-        screenshot:
-          type: string
-          format: uri
-          description: URL of the captured screenshot image file.
-        url:
-          type: string
-          format: uri
-          description: The original URL that was captured.
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the screenshot was created (ISO 8601 format).
-        format:
-          type: string
-          description: Response format type.
-        ttl:
-          type: string
-          description: Time until the screenshot expires (ISO 8601 format).
-        file_type:
-          type: string
-          description: The file type of the output (e.g., PNG, JPEG).
-        width:
-          type: integer
-          description: Viewport width used for capture in pixels.
-        height:
-          type: integer
-          description: Viewport height used for capture in pixels.
-        fresh:
-          type: boolean
-          description: Whether a fresh render was performed.
-        full_page:
-          type: boolean
-          description: Whether full page capture was used.
-        lazy_load:
-          type: boolean
-          description: Whether lazy loading was triggered.
-        retina:
-          type: boolean
-          description: Whether retina capture was used.
-        dark_mode:
-          type: boolean
-          description: Whether dark mode was enabled.
-        enable_caching:
-          type: boolean
-          description: Whether caching was enabled.
-        omit_background:
-          type: boolean
-          description: Whether background was removed.
-        destroy_screenshot:
-          type: boolean
-          description: Whether the screenshot was destroyed after generation.
-        fail_on_error:
-          type: boolean
-          description: Whether the request failed on error.
-        block_ads:
-          type: boolean
-          description: Whether ads were blocked.
-        no_cookie_banners:
-          type: boolean
-          description: Whether cookie banners were blocked.
-        block_chat_widgets:
-          type: boolean
-          description: Whether chat widgets were blocked.
-        block_tracking:
-          type: boolean
-          description: Whether tracking scripts were blocked.
-        block_js:
-          type: boolean
-          description: Whether JavaScript was blocked.
-        block_stylesheets:
-          type: boolean
-          description: Whether stylesheets were blocked.
-        block_images:
-          type: boolean
-          description: Whether images were blocked.
-        block_media:
-          type: boolean
-          description: Whether media files were blocked.
-        block_font:
-          type: boolean
-          description: Whether fonts were blocked.
-        block_xhr:
-          type: boolean
-          description: Whether XHR requests were blocked.
-        block_fetch:
-          type: boolean
-          description: Whether Fetch API requests were blocked.
-        block_web_socket:
-          type: boolean
-          description: Whether WebSocket connections were blocked.
-        block_manifest:
-          type: boolean
-          description: Whether manifest files were blocked.
-        extract_text:
-          type: boolean
-          description: Whether text content was extracted.
-        extract_html:
-          type: boolean
-          description: Whether HTML content was extracted.
-        extract_markdown:
-          type: boolean
-          description: Whether markdown extraction was enabled.
-        get_image_urls:
-          type: boolean
-          description: Whether image URL extraction was enabled.
-        longitude:
-          type: number
-          format: float
-          description: The longitude value used for geolocation.
-        latitude:
-          type: number
-          format: float
-          description: The latitude value used for geolocation.
-        proxy:
-          type: string
-          description: The proxy configuration used for the request.
-        headers:
-          type: string
-          description: The custom headers that were included in the request.
-        cookies:
-          type: string
-          description: The cookies that were included in the request.
-        scroll_to_element:
-          type: string
-          description: The element that was scrolled to before rendering.
-        selector:
-          type: string
-          description: The element that was selected for rendering.
-        selector_to_click:
-          type: string
-          description: The CSS selector that was clicked before capture.
-        click_recursion:
-          type: integer
-          description: The number of times the selector was clicked.
-        blur_selector:
-          type: string
-          description: The elements that were blurred in the output.
-        remove_selector:
-          type: string
-          description: The elements that were removed from the output.
-        css:
-          type: string
-          description: The custom CSS that was injected into the page.
-        css_url:
-          type: string
-          format: uri
-          description: The external CSS URL that was loaded.
-        js:
-          type: string
-          description: The custom JavaScript that was injected.
-        js_url:
-          type: string
-          format: uri
-          description: The external JavaScript URL that was loaded.
-        user_agent:
-          type: string
-          description: The User-Agent string that was used.
-        accept_languages:
-          type: string
-          description: The Accept-Language header that was used.
-        delay:
-          type: integer
-          description: The delay duration that was applied in milliseconds.
-        thumbnail_width:
-          type: integer
-          description: The thumbnail width that was used in pixels.
-        output:
-          type: string
-          description: The output type that was used.
-        image_quality:
-          type: integer
-          description: The image quality level that was applied.
-        timeout:
-          type: integer
-          description: The actual timeout duration that was applied in milliseconds.
-        adjust_top:
-          type: integer
-          description: The vertical position that was scrolled to in pixels.
-        wait_for_event:
-          type: string
-          description: The event that triggered the rendering to start.
-        grayscale:
-          type: integer
-          description: The grayscale level that was applied (0-100).
-        scrolling_screenshot:
-          type: boolean
-          description: Whether scrolling screenshot mode was enabled.
-        multiple_scrolling:
-          type: boolean
-          description: Whether multiple scrolling captures were performed.
-        sizes:
-          type: array
-          items:
-            type: string
-          description: The dimensions used for each capture.
-        scroll_speed:
-          type: string
-          description: Scrolling speed that was used.
-        scroll_back:
-          type: boolean
-          description: Whether scroll back was enabled.
-        start_immediately:
-          type: boolean
-          description: Whether recording started immediately.
-        duration:
-          type: integer
-          description: Duration of scrolling capture in seconds.
-        result_file_name:
-          type: string
-          description: The final filename used for the output file.
-        enable_incognito:
-          type: boolean
-          description: Whether incognito mode was enabled.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -1209,6 +968,28 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
+    BulkScreenshotResults:
+      type: array
+      description: Array of per-URL results, one entry per requested URL, in the same order as the request. Each entry's `url` field holds either screenshot data or an error object.
+      items:
+        $ref: '#/components/schemas/BulkScreenshotSuccessItem'
+    BulkScreenshotMetaData:
+      type: object
+      description: Metadata about the bulk screenshot request results.
+      required:
+      - total_urls
+      - successful_urls
+      - failed_urls
+      properties:
+        total_urls:
+          type: integer
+          description: Total number of URLs processed.
+        successful_urls:
+          type: integer
+          description: Number of URLs successfully processed.
+        failed_urls:
+          type: integer
+          description: Number of URLs that failed to process.
     BulkScreenshotRequest:
       type: object
       description: Request body for bulk screenshot capture.
@@ -1221,6 +1002,49 @@ components:
           maxItems: 50
           items:
             $ref: '#/components/schemas/BulkScreenshotUrlItem'
+    BulkScreenshotSuccessItem:
+      type: object
+      description: Per-URL result entry. The `url` field holds either the screenshot metadata or an error object, depending on whether that specific URL was captured successfully.
+      required:
+      - status
+      - url
+      properties:
+        status:
+          type: string
+          description: Processing status for this item (fulfilled).
+        url:
+          description: Screenshot metadata for this URL, or an error object if this specific URL could not be captured.
+          oneOf:
+          - description: Screenshot metadata with the same structure as the single Website Screenshot API response.
+            $ref: '#/components/schemas/BulkScreenshotUrlData'
+          - description: Per-item error returned when this specific URL cannot be captured.
+            $ref: '#/components/schemas/ErrorResponse'
+        error_message:
+          type:
+          - string
+          - 'null'
+          description: Observed to always be null; per-item error details are returned inside `url` instead.
+    ClipRect:
+      type: object
+      description: Clipping rectangle dimensions for the captured area.
+      required:
+      - x
+      - y
+      - width
+      - height
+      properties:
+        x:
+          type: integer
+          description: X position of the clip rectangle in pixels.
+        y:
+          type: integer
+          description: Y position of the clip rectangle in pixels.
+        width:
+          type: integer
+          description: Width of the clip rectangle in pixels.
+        height:
+          type: integer
+          description: Height of the clip rectangle in pixels.
     BulkScreenshotResponse:
       type: object
       description: Bulk screenshot response containing status, metadata, and per-URL results.
@@ -1236,11 +1060,6 @@ components:
           $ref: '#/components/schemas/BulkScreenshotMetaData'
         results:
           $ref: '#/components/schemas/BulkScreenshotResults'
-    BulkScreenshotResults:
-      type: array
-      description: Array of per-URL results, one entry per requested URL, in the same order as the request. Each entry's `url` field holds either screenshot data or an error object.
-      items:
-        $ref: '#/components/schemas/BulkScreenshotSuccessItem'
     BulkScreenshotUrlItem:
       type: object
       description: A single URL entry in a bulk screenshot request with per-URL options.
@@ -1490,6 +1309,242 @@ components:
         video:
           type: boolean
           description: Video recording.
+    ScreenshotResponse:
+      type: object
+      description: Website screenshot response containing the screenshot URL and metadata.
+      required:
+      - screenshot
+      - url
+      - created_at
+      - format
+      - ttl
+      properties:
+        screenshot:
+          type: string
+          format: uri
+          description: URL of the captured screenshot image file.
+        url:
+          type: string
+          format: uri
+          description: The original URL that was captured.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the screenshot was created (ISO 8601 format).
+        format:
+          type: string
+          description: Response format type.
+        ttl:
+          type: string
+          description: Time until the screenshot expires (ISO 8601 format).
+        file_type:
+          type: string
+          description: The file type of the output (e.g., PNG, JPEG).
+        width:
+          type: integer
+          description: Viewport width used for capture in pixels.
+        height:
+          type: integer
+          description: Viewport height used for capture in pixels.
+        fresh:
+          type: boolean
+          description: Whether a fresh render was performed.
+        full_page:
+          type: boolean
+          description: Whether full page capture was used.
+        lazy_load:
+          type: boolean
+          description: Whether lazy loading was triggered.
+        retina:
+          type: boolean
+          description: Whether retina capture was used.
+        dark_mode:
+          type: boolean
+          description: Whether dark mode was enabled.
+        enable_caching:
+          type: boolean
+          description: Whether caching was enabled.
+        omit_background:
+          type: boolean
+          description: Whether background was removed.
+        destroy_screenshot:
+          type: boolean
+          description: Whether the screenshot was destroyed after generation.
+        fail_on_error:
+          type: boolean
+          description: Whether the request failed on error.
+        block_ads:
+          type: boolean
+          description: Whether ads were blocked.
+        no_cookie_banners:
+          type: boolean
+          description: Whether cookie banners were blocked.
+        block_chat_widgets:
+          type: boolean
+          description: Whether chat widgets were blocked.
+        block_tracking:
+          type: boolean
+          description: Whether tracking scripts were blocked.
+        block_js:
+          type: boolean
+          description: Whether JavaScript was blocked.
+        block_stylesheets:
+          type: boolean
+          description: Whether stylesheets were blocked.
+        block_images:
+          type: boolean
+          description: Whether images were blocked.
+        block_media:
+          type: boolean
+          description: Whether media files were blocked.
+        block_font:
+          type: boolean
+          description: Whether fonts were blocked.
+        block_xhr:
+          type: boolean
+          description: Whether XHR requests were blocked.
+        block_fetch:
+          type: boolean
+          description: Whether Fetch API requests were blocked.
+        block_web_socket:
+          type: boolean
+          description: Whether WebSocket connections were blocked.
+        block_manifest:
+          type: boolean
+          description: Whether manifest files were blocked.
+        extract_text:
+          type: boolean
+          description: Whether text content was extracted.
+        extract_html:
+          type: boolean
+          description: Whether HTML content was extracted.
+        extract_markdown:
+          type: boolean
+          description: Whether markdown extraction was enabled.
+        get_image_urls:
+          type: boolean
+          description: Whether image URL extraction was enabled.
+        longitude:
+          type: number
+          format: float
+          description: The longitude value used for geolocation.
+        latitude:
+          type: number
+          format: float
+          description: The latitude value used for geolocation.
+        proxy:
+          type: string
+          description: The proxy configuration used for the request.
+        headers:
+          type: string
+          description: The custom headers that were included in the request.
+        cookies:
+          type: string
+          description: The cookies that were included in the request.
+        scroll_to_element:
+          type: string
+          description: The element that was scrolled to before rendering.
+        selector:
+          type: string
+          description: The element that was selected for rendering.
+        selector_to_click:
+          type: string
+          description: The CSS selector that was clicked before capture.
+        click_recursion:
+          type: integer
+          description: The number of times the selector was clicked.
+        blur_selector:
+          type: string
+          description: The elements that were blurred in the output.
+        remove_selector:
+          type: string
+          description: The elements that were removed from the output.
+        css:
+          type: string
+          description: The custom CSS that was injected into the page.
+        css_url:
+          type: string
+          format: uri
+          description: The external CSS URL that was loaded.
+        js:
+          type: string
+          description: The custom JavaScript that was injected.
+        js_url:
+          type: string
+          format: uri
+          description: The external JavaScript URL that was loaded.
+        user_agent:
+          type: string
+          description: The User-Agent string that was used.
+        accept_languages:
+          type: string
+          description: The Accept-Language header that was used.
+        delay:
+          type: integer
+          description: The delay duration that was applied in milliseconds.
+        thumbnail_width:
+          type: integer
+          description: The thumbnail width that was used in pixels.
+        output:
+          type: string
+          description: The output type that was used.
+        image_quality:
+          type: integer
+          description: The image quality level that was applied.
+        timeout:
+          type: integer
+          description: The actual timeout duration that was applied in milliseconds.
+        adjust_top:
+          type: integer
+          description: The vertical position that was scrolled to in pixels.
+        wait_for_event:
+          type: string
+          description: The event that triggered the rendering to start.
+        grayscale:
+          type: integer
+          description: The grayscale level that was applied (0-100).
+        scrolling_screenshot:
+          type: boolean
+          description: Whether scrolling screenshot mode was enabled.
+        multiple_scrolling:
+          type: boolean
+          description: Whether multiple scrolling captures were performed.
+        sizes:
+          type: array
+          items:
+            type: string
+          description: The dimensions used for each capture.
+        scroll_speed:
+          type: string
+          description: Scrolling speed that was used.
+        scroll_back:
+          type: boolean
+          description: Whether scroll back was enabled.
+        start_immediately:
+          type: boolean
+          description: Whether recording started immediately.
+        duration:
+          type: integer
+          description: Duration of scrolling capture in seconds.
+        result_file_name:
+          type: string
+          description: The final filename used for the output file.
+        enable_incognito:
+          type: boolean
+          description: Whether incognito mode was enabled.
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
+    X-Concurrent-Threads-Active:
+      description: Indicates the number of active concurrent requests being processed.
+      schema:
+        type: integer
+    X-Concurrent-Threads:
+      description: Specifies the maximum number of concurrent requests allowed.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

@@ -19,7 +19,9 @@
   "paths": {
     "/commodity/rates/latest": {
       "get": {
-        "tags": ["Commodity APIs"],
+        "tags": [
+          "Commodity APIs"
+        ],
         "summary": "Get latest commodity prices",
         "description": "Returns the current live price for the requested commodity symbols.",
         "operationId": "getLatestCommodityPrices",
@@ -32,7 +34,9 @@
             "schema": {
               "type": "string",
               "default": "json",
-              "enum": ["json"]
+              "enum": [
+                "json"
+              ]
             }
           },
           {
@@ -51,7 +55,10 @@
             "description": "Update frequency. Accepted values: `1m` (default), `10m`.",
             "schema": {
               "type": "string",
-              "enum": ["1m", "10m"],
+              "enum": [
+                "1m",
+                "10m"
+              ],
               "default": "1m"
             }
           },
@@ -113,6 +120,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -144,6 +156,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -177,6 +194,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -201,7 +223,12 @@
     "schemas": {
       "LiveCommodityPricesResponse": {
         "type": "object",
-        "required": ["success", "timestamp", "rates", "metadata"],
+        "required": [
+          "success",
+          "timestamp",
+          "rates",
+          "metadata"
+        ],
         "properties": {
           "success": {
             "type": "boolean",
@@ -236,7 +263,10 @@
           "title": "CommodityMetadataItem",
           "type": "object",
           "description": "Unit and currency metadata for a single commodity.",
-          "required": ["unit", "quote"],
+          "required": [
+            "unit",
+            "quote"
+          ],
           "properties": {
             "unit": {
               "type": "string",
@@ -252,7 +282,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -280,7 +312,11 @@
       "CommodityNotFoundError": {
         "type": "object",
         "description": "Error envelope returned by the commodity pricing service specifically for unresolvable symbol/quote errors. Uses `code` instead of `status` and a Unix millisecond `timestamp`, unlike the standard ErrorResponse.",
-        "required": ["code", "error", "message"],
+        "required": [
+          "code",
+          "error",
+          "message"
+        ],
         "properties": {
           "timestamp": {
             "type": "integer",
@@ -302,6 +338,14 @@
             "type": "string",
             "description": "Human-readable error message describing the failure."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

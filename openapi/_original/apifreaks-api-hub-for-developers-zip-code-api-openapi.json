@@ -19,7 +19,9 @@
   "paths": {
     "/zipcode/lookup": {
       "get": {
-        "tags": ["ZIP Code APIs"],
+        "tags": [
+          "ZIP Code APIs"
+        ],
         "summary": "Look up a ZIP/postal code",
         "description": "Returns every location worldwide that matches the given postal/ZIP code, optionally narrowed to one country.",
         "operationId": "lookupZipCode",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response. Possible values: json, xml."
@@ -119,6 +124,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -151,6 +161,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -172,6 +187,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -198,7 +218,9 @@
       "ZipcodeLookupResponse": {
         "type": "object",
         "description": "ZIP code lookup result containing an array of matching postal codes with location details.",
-        "required": ["results"],
+        "required": [
+          "results"
+        ],
         "properties": {
           "results": {
             "type": "array",
@@ -261,7 +283,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -284,6 +308,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

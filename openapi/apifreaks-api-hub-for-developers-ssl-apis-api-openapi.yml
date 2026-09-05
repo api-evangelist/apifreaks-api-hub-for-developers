@@ -17,9 +17,6 @@ tags:
 - name: SSL APIs
 paths:
   /domain/ssl/live/chain:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: SSL Certificate Chain Lookup API Server
     get:
       tags:
       - SSL APIs
@@ -251,6 +248,9 @@ paths:
                         -----END CERTIFICATE-----
 
                         '
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request – Invalid domain parameter
           content:
@@ -265,6 +265,9 @@ paths:
                     error: Invalid Param Exception
                     message: ' Please pass domain param correct value e.g. whoisfreaks.com, https://whoisfreaks.com, http://whoisfreaks.com [For Technical Support: support@apifreaks.com]'
                     path: /v1.0/domain/ssl/live/chain
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '403':
           description: Forbidden – Domain extension unavailable
           content:
@@ -279,6 +282,9 @@ paths:
                     error: Forbidden
                     message: Unavailable domain extension.
                     path: /v1.0/domain/ssl/live/chain
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found – No SSL certificate exists
           content:
@@ -293,10 +299,13 @@ paths:
                     error: SSL Data Not Found
                     message: No Ssl Certificate exists for entered Domain
                     path: /v1.0/domain/ssl/live/chain
-  /domain/ssl/live:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: SSL Certificate Lookup API Server
+      description: SSL Certificate Chain Lookup API Server
+  /domain/ssl/live:
     get:
       tags:
       - SSL APIs
@@ -395,6 +404,9 @@ paths:
                         -----END CERTIFICATE-----
 
                         '
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request – Invalid domain parameter
           content:
@@ -409,6 +421,9 @@ paths:
                     error: Invalid Param Exception
                     message: 'Please pass domain param correct value[For Technical Support: support@apifreaks.com]'
                     path: /v1.0/ssl/live
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '403':
           description: Forbidden – Domain extension unavailable
           content:
@@ -423,6 +438,9 @@ paths:
                     error: Forbidden
                     message: Unavailable domain extension.
                     path: /v1.0/ssl/live
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found – No SSL certificate exists for entered domain
           content:
@@ -437,44 +455,61 @@ paths:
                     error: SSL Data Not Found
                     message: No Ssl Certificate exists for entered Domain
                     path: /v1.0/ssl/live
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: SSL Certificate Lookup API Server
 components:
   schemas:
-    SSLExtensions:
+    ErrorResponse:
       type: object
-      description: X.509 certificate extensions.
+      description: Standard error envelope returned by the API on failed requests.
       required:
-      - keyUsages
+      - message
       properties:
-        authorityKeyIdentifier:
+        error:
           type: string
-          description: Authority key identifier.
-        subjectKeyIdentifier:
+          description: Short error category or exception type.
+        message:
           type: string
-          description: Subject key identifier.
-        keyUsages:
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    SSLSubjectAlternativeNames:
+      type: object
+      description: Subject alternative names on the certificate.
+      properties:
+        dnsNames:
           type: array
           items:
             type: string
-          description: Key usage extensions.
-        extendedKeyUsages:
+          description: DNS names on the certificate.
+        emailAddresses:
           type: array
           items:
             type: string
-          description: Extended key usage extensions.
-        crlDistributionPoints:
+          description: Email addresses on the certificate.
+        ipAddresses:
           type: array
           items:
             type: string
-          description: CRL distribution point URLs.
-        authorityInfoAccess:
-          $ref: '#/components/schemas/SSLAuthorityInfoAccess'
-        subjectAlternativeNames:
-          $ref: '#/components/schemas/SSLSubjectAlternativeNames'
-        certificatePolicies:
+          description: IP addresses on the certificate.
+        uris:
           type: array
           items:
-            $ref: '#/components/schemas/SSLCertificatePolicy'
-          description: Certificate policy objects.
+            type: string
+          description: URIs on the certificate.
+      required: []
     SSLPublicKey:
       type: object
       description: Public key details of the SSL certificate.
@@ -492,6 +527,152 @@ components:
         pemRaw:
           type: string
           description: Raw PEM-encoded public key.
+    SSLUserNoticeRef:
+      type: object
+      description: Notice reference for a user notice.
+      properties:
+        organization:
+          type: string
+          description: Organization for the notice reference.
+        noticeNumbers:
+          type: string
+          description: Notice numbers.
+      required: []
+    SSLSubject:
+      type: object
+      description: Subject information of the SSL certificate.
+      required:
+      - commonName
+      properties:
+        commonName:
+          type: string
+          description: Common name of the subject.
+        organization:
+          type: string
+          description: Organization of the subject.
+        organizationalUnit:
+          type: string
+          description: Organizational unit of the subject.
+        locality:
+          type: string
+          description: Locality of the subject.
+        state:
+          type: string
+          description: State of the subject.
+        country:
+          type: string
+          description: Country of the subject.
+        incCountry:
+          type: string
+          description: Incorporation country of the subject.
+        incState:
+          type: string
+          description: Incorporation state of the subject.
+        businessCategory:
+          type: string
+          description: Business category of the subject.
+        street:
+          type: string
+          description: Street address of the subject.
+        postalCode:
+          type: string
+          description: Postal code of the subject.
+        serialNumber:
+          type: string
+          description: Serial number of the subject.
+    SSLCertificatePolicy:
+      type: object
+      description: A certificate policy object.
+      properties:
+        policyId:
+          type: string
+          description: Policy OID identifier.
+        policyQualifier:
+          $ref: '#/components/schemas/SSLPolicyQualifier'
+      required: []
+    SSLAuthorityInfoAccess:
+      type: object
+      description: Authority information access details.
+      properties:
+        issuers:
+          type: array
+          items:
+            type: string
+          description: Issuer certificate URLs.
+        ocsp:
+          type: array
+          items:
+            type: string
+          description: OCSP responder URLs.
+      required: []
+    SSLIssuer:
+      type: object
+      description: Issuer information of the SSL certificate.
+      required:
+      - commonName
+      - organization
+      - country
+      properties:
+        commonName:
+          type: string
+          description: Common name of the issuer.
+        organization:
+          type: string
+          description: Organization of the issuer.
+        organizationalUnit:
+          type: string
+          description: Organizational unit of the issuer.
+        locality:
+          type: string
+          description: Locality of the issuer.
+        state:
+          type: string
+          description: State of the issuer.
+        country:
+          type: string
+          description: Country of the issuer.
+        incCountry:
+          type: string
+          description: Incorporation country of the issuer.
+        incState:
+          type: string
+          description: Incorporation state of the issuer.
+        businessCategory:
+          type: string
+          description: Business category of the issuer.
+        street:
+          type: string
+          description: Street address of the issuer.
+        postalCode:
+          type: string
+          description: Postal code of the issuer.
+        serialNumber:
+          type: string
+          description: Serial number of the issuer.
+    SSLUserNotice:
+      type: object
+      description: User notice for a policy qualifier.
+      properties:
+        explicitText:
+          type: string
+          description: Explicit text of the user notice.
+        noticeRef:
+          $ref: '#/components/schemas/SSLUserNoticeRef'
+      required: []
+    SSLPolicyQualifier:
+      type: object
+      description: Policy qualifier for a certificate policy.
+      properties:
+        oid:
+          type: string
+          description: OID of the policy qualifier.
+        cpsUri:
+          type: string
+          format: uri
+          description: CPS URI for the policy qualifier.
+        userNotice:
+          $ref: '#/components/schemas/SSLUserNotice'
+      required: []
     SSLCertificateItem:
       type: object
       description: A single SSL certificate in the certificate chain.
@@ -539,107 +720,42 @@ components:
         pemRaw:
           type: string
           description: Raw PEM-encoded certificate.
-    SSLSubject:
+    SSLExtensions:
       type: object
-      description: Subject information of the SSL certificate.
+      description: X.509 certificate extensions.
       required:
-      - commonName
+      - keyUsages
       properties:
-        commonName:
+        authorityKeyIdentifier:
           type: string
-          description: Common name of the subject.
-        organization:
+          description: Authority key identifier.
+        subjectKeyIdentifier:
           type: string
-          description: Organization of the subject.
-        organizationalUnit:
-          type: string
-          description: Organizational unit of the subject.
-        locality:
-          type: string
-          description: Locality of the subject.
-        state:
-          type: string
-          description: State of the subject.
-        country:
-          type: string
-          description: Country of the subject.
-        incCountry:
-          type: string
-          description: Incorporation country of the subject.
-        incState:
-          type: string
-          description: Incorporation state of the subject.
-        businessCategory:
-          type: string
-          description: Business category of the subject.
-        street:
-          type: string
-          description: Street address of the subject.
-        postalCode:
-          type: string
-          description: Postal code of the subject.
-        serialNumber:
-          type: string
-          description: Serial number of the subject.
-    SSLIssuer:
-      type: object
-      description: Issuer information of the SSL certificate.
-      required:
-      - commonName
-      - organization
-      - country
-      properties:
-        commonName:
-          type: string
-          description: Common name of the issuer.
-        organization:
-          type: string
-          description: Organization of the issuer.
-        organizationalUnit:
-          type: string
-          description: Organizational unit of the issuer.
-        locality:
-          type: string
-          description: Locality of the issuer.
-        state:
-          type: string
-          description: State of the issuer.
-        country:
-          type: string
-          description: Country of the issuer.
-        incCountry:
-          type: string
-          description: Incorporation country of the issuer.
-        incState:
-          type: string
-          description: Incorporation state of the issuer.
-        businessCategory:
-          type: string
-          description: Business category of the issuer.
-        street:
-          type: string
-          description: Street address of the issuer.
-        postalCode:
-          type: string
-          description: Postal code of the issuer.
-        serialNumber:
-          type: string
-          description: Serial number of the issuer.
-    SSLAuthorityInfoAccess:
-      type: object
-      description: Authority information access details.
-      properties:
-        issuers:
+          description: Subject key identifier.
+        keyUsages:
           type: array
           items:
             type: string
-          description: Issuer certificate URLs.
-        ocsp:
+          description: Key usage extensions.
+        extendedKeyUsages:
           type: array
           items:
             type: string
-          description: OCSP responder URLs.
-      required: []
+          description: Extended key usage extensions.
+        crlDistributionPoints:
+          type: array
+          items:
+            type: string
+          description: CRL distribution point URLs.
+        authorityInfoAccess:
+          $ref: '#/components/schemas/SSLAuthorityInfoAccess'
+        subjectAlternativeNames:
+          $ref: '#/components/schemas/SSLSubjectAlternativeNames'
+        certificatePolicies:
+          type: array
+          items:
+            $ref: '#/components/schemas/SSLCertificatePolicy'
+          description: Certificate policy objects.
     SSLLookupResponse:
       type: object
       required:
@@ -686,98 +802,11 @@ components:
           type: string
           description: Raw OpenSSL response text if sslRaw was set to true.
       description: SSL certificate lookup response containing certificate details and extensions.
-    SSLPolicyQualifier:
-      type: object
-      description: Policy qualifier for a certificate policy.
-      properties:
-        oid:
-          type: string
-          description: OID of the policy qualifier.
-        cpsUri:
-          type: string
-          format: uri
-          description: CPS URI for the policy qualifier.
-        userNotice:
-          $ref: '#/components/schemas/SSLUserNotice'
-      required: []
-    ErrorResponse:
-      type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
-    SSLUserNoticeRef:
-      type: object
-      description: Notice reference for a user notice.
-      properties:
-        organization:
-          type: string
-          description: Organization for the notice reference.
-        noticeNumbers:
-          type: string
-          description: Notice numbers.
-      required: []
-    SSLCertificatePolicy:
-      type: object
-      description: A certificate policy object.
-      properties:
-        policyId:
-          type: string
-          description: Policy OID identifier.
-        policyQualifier:
-          $ref: '#/components/schemas/SSLPolicyQualifier'
-      required: []
-    SSLSubjectAlternativeNames:
-      type: object
-      description: Subject alternative names on the certificate.
-      properties:
-        dnsNames:
-          type: array
-          items:
-            type: string
-          description: DNS names on the certificate.
-        emailAddresses:
-          type: array
-          items:
-            type: string
-          description: Email addresses on the certificate.
-        ipAddresses:
-          type: array
-          items:
-            type: string
-          description: IP addresses on the certificate.
-        uris:
-          type: array
-          items:
-            type: string
-          description: URIs on the certificate.
-      required: []
-    SSLUserNotice:
-      type: object
-      description: User notice for a policy qualifier.
-      properties:
-        explicitText:
-          type: string
-          description: Explicit text of the user notice.
-        noticeRef:
-          $ref: '#/components/schemas/SSLUserNoticeRef'
-      required: []
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

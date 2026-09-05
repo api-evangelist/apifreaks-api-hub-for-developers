@@ -2,8 +2,8 @@
   "openapi": "3.1.1",
   "info": {
     "title": "Merge PDF API - Instantly Combine PDFs at Scale",
-    "version": "1.0.0",
-    "description": "Merge multiple PDF files into a single PDF document in the order they are provided. Accepts up to 100 files per request via file upload or existing file IDs. Returns a task ID for tracking the merge progress.",
+    "version": "1.0.1",
+    "description": "Merge multiple PDF files into a single PDF document in the order they are provided. Accepts input files up to 1GB in size via file upload or existing file IDs. Returns a task ID for tracking the merge progress.",
     "contact": {
       "name": "APIFreaks Support",
       "url": "https://apifreaks.com/contact",
@@ -87,7 +87,7 @@
             "schema": {
               "type": "boolean"
             },
-            "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization\u2019s admin if part of one."
+            "description": "If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one."
           },
           {
             "name": "X-Webhook-Authorization",
@@ -130,6 +130,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -162,10 +167,15 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "415": {
-            "description": "Unsupported Media Type \u2014 File type not supported",
+            "description": "Unsupported Media Type — File type not supported",
             "content": {
               "application/json": {
                 "examples": {
@@ -183,6 +193,11 @@
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -270,6 +285,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

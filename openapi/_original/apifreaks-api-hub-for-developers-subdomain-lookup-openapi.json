@@ -19,7 +19,9 @@
   "paths": {
     "/subdomains/lookup": {
       "get": {
-        "tags": ["Domain APIs"],
+        "tags": [
+          "Domain APIs"
+        ],
         "summary": "Get subdomains related to the given domain name.",
         "description": "The Subdomain Lookup API is designed to retrieve subdomains related to the given domain name. It helps you explore subdomains that are available for registration or usage.",
         "parameters": [
@@ -29,7 +31,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response."
@@ -69,7 +74,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["active", "inactive"],
+              "enum": [
+                "active",
+                "inactive"
+              ],
               "default": "active"
             },
             "description": "Filter subdomains by status (active or inactive)."
@@ -122,6 +130,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -185,6 +198,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "408": {
@@ -206,6 +224,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -279,7 +302,10 @@
       "SubdomainItem": {
         "type": "object",
         "description": "A single subdomain record with discovery dates.",
-        "required": ["subdomain", "last_seen"],
+        "required": [
+          "subdomain",
+          "last_seen"
+        ],
         "properties": {
           "subdomain": {
             "type": "string",
@@ -305,7 +331,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -328,6 +356,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

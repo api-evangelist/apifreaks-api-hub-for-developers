@@ -19,7 +19,9 @@
   "paths": {
     "/domain/ssl/live/chain": {
       "get": {
-        "tags": ["SSL APIs"],
+        "tags": [
+          "SSL APIs"
+        ],
         "summary": "Retrieve all certificates from the domain to the root Certificate Authority (CA) of a domain.",
         "description": "Retrieve the complete SSL certificate chain from root Certificate Authority (CA) to end-user certificate.\nThis endpoint provides comprehensive information about each certificate in the chain.\n",
         "operationId": "sslCertificateChainLookup",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response."
@@ -91,7 +96,9 @@
                           "extensions": {
                             "authorityKeyIdentifier": "90:77:92:35:67:C4:FF:A8:CC:A9:E6:7B:D9:80:79:7B:CC:93:F9:38",
                             "subjectKeyIdentifier": "6D:E0:94:E7:A4:F4:43:F1:20:17:0E:81:FC:C4:91:4D:18:A0:C9:2F",
-                            "keyUsages": ["Digital Signature"],
+                            "keyUsages": [
+                              "Digital Signature"
+                            ],
                             "extendedKeyUsages": [
                               "TLS Web Server Authentication"
                             ],
@@ -99,11 +106,18 @@
                               "http://c.pki.goog/we1/R7LgAnKD4Lk.crl"
                             ],
                             "authorityInfoAccess": {
-                              "issuers": ["http://i.pki.goog/we1.crt"],
-                              "ocsp": ["http://o.pki.goog/s/we1/e3U"]
+                              "issuers": [
+                                "http://i.pki.goog/we1.crt"
+                              ],
+                              "ocsp": [
+                                "http://o.pki.goog/s/we1/e3U"
+                              ]
                             },
                             "subjectAlternativeNames": {
-                              "dnsNames": ["*.google.com", "google.com"]
+                              "dnsNames": [
+                                "*.google.com",
+                                "google.com"
+                              ]
                             },
                             "certificatePolicies": [
                               {
@@ -151,7 +165,9 @@
                               "http://c.pki.goog/r/r4.crl"
                             ],
                             "authorityInfoAccess": {
-                              "issuers": ["http://i.pki.goog/r4.crt"]
+                              "issuers": [
+                                "http://i.pki.goog/r4.crt"
+                              ]
                             },
                             "certificatePolicies": [
                               {
@@ -200,7 +216,9 @@
                               "http://c.pki.goog/r/gsr1.crl"
                             ],
                             "authorityInfoAccess": {
-                              "issuers": ["http://i.pki.goog/gsr1.crt"]
+                              "issuers": [
+                                "http://i.pki.goog/gsr1.crt"
+                              ]
                             },
                             "certificatePolicies": [
                               {
@@ -237,7 +255,10 @@
                           "extensions": {
                             "authorityKeyIdentifier": "52:D8:88:3A:C8:9F:78:66:ED:89:F3:7B:38:70:94:C9:02:02:36:D0",
                             "subjectKeyIdentifier": "52:D8:88:3A:C8:9F:78:66:ED:89:F3:7B:38:70:94:C9:02:02:36:D0",
-                            "keyUsages": ["CRL Sign", "Certificate Sign"]
+                            "keyUsages": [
+                              "CRL Sign",
+                              "Certificate Sign"
+                            ]
                           },
                           "pemRaw": "-----BEGIN CERTIFICATE-----\nMIIFuzCCA6OgAwIBAgIIVwoRl0LE48wwDQYJKoZIhvcNAQELBQAwazELMAkGA1UEBhMCSVQxDjAMBgNVBAcMBU1pbGFuMSMwIQYDVQQKDBpBY3RhbGlzIFMucC5BLi8wMzM1ODUyMDk2NzEnMCUGA1UEAwweQWN0YWxpcyBBdXRoZW50aWNhdGlvbiBSb290IENBMB4XDTExMDkyMjExMjIwMloXDTMwMDkyMjExMjIwMlowazELMAkGA1UEBhMCSVQxDjAMBgNVBAcMBU1pbGFuMSMwIQYDVQQKDBpBY3RhbGlzIFMucC5BLi8wMzM1ODUyMDk2NzEnMCUGA1UEAwweQWN0YWxpcyBBdXRoZW50aWNhdGlvbiBSb290IENBMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAp8bEpSmkLO/lGMWwUKNvUTufClrJwkg4CsIcoBh/kbWHuUA/3R1oHwiD1S0eiKD4j1aPbZkCkpAW1V8IbInX4ay8IMKx4INRimlNAJZaby/ARH6jDuSRzVju3PvHHkVH3Se5CAGfpiEd9UEtL0z9KK3giq0itFZljoZUj5NDKd45RnijMCO6zfB9E1fAXdKDa0hMxKufgFpbOr3JpyI/gCczWw63igxdBzcIy2zSekciRDXFzMwujt0q7bd9Zg1fYVEiVRvjRuPjPdA1YprbrxTIW6HMiRvhMCb8oJsfgadHHwTrozmSBp+Z07/T6k9QnBn+locePGX2oxgkg4YQ51Q+qDp2JE+BIcXjDwL4k5RHILv+1A7TaLndxHqEguNTVHnd25zS8gebLra8Pu2Fbe8lEfKXGkJh90qX6IuxEAf6ZYGyojnP9zz/GPvG8VqLWeICrHuS0E4UT1lF9gxeKF+w6D9Fz8+vm2/7hNN3WpVvrJSEnu68wEqPSpP4RCHiMUVhUE4Q2OM1fEwZtN4Fv6MGn8i1zeQf1xcGDXqVdFUNaBr8EBtiZJ1t4JWgw5QHVw0U5r0F+7if5t+L4sbnfpb2U8WANFAoWPASUHEXMLrmeGO89LKtmyuy/uE5jF66CyCU3nuDuP/jVo23Eek7jPKxwV2dpAtMK9myGPW1n0sCAwEAAQaNjMGEwHQYDVR0OBBYEFFLYiDrIn3hm7YnzezhwlMkCAjbQMA8GA1UdEwEB/wQFMAMBAf8wHwYDVR0jBBgwFoAUUtiIOsifeGbtifN7OHCUyQICNtAwDgYDVR0PAQH/BAQDAgEGMA0GCSqGSIb3DQEBCwUAA4ICAQALe3KHwGCmSUyIWOYdiPcUZEim2FgKDk8TNd81HdTtBjHIgT5q1d07GjLukD0R0i70jsNjLiNmsGe+b7bAEzlgqqI0JZN1Ut6nna0Oh4lScWoWPBkdg/iaKWW+9D+a2fDzWochcYBNy+A4mz+7+uAwTc+G02UQGRjRlwKxK3JCaKygvU5a2hi/a5iB0P2avl4VSM0RFbnAKVy06Ij3Pjaut2L9HmLecHgQHEhb2rykOLpn7VU+Xlff1ANATIGk0k9jpwlCCRT8AKnCgHNPLsBA2RF7SOp6AsDT6ygBJlh0wcBzIm2Tlf05fbsq4/aC4yyXX04fkZT6/iyj2HYauE2yOE+b+h1IYHkm4vP9qdCa6HCPSXrW5b0KDtst842/6+OkfcvHlXHo2qN8xcL4dJIEG4aspCJTQLas/kx2z/uUMsA1n3Y/buWQbqCmJqK4LL7RK4X9p2jIugErsWx0Hbhzlefut8cl8ABMALJ+tguLHPPAUJ4lueAI3jZm/zel0btUZCzJJ7VLkn5l/9Mt4blOvH+kQSGQQXemOR/qnuOf0GZvBeyqdn6/axag67XH/JJULysRJyU3eExRarDzzFhdFPFqSBX/wge2sY0PjlxQRrM9vwGYT7JZVEc+NHt4bVaTLnPqZih4zR0Uv6CPLy64Lo7yFIrM6bV8+2ydDKXhl\n-----END CERTIFICATE-----\n"
                         }
@@ -245,6 +266,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -267,6 +293,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "403": {
@@ -288,6 +319,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -308,6 +344,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -333,7 +374,11 @@
     "schemas": {
       "SSLLookupResponse": {
         "type": "object",
-        "required": ["domainName", "queryTime", "sslCertificates"],
+        "required": [
+          "domainName",
+          "queryTime",
+          "sslCertificates"
+        ],
         "properties": {
           "domainName": {
             "type": "string",
@@ -422,7 +467,9 @@
       "SSLSubject": {
         "type": "object",
         "description": "Subject information of the SSL certificate.",
-        "required": ["commonName"],
+        "required": [
+          "commonName"
+        ],
         "properties": {
           "commonName": {
             "type": "string",
@@ -477,7 +524,11 @@
       "SSLIssuer": {
         "type": "object",
         "description": "Issuer information of the SSL certificate.",
-        "required": ["commonName", "organization", "country"],
+        "required": [
+          "commonName",
+          "organization",
+          "country"
+        ],
         "properties": {
           "commonName": {
             "type": "string",
@@ -532,7 +583,11 @@
       "SSLPublicKey": {
         "type": "object",
         "description": "Public key details of the SSL certificate.",
-        "required": ["keySize", "keyAlgorithm", "pemRaw"],
+        "required": [
+          "keySize",
+          "keyAlgorithm",
+          "pemRaw"
+        ],
         "properties": {
           "keySize": {
             "type": "string",
@@ -551,7 +606,9 @@
       "SSLExtensions": {
         "type": "object",
         "description": "X.509 certificate extensions.",
-        "required": ["keyUsages"],
+        "required": [
+          "keyUsages"
+        ],
         "properties": {
           "authorityKeyIdentifier": {
             "type": "string",
@@ -718,7 +775,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -741,6 +800,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

@@ -19,7 +19,9 @@
   "paths": {
     "/zipcode/lookup": {
       "post": {
-        "tags": ["ZIP Code APIs"],
+        "tags": [
+          "ZIP Code APIs"
+        ],
         "summary": "Look up multiple ZIP/postal codes in one request",
         "operationId": "bulkLookupZipCodes",
         "description": "Looks up up to 100 ZIP/postal codes in a single request and returns matching location data for each code that resolves.",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response. Possible values: json, xml."
@@ -47,7 +52,10 @@
                 "typicalRequest": {
                   "summary": "Typical bulk lookup request",
                   "value": {
-                    "codes": ["10001", "90210"],
+                    "codes": [
+                      "10001",
+                      "90210"
+                    ],
                     "country": "US"
                   }
                 }
@@ -110,6 +118,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -152,6 +165,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -173,6 +191,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -199,7 +222,9 @@
       "ZipcodeLookupResponse": {
         "type": "object",
         "description": "ZIP code lookup result containing an array of matched postal codes with location details.",
-        "required": ["results"],
+        "required": [
+          "results"
+        ],
         "properties": {
           "results": {
             "type": "array",
@@ -262,7 +287,9 @@
       "BulkZipRequest": {
         "type": "object",
         "description": "Request body for bulk ZIP/postal code lookup.",
-        "required": ["codes"],
+        "required": [
+          "codes"
+        ],
         "properties": {
           "codes": {
             "type": "array",
@@ -280,7 +307,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -303,6 +332,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

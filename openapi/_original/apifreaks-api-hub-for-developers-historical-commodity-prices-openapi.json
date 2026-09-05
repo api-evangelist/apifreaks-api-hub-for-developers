@@ -19,7 +19,9 @@
   "paths": {
     "/commodity/rates/historical": {
       "get": {
-        "tags": ["Commodity APIs"],
+        "tags": [
+          "Commodity APIs"
+        ],
         "summary": "Get historical commodity prices",
         "description": "Returns OHLC price data for the requested commodity symbols on a specific date.",
         "operationId": "getHistoricalCommodityPrices",
@@ -32,7 +34,9 @@
             "schema": {
               "type": "string",
               "default": "json",
-              "enum": ["json"]
+              "enum": [
+                "json"
+              ]
             }
           },
           {
@@ -88,6 +92,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -119,6 +128,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -152,6 +166,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -176,7 +195,11 @@
     "schemas": {
       "HistoricalCommodityPricesResponse": {
         "type": "object",
-        "required": ["success", "date", "rates"],
+        "required": [
+          "success",
+          "date",
+          "rates"
+        ],
         "properties": {
           "success": {
             "type": "boolean",
@@ -200,12 +223,20 @@
             "$ref": "#/components/schemas/HistoricalCommodityRate"
           }
         },
-        "required": ["symbol"]
+        "required": [
+          "symbol"
+        ]
       },
       "HistoricalCommodityRate": {
         "type": "object",
         "description": "OHLC price data for a single commodity on a specific date.",
-        "required": ["date", "open", "high", "low", "close"],
+        "required": [
+          "date",
+          "open",
+          "high",
+          "low",
+          "close"
+        ],
         "properties": {
           "date": {
             "type": "string",
@@ -235,7 +266,13 @@
       },
       "ErrorResponse": {
         "type": "object",
-        "required": ["timestamp", "status", "error", "message", "path"],
+        "required": [
+          "timestamp",
+          "status",
+          "error",
+          "message",
+          "path"
+        ],
         "properties": {
           "timestamp": {
             "type": "integer",
@@ -259,6 +296,14 @@
           }
         },
         "description": "Standard error envelope returned by the API on failed requests."
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
       }
     }
   },

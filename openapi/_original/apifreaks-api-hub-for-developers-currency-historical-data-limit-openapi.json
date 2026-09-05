@@ -19,7 +19,9 @@
   "paths": {
     "/currency/historical/data/limits": {
       "get": {
-        "tags": ["Currency APIs"],
+        "tags": [
+          "Currency APIs"
+        ],
         "summary": "Get historical data availability limits",
         "description": "Returns the date range when historical data is available for each currency.",
         "operationId": "getHistoricalDataLimits",
@@ -31,7 +33,10 @@
             "description": "Response format: `json` (default) or `xml`.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           }
@@ -57,6 +62,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "406": {
@@ -78,6 +88,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -103,7 +118,9 @@
     "schemas": {
       "HistoricalDataLimitsResponse": {
         "type": "object",
-        "required": ["availabilityPeriod"],
+        "required": [
+          "availabilityPeriod"
+        ],
         "properties": {
           "availabilityPeriod": {
             "type": "object",
@@ -120,7 +137,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -143,6 +162,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

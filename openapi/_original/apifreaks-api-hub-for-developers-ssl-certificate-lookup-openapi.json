@@ -19,7 +19,9 @@
   "paths": {
     "/domain/ssl/live": {
       "get": {
-        "tags": ["SSL APIs"],
+        "tags": [
+          "SSL APIs"
+        ],
         "summary": "Retrieve the SSL certificate and any hidden information embedded within it for a domain.",
         "description": "Retrieve comprehensive SSL certificate information without the certificate chain.\nThis endpoint provides detailed information about the SSL certificate including expiry dates, issuer details, and encryption methods.\n",
         "operationId": "sslCertificateLookup",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response."
@@ -91,7 +96,9 @@
                           "extensions": {
                             "authorityKeyIdentifier": "DE:1B:1E:ED:79:15:D4:3E:37:24:C3:21:BB:EC:34:39:6D:42:B2:30",
                             "subjectKeyIdentifier": "2E:EC:34:B9:3E:97:83:C3:7E:E5:D0:F4:AB:56:D4:25:99:67:7D:6B",
-                            "keyUsages": ["Digital Signature"],
+                            "keyUsages": [
+                              "Digital Signature"
+                            ],
                             "extendedKeyUsages": [
                               "TLS Web Server Authentication"
                             ],
@@ -99,8 +106,12 @@
                               "http://c.pki.goog/wr2/GSyT1N4PBrg.crl"
                             ],
                             "authorityInfoAccess": {
-                              "issuers": ["http://i.pki.goog/wr2.crt"],
-                              "ocsp": ["http://o.pki.goog/wr2"]
+                              "issuers": [
+                                "http://i.pki.goog/wr2.crt"
+                              ],
+                              "ocsp": [
+                                "http://o.pki.goog/wr2"
+                              ]
                             },
                             "subjectAlternativeNames": {
                               "dnsNames": [
@@ -124,6 +135,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -144,6 +160,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -166,6 +187,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -186,6 +212,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -211,7 +242,11 @@
     "schemas": {
       "SSLLookupResponse": {
         "type": "object",
-        "required": ["domainName", "queryTime", "sslCertificates"],
+        "required": [
+          "domainName",
+          "queryTime",
+          "sslCertificates"
+        ],
         "properties": {
           "domainName": {
             "type": "string",
@@ -300,7 +335,9 @@
       "SSLSubject": {
         "type": "object",
         "description": "Subject information of the SSL certificate.",
-        "required": ["commonName"],
+        "required": [
+          "commonName"
+        ],
         "properties": {
           "commonName": {
             "type": "string",
@@ -355,7 +392,11 @@
       "SSLIssuer": {
         "type": "object",
         "description": "Issuer information of the SSL certificate.",
-        "required": ["commonName", "organization", "country"],
+        "required": [
+          "commonName",
+          "organization",
+          "country"
+        ],
         "properties": {
           "commonName": {
             "type": "string",
@@ -410,7 +451,11 @@
       "SSLPublicKey": {
         "type": "object",
         "description": "Public key details of the SSL certificate.",
-        "required": ["keySize", "keyAlgorithm", "pemRaw"],
+        "required": [
+          "keySize",
+          "keyAlgorithm",
+          "pemRaw"
+        ],
         "properties": {
           "keySize": {
             "type": "string",
@@ -429,7 +474,9 @@
       "SSLExtensions": {
         "type": "object",
         "description": "X.509 certificate extensions.",
-        "required": ["keyUsages"],
+        "required": [
+          "keyUsages"
+        ],
         "properties": {
           "authorityKeyIdentifier": {
             "type": "string",
@@ -596,7 +643,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -619,6 +668,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

@@ -17,9 +17,6 @@ tags:
 - name: User Agent APIs
 paths:
   /user-agent/lookup:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: Bulk User Agent Parser API Server
     post:
       tags:
       - User Agent APIs
@@ -170,6 +167,9 @@ paths:
                       version: ??
                       version_major: ??
                       build: ??
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Invalid/missing request body, or an empty/null string anywhere in uaStrings (fails the whole batch, not a per-item error)
           content:
@@ -189,6 +189,9 @@ paths:
                   summary: Empty string or null inside uaStrings array
                   value:
                     message: '''userAgentString'' must not be empty or null'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     get:
       tags:
       - User Agent APIs
@@ -292,6 +295,9 @@ paths:
                       version: Hacker
                       version_major: Hacker
                       build: ??
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing or empty User-Agent header
           content:
@@ -307,51 +313,14 @@ paths:
                     path: /v1.0/user-agent/lookup
                     status: 400
                     timestamp: '2026-07-24T10:12:15.828Z'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Bulk User Agent Parser API Server
 components:
   schemas:
-    ErrorResponse_2:
-      type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
-    Engine:
-      type: object
-      description: Layout or rendering engine information extracted from the User-Agent string.
-      required:
-      - name
-      - type
-      - version
-      - version_major
-      properties:
-        name:
-          type: string
-          description: Name of the layout or rendering engine (e.g., Blink, Gecko, WebKit).
-        type:
-          type: string
-          description: 'Engine category. Possible values: Browser, Mobile App, Hacker, Robot, Unknown.'
-        version:
-          type: string
-          description: Full version string of the layout engine. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
-        version_major:
-          type: string
-          description: Major version number of the layout engine. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests. Request-body-level errors (missing/empty/wrong-type body) include all five fields; per-item validation errors (empty/null string in uaStrings) include only message.
@@ -374,6 +343,91 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
+    Device:
+      type: object
+      description: Hardware device information extracted from the User-Agent string.
+      required:
+      - name
+      - type
+      - brand
+      - cpu
+      properties:
+        name:
+          type: string
+          description: Device name or model identifier of the hardware used.
+        type:
+          type: string
+          description: 'Device category. Possible values: Desktop, Mobile, Tablet, Phone, Watch, Virtual Reality, eReader, Set-top box, TV, Game Console, Handheld Game Console, Voice, Robot, Robot Mobile, Robot Imitator, Hacker, Anonymized, Unknown.'
+        brand:
+          type: string
+          description: Device manufacturer or brand name.
+        cpu:
+          type: string
+          description: CPU architecture or model identifier of the device.
+    OperatingSystem:
+      type: object
+      description: Operating system information extracted from the User-Agent string.
+      required:
+      - name
+      - type
+      - version
+      - version_major
+      - build
+      properties:
+        name:
+          type: string
+          description: Name of the operating system (e.g., Windows, Android, Ubuntu).
+        type:
+          type: string
+          description: 'Operating system category. Possible values: Desktop, Mobile, Game Console, Embedded, Cloud, Hacker, Anonymized, Unknown.'
+        version:
+          type: string
+          description: Full version string of the operating system. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
+        version_major:
+          type: string
+          description: Major version number of the operating system. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
+        build:
+          type: string
+          description: Build number or identifier of the operating system. "??" when unknown.
+    BulkUserAgentParserResponse:
+      title: UserAgentParserResponse
+      type: array
+      description: 'Array of per-string parsed User-Agent results, one entry per input string, in the same order as the request. Unlike the bulk IP lookup endpoint, there is no per-item error variant here: a malformed (non-empty) string still parses to a full result with every field set to "Hacker" (see UserAgentParserResponse). An empty string or null anywhere in the request array fails the entire request with a 400 instead of producing a per-item error entry --- see the 400 response.'
+      items:
+        $ref: '#/components/schemas/UserAgentParserResponse'
+    BulkUserAgentRequest:
+      type: object
+      description: Request body containing an array of User-Agent strings to parse.
+      required:
+      - uaStrings
+      properties:
+        uaStrings:
+          type: array
+          description: Array of User-Agent strings to parse. Maximum 50,000 strings per request.
+          maxItems: 50000
+          items:
+            type: string
+    Engine:
+      type: object
+      description: Layout or rendering engine information extracted from the User-Agent string.
+      required:
+      - name
+      - type
+      - version
+      - version_major
+      properties:
+        name:
+          type: string
+          description: Name of the layout or rendering engine (e.g., Blink, Gecko, WebKit).
+        type:
+          type: string
+          description: 'Engine category. Possible values: Browser, Mobile App, Hacker, Robot, Unknown.'
+        version:
+          type: string
+          description: Full version string of the layout engine. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
+        version_major:
+          type: string
+          description: Major version number of the layout engine. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
     UserAgentParserResponse:
       type: object
       description: Parsed User-Agent result containing browser, device, engine, and operating system information. When the User-Agent string is malformed or cannot be parsed, every field across this object and its nested device/engine/operating_system objects is set to the literal string "Hacker" instead of the request failing.
@@ -408,70 +462,33 @@ components:
           $ref: '#/components/schemas/Engine'
         operating_system:
           $ref: '#/components/schemas/OperatingSystem'
-    BulkUserAgentRequest:
+    ErrorResponse_2:
       type: object
-      description: Request body containing an array of User-Agent strings to parse.
+      description: Standard error envelope returned by the API on failed requests.
       required:
-      - uaStrings
+      - message
       properties:
-        uaStrings:
-          type: array
-          description: Array of User-Agent strings to parse. Maximum 50,000 strings per request.
-          maxItems: 50000
-          items:
-            type: string
-    BulkUserAgentParserResponse:
-      title: UserAgentParserResponse
-      type: array
-      description: 'Array of per-string parsed User-Agent results, one entry per input string, in the same order as the request. Unlike the bulk IP lookup endpoint, there is no per-item error variant here: a malformed (non-empty) string still parses to a full result with every field set to "Hacker" (see UserAgentParserResponse). An empty string or null anywhere in the request array fails the entire request with a 400 instead of producing a per-item error entry --- see the 400 response.'
-      items:
-        $ref: '#/components/schemas/UserAgentParserResponse'
-    OperatingSystem:
-      type: object
-      description: Operating system information extracted from the User-Agent string.
-      required:
-      - name
-      - type
-      - version
-      - version_major
-      - build
-      properties:
-        name:
+        error:
           type: string
-          description: Name of the operating system (e.g., Windows, Android, Ubuntu).
-        type:
+          description: Short error category or exception type.
+        message:
           type: string
-          description: 'Operating system category. Possible values: Desktop, Mobile, Game Console, Embedded, Cloud, Hacker, Anonymized, Unknown.'
-        version:
+          description: Human-readable error message describing the failure.
+        path:
           type: string
-          description: Full version string of the operating system. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
-        version_major:
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
           type: string
-          description: Major version number of the operating system. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
-        build:
-          type: string
-          description: Build number or identifier of the operating system. "??" when unknown.
-    Device:
-      type: object
-      description: Hardware device information extracted from the User-Agent string.
-      required:
-      - name
-      - type
-      - brand
-      - cpu
-      properties:
-        name:
-          type: string
-          description: Device name or model identifier of the hardware used.
-        type:
-          type: string
-          description: 'Device category. Possible values: Desktop, Mobile, Tablet, Phone, Watch, Virtual Reality, eReader, Set-top box, TV, Game Console, Handheld Game Console, Voice, Robot, Robot Mobile, Robot Imitator, Hacker, Anonymized, Unknown.'
-        brand:
-          type: string
-          description: Device manufacturer or brand name.
-        cpu:
-          type: string
-          description: CPU architecture or model identifier of the device.
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

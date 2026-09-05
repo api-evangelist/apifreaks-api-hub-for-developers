@@ -19,7 +19,9 @@
   "paths": {
     "/marine": {
       "get": {
-        "tags": ["Weather APIs"],
+        "tags": [
+          "Weather APIs"
+        ],
         "summary": "Dive into detailed marine weather forecasts for coastal and offshore locations",
         "description": "Provides current or forecast marine conditions including wave height, wave direction, wave period, swell info, sea surface temperature, sea level height, and ocean currents. Accepts a location by GPS coordinates, city name/address, or IP address, and returns forecast data at daily, hourly, or minutely precision for up to 16 days ahead.",
         "operationId": "getMarineWeather",
@@ -31,7 +33,9 @@
             "description": "Format of the response. Possible values: json.",
             "schema": {
               "type": "string",
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "default": "json"
             }
           },
@@ -98,7 +102,11 @@
             "description": "Precision of the marine forecast data. Only one of daily, hourly, or minutely is returned per request, matching this value. Default is daily.",
             "schema": {
               "type": "string",
-              "enum": ["daily", "hourly", "minutely"],
+              "enum": [
+                "daily",
+                "hourly",
+                "minutely"
+              ],
               "default": "daily"
             }
           },
@@ -241,6 +249,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -313,6 +326,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -334,6 +352,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -360,7 +383,9 @@
       "MarineResponse": {
         "type": "object",
         "description": "Marine weather response. current and forecast are mutually exclusive: current is returned when startDate/endDate are omitted, forecast is returned when both are supplied. location is always present.",
-        "required": ["location"],
+        "required": [
+          "location"
+        ],
         "properties": {
           "location": {
             "$ref": "#/components/schemas/WeatherLocation"
@@ -602,63 +627,108 @@
             "description": "ISO 8601 formatted timestamp of the current observation."
           },
           "wave_height": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Significant height of combined sea waves in meters. Null where no ocean data is available for this location."
           },
           "wave_direction": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Direction from which the combined waves are coming, in degrees. Null where no ocean data is available for this location."
           },
           "wave_period": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Average period of combined sea waves in seconds. Null where no ocean data is available for this location."
           },
           "wind_wave_height": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Height of locally generated wind waves in meters. Null where no ocean data is available for this location."
           },
           "wind_wave_direction": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Direction from which the wind waves are coming, in degrees. Null where no ocean data is available for this location."
           },
           "wind_wave_period": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Average period of locally generated wind waves in seconds. Null where no ocean data is available for this location."
           },
           "wind_wave_peak_period": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Peak period of locally generated wind waves in seconds. Frequently null even at locations with other wave data present."
           },
           "swell_wave_height": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Height of swell waves in meters. Null where no ocean data is available for this location."
           },
           "swell_wave_direction": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Direction from which the swell waves are coming, in degrees. Null where no ocean data is available for this location."
           },
           "swell_wave_period": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Average period of swell waves in seconds. Null where no ocean data is available for this location."
           },
           "swell_wave_peak_period": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Peak period of swell waves in seconds. Frequently null even at locations with other wave data present."
           },
           "sea_level_height_msl": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Sea level height relative to mean sea level in meters. Null where no ocean data is available for this location."
           },
           "sea_surface_temperature": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Temperature of the ocean surface in degrees Celsius. Null where no ocean data is available for this location."
           },
           "ocean_current_velocity": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Speed of the ocean current in km/h. Null where no ocean data is available for this location."
           },
           "ocean_current_direction": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Direction of the ocean current, in degrees. Null where no ocean data is available for this location."
           }
         }
@@ -687,47 +757,80 @@
             "description": "Date of this forecast entry in YYYY-MM-DD format."
           },
           "wave_height_max": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Maximum significant wave height for the day, in meters."
           },
           "wave_direction_dominant": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Dominant direction of waves for the day, in degrees."
           },
           "wave_period_max": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Maximum wave period for the day, in seconds."
           },
           "wind_wave_height_max": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Maximum wind-driven wave height for the day, in meters."
           },
           "wind_wave_direction_dominant": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Dominant wind-wave direction for the day, in degrees."
           },
           "wind_wave_period_max": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Maximum wind-wave period for the day, in seconds."
           },
           "wind_wave_peak_period_max": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Maximum peak period of wind-driven waves for the day, in seconds. Frequently null."
           },
           "swell_wave_height_max": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Maximum swell wave height for the day, in meters."
           },
           "swell_wave_direction_dominant": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Dominant swell wave direction for the day, in degrees."
           },
           "swell_wave_period_max": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Maximum swell wave period for the day, in seconds."
           },
           "swell_wave_peak_period_max": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Maximum peak period of swell waves for the day, in seconds. Frequently null."
           }
         }
@@ -760,63 +863,108 @@
             "description": "ISO 8601 formatted timestamp of this hourly entry."
           },
           "wave_height": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Significant wave height at the given hour, in meters."
           },
           "wave_direction": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Wave direction at the given hour, in degrees."
           },
           "wave_period": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Wave period at the given hour, in seconds."
           },
           "wind_wave_height": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Wind-driven wave height at the given hour, in meters."
           },
           "wind_wave_peak_period": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Peak period of wind-driven waves at the given hour, in seconds."
           },
           "wind_wave_direction": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Wind-wave direction at the given hour, in degrees."
           },
           "wind_wave_period": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Wind-wave period at the given hour, in seconds."
           },
           "swell_wave_height": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Swell wave height at the given hour, in meters."
           },
           "swell_wave_direction": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Swell wave direction at the given hour, in degrees."
           },
           "swell_wave_period": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Swell wave period at the given hour, in seconds."
           },
           "swell_wave_peak_period": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Peak period of swell waves at the given hour, in seconds."
           },
           "sea_surface_temperature": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Sea surface temperature at the given hour, in degrees Celsius."
           },
           "sea_level_height_msl": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Sea level height relative to mean sea level at the given hour, in meters."
           },
           "ocean_current_velocity": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Speed of ocean current at the given hour, in km/h."
           },
           "ocean_current_direction": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Direction of ocean current at the given hour, in degrees."
           }
         }
@@ -837,15 +985,24 @@
             "description": "ISO 8601 formatted timestamp of this minute-level entry."
           },
           "ocean_current_velocity": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Speed of ocean current at this minute, in km/h."
           },
           "ocean_current_direction": {
-            "type": ["integer", "null"],
+            "type": [
+              "integer",
+              "null"
+            ],
             "description": "Direction of ocean current at this minute, in degrees."
           },
           "sea_level_height_msl": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "description": "Sea level height relative to mean sea level at this minute, in meters."
           }
         }
@@ -853,7 +1010,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -925,6 +1084,14 @@
               "$ref": "#/components/schemas/MarineMinutely"
             }
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

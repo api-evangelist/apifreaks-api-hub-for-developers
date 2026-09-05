@@ -17,9 +17,6 @@ tags:
 - name: Flags APIs
 paths:
   /flags:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: Flags API Server
     get:
       tags:
       - Flags APIs
@@ -87,6 +84,9 @@ paths:
             image/svg+xml:
               schema:
                 $ref: '#/components/schemas/ApiResponseSchemas'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing required parameter, or type/shape/format/size is not one of the allowed enum values
           content:
@@ -118,6 +118,9 @@ paths:
                     status: 400
                     error: Bad Request
                     message: Invalid shape
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — Country code or organization identifier not recognized
           content:
@@ -133,10 +136,13 @@ paths:
                     status: 404
                     error: Not Found
                     message: 'Invalid country name or code: ZZ'
-  /flags/supported:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: Supported Flags API Server
+      description: Flags API Server
+  /flags/supported:
     get:
       tags:
       - Flags APIs
@@ -192,8 +198,41 @@ paths:
                     - NATO
                     - Association_of_Southeast_Asian_Nations
                     - Commonwealth_of_Nations
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Supported Flags API Server
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests. path and timestamp formatting differ between the missing-parameter case (versioned path, Z-suffixed timestamp) and the invalid-value/not-found cases (unversioned path, offset timestamp with microseconds), since this endpoint is served by a different backend than most of the API.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    ApiResponseSchemas:
+      type: string
+      format: binary
+      title: Flag Image Response
+      description: The flag image returned as raw binary data in the requested format (not JSON). Content-Type is one of image/png, image/webp, or image/svg+xml depending on the format parameter.
     SupportedFlagsResponse:
       type: object
       description: The full list of country and organization flag identifiers supported by the Flags API.
@@ -228,33 +267,11 @@ components:
         iso3:
           type: string
           description: ISO 3166-1 alpha-3 code.
-    ErrorResponse:
-      type: object
-      description: Standard error envelope returned by the API on failed requests. path and timestamp formatting differ between the missing-parameter case (versioned path, Z-suffixed timestamp) and the invalid-value/not-found cases (unversioned path, offset timestamp with microseconds), since this endpoint is served by a different backend than most of the API.
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
-    ApiResponseSchemas:
-      type: string
-      format: binary
-      title: Flag Image Response
-      description: The flag image returned as raw binary data in the requested format (not JSON). Content-Type is one of image/png, image/webp, or image/svg+xml depending on the format parameter.
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

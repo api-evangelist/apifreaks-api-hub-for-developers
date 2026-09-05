@@ -58,6 +58,9 @@ paths:
                     oneOffCreditsActive: true
                     oneOffAllowedCredits: 5000
                     oneOffUsedCredits: 1000
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '403':
           description: Forbidden — Caller is not an organization admin
           content:
@@ -73,8 +76,33 @@ paths:
                     status: 403
                     error: API Access Exception
                     message: You need to be organization admin to access this endpoint.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
     CreditsUsageResponse:
       type: object
       description: Credit balances for the organization's subscription, subscription surcharge, and one-off purchases.
@@ -155,28 +183,11 @@ components:
         oneOffUsedCredits:
           type: integer
           description: One-off credits consumed.
-    ErrorResponse:
-      type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

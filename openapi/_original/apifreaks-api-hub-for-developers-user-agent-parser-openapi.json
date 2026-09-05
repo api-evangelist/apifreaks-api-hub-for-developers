@@ -19,7 +19,9 @@
   "paths": {
     "/user-agent/lookup": {
       "get": {
-        "tags": ["User Agent APIs"],
+        "tags": [
+          "User Agent APIs"
+        ],
         "summary": "Parse a User-Agent string to obtain browser, device, and operating system details",
         "description": "Parse any User-Agent string to obtain detailed information about the browser, device, layout engine, and operating system. Supports desktop, mobile, tablet, and crawler detection.",
         "operationId": "parseUserAgent",
@@ -31,7 +33,10 @@
             "description": "Format of the response. Possible values: json, xml.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -143,6 +148,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -164,6 +174,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -235,7 +250,12 @@
       "Device": {
         "type": "object",
         "description": "Hardware device information extracted from the User-Agent string.",
-        "required": ["name", "type", "brand", "cpu"],
+        "required": [
+          "name",
+          "type",
+          "brand",
+          "cpu"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -258,7 +278,12 @@
       "Engine": {
         "type": "object",
         "description": "Layout or rendering engine information extracted from the User-Agent string.",
-        "required": ["name", "type", "version", "version_major"],
+        "required": [
+          "name",
+          "type",
+          "version",
+          "version_major"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -281,7 +306,13 @@
       "OperatingSystem": {
         "type": "object",
         "description": "Operating system information extracted from the User-Agent string.",
-        "required": ["name", "type", "version", "version_major", "build"],
+        "required": [
+          "name",
+          "type",
+          "version",
+          "version_major",
+          "build"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -308,7 +339,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -331,6 +364,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

@@ -19,7 +19,9 @@
   "paths": {
     "/flags/supported": {
       "get": {
-        "tags": ["Flags APIs"],
+        "tags": [
+          "Flags APIs"
+        ],
         "summary": "Retrieve list of all supported flags",
         "description": "Returns a list of all supported country and international organization flags with their metadata.",
         "operationId": "getSupportedFlags",
@@ -31,7 +33,10 @@
             "description": "Format of the response. Possible values: json, xml.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           }
@@ -91,6 +96,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -116,7 +126,10 @@
       "SupportedFlagsResponse": {
         "type": "object",
         "description": "The full list of country and organization flag identifiers supported by the Flags API.",
-        "required": ["supported_countries", "supported_organizations"],
+        "required": [
+          "supported_countries",
+          "supported_organizations"
+        ],
         "properties": {
           "supported_countries": {
             "type": "array",
@@ -137,7 +150,11 @@
       "SupportedCountry": {
         "type": "object",
         "description": "A supported country with ISO codes.",
-        "required": ["name", "iso2", "iso3"],
+        "required": [
+          "name",
+          "iso2",
+          "iso3"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -151,6 +168,14 @@
             "type": "string",
             "description": "ISO 3166-1 alpha-3 code."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

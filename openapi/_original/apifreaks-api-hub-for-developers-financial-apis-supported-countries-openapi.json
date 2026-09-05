@@ -19,7 +19,9 @@
   "paths": {
     "/vat/supported-countries": {
       "get": {
-        "tags": ["Financial APIs"],
+        "tags": [
+          "Financial APIs"
+        ],
         "summary": "Get supported countries",
         "description": "Returns the countries and states supported by the VAT, IBAN, and SWIFT APIs.",
         "operationId": "getSupportedCountries",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response. Default is JSON."
@@ -58,7 +63,11 @@
                     "summary": "Typical successful response (truncated)",
                     "value": {
                       "VAT_Supported_Countries_And_States": [
-                        { "germany": { "code": "de" } },
+                        {
+                          "germany": {
+                            "code": "de"
+                          }
+                        },
                         {
                           "united_states": {
                             "code": "us",
@@ -71,16 +80,33 @@
                         }
                       ],
                       "IBAN_Supported_Countries": [
-                        { "countryCode": "DE", "name": "Germany" },
-                        { "countryCode": "GB", "name": "United Kingdom" }
+                        {
+                          "countryCode": "DE",
+                          "name": "Germany"
+                        },
+                        {
+                          "countryCode": "GB",
+                          "name": "United Kingdom"
+                        }
                       ],
                       "SWIFT_Supported_Countries": [
-                        { "name": "Germany", "countryCode": "DE" },
-                        { "name": "United States", "countryCode": "US" }
+                        {
+                          "name": "Germany",
+                          "countryCode": "DE"
+                        },
+                        {
+                          "name": "United States",
+                          "countryCode": "US"
+                        }
                       ]
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -144,7 +170,9 @@
       "VatCountryEntry": {
         "type": "object",
         "description": "VAT country metadata: an ISO 3166-1 alpha-2 code, plus an optional map of sub-national states/regions for countries with state-level VAT (US, Canada, Spain).",
-        "required": ["code"],
+        "required": [
+          "code"
+        ],
         "properties": {
           "code": {
             "type": "string",
@@ -164,7 +192,10 @@
       "IbanCountryEntry": {
         "type": "object",
         "description": "A single country supported by the IBAN Validation API.",
-        "required": ["countryCode", "name"],
+        "required": [
+          "countryCode",
+          "name"
+        ],
         "properties": {
           "countryCode": {
             "type": "string",
@@ -179,7 +210,10 @@
       "SwiftCountryEntry": {
         "type": "object",
         "description": "A single country supported by the SWIFT/BIC Code Lookup and Finder APIs.",
-        "required": ["name", "countryCode"],
+        "required": [
+          "name",
+          "countryCode"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -189,6 +223,14 @@
             "type": "string",
             "description": "ISO 3166-1 alpha-2 country code."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

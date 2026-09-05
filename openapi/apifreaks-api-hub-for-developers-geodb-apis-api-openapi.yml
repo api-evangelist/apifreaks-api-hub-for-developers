@@ -17,9 +17,6 @@ tags:
 - name: GeoDB APIs
 paths:
   /geo/admin-unit/details:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: Admin Unit Details API Server
     get:
       tags:
       - GeoDB APIs
@@ -74,6 +71,9 @@ paths:
                     admin_level: military postal region
                     country_iso3166_2: US
                     country_name: United States
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing country/admin_unit parameter, invalid country code, or invalid admin code
           content:
@@ -105,6 +105,9 @@ paths:
                     status: 400
                     error: Invalid Admin Code provided
                     message: Please provide a valid admin code.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no published admin units (e.g. Vatican City)
           content:
@@ -120,10 +123,13 @@ paths:
                     status: 404
                     error: No Admin Unit present in country
                     message: This Country does not have any admin units associated with it.
-  /geo/admin-levels:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: Admin Levels API Server
+      description: Admin Unit Details API Server
+  /geo/admin-levels:
     get:
       tags:
       - GeoDB APIs
@@ -163,6 +169,9 @@ paths:
                     - district
                     - state
                     - military postal region
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing country parameter, or country is not a valid/known ISO 3166-1 alpha-2 code
           content:
@@ -186,6 +195,9 @@ paths:
                     status: 400
                     error: Invalid Country Code provided
                     message: Only ISO 3166-1 alpha-2 codes country codes are supported.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no published admin levels (e.g. Vatican City)
           content:
@@ -201,10 +213,13 @@ paths:
                     status: 404
                     error: No Admin Unit present in country
                     message: This Country does not have any admin units associated with it.
-  /geo/admin-units:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: Administrative Units API Server
+      description: Admin Levels API Server
+  /geo/admin-units:
     get:
       tags:
       - GeoDB APIs
@@ -255,6 +270,9 @@ paths:
                     - name: New York
                       admin_code: NY
                       admin_level: state
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing country parameter, or country is not a valid/known ISO 3166-1 alpha-2 code
           content:
@@ -278,6 +296,9 @@ paths:
                     status: 400
                     error: Invalid Country Code provided
                     message: Only ISO 3166-1 alpha-2 codes country codes are supported.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no published admin units (e.g. Vatican City)
           content:
@@ -293,10 +314,13 @@ paths:
                     status: 404
                     error: No Admin Unit present in country
                     message: This Country does not have any admin units associated with it.
-  /geo/cities:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: Cities API Server
+      description: Administrative Units API Server
+  /geo/cities:
     get:
       tags:
       - GeoDB APIs
@@ -354,6 +378,9 @@ paths:
                         admin_code: ABE
                         admin_level: council area
                       iso_alpha_2: GB
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing country parameter, invalid country code, or admin_unit code not found for the country
           content:
@@ -385,6 +412,9 @@ paths:
                     status: 400
                     error: Invalid Admin Code provided
                     message: Please provide a valid admin code.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — Country is a recognized ISO 3166-1 alpha-2 code but has no cities in the database (e.g. Vatican City)
           content:
@@ -400,10 +430,13 @@ paths:
                     status: 404
                     error: No Cities present in country
                     message: This country does not have any cities associated with it.
-  /geo/country/details:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: Country Details API Server
+      description: Cities API Server
+  /geo/country/details:
     get:
       tags:
       - GeoDB APIs
@@ -471,6 +504,9 @@ paths:
                     currency_code: NOK
                     currency_name: Norwegian krone
                     currency_symbol: ko
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing country parameter, or country is not a valid/known ISO 3166-1 alpha-2 code
           content:
@@ -494,10 +530,13 @@ paths:
                     status: 400
                     error: Invalid Country Code provided
                     message: Only ISO 3166-1 alpha-2 codes country codes are supported.
-  /geo/countries:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: Countries API Server
+      description: Country Details API Server
+  /geo/countries:
     get:
       tags:
       - GeoDB APIs
@@ -578,6 +617,9 @@ paths:
                       capital: ''
                       region: Polar
                       subregion: ''
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Invalid region or subregion name
           content:
@@ -601,10 +643,13 @@ paths:
                     status: 400
                     error: Invalid Subregion Name provided
                     message: Please provide a valid subregion name.
-  /geo/regions:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: Regions API Server
+      description: Countries API Server
+  /geo/regions:
     get:
       tags:
       - GeoDB APIs
@@ -640,10 +685,13 @@ paths:
                     - Europe
                     - Oceania
                     - Polar
-  /geo/subregions:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: Subregions API Server
+      description: Regions API Server
+  /geo/subregions:
     get:
       tags:
       - GeoDB APIs
@@ -709,6 +757,9 @@ paths:
                     - Western Africa
                     - Western Asia
                     - Western Europe
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Region name is not a recognized region
           content:
@@ -724,6 +775,9 @@ paths:
                     status: 400
                     error: Invalid Region Name provided
                     message: Please provide a valid region name.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — Region is valid but has no subregions (e.g. Polar)
           content:
@@ -739,58 +793,14 @@ paths:
                     status: 404
                     error: No subregions exist
                     message: This region does not have any subregions.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Subregions API Server
 components:
   schemas:
-    CountriesResponse:
-      type: object
-      description: Response containing the list of countries matching the applied region/subregion filters (or all 250 when unfiltered).
-      required:
-      - countries
-      properties:
-        countries:
-          type: array
-          description: An array of country objects matching the applied filters.
-          items:
-            $ref: '#/components/schemas/CountryItem'
-    AdminLevelsResponse:
-      type: object
-      description: Response containing the distinct administrative level types defined for the requested country.
-      required:
-      - admin_levels
-      properties:
-        admin_levels:
-          type: array
-          description: An array of unique administrative level types defined for the specified country. Each value represents a category of administrative division, such as state, district, or outlying area.
-          items:
-            type: string
-    AdminUnitsResponse:
-      type: object
-      description: Response containing the administrative units for the requested country, optionally filtered by admin_level.
-      required:
-      - admin_units
-      properties:
-        admin_units:
-          type: array
-          description: An array of administrative unit objects for the specified country.
-          items:
-            $ref: '#/components/schemas/AdminUnit'
-    AdminUnit_2:
-      type: object
-      description: An object describing the administrative unit the city belongs to.
-      required:
-      - name
-      - admin_code
-      - admin_level
-      properties:
-        name:
-          type: string
-          description: The full name of the administrative unit.
-        admin_code:
-          type: string
-          description: The short code of the administrative unit.
-        admin_level:
-          type: string
-          description: The administrative level type of the unit (e.g., province, council area).
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -813,104 +823,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    AdminUnit:
-      type: object
-      description: An administrative unit object.
-      required:
-      - name
-      - admin_code
-      - admin_level
-      properties:
-        name:
-          type: string
-          description: Name of the administrative unit.
-        admin_code:
-          type: string
-          description: Administrative code of the unit.
-        admin_level:
-          type: string
-          description: Level or type of the administrative unit (e.g., state, district, province).
-    CitiesResponse:
-      type: object
-      description: Response containing every city for the requested country (optionally filtered by admin_unit), returned unpaginated in a single array.
-      required:
-      - cities
-      properties:
-        cities:
-          type: array
-          description: An array of city objects for the specified country, optionally filtered by admin unit.
-          items:
-            $ref: '#/components/schemas/CityItem'
-    CityItem:
-      type: object
-      description: A city object containing name, coordinates, admin unit, and country code.
-      required:
-      - name
-      - latitude
-      - longitude
-      - admin_unit
-      - iso_alpha_2
-      properties:
-        name:
-          type: string
-          description: The name of the city.
-        latitude:
-          type: number
-          format: float
-          description: The geographic latitude of the city in decimal degrees.
-        longitude:
-          type: number
-          format: float
-          description: The geographic longitude of the city in decimal degrees.
-        iso_alpha_2:
-          type: string
-          description: The ISO 3166-1 alpha-2 country code the city belongs to.
-        admin_unit:
-          $ref: '#/components/schemas/AdminUnit_2'
-    SubregionsResponse:
-      type: object
-      description: Response containing subregion names for the requested region, or all subregions across every region when unfiltered.
-      required:
-      - subregions
-      properties:
-        subregions:
-          type: array
-          description: An array of subregion names within the specified region.
-          items:
-            type: string
-    CountryItem:
-      type: object
-      description: A country object containing ISO codes, capital, and region information.
-      required:
-      - name
-      - iso_alpha_2
-      - iso_alpha_3
-      - iso_numeric
-      - capital
-      - region
-      - subregion
-      properties:
-        name:
-          type: string
-          description: The full English name of the country.
-        iso_alpha_2:
-          type: string
-          description: The ISO 3166-1 alpha-2 two-letter country code.
-        iso_alpha_3:
-          type: string
-          description: The ISO 3166-1 alpha-3 three-letter country code.
-        iso_numeric:
-          type: integer
-          description: The ISO 3166-1 numeric country code.
-        capital:
-          type: string
-          description: The capital city of the country. Empty string for uninhabited/dependent territories with no capital.
-        region:
-          type: string
-          description: The broad geographical region the country belongs to. Empty string for a small number of territories with no assigned region.
-        subregion:
-          type: string
-          description: The more specific subregion the country belongs to. Empty string for a small number of territories with no assigned subregion.
     AdminUnitDetailsResponse:
       type: object
       description: Detailed information for a single administrative unit resolved from a country code and admin unit code.
@@ -939,6 +851,99 @@ components:
         country_name:
           type: string
           description: Name of the country.
+    AdminLevelsResponse:
+      type: object
+      description: Response containing the distinct administrative level types defined for the requested country.
+      required:
+      - admin_levels
+      properties:
+        admin_levels:
+          type: array
+          description: An array of unique administrative level types defined for the specified country. Each value represents a category of administrative division, such as state, district, or outlying area.
+          items:
+            type: string
+    AdminUnit:
+      type: object
+      description: An administrative unit object.
+      required:
+      - name
+      - admin_code
+      - admin_level
+      properties:
+        name:
+          type: string
+          description: Name of the administrative unit.
+        admin_code:
+          type: string
+          description: Administrative code of the unit.
+        admin_level:
+          type: string
+          description: Level or type of the administrative unit (e.g., state, district, province).
+    AdminUnitsResponse:
+      type: object
+      description: Response containing the administrative units for the requested country, optionally filtered by admin_level.
+      required:
+      - admin_units
+      properties:
+        admin_units:
+          type: array
+          description: An array of administrative unit objects for the specified country.
+          items:
+            $ref: '#/components/schemas/AdminUnit'
+    CityItem:
+      type: object
+      description: A city object containing name, coordinates, admin unit, and country code.
+      required:
+      - name
+      - latitude
+      - longitude
+      - admin_unit
+      - iso_alpha_2
+      properties:
+        name:
+          type: string
+          description: The name of the city.
+        latitude:
+          type: number
+          format: float
+          description: The geographic latitude of the city in decimal degrees.
+        longitude:
+          type: number
+          format: float
+          description: The geographic longitude of the city in decimal degrees.
+        iso_alpha_2:
+          type: string
+          description: The ISO 3166-1 alpha-2 country code the city belongs to.
+        admin_unit:
+          $ref: '#/components/schemas/AdminUnit_2'
+    CitiesResponse:
+      type: object
+      description: Response containing every city for the requested country (optionally filtered by admin_unit), returned unpaginated in a single array.
+      required:
+      - cities
+      properties:
+        cities:
+          type: array
+          description: An array of city objects for the specified country, optionally filtered by admin unit.
+          items:
+            $ref: '#/components/schemas/CityItem'
+    AdminUnit_2:
+      type: object
+      description: An object describing the administrative unit the city belongs to.
+      required:
+      - name
+      - admin_code
+      - admin_level
+      properties:
+        name:
+          type: string
+          description: The full name of the administrative unit.
+        admin_code:
+          type: string
+          description: The short code of the administrative unit.
+        admin_level:
+          type: string
+          description: The administrative level type of the unit (e.g., province, council area).
     CountryDetailsResponse:
       type: object
       description: Comprehensive metadata for a single country resolved from an ISO 3166-1 alpha-2 code.
@@ -1004,6 +1009,50 @@ components:
         currency_symbol:
           type: string
           description: The symbol of the currency used in the country.
+    CountriesResponse:
+      type: object
+      description: Response containing the list of countries matching the applied region/subregion filters (or all 250 when unfiltered).
+      required:
+      - countries
+      properties:
+        countries:
+          type: array
+          description: An array of country objects matching the applied filters.
+          items:
+            $ref: '#/components/schemas/CountryItem'
+    CountryItem:
+      type: object
+      description: A country object containing ISO codes, capital, and region information.
+      required:
+      - name
+      - iso_alpha_2
+      - iso_alpha_3
+      - iso_numeric
+      - capital
+      - region
+      - subregion
+      properties:
+        name:
+          type: string
+          description: The full English name of the country.
+        iso_alpha_2:
+          type: string
+          description: The ISO 3166-1 alpha-2 two-letter country code.
+        iso_alpha_3:
+          type: string
+          description: The ISO 3166-1 alpha-3 three-letter country code.
+        iso_numeric:
+          type: integer
+          description: The ISO 3166-1 numeric country code.
+        capital:
+          type: string
+          description: The capital city of the country. Empty string for uninhabited/dependent territories with no capital.
+        region:
+          type: string
+          description: The broad geographical region the country belongs to. Empty string for a small number of territories with no assigned region.
+        subregion:
+          type: string
+          description: The more specific subregion the country belongs to. Empty string for a small number of territories with no assigned subregion.
     RegionsResponse:
       type: object
       description: Response containing the flat list of geographical regions supported by the GeoDB service.
@@ -1015,6 +1064,22 @@ components:
           description: An array of region names representing all geographical regions supported by the service.
           items:
             type: string
+    SubregionsResponse:
+      type: object
+      description: Response containing subregion names for the requested region, or all subregions across every region when unfiltered.
+      required:
+      - subregions
+      properties:
+        subregions:
+          type: array
+          description: An array of subregion names within the specified region.
+          items:
+            type: string
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

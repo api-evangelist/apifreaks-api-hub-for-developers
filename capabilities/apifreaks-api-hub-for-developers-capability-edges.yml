@@ -1,0 +1,27 @@
+slug: apifreaks-api-hub-for-developers
+provider: APIFreaks - API Hub for Developers
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: General APIs
+  spec_file: apifreaks-api-hub-for-developers-general-apis-api-openapi.yml
+  capability_id: BC-4270.50
+  capability_id_l1: BC-4270
+  capability_name: API Consumption Governance
+  confidence: 0.7
+  evidence: GET /credits/usage/info 'Get remaining and consumed API credit balances for the organization'
+    — 'Returns subscription-plan credits, subscription surcharge (overage) credits, and one-off credit
+    purchases as separate balances, each with allowed and used counts'
+  reason: The endpoint exposes API consumption quotas and usage against the organization's commercial
+    plan tier and overage, which is API Consumption Governance. Some ambiguity with subscription usage
+    metering keeps confidence at 0.7.

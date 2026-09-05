@@ -19,7 +19,9 @@
   "paths": {
     "/asn/whois/live": {
       "get": {
-        "tags": ["WHOIS APIs"],
+        "tags": [
+          "WHOIS APIs"
+        ],
         "summary": "Retrieve WHOIS registration data, CIDR block inventory, and BGP peer relationships for an Autonomous System Number",
         "description": "Returns the WHOIS record for the specified ASN, including organization details, IPv4/IPv6 route objects, upstream/downstream/peer relationships, and both parsed and raw WHOIS text. Accepts the ASN with or without the 'AS' prefix.",
         "operationId": "asnLookup",
@@ -31,7 +33,10 @@
             "description": "Format of the response.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -82,8 +87,13 @@
                             "aut_num": "15",
                             "as_handle": "AS15",
                             "as_name": "NET-DYNAMICS-EXP",
-                            "tech_contacts": ["ZSU-ARIN", "ZSU-ARIN"],
-                            "abuse_contacts": ["ZSU-ARIN"],
+                            "tech_contacts": [
+                              "ZSU-ARIN",
+                              "ZSU-ARIN"
+                            ],
+                            "abuse_contacts": [
+                              "ZSU-ARIN"
+                            ],
                             "date_updated": "1991-06-27",
                             "source": "https://rdap.arin.net/registry/autnum/15"
                           }
@@ -91,8 +101,12 @@
                         "organization": {
                           "handle": "DYNAMI-109",
                           "name": "DYNAMICS",
-                          "address": ["US"],
-                          "country": ["US"],
+                          "address": [
+                            "US"
+                          ],
+                          "country": [
+                            "US"
+                          ],
                           "date_updated": "2012-10-10",
                           "source": "https://rdap.arin.net/registry/entity/DYNAMI-109",
                           "addressCountry": "US"
@@ -101,8 +115,12 @@
                           {
                             "handle": "ZSU-ARIN",
                             "name": "Su, Zaw-Sing",
-                            "email": ["zsu@nisc.sri.com"],
-                            "phone": ["+1-415-859-4576"],
+                            "email": [
+                              "zsu@nisc.sri.com"
+                            ],
+                            "phone": [
+                              "+1-415-859-4576"
+                            ],
                             "source": "https://rdap.arin.net/registry/entity/ZSU-ARIN"
                           }
                         ],
@@ -110,8 +128,12 @@
                           {
                             "handle": "ZSU-ARIN",
                             "name": "Su, Zaw-Sing",
-                            "email": ["zsu@nisc.sri.com"],
-                            "phone": ["+1-415-859-4576"],
+                            "email": [
+                              "zsu@nisc.sri.com"
+                            ],
+                            "phone": [
+                              "+1-415-859-4576"
+                            ],
                             "source": "https://rdap.arin.net/registry/entity/ZSU-ARIN"
                           }
                         ]
@@ -119,13 +141,20 @@
                       "upstreams": [],
                       "peers": [],
                       "contacts": {
-                        "emailContacts": ["zsu@nisc.sri.com"],
+                        "emailContacts": [
+                          "zsu@nisc.sri.com"
+                        ],
                         "abuseContacts": []
                       },
                       "legacyRoutes": []
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -149,6 +178,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -170,6 +204,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -195,7 +234,9 @@
     "schemas": {
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -350,7 +391,13 @@
       "RouteObject": {
         "type": "object",
         "description": "A single IPv4 or IPv6 route object (CIDR block) advertised by the ASN.",
-        "required": ["route", "origin", "originName", "isp", "numberOfIps"],
+        "required": [
+          "route",
+          "origin",
+          "originName",
+          "isp",
+          "numberOfIps"
+        ],
         "properties": {
           "route": {
             "type": "string",
@@ -377,7 +424,9 @@
       "AsnRelation": {
         "type": "object",
         "description": "A related Autonomous System (upstream provider, downstream customer, or BGP peer).",
-        "required": ["asNumber"],
+        "required": [
+          "asNumber"
+        ],
         "properties": {
           "asNumber": {
             "type": "string",
@@ -665,7 +714,11 @@
       "WhoisContact": {
         "type": "object",
         "description": "A parsed technical or abuse contact record from the registry.",
-        "required": ["handle", "name", "email"],
+        "required": [
+          "handle",
+          "name",
+          "email"
+        ],
         "properties": {
           "handle": {
             "type": "string",
@@ -698,7 +751,10 @@
       "Contacts": {
         "type": "object",
         "description": "Direct contact addresses collected from the ASN's WHOIS record.",
-        "required": ["emailContacts", "abuseContacts"],
+        "required": [
+          "emailContacts",
+          "abuseContacts"
+        ],
         "properties": {
           "emailContacts": {
             "type": "array",
@@ -714,6 +770,14 @@
               "type": "string"
             }
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

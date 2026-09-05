@@ -19,7 +19,9 @@
   "paths": {
     "/currency/time-series": {
       "get": {
-        "tags": ["Currency APIs"],
+        "tags": [
+          "Currency APIs"
+        ],
         "summary": "Get time series of exchange rates",
         "description": "Returns day-by-day historical exchange rates for a custom date range.",
         "operationId": "getTimeSeries",
@@ -31,7 +33,10 @@
             "description": "Response format: `json` (default) or `xml`.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -143,6 +148,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -195,6 +205,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -216,6 +231,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -241,7 +261,12 @@
     "schemas": {
       "CurrencyTimeseriesResponse": {
         "type": "object",
-        "required": ["startDate", "endDate", "base", "historicalRatesList"],
+        "required": [
+          "startDate",
+          "endDate",
+          "base",
+          "historicalRatesList"
+        ],
         "properties": {
           "startDate": {
             "type": "string",
@@ -268,7 +293,10 @@
       "CurrencyTimeSeriesItem": {
         "type": "object",
         "description": "Daily exchange rate data for a specific date.",
-        "required": ["date", "rates"],
+        "required": [
+          "date",
+          "rates"
+        ],
         "properties": {
           "date": {
             "type": "string",
@@ -288,10 +316,15 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests. Gateway-level validation errors use an ISO 8601 timestamp and the public endpoint path; currency-service errors use a Unix millisecond timestamp and an internal service path instead.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "timestamp": {
-            "type": ["string", "integer"],
+            "type": [
+              "string",
+              "integer"
+            ],
             "description": "Timestamp when the error occurred — ISO 8601 string for gateway errors, Unix milliseconds integer for currency-service errors."
           },
           "status": {
@@ -310,6 +343,14 @@
             "type": "string",
             "description": "API endpoint path (gateway errors) or internal service path (currency-service errors) that produced the error."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

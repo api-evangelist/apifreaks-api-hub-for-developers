@@ -19,7 +19,9 @@
   "paths": {
     "/vat/rates/ip-address": {
       "get": {
-        "tags": ["Financial APIs"],
+        "tags": [
+          "Financial APIs"
+        ],
         "summary": "Get VAT rate by IP address",
         "description": "Fetches VAT rate based on the specified or originating IP address.",
         "operationId": "getVatRatesByIp",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
@@ -62,7 +67,10 @@
                         "type": "vat",
                         "currency": "GBP",
                         "standard_rate": 0.2,
-                        "reduced_rate": [0, 0.05],
+                        "reduced_rate": [
+                          0,
+                          0.05
+                        ],
                         "categories": {
                           "books": 0.2,
                           "newspapers": 0.2,
@@ -86,6 +94,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -104,6 +117,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -121,6 +139,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -153,7 +176,12 @@
       },
       "VatIpItem": {
         "type": "object",
-        "required": ["country", "type", "currency", "standard_rate"],
+        "required": [
+          "country",
+          "type",
+          "currency",
+          "standard_rate"
+        ],
         "description": "Each item in the array represents a VAT rate object for the country resolved from the IP.",
         "properties": {
           "country": {
@@ -236,7 +264,9 @@
       },
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -261,6 +291,14 @@
           }
         },
         "description": "Standard error envelope returned by the API on failed requests."
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
       }
     }
   },

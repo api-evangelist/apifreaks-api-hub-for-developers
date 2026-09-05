@@ -19,7 +19,9 @@
   "paths": {
     "/geo/admin-levels": {
       "get": {
-        "tags": ["GeoDB APIs"],
+        "tags": [
+          "GeoDB APIs"
+        ],
         "summary": "Retrieve administrative level types for a country",
         "description": "Returns the distinct administrative level types (e.g., province, district, state) defined for a given country using ISO 3166-1 alpha-2 country code.",
         "operationId": "getAdminLevels",
@@ -31,7 +33,10 @@
             "description": "Format of the response. Possible values: json, xml.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -67,6 +72,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -99,6 +109,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -120,6 +135,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -146,7 +166,9 @@
       "AdminLevelsResponse": {
         "type": "object",
         "description": "Response containing the distinct administrative level types defined for the requested country.",
-        "required": ["admin_levels"],
+        "required": [
+          "admin_levels"
+        ],
         "properties": {
           "admin_levels": {
             "type": "array",
@@ -160,7 +182,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -183,6 +207,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

@@ -19,7 +19,9 @@
   "paths": {
     "/ip/whois/live": {
       "get": {
-        "tags": ["WHOIS APIs"],
+        "tags": [
+          "WHOIS APIs"
+        ],
         "summary": "Retrieve WHOIS registration and ownership data for an IP address",
         "description": "Returns WHOIS details for an IPv4 or IPv6 address including IP range, organization, contacts, routes, and raw WHOIS output.",
         "operationId": "lookupIpWhois",
@@ -31,7 +33,10 @@
             "description": "Format of the response.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -65,7 +70,9 @@
                         {
                           "start_ip": "8.8.8.0",
                           "end_ip": "8.8.8.255",
-                          "cidr": ["8.8.8.0/24"],
+                          "cidr": [
+                            "8.8.8.0/24"
+                          ],
                           "net_name": "GOGL",
                           "net_handle": "NET-8-8-8-0-2",
                           "status": "Direct Allocation",
@@ -73,7 +80,9 @@
                           "date_created": "2023-12-28",
                           "date_updated": "2023-12-28",
                           "source": "https://rdap.arin.net/registry/ip/8.8.8.0",
-                          "parents": ["NET8 (NET-8-0-0-0-0)"]
+                          "parents": [
+                            "NET8 (NET-8-0-0-0-0)"
+                          ]
                         }
                       ],
                       "organization": {
@@ -90,7 +99,9 @@
                         "city": "Mountain View",
                         "state": "CA",
                         "zip_code": "94043",
-                        "country": ["US"],
+                        "country": [
+                          "US"
+                        ],
                         "date_created": "2000-03-30",
                         "date_updated": "2019-10-31",
                         "source": "https://rdap.arin.net/registry/entity/GOGL"
@@ -99,8 +110,12 @@
                         {
                           "handle": "ZG39-ARIN",
                           "name": "Google LLC",
-                          "email": ["arin-contact@google.com"],
-                          "phone": ["+1-650-253-0000"],
+                          "email": [
+                            "arin-contact@google.com"
+                          ],
+                          "phone": [
+                            "+1-650-253-0000"
+                          ],
                           "source": "https://rdap.arin.net/registry/entity/ZG39-ARIN"
                         }
                       ],
@@ -108,8 +123,12 @@
                         {
                           "handle": "ABUSE5250-ARIN",
                           "name": "Abuse",
-                          "email": ["network-abuse@google.com"],
-                          "phone": ["+1-650-253-0000"],
+                          "email": [
+                            "network-abuse@google.com"
+                          ],
+                          "phone": [
+                            "+1-650-253-0000"
+                          ],
                           "source": "https://rdap.arin.net/registry/entity/ABUSE5250-ARIN"
                         }
                       ],
@@ -122,6 +141,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -144,6 +168,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -177,6 +206,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -201,7 +235,9 @@
     "schemas": {
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -292,7 +328,10 @@
             "description": "Unparsed WHOIS response from the WHOIS server."
           },
           "r_whois_raw_response": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "WHOIS response from the rwhois server, if available."
           }
         }
@@ -300,7 +339,13 @@
       "InetNum": {
         "type": "object",
         "description": "IP range allocation record (inetnum object) containing the allocated block, network name, status, and organizational linkage.",
-        "required": ["start_ip", "end_ip", "cidr", "net_name", "source"],
+        "required": [
+          "start_ip",
+          "end_ip",
+          "cidr",
+          "net_name",
+          "source"
+        ],
         "properties": {
           "start_ip": {
             "type": "string",
@@ -322,141 +367,213 @@
             "description": "Network name (unique identifier) of this inetnum in WHOIS data."
           },
           "net_handle": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Net-Handle (unique ID) of this inetnum, primarily from ARIN responses."
           },
           "description": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Description values from the inetnum object.",
             "items": {
               "type": "string"
             }
           },
           "countries": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "ISO 3166-1 alpha-2 country codes where the IP block is allocated.",
             "items": {
               "type": "string"
             }
           },
           "geofeed": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "URL to the geofeed (RFC 8805) for this prefix."
           },
           "latitude": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "float",
             "description": "Latitude parsed from the geoloc field."
           },
           "longitude": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "float",
             "description": "Longitude parsed from the geoloc field."
           },
           "city": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "City of allocation, primarily from LACNIC responses."
           },
           "languages": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Regional languages in countries of allocation.",
             "items": {
               "type": "string"
             }
           },
           "status": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Allocation or assignment status (e.g., 'Direct Allocation')."
           },
           "organization": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Handle (unique ID) of the organization managing this inetnum."
           },
           "sponsoring_organization": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Handle of the sponsoring organization for this inetnum."
           },
           "admin_contacts": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of admin persons or roles in WHOIS data.",
             "items": {
               "type": "string"
             }
           },
           "tech_contacts": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of technical persons or roles in WHOIS data.",
             "items": {
               "type": "string"
             }
           },
           "abuse_contacts": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of abuse persons or roles in WHOIS data.",
             "items": {
               "type": "string"
             }
           },
           "remarks": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Remarks from the inetnum object.",
             "items": {
               "type": "string"
             }
           },
           "assignment_size": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Allocation or assignment size of the IP network or block."
           },
           "notify": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Notify email addresses from the inetnum object.",
             "items": {
               "type": "string"
             }
           },
           "mnt_by": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Maintainer handles from the inetnum object.",
             "items": {
               "type": "string"
             }
           },
           "mnt_lower": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Lower-level maintainer handles from the inetnum object.",
             "items": {
               "type": "string"
             }
           },
           "mnt_domains": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Domain maintainer handles from the inetnum object.",
             "items": {
               "type": "string"
             }
           },
           "mnt_routes": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Route maintainer handles from the inetnum object.",
             "items": {
               "type": "string"
             }
           },
           "mnt_irt": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "IRT maintainer handles from the inetnum object.",
             "items": {
               "type": "string"
             }
           },
           "date_created": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Registration date of this inetnum object (YYYY-MM-DD)."
           },
           "date_updated": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Last update date of this inetnum object (YYYY-MM-DD)."
           },
@@ -465,7 +582,10 @@
             "description": "WHOIS data source (RIR registry URL) for this object."
           },
           "parents": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Parent allocation or assignment blocks of this inetnum.",
             "items": {
               "type": "string"
@@ -498,27 +618,45 @@
             }
           },
           "street": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed street address from the address field."
           },
           "city": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed city from the address field."
           },
           "district": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed district from the address field."
           },
           "state": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed state from the address field."
           },
           "zip_code": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed ZIP code from the address field."
           },
           "country": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed country from the address field."
           },
           "email": {
@@ -536,21 +674,30 @@
             }
           },
           "phone": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Phone numbers for the IRT.",
             "items": {
               "type": "string"
             }
           },
           "fax_no": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Fax numbers for the IRT.",
             "items": {
               "type": "string"
             }
           },
           "organizations": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of organization objects linked to this IRT.",
             "items": {
               "type": "string"
@@ -571,68 +718,98 @@
             }
           },
           "remarks": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Remarks for this IRT object.",
             "items": {
               "type": "string"
             }
           },
           "signature": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Cryptographic signatures for this IRT object.",
             "items": {
               "type": "string"
             }
           },
           "encryption": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Encryption keys for this IRT object.",
             "items": {
               "type": "string"
             }
           },
           "auth": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Authentication methods for this IRT object.",
             "items": {
               "type": "string"
             }
           },
           "notify": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Notify email addresses for this IRT object.",
             "items": {
               "type": "string"
             }
           },
           "irt_nfy": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "IRT-specific notification email addresses.",
             "items": {
               "type": "string"
             }
           },
           "mnt_by": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Maintainer handles for this IRT object.",
             "items": {
               "type": "string"
             }
           },
           "mnt_ref": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Referenced maintainer handles for this IRT object.",
             "items": {
               "type": "string"
             }
           },
           "date_created": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Registration date of this IRT object (YYYY-MM-DD)."
           },
           "date_updated": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Last update date of this IRT object (YYYY-MM-DD)."
           },
@@ -644,21 +821,30 @@
             "$ref": "#/components/schemas/IpWhoisOrganization"
           },
           "administrative_contacts": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Administrative contacts linked to this IRT.",
             "items": {
               "$ref": "#/components/schemas/WhoisContactRef"
             }
           },
           "technical_contacts": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Technical contacts linked to this IRT.",
             "items": {
               "$ref": "#/components/schemas/WhoisContactRef"
             }
           },
           "abuse_contacts": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Abuse contacts linked to this IRT.",
             "items": {
               "$ref": "#/components/schemas/WhoisContactRef"
@@ -669,7 +855,11 @@
       "IpWhoisOrganization": {
         "type": "object",
         "description": "Organization object containing the registrant's handle, name, address, contact details, and linked admin/tech/abuse contacts.",
-        "required": ["handle", "name", "source"],
+        "required": [
+          "handle",
+          "name",
+          "source"
+        ],
         "properties": {
           "handle": {
             "type": "string",
@@ -680,151 +870,226 @@
             "description": "Name of the organization."
           },
           "type": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Type of the organization (e.g., BUSINESS, REGISTRY)."
           },
           "description": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Description values from the organization object.",
             "items": {
               "type": "string"
             }
           },
           "address": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Full address lines of the organization.",
             "items": {
               "type": "string"
             }
           },
           "street": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed street address from the address field."
           },
           "city": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed city from the address field."
           },
           "district": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed district from the address field."
           },
           "state": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed state from the address field."
           },
           "zip_code": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed ZIP code from the address field."
           },
           "country": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "ISO 3166-1 alpha-2 country codes for the organization.",
             "items": {
               "type": "string"
             }
           },
           "latitude": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "float",
             "description": "Latitude parsed from the geoloc field."
           },
           "longitude": {
-            "type": ["number", "null"],
+            "type": [
+              "number",
+              "null"
+            ],
             "format": "float",
             "description": "Longitude parsed from the geoloc field."
           },
           "email": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Email addresses for the organization.",
             "items": {
               "type": "string"
             }
           },
           "abuse_mailbox": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Abuse mailbox email addresses for the organization.",
             "items": {
               "type": "string"
             }
           },
           "phone": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Phone numbers for the organization.",
             "items": {
               "type": "string"
             }
           },
           "fax_no": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Fax numbers for the organization.",
             "items": {
               "type": "string"
             }
           },
           "admin_contacts": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of admin persons or roles linked to this organization.",
             "items": {
               "type": "string"
             }
           },
           "tech_contacts": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of technical persons or roles linked to this organization.",
             "items": {
               "type": "string"
             }
           },
           "abuse_contacts": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of abuse persons or roles linked to this organization.",
             "items": {
               "type": "string"
             }
           },
           "remarks": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Remarks for this organization object.",
             "items": {
               "type": "string"
             }
           },
           "notify": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Notify email addresses for this organization object.",
             "items": {
               "type": "string"
             }
           },
           "ref_nfy": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Reference notification email addresses for this organization object.",
             "items": {
               "type": "string"
             }
           },
           "mnt_by": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Maintainer handles for this organization object.",
             "items": {
               "type": "string"
             }
           },
           "mnt_ref": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Referenced maintainer handles for this organization object.",
             "items": {
               "type": "string"
             }
           },
           "date_created": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Registration date of this organization object (YYYY-MM-DD)."
           },
           "date_updated": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Last update date of this organization object (YYYY-MM-DD)."
           },
@@ -837,131 +1102,197 @@
       "WhoisContactRef": {
         "type": "object",
         "description": "Contact person or role object with handle, name, email, phone, and source reference.",
-        "required": ["handle", "source"],
+        "required": [
+          "handle",
+          "source"
+        ],
         "properties": {
           "handle": {
             "type": "string",
             "description": "Handle or unique identifier of this contact in WHOIS data."
           },
           "name": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Name of the contact person or role."
           },
           "address": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Address lines for this contact.",
             "items": {
               "type": "string"
             }
           },
           "street": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed street address from the address field."
           },
           "city": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed city from the address field."
           },
           "district": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed district from the address field."
           },
           "state": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed state from the address field."
           },
           "zip_code": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed ZIP code from the address field."
           },
           "country": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Parsed country from the address field."
           },
           "email": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Email addresses for this contact.",
             "items": {
               "type": "string"
             }
           },
           "abuse_mailbox": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Abuse mailbox email addresses for this contact.",
             "items": {
               "type": "string"
             }
           },
           "phone": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Phone numbers for this contact.",
             "items": {
               "type": "string"
             }
           },
           "fax_no": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Fax numbers for this contact.",
             "items": {
               "type": "string"
             }
           },
           "organizations": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of organization objects managing this contact.",
             "items": {
               "type": "string"
             }
           },
           "admin_contacts": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of admin persons or roles linked to this contact.",
             "items": {
               "type": "string"
             }
           },
           "tech_contacts": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of technical persons or roles linked to this contact.",
             "items": {
               "type": "string"
             }
           },
           "remarks": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Remarks for this contact object.",
             "items": {
               "type": "string"
             }
           },
           "notify": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Notify email addresses for this contact object.",
             "items": {
               "type": "string"
             }
           },
           "mnt_by": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Maintainer handles for this contact object.",
             "items": {
               "type": "string"
             }
           },
           "mnt_ref": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Referenced maintainer handles for this contact object.",
             "items": {
               "type": "string"
             }
           },
           "date_created": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Registration date of this contact object (YYYY-MM-DD)."
           },
           "date_updated": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Last update date of this contact object (YYYY-MM-DD)."
           },
@@ -977,124 +1308,195 @@
         "required": [],
         "properties": {
           "route": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "BGP route prefix (e.g., 8.8.8.0/24)."
           },
           "origin": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Origin AS number for this route."
           },
           "description": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Description values for this route object.",
             "items": {
               "type": "string"
             }
           },
           "country": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Country of the organization managing this route."
           },
           "pingable": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Pingable IP addresses in this route.",
             "items": {
               "type": "string"
             }
           },
           "ping_hdl": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of pingable contacts for this route.",
             "items": {
               "type": "string"
             }
           },
           "holes": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Sub-allocation holes (more specific routes) within this route.",
             "items": {
               "type": "string"
             }
           },
           "member_of": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Route sets this route is a member of.",
             "items": {
               "type": "string"
             }
           },
           "inject": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Injection details for this route.",
             "items": {
               "type": "string"
             }
           },
           "aggr_mtd": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Aggregation method for this route."
           },
           "aggr_bndry": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Aggregation boundary for this route."
           },
           "export_comps": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Export composition for this route."
           },
           "components": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Route components."
           },
           "organizations": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Handles of organization objects related to this route.",
             "items": {
               "type": "string"
             }
           },
           "remarks": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Remarks for this route object.",
             "items": {
               "type": "string"
             }
           },
           "notify": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Notify email addresses for this route object.",
             "items": {
               "type": "string"
             }
           },
           "mnt_lower": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Lower-level maintainer handles for this route.",
             "items": {
               "type": "string"
             }
           },
           "mnt_by": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "description": "Maintainer handles for this route object.",
             "items": {
               "type": "string"
             }
           },
           "date_created": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Registration date of this route object (YYYY-MM-DD)."
           },
           "date_updated": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date",
             "description": "Last update date of this route object (YYYY-MM-DD)."
           },
           "source": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "WHOIS data source for this route object."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

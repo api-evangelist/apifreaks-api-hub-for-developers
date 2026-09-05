@@ -17,9 +17,6 @@ tags:
 - name: DNS APIs
 paths:
   /domain/dns/live:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: Bulk DNS Lookup API Server
     post:
       tags:
       - DNS APIs
@@ -270,6 +267,9 @@ paths:
                         rRsetType: 99
                         strings:
                         - v=spf1 -all
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing type parameter or malformed request body
           content:
@@ -293,6 +293,9 @@ paths:
                     path: /v1.0/domain/dns/live
                     status: 400
                     timestamp: '2026-07-23T09:52:49.074Z'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '413':
           description: Payload Too Large — Request exceeds the 100-hostname batch limit
           content:
@@ -308,6 +311,9 @@ paths:
                     path: /v1.0/domain/dns/live
                     status: 413
                     timestamp: '2026-07-23T09:52:49.621Z'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     get:
       tags:
       - DNS APIs
@@ -471,6 +477,9 @@ paths:
                       rawText: "8.8.8.8.in-addr.arpa.\t16954\tIN\tPTR\tdns.google."
                       rRsetType: 12
                       singleName: dns.google.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing or invalid parameters
           content:
@@ -502,10 +511,13 @@ paths:
                     error: Invalid Param Exception
                     message: 'Please pass domain param correct value[For Technical Support: support@whoisfreaks.com]'
                     path: /v2.0/dns/live
-  /domain/dns/history:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: DNS History API Server
+      description: Bulk DNS Lookup API Server
+  /domain/dns/history:
     get:
       tags:
       - DNS APIs
@@ -744,6 +756,9 @@ paths:
                         rawText: "example.com.\t\t128\tIN\tNS\tb.iana-servers.net."
                         rRsetType: 2
                         singleName: b.iana-servers.net.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Invalid DNS type or malformed hostname
           content:
@@ -767,6 +782,9 @@ paths:
                     error: Invalid Param Exception
                     message: 'Please pass domain param correct value[For Technical Support: support@whoisfreaks.com]'
                     path: /v2.0/dns/historical
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — No DNS history records for the hostname
           content:
@@ -782,10 +800,13 @@ paths:
                     error: Record not Found
                     message: 'No Record Found across: zzsuperrandomnonexistent998877.com'
                     path: /v2.0/dns/historical
-  /domain/dns/reverse:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: Reverse DNS Lookup API Server
+      description: DNS History API Server
+  /domain/dns/reverse:
     get:
       tags:
       - DNS APIs
@@ -904,6 +925,13 @@ paths:
                         rawText: "www.hailibu.cn.\t\t1\tIN\tA\t8.8.8.8"
                         rRsetType: 1
                         address: 8.8.8.8
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
         '400':
           description: Invalid DNS type or missing required parameter
           content:
@@ -927,6 +955,13 @@ paths:
                     path: /v1.0/domain/dns/reverse
                     status: 400
                     timestamp: '2026-07-23T09:51:58.951Z'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
         '404':
           description: No reverse DNS records found for the given input
           content:
@@ -942,38 +977,23 @@ paths:
                     status: 404
                     error: Record not Found
                     message: 'No Record Found across: zzsuperrandomnonexistentmxprovider99988.com'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Reverse DNS Lookup API Server
 components:
   schemas:
-    ErrorResponse_2:
+    ErrorResponse:
       type: object
+      description: Standard error response returned when a request fails.
       required:
       - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
-    ErrorResponse_4:
-      type: object
-      required:
-      - timestamp
-      - path
-      - status
-      - error
-      - message
-      description: Standard error response returned by the API when a request fails.
       properties:
         timestamp:
           type: string
@@ -981,7 +1001,7 @@ components:
           description: Timestamp of the error.
         path:
           type: string
-          description: Request path that triggered the error.
+          description: Request path.
         status:
           type: integer
           description: HTTP status code.
@@ -990,151 +1010,39 @@ components:
           description: Error type.
         message:
           type: string
-          description: Human-readable error message.
-    DnsRecord_2:
+          description: Error message.
+    BulkDnsLookupItem:
       type: object
-      description: A single DNS resource record. name, type, dnsType, ttl, rawText, and rRsetType are always present; every other field is populated only for the dnsType(s) noted in its description.
-      required:
-      - name
-      - type
-      - dnsType
-      - ttl
-      - rawText
-      - rRsetType
-      properties:
-        name:
-          type: string
-          description: Name of the queried domain.
-        type:
-          type: integer
-          description: DNS type code (1=A, 28=AAAA, 5=CNAME, 15=MX, 2=NS, 6=SOA, 16=TXT, 99=SPF).
-        dnsType:
-          type: string
-          enum:
-          - A
-          - AAAA
-          - CNAME
-          - MX
-          - NS
-          - SOA
-          - TXT
-          - SPF
-          description: DNS record type as a string.
-        ttl:
-          type: integer
-          description: Time to live in seconds.
-        rawText:
-          type: string
-          description: Raw (un-parsed) DNS record text.
-        rRsetType:
-          type: integer
-          description: Resource record set type code.
-        address:
-          type: string
-          description: IPv4 or IPv6 address. Present only when dnsType is A or AAAA.
-        target:
-          type: string
-          description: Target hostname. Present only when dnsType is CNAME or MX.
-        priority:
-          type: integer
-          description: Mail server priority. Present only when dnsType is MX.
-        singleName:
-          type: string
-          description: Authoritative name server. Present only when dnsType is NS.
-        admin:
-          type: string
-          description: Administrative contact email. Present only when dnsType is SOA.
-        host:
-          type: string
-          description: Primary name server. Present only when dnsType is SOA.
-        expire:
-          type: integer
-          description: Expiry time in seconds. Present only when dnsType is SOA.
-        minimum:
-          type: integer
-          description: Minimum TTL in seconds. Present only when dnsType is SOA.
-        refresh:
-          type: integer
-          description: Refresh interval in seconds. Present only when dnsType is SOA.
-        retry:
-          type: integer
-          description: Retry interval in seconds. Present only when dnsType is SOA.
-        serial:
-          type: integer
-          description: Serial number. Present only when dnsType is SOA.
-        strings:
-          type: array
-          description: Verification or policy strings. Present only when dnsType is TXT or SPF.
-          items:
-            type: string
-    ReverseDnsResponse:
-      type: object
-      required:
-      - totalRecords
-      - totalPages
-      - currentPage
-      - reverseDnsRecords
-      description: Paginated response containing all domain records matching the reverse DNS query.
-      properties:
-        totalRecords:
-          type: integer
-          description: Total number of domain records matching the reverse DNS query.
-        totalPages:
-          type: integer
-          description: Total number of pages available.
-        currentPage:
-          type: integer
-          description: Current page number in the paginated result.
-        reverseDnsRecords:
-          type: array
-          description: Array of matching domain records, each containing dated DNS snapshots.
-          items:
-            $ref: '#/components/schemas/ReverseDnsRecord'
-    DnsTypes_3:
-      type: object
-      description: 'Map of each DNS record type present in dnsRecords to its IANA DNS resource record type code (e.g. A: 1, AAAA: 28, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99, PTR: 12). Indicates which record types were found, not how many of each — count entries in dnsRecords for that.'
-      additionalProperties:
-        title: DnsTypeCode
-        type: integer
-        description: 'IANA DNS resource record type code for this DNS record type (A: 1, AAAA: 28, CNAME: 5, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99, PTR: 12).'
-    DNSLookupResponse:
-      type: object
-      required:
-      - status
-      - queryTime
-      - dnsTypes
-      - dnsRecords
+      description: Per-domain DNS lookup result within a bulk response, containing status, timestamps, and DNS records.
       properties:
         status:
           type: boolean
-          description: Indicates whether the query was processed successfully.
+          description: Indicates whether the query for this domain was processed successfully.
         queryTime:
           type: string
-          format: date-time
-          description: Time at which the query was made (Format:YYYY-MM-DD HH:mm:ss).
+          description: Time at which the query was made (YYYY-MM-DD HH:mm:ss).
         domainName:
-          type: string
-          description: Queried domain name.
+          type:
+          - string
+          - 'null'
+          description: Queried domain name (present for domain lookups, null for IP lookups).
         domainRegistered:
-          type: boolean
-          description: Indicates whether the domain is registered.
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the domain is registered (present for domain lookups).
         ipAddress:
-          type: string
-          description: IP address queried (present when ipAddress parameter is used instead of host-name).
+          type:
+          - string
+          - 'null'
+          description: IP address queried (present for IP/PTR lookups).
         dnsTypes:
-          $ref: '#/components/schemas/DnsTypes_3'
+          $ref: '#/components/schemas/DnsTypes'
         dnsRecords:
           type: array
-          description: List of DNS records. Field presence varies by dnsType — see DnsRecord for which fields apply to which type.
+          description: List of DNS records for this entry. Field presence varies by dnsType — see DnsRecord for which fields apply to which type.
           items:
             $ref: '#/components/schemas/DnsRecord'
-    DnsTypes:
-      type: object
-      description: 'Map of each DNS record type present in dnsRecords to its IANA DNS resource record type code (e.g. A: 1, AAAA: 28, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99, PTR: 12). Indicates which record types were found for this entry, not how many of each — count entries in dnsRecords for that.'
-      additionalProperties:
-        title: DnsTypeCode
-        type: integer
-        description: 'IANA DNS resource record type code for this DNS record type (A: 1, AAAA: 28, CNAME: 5, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99, PTR: 12).'
     DnsRecord:
       type: object
       description: A single DNS resource record. name, type, dnsType, ttl, rawText, and rRsetType are always present; every other field is populated only for the dnsType(s) noted in its description.
@@ -1212,9 +1120,164 @@ components:
           description: Verification or policy strings. Present only when dnsType is TXT or SPF.
           items:
             type: string
-    DnsTypes_4:
+    BulkDNSLookupResponse:
       type: object
-      description: 'Map of each DNS record type present in dnsRecords to its IANA DNS resource record type code (e.g. A: 1, AAAA: 28, CNAME: 5, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99). Indicates which record types were found for this domain, not how many of each — count entries in dnsRecords for that.'
+      description: Response containing an array of per-domain DNS lookup results.
+      required:
+      - bulk_dns_info
+      properties:
+        bulk_dns_info:
+          type: array
+          description: Array of DNS lookup results, one per queried domain or IP address.
+          items:
+            $ref: '#/components/schemas/BulkDnsLookupItem'
+    BulkDNSLookupRequest:
+      type: object
+      description: Request body for bulk DNS lookup containing a list of hostnames and optional IP addresses.
+      required:
+      - domainNames
+      properties:
+        domainNames:
+          type: array
+          description: List of hostnames to lookup DNS records for (max 100).
+          maxItems: 100
+          items:
+            type: string
+        ipAddresses:
+          type: array
+          description: Array of IP addresses to include in the lookup for PTR record enrichment.
+          items:
+            type: string
+    DnsTypes:
+      type: object
+      description: 'Map of each DNS record type present in dnsRecords to its IANA DNS resource record type code (e.g. A: 1, AAAA: 28, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99, PTR: 12). Indicates which record types were found for this entry, not how many of each — count entries in dnsRecords for that.'
+      additionalProperties:
+        title: DnsTypeCode
+        type: integer
+        description: 'IANA DNS resource record type code for this DNS record type (A: 1, AAAA: 28, CNAME: 5, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99, PTR: 12).'
+    ErrorResponse_2:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    DNSHistoryLookupResponse:
+      type: object
+      description: Paginated collection of historical DNS snapshots for the requested hostname.
+      required:
+      - totalRecords
+      - totalPages
+      - currentPage
+      - historicalDnsRecords
+      properties:
+        totalPages:
+          type: integer
+          description: Total number of pages available.
+        currentPage:
+          type: integer
+          description: Current page number returned.
+        totalRecords:
+          type: integer
+          description: Total number of unique DNS records found.
+        historicalDnsRecords:
+          type: array
+          description: Array of dated DNS snapshots.
+          items:
+            $ref: '#/components/schemas/DnsHistoryRecord'
+    DnsRecord_2:
+      type: object
+      description: A single DNS resource record. name, type, dnsType, ttl, rawText, and rRsetType are always present; every other field is populated only for the dnsType(s) noted in its description.
+      required:
+      - name
+      - type
+      - dnsType
+      - ttl
+      - rawText
+      - rRsetType
+      properties:
+        name:
+          type: string
+          description: Name of the queried domain.
+        type:
+          type: integer
+          description: DNS type code (1=A, 28=AAAA, 5=CNAME, 15=MX, 2=NS, 6=SOA, 16=TXT, 99=SPF).
+        dnsType:
+          type: string
+          enum:
+          - A
+          - AAAA
+          - CNAME
+          - MX
+          - NS
+          - SOA
+          - TXT
+          - SPF
+          description: DNS record type as a string.
+        ttl:
+          type: integer
+          description: Time to live in seconds.
+        rawText:
+          type: string
+          description: Raw (un-parsed) DNS record text.
+        rRsetType:
+          type: integer
+          description: Resource record set type code.
+        address:
+          type: string
+          description: IPv4 or IPv6 address. Present only when dnsType is A or AAAA.
+        target:
+          type: string
+          description: Target hostname. Present only when dnsType is CNAME or MX.
+        priority:
+          type: integer
+          description: Mail server priority. Present only when dnsType is MX.
+        singleName:
+          type: string
+          description: Authoritative name server. Present only when dnsType is NS.
+        admin:
+          type: string
+          description: Administrative contact email. Present only when dnsType is SOA.
+        host:
+          type: string
+          description: Primary name server. Present only when dnsType is SOA.
+        expire:
+          type: integer
+          description: Expiry time in seconds. Present only when dnsType is SOA.
+        minimum:
+          type: integer
+          description: Minimum TTL in seconds. Present only when dnsType is SOA.
+        refresh:
+          type: integer
+          description: Refresh interval in seconds. Present only when dnsType is SOA.
+        retry:
+          type: integer
+          description: Retry interval in seconds. Present only when dnsType is SOA.
+        serial:
+          type: integer
+          description: Serial number. Present only when dnsType is SOA.
+        strings:
+          type: array
+          description: Verification or policy strings. Present only when dnsType is TXT or SPF.
+          items:
+            type: string
+    DnsTypes_2:
+      type: object
+      description: 'Map of each DNS record type present in dnsRecords to its IANA DNS resource record type code (e.g. A: 1, AAAA: 28, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99). Indicates which record types were found in this snapshot, not how many of each — count entries in dnsRecords for that.'
       additionalProperties:
         title: DnsTypeCode
         type: integer
@@ -1262,79 +1325,119 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    DnsTypes_2:
+    DnsTypes_3:
       type: object
-      description: 'Map of each DNS record type present in dnsRecords to its IANA DNS resource record type code (e.g. A: 1, AAAA: 28, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99). Indicates which record types were found in this snapshot, not how many of each — count entries in dnsRecords for that.'
+      description: 'Map of each DNS record type present in dnsRecords to its IANA DNS resource record type code (e.g. A: 1, AAAA: 28, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99, PTR: 12). Indicates which record types were found, not how many of each — count entries in dnsRecords for that.'
       additionalProperties:
         title: DnsTypeCode
         type: integer
-        description: 'IANA DNS resource record type code for this DNS record type (A: 1, AAAA: 28, CNAME: 5, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99).'
-    DNSHistoryLookupResponse:
+        description: 'IANA DNS resource record type code for this DNS record type (A: 1, AAAA: 28, CNAME: 5, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99, PTR: 12).'
+    DNSLookupResponse:
       type: object
-      description: Paginated collection of historical DNS snapshots for the requested hostname.
+      required:
+      - status
+      - queryTime
+      - dnsTypes
+      - dnsRecords
+      properties:
+        status:
+          type: boolean
+          description: Indicates whether the query was processed successfully.
+        queryTime:
+          type: string
+          format: date-time
+          description: Time at which the query was made (Format:YYYY-MM-DD HH:mm:ss).
+        domainName:
+          type: string
+          description: Queried domain name.
+        domainRegistered:
+          type: boolean
+          description: Indicates whether the domain is registered.
+        ipAddress:
+          type: string
+          description: IP address queried (present when ipAddress parameter is used instead of host-name).
+        dnsTypes:
+          $ref: '#/components/schemas/DnsTypes_3'
+        dnsRecords:
+          type: array
+          description: List of DNS records. Field presence varies by dnsType — see DnsRecord for which fields apply to which type.
+          items:
+            $ref: '#/components/schemas/DnsRecord'
+    ErrorResponse_4:
+      type: object
+      required:
+      - timestamp
+      - path
+      - status
+      - error
+      - message
+      description: Standard error response returned by the API when a request fails.
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the error.
+        path:
+          type: string
+          description: Request path that triggered the error.
+        status:
+          type: integer
+          description: HTTP status code.
+        error:
+          type: string
+          description: Error type.
+        message:
+          type: string
+          description: Human-readable error message.
+    ReverseDnsResponse:
+      type: object
       required:
       - totalRecords
       - totalPages
       - currentPage
-      - historicalDnsRecords
+      - reverseDnsRecords
+      description: Paginated response containing all domain records matching the reverse DNS query.
       properties:
+        totalRecords:
+          type: integer
+          description: Total number of domain records matching the reverse DNS query.
         totalPages:
           type: integer
           description: Total number of pages available.
         currentPage:
           type: integer
-          description: Current page number returned.
-        totalRecords:
-          type: integer
-          description: Total number of unique DNS records found.
-        historicalDnsRecords:
+          description: Current page number in the paginated result.
+        reverseDnsRecords:
           type: array
-          description: Array of dated DNS snapshots.
+          description: Array of matching domain records, each containing dated DNS snapshots.
           items:
-            $ref: '#/components/schemas/DnsHistoryRecord'
-    BulkDNSLookupResponse:
+            $ref: '#/components/schemas/ReverseDnsRecord'
+    ReverseDnsRecord:
       type: object
-      description: Response containing an array of per-domain DNS lookup results.
+      description: A single domain record matched by the reverse DNS query, with its DNS snapshot data.
       required:
-      - bulk_dns_info
+      - queryTime
+      - domainName
+      - dnsTypes
+      - dnsRecords
       properties:
-        bulk_dns_info:
-          type: array
-          description: Array of DNS lookup results, one per queried domain or IP address.
-          items:
-            $ref: '#/components/schemas/BulkDnsLookupItem'
-    BulkDnsLookupItem:
-      type: object
-      description: Per-domain DNS lookup result within a bulk response, containing status, timestamps, and DNS records.
-      properties:
-        status:
-          type: boolean
-          description: Indicates whether the query for this domain was processed successfully.
         queryTime:
           type: string
-          description: Time at which the query was made (YYYY-MM-DD HH:mm:ss).
+          format: date
+          description: Date when the DNS snapshot was taken (YYYY-MM-DD).
         domainName:
-          type:
-          - string
-          - 'null'
-          description: Queried domain name (present for domain lookups, null for IP lookups).
+          type: string
+          description: Matched domain name.
         domainRegistered:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether the domain is registered (present for domain lookups).
-        ipAddress:
-          type:
-          - string
-          - 'null'
-          description: IP address queried (present for IP/PTR lookups).
+          type: boolean
+          description: Indicates whether the domain is registered.
         dnsTypes:
-          $ref: '#/components/schemas/DnsTypes'
+          $ref: '#/components/schemas/DnsTypes_4'
         dnsRecords:
           type: array
-          description: List of DNS records for this entry. Field presence varies by dnsType — see DnsRecord for which fields apply to which type.
+          description: Array of DNS records for this domain on this date. Field presence varies by dnsType — see DnsRecord for which fields apply to which type.
           items:
-            $ref: '#/components/schemas/DnsRecord'
+            $ref: '#/components/schemas/DnsRecord_3'
     DnsRecord_3:
       type: object
       description: A single DNS resource record. name, type, dnsType, ttl, rawText, and rRsetType are always present; every other field is populated only for the dnsType(s) noted in its description.
@@ -1411,71 +1514,26 @@ components:
           description: Verification or policy strings. Present only when dnsType is TXT or SPF.
           items:
             type: string
-    ErrorResponse:
+    DnsTypes_4:
       type: object
-      description: Standard error response returned when a request fails.
-      required:
-      - message
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp of the error.
-        path:
-          type: string
-          description: Request path.
-        status:
-          type: integer
-          description: HTTP status code.
-        error:
-          type: string
-          description: Error type.
-        message:
-          type: string
-          description: Error message.
-    ReverseDnsRecord:
-      type: object
-      description: A single domain record matched by the reverse DNS query, with its DNS snapshot data.
-      required:
-      - queryTime
-      - domainName
-      - dnsTypes
-      - dnsRecords
-      properties:
-        queryTime:
-          type: string
-          format: date
-          description: Date when the DNS snapshot was taken (YYYY-MM-DD).
-        domainName:
-          type: string
-          description: Matched domain name.
-        domainRegistered:
-          type: boolean
-          description: Indicates whether the domain is registered.
-        dnsTypes:
-          $ref: '#/components/schemas/DnsTypes_4'
-        dnsRecords:
-          type: array
-          description: Array of DNS records for this domain on this date. Field presence varies by dnsType — see DnsRecord for which fields apply to which type.
-          items:
-            $ref: '#/components/schemas/DnsRecord_3'
-    BulkDNSLookupRequest:
-      type: object
-      description: Request body for bulk DNS lookup containing a list of hostnames and optional IP addresses.
-      required:
-      - domainNames
-      properties:
-        domainNames:
-          type: array
-          description: List of hostnames to lookup DNS records for (max 100).
-          maxItems: 100
-          items:
-            type: string
-        ipAddresses:
-          type: array
-          description: Array of IP addresses to include in the lookup for PTR record enrichment.
-          items:
-            type: string
+      description: 'Map of each DNS record type present in dnsRecords to its IANA DNS resource record type code (e.g. A: 1, AAAA: 28, CNAME: 5, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99). Indicates which record types were found for this domain, not how many of each — count entries in dnsRecords for that.'
+      additionalProperties:
+        title: DnsTypeCode
+        type: integer
+        description: 'IANA DNS resource record type code for this DNS record type (A: 1, AAAA: 28, CNAME: 5, MX: 15, NS: 2, SOA: 6, TXT: 16, SPF: 99).'
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
+    X-Concurrent-Threads-Active:
+      description: Indicates the number of active concurrent requests being processed.
+      schema:
+        type: integer
+    X-Concurrent-Threads:
+      description: Specifies the maximum number of concurrent requests allowed.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

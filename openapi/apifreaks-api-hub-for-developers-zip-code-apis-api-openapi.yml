@@ -17,9 +17,6 @@ tags:
 - name: ZIP Code APIs
 paths:
   /zipcode/lookup:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: Bulk ZIP Code Lookup API Server
     post:
       tags:
       - ZIP Code APIs
@@ -91,6 +88,9 @@ paths:
                       locality: Manhattan
                       latitude: 40.748436
                       longitude: -73.99402
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Malformed body, invalid country code, or over the 100-code limit
           content:
@@ -122,6 +122,9 @@ paths:
                     status: 400
                     error: Maximum Postal/Zip Code Limit Exceeded
                     message: A maximum of 100 postal/zip codes can be processed per request.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — None of the submitted codes matched anything
           content:
@@ -137,6 +140,9 @@ paths:
                     status: 404
                     error: Postal/Zip Codes Not Found
                     message: None of the provided postal/zip codes were found in our database.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     get:
       tags:
       - ZIP Code APIs
@@ -214,6 +220,9 @@ paths:
                       locality: Kalia
                       latitude: -1.310763
                       longitude: 37.969997
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing code or invalid country code
           content:
@@ -237,6 +246,9 @@ paths:
                     status: 400
                     error: Invalid Country Code Provided
                     message: Only ISO 3166-1 alpha-2 codes country codes are supported.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — No location matches the given code
           content:
@@ -252,10 +264,13 @@ paths:
                     status: 404
                     error: Postal/Zip Code Not Found
                     message: Provided postal/zip code was not found in our database.
-  /zipcode/distance/match:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: ZIP Code Distance Match API Server
+      description: Bulk ZIP Code Lookup API Server
+  /zipcode/distance/match:
     post:
       tags:
       - ZIP Code APIs
@@ -315,6 +330,9 @@ paths:
                   value:
                     result_count: 0
                     results: []
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing/invalid body, country, or unit, or over the 100-code limit
           content:
@@ -362,6 +380,9 @@ paths:
                     status: 400
                     error: Maximum Postal/Zip Code Limit Exceeded
                     message: A maximum of 100 postal/zip codes can be processed per request.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — None of the submitted codes matched anything
           content:
@@ -377,10 +398,13 @@ paths:
                     status: 404
                     error: Postal/Zip Codes Not Found
                     message: None of the provided postal/zip codes were found in our database.
-  /zipcode/distance:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: ZIP Code Distance API Server
+      description: ZIP Code Distance Match API Server
+  /zipcode/distance:
     post:
       tags:
       - ZIP Code APIs
@@ -431,6 +455,9 @@ paths:
                       distance: 3948.696
                     - code: '94103'
                       distance: 544.134
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing/invalid body, country, or unit, or over the 100-code limit
           content:
@@ -478,6 +505,9 @@ paths:
                     status: 400
                     error: Maximum Postal/Zip Code Limit Exceeded
                     message: A maximum of 100 postal/zip codes can be processed per request.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — None of the compare codes matched anything
           content:
@@ -493,10 +523,13 @@ paths:
                     status: 404
                     error: Postal/Zip Codes Not Found
                     message: None of the provided postal/zip codes were found in our database.
-  /zipcode/search/city:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: ZIP Codes by City API Server
+      description: ZIP Code Distance API Server
+  /zipcode/search/city:
     get:
       tags:
       - ZIP Code APIs
@@ -562,6 +595,9 @@ paths:
                     - '90210'
                     - '90211'
                     - '90212'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing city, invalid country code, or invalid page number
           content:
@@ -593,6 +629,9 @@ paths:
                     status: 400
                     error: Invalid Page Number
                     message: The page number must be greater than 0.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — No codes for the city, or requested page is out of range
           content:
@@ -616,10 +655,13 @@ paths:
                     status: 404
                     error: Page Not Found
                     message: The requested page exceeds the available page range.
-  /zipcode/search/region:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: ZIP Codes by Region API Server
+      description: ZIP Codes by City API Server
+  /zipcode/search/region:
     get:
       tags:
       - ZIP Code APIs
@@ -684,6 +726,9 @@ paths:
                     - '90003'
                     - '90004'
                     - '90005'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing region/region_code, invalid country code, or invalid page number
           content:
@@ -715,6 +760,9 @@ paths:
                     status: 400
                     error: Invalid Page Number
                     message: The page number must be greater than 0.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — No codes for the region, or requested page is out of range
           content:
@@ -738,10 +786,13 @@ paths:
                     status: 404
                     error: Page Not Found
                     message: The requested page exceeds the available page range.
-  /zipcode/search/radius:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: ZIP Code Radius Search API Server
+      description: ZIP Codes by Region API Server
+  /zipcode/search/radius:
     get:
       tags:
       - ZIP Code APIs
@@ -842,6 +893,13 @@ paths:
                       city: Los Angeles
                       district: West Hollywood (West Hollywood)
                       distance: 3.403
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
         '400':
           description: Bad Request — Missing/invalid radius, coordinates, or country code
           content:
@@ -881,6 +939,13 @@ paths:
                     status: 400
                     error: Invalid Country Code Provided
                     message: Only ISO 3166-1 alpha-2 codes country codes are supported.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
         '404':
           description: Not Found — Base ZIP/postal code does not exist
           content:
@@ -896,99 +961,65 @@ paths:
                     status: 404
                     error: Base Postal/Zip Code Not Found
                     message: The provided base postal/zip code does not exist in our database.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+            X-Concurrent-Threads:
+              $ref: '#/components/headers/X-Concurrent-Threads'
+            X-Concurrent-Threads-Active:
+              $ref: '#/components/headers/X-Concurrent-Threads-Active'
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: ZIP Code Radius Search API Server
 components:
   schemas:
-    ZipRadiusResultItem:
+    ErrorResponse:
       type: object
-      description: A ZIP code result within the search radius, including distance from the center point.
+      description: Standard error envelope returned by the API on failed requests.
       required:
-      - code
-      - region
-      - region_code
-      - city
-      - distance
+      - message
       properties:
-        code:
+        error:
           type: string
-          description: Postal/ZIP code of the matched location.
-        region:
+          description: Short error category or exception type.
+        message:
           type: string
-          description: Region, state, or province associated with the postal code.
-        region_code:
+          description: Human-readable error message describing the failure.
+        path:
           type: string
-          description: Region code or abbreviation.
-        city:
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
           type: string
-          description: City associated with the postal code.
-        district:
-          type: string
-          description: District or neighborhood associated with the postal code. Can be an empty string when no district-level data exists.
-        distance:
-          type: number
-          format: float
-          description: Distance from the center point to this postal code, in the unit specified by the unit parameter.
-    ZipcodeDistanceItem:
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    ZipcodeLookupResponse:
       type: object
-      description: Distance from the base point to one matched comparison code.
+      description: ZIP code lookup result containing an array of matched postal codes with location details.
       required:
-      - code
-      - distance
+      - results
       properties:
-        code:
-          type: string
-          description: The matched comparison ZIP/postal code.
-        distance:
-          type: number
-          format: float
-          description: Distance from the base point to this code, in the unit specified by the unit field (default km).
-    ZipcodeDistanceMatchItem:
+        results:
+          type: array
+          description: Array of matched ZIP code results. Codes with no match are omitted, so this array can be shorter than the requested codes list.
+          items:
+            $ref: '#/components/schemas/ZipResultItem'
+    BulkZipRequest:
       type: object
-      description: A single matched pair of ZIP/postal codes with the distance between them.
+      description: Request body for bulk ZIP/postal code lookup.
       required:
-      - code_1
-      - code_2
-      - distance
-      properties:
-        code_1:
-          type: string
-          description: First ZIP/postal code in the pair.
-        code_2:
-          type: string
-          description: Second ZIP/postal code in the pair.
-        distance:
-          type: number
-          format: float
-          description: Distance between the ZIP/postal code pair, in the unit specified by the unit field (default km).
-    PostalCode:
-      type: string
-      description: A single ZIP or postal code.
-    ZipcodeSearchCityResponse:
-      type: object
-      description: ZIP/postal codes for the requested city, with pagination metadata.
-      required:
-      - total_results
-      - total_pages
-      - current_page
-      - current_page_size
       - codes
       properties:
-        total_results:
-          type: integer
-          description: Total number of ZIP/postal codes found, across all pages.
-        total_pages:
-          type: integer
-          description: Total number of pages available.
-        current_page:
-          type: integer
-          description: Current page number.
-        current_page_size:
-          type: integer
-          description: Number of ZIP/postal codes in the current page.
         codes:
           type: array
-          description: List of ZIP/postal codes for the current page.
+          description: Array of ZIP or postal codes to look up. Maximum 100 codes per request.
           items:
-            $ref: '#/components/schemas/PostalCode'
+            type: string
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code to limit the search to. Applies to every code in the batch.
     ZipResultItem:
       type: object
       description: A ZIP code result containing location details.
@@ -1027,42 +1058,53 @@ components:
           type: number
           format: float
           description: Longitude coordinate of the postal code location.
-    DistanceCompareCode:
-      type: string
-      description: A ZIP or postal code to compare against the base point.
-    ZipcodeLookupResponse:
+    ZipcodeLookupResponse_2:
       type: object
-      description: ZIP code lookup result containing an array of matched postal codes with location details.
+      description: ZIP code lookup result containing an array of matching postal codes with location details.
       required:
       - results
       properties:
         results:
           type: array
-          description: Array of matched ZIP code results. Codes with no match are omitted, so this array can be shorter than the requested codes list.
+          description: Array of ZIP code results matching the requested code. When multiple locations worldwide share the same postal code, each appears as a separate entry.
           items:
             $ref: '#/components/schemas/ZipResultItem'
-    ErrorResponse:
+    DistanceMatchInputCode:
+      type: string
+      description: A ZIP or postal code to find distance matches for.
+    ZipcodeDistanceMatchItem:
       type: object
-      description: Standard error envelope returned by the API on failed requests.
+      description: A single matched pair of ZIP/postal codes with the distance between them.
       required:
-      - message
+      - code_1
+      - code_2
+      - distance
       properties:
-        error:
+        code_1:
           type: string
-          description: Short error category or exception type.
-        message:
+          description: First ZIP/postal code in the pair.
+        code_2:
           type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
+          description: Second ZIP/postal code in the pair.
+        distance:
+          type: number
+          format: float
+          description: Distance between the ZIP/postal code pair, in the unit specified by the unit field (default km).
+    ZipcodeDistanceMatchResponse:
+      type: object
+      description: Matching ZIP/postal code pairs within the requested distance threshold.
+      required:
+      - result_count
+      - results
+      properties:
+        result_count:
           type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
+          description: Number of matching ZIP/postal code pairs returned. Zero when no pairs fall within the threshold.
+        results:
+          type: array
+          description: Array of matching code pairs within the requested distance threshold.
+          items:
+            $ref: '#/components/schemas/ZipcodeDistanceMatchItem'
     DistanceMatchRequest:
       type: object
       description: Request body specifying the codes, country, and distance threshold to match pairs within.
@@ -1093,6 +1135,20 @@ components:
           - in
           default: km
           description: 'Distance unit. Default: km.'
+    ZipcodeDistanceItem:
+      type: object
+      description: Distance from the base point to one matched comparison code.
+      required:
+      - code
+      - distance
+      properties:
+        code:
+          type: string
+          description: The matched comparison ZIP/postal code.
+        distance:
+          type: number
+          format: float
+          description: Distance from the base point to this code, in the unit specified by the unit field (default km).
     DistanceRequest:
       type: object
       description: Request body specifying the base point, country, and comparison codes for distance calculation.
@@ -1130,9 +1186,9 @@ components:
           - in
           default: km
           description: 'Distance unit for the returned values. Default: km.'
-    DistanceMatchInputCode:
+    DistanceCompareCode:
       type: string
-      description: A ZIP or postal code to find distance matches for.
+      description: A ZIP or postal code to compare against the base point.
     ZipcodeDistanceResponse:
       type: object
       description: Distance calculation results for each comparison code that matched.
@@ -1148,31 +1204,36 @@ components:
           description: Array of distance results, one per matched comparison code. Codes with no match are omitted.
           items:
             $ref: '#/components/schemas/ZipcodeDistanceItem'
-    BulkZipRequest:
+    PostalCode:
+      type: string
+      description: A single ZIP or postal code.
+    ZipcodeSearchCityResponse:
       type: object
-      description: Request body for bulk ZIP/postal code lookup.
+      description: ZIP/postal codes for the requested city, with pagination metadata.
       required:
+      - total_results
+      - total_pages
+      - current_page
+      - current_page_size
       - codes
       properties:
+        total_results:
+          type: integer
+          description: Total number of ZIP/postal codes found, across all pages.
+        total_pages:
+          type: integer
+          description: Total number of pages available.
+        current_page:
+          type: integer
+          description: Current page number.
+        current_page_size:
+          type: integer
+          description: Number of ZIP/postal codes in the current page.
         codes:
           type: array
-          description: Array of ZIP or postal codes to look up. Maximum 100 codes per request.
+          description: List of ZIP/postal codes for the current page.
           items:
-            type: string
-        country:
-          type: string
-          description: ISO 3166-1 alpha-2 country code to limit the search to. Applies to every code in the batch.
-    ZipcodeLookupResponse_2:
-      type: object
-      description: ZIP code lookup result containing an array of matching postal codes with location details.
-      required:
-      - results
-      properties:
-        results:
-          type: array
-          description: Array of ZIP code results matching the requested code. When multiple locations worldwide share the same postal code, each appears as a separate entry.
-          items:
-            $ref: '#/components/schemas/ZipResultItem'
+            $ref: '#/components/schemas/PostalCode'
     ZipcodeSearchRegionResponse:
       type: object
       description: ZIP/postal codes for the requested region, with pagination metadata.
@@ -1227,21 +1288,48 @@ components:
           description: Array of matching ZIP/postal codes for the current page, sorted nearest-first by distance.
           items:
             $ref: '#/components/schemas/ZipRadiusResultItem'
-    ZipcodeDistanceMatchResponse:
+    ZipRadiusResultItem:
       type: object
-      description: Matching ZIP/postal code pairs within the requested distance threshold.
+      description: A ZIP code result within the search radius, including distance from the center point.
       required:
-      - result_count
-      - results
+      - code
+      - region
+      - region_code
+      - city
+      - distance
       properties:
-        result_count:
-          type: integer
-          description: Number of matching ZIP/postal code pairs returned. Zero when no pairs fall within the threshold.
-        results:
-          type: array
-          description: Array of matching code pairs within the requested distance threshold.
-          items:
-            $ref: '#/components/schemas/ZipcodeDistanceMatchItem'
+        code:
+          type: string
+          description: Postal/ZIP code of the matched location.
+        region:
+          type: string
+          description: Region, state, or province associated with the postal code.
+        region_code:
+          type: string
+          description: Region code or abbreviation.
+        city:
+          type: string
+          description: City associated with the postal code.
+        district:
+          type: string
+          description: District or neighborhood associated with the postal code. Can be an empty string when no district-level data exists.
+        distance:
+          type: number
+          format: float
+          description: Distance from the center point to this postal code, in the unit specified by the unit parameter.
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
+    X-Concurrent-Threads-Active:
+      description: Indicates the number of active concurrent requests being processed.
+      schema:
+        type: integer
+    X-Concurrent-Threads:
+      description: Specifies the maximum number of concurrent requests allowed.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

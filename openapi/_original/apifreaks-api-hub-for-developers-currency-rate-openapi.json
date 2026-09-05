@@ -19,7 +19,9 @@
   "paths": {
     "/currency/rates/latest": {
       "get": {
-        "tags": ["Currency APIs"],
+        "tags": [
+          "Currency APIs"
+        ],
         "summary": "Get the latest exchange rates",
         "description": "Returns the latest exchange rates for the requested base currency and symbols.",
         "operationId": "getLatestExchangeRates",
@@ -31,7 +33,10 @@
             "description": "Response format: `json` (default) or `xml`.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -61,7 +66,12 @@
             "description": "Update frequency: `1m` (default), `10m`, `1h`, or `1d`.",
             "schema": {
               "type": "string",
-              "enum": ["1m", "10m", "1h", "1d"],
+              "enum": [
+                "1m",
+                "10m",
+                "1h",
+                "1d"
+              ],
               "default": "1m"
             }
           }
@@ -88,6 +98,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -109,6 +124,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -142,6 +162,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -166,7 +191,11 @@
     "schemas": {
       "LatestExchangeRatesResponse": {
         "type": "object",
-        "required": ["date", "base", "rates"],
+        "required": [
+          "date",
+          "base",
+          "rates"
+        ],
         "properties": {
           "date": {
             "type": "string",
@@ -190,7 +219,13 @@
       },
       "ErrorResponse": {
         "type": "object",
-        "required": ["timestamp", "status", "error", "message", "path"],
+        "required": [
+          "timestamp",
+          "status",
+          "error",
+          "message",
+          "path"
+        ],
         "properties": {
           "timestamp": {
             "type": "integer",
@@ -215,6 +250,14 @@
           }
         },
         "description": "Standard error envelope returned by the API on failed requests."
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
       }
     }
   },

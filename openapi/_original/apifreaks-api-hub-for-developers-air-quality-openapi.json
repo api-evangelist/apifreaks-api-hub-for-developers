@@ -19,7 +19,9 @@
   "paths": {
     "/air-quality": {
       "get": {
-        "tags": ["Weather APIs"],
+        "tags": [
+          "Weather APIs"
+        ],
         "summary": "Air pollution monitoring and quality forecasts",
         "description": "Monitor and predict air quality conditions using European and US AQI standards. Track pollutant concentrations including PM10, PM2.5, carbon monoxide, nitrogen dioxide, sulfur dioxide, ozone, and dust particles. Get current readings plus hourly forecasts up to 5 days ahead, complete with UV index and aerosol measurements for comprehensive air quality assessment.",
         "operationId": "getAirQuality",
@@ -31,7 +33,9 @@
             "description": "Format of the response. Possible values: json.",
             "schema": {
               "type": "string",
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "default": "json"
             }
           },
@@ -203,6 +207,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -285,6 +294,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -306,6 +320,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -344,7 +363,9 @@
             "description": "Date-keyed forecast data, present when the request includes startDate/endDate."
           }
         },
-        "required": ["location"],
+        "required": [
+          "location"
+        ],
         "description": "Air quality response containing location data plus either current observations or date-keyed forecast data. current and forecast are mutually exclusive — a single request never returns both."
       },
       "LocationByCoordinates": {
@@ -702,7 +723,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -755,7 +778,9 @@
       "AirQualityForecastDay": {
         "type": "object",
         "description": "Air quality forecast data for a single day, containing hourly readings.",
-        "required": ["hourly"],
+        "required": [
+          "hourly"
+        ],
         "properties": {
           "hourly": {
             "type": "array",
@@ -764,6 +789,14 @@
               "$ref": "#/components/schemas/AirQualityHourly"
             }
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

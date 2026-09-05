@@ -19,7 +19,9 @@
   "paths": {
     "/domain/dns/live": {
       "get": {
-        "tags": ["DNS APIs"],
+        "tags": [
+          "DNS APIs"
+        ],
         "summary": "Perform a live DNS lookup for any hostname or IP address",
         "description": "Retrieve real-time DNS records for any hostname or IP address. Returns A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, and PTR records with full parsed fields.",
         "operationId": "dnsLookup",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response."
@@ -167,7 +172,9 @@
                           "ttl": 300,
                           "rawText": "example.com.\t\t300\tIN\tTXT\t\"_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9\"",
                           "rRsetType": 16,
-                          "strings": ["_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9"]
+                          "strings": [
+                            "_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9"
+                          ]
                         },
                         {
                           "name": "example.com",
@@ -194,7 +201,9 @@
                           "ttl": 300,
                           "rawText": "example.com.\t\t300\tIN\tSPF\t\"v=spf1 -all\"",
                           "rRsetType": 99,
-                          "strings": ["v=spf1 -all"]
+                          "strings": [
+                            "v=spf1 -all"
+                          ]
                         }
                       ]
                     }
@@ -222,6 +231,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -265,6 +279,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -289,7 +308,12 @@
     "schemas": {
       "DNSLookupResponse": {
         "type": "object",
-        "required": ["status", "queryTime", "dnsTypes", "dnsRecords"],
+        "required": [
+          "status",
+          "queryTime",
+          "dnsTypes",
+          "dnsRecords"
+        ],
         "properties": {
           "status": {
             "type": "boolean",
@@ -336,7 +360,14 @@
       "DnsRecord": {
         "type": "object",
         "description": "A single DNS resource record. name, type, dnsType, ttl, rawText, and rRsetType are always present; every other field is populated only for the dnsType(s) noted in its description.",
-        "required": ["name", "type", "dnsType", "ttl", "rawText", "rRsetType"],
+        "required": [
+          "name",
+          "type",
+          "dnsType",
+          "ttl",
+          "rawText",
+          "rRsetType"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -428,7 +459,9 @@
       },
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -451,6 +484,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

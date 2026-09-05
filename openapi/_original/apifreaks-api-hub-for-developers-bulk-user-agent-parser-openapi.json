@@ -19,7 +19,9 @@
   "paths": {
     "/user-agent/lookup": {
       "post": {
-        "tags": ["User Agent APIs"],
+        "tags": [
+          "User Agent APIs"
+        ],
         "summary": "Parse multiple User-Agent strings in a single request to obtain browser, device, and operating system details",
         "description": "Parse up to 50,000 User-Agent strings simultaneously in a single request. Returns structured details about the browser, device, layout engine, and operating system for each string.",
         "operationId": "bulkParseUserAgent",
@@ -31,7 +33,10 @@
             "description": "Format of the response. Possible values: json, xml.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           }
@@ -151,7 +156,7 @@
                     ]
                   },
                   "mixedWithUnparsable": {
-                    "summary": "Batch with a malformed (non-empty) string \u2014 still 200, that entry comes back as Hacker",
+                    "summary": "Batch with a malformed (non-empty) string — still 200, that entry comes back as Hacker",
                     "value": [
                       {
                         "user_agent_string": "asdkjaslkdjaslkdj12312",
@@ -209,10 +214,15 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
-            "description": "Bad Request \u2014 Invalid/missing request body, or an empty/null string anywhere in uaStrings (fails the whole batch, not a per-item error)",
+            "description": "Bad Request — Invalid/missing request body, or an empty/null string anywhere in uaStrings (fails the whole batch, not a per-item error)",
             "content": {
               "application/json": {
                 "schema": {
@@ -236,6 +246,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -262,7 +277,9 @@
       "BulkUserAgentRequest": {
         "type": "object",
         "description": "Request body containing an array of User-Agent strings to parse.",
-        "required": ["uaStrings"],
+        "required": [
+          "uaStrings"
+        ],
         "properties": {
           "uaStrings": {
             "type": "array",
@@ -330,7 +347,12 @@
       "Device": {
         "type": "object",
         "description": "Hardware device information extracted from the User-Agent string.",
-        "required": ["name", "type", "brand", "cpu"],
+        "required": [
+          "name",
+          "type",
+          "brand",
+          "cpu"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -353,7 +375,12 @@
       "Engine": {
         "type": "object",
         "description": "Layout or rendering engine information extracted from the User-Agent string.",
-        "required": ["name", "type", "version", "version_major"],
+        "required": [
+          "name",
+          "type",
+          "version",
+          "version_major"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -376,7 +403,13 @@
       "OperatingSystem": {
         "type": "object",
         "description": "Operating system information extracted from the User-Agent string.",
-        "required": ["name", "type", "version", "version_major", "build"],
+        "required": [
+          "name",
+          "type",
+          "version",
+          "version_major",
+          "build"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -403,7 +436,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests. Request-body-level errors (missing/empty/wrong-type body) include all five fields; per-item validation errors (empty/null string in uaStrings) include only message.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -426,6 +461,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

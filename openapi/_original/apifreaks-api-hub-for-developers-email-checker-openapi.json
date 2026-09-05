@@ -3,7 +3,7 @@
   "info": {
     "title": "Email Checker API - Real-Time Validation, Deliverability & Risk Signals",
     "version": "1.0.0",
-    "description": "Validate a single email address and receive comprehensive results including syntax validation, domain verification, account detection, DNS records (MX and A records), and optional IP-based geolocation and security enrichment. Returns deliverability assessment with valid/invalid/unknown/risky status.",
+    "description": "Validate a single email address and receive comprehensive results including syntax validation, domain verification, account detection, DNS records (MX and A records), and optional IP-based geolocation and security enrichment. Returns deliverability assessment with valid/invalid/unknown/risky/app_server_blocked status.",
     "contact": {
       "name": "APIFreaks Support",
       "url": "https://apifreaks.com/contact",
@@ -19,7 +19,9 @@
   "paths": {
     "/email-validation/single": {
       "post": {
-        "tags": ["Email Validation APIs"],
+        "tags": [
+          "Email Validation APIs"
+        ],
         "summary": "Validate a single email",
         "description": "Validates a single email address and returns result.",
         "parameters": [
@@ -29,7 +31,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"]
+              "enum": [
+                "json",
+                "xml"
+              ]
             },
             "description": "Format of the response"
           }
@@ -73,7 +78,7 @@
                         "fullMailBox": false
                       },
                       "dns": {
-                        "mxRecords": [
+                        "mxRecord": [
                           "gmail-smtp-in.l.google.com.",
                           "alt1.gmail-smtp-in.l.google.com.",
                           "alt2.gmail-smtp-in.l.google.com.",
@@ -137,7 +142,7 @@
                         "fullMailBox": false
                       },
                       "dns": {
-                        "mxRecords": [
+                        "mxRecord": [
                           "gmail-smtp-in.l.google.com.",
                           "alt1.gmail-smtp-in.l.google.com.",
                           "alt2.gmail-smtp-in.l.google.com.",
@@ -178,8 +183,45 @@
                         }
                       }
                     }
+                  },
+                  "appServerBlocked": {
+                    "summary": "Valid syntax, but the recipient mail server blocked the verification attempt",
+                    "value": {
+                      "success": true,
+                      "email": "randomuser98765zzz@gmx.com",
+                      "validEmail": "app_server_blocked",
+                      "validSyntax": true,
+                      "reason": "We are unable to determine the validity of email at the moment. Please try later.",
+                      "domain": {
+                        "name": "gmx.com",
+                        "disposable": false,
+                        "spam": false,
+                        "free": true,
+                        "validDomain": true,
+                        "catchAll": false
+                      },
+                      "account": {
+                        "role": false
+                      },
+                      "dns": {
+                        "mxRecord": [
+                          "mx00.gmx.net."
+                        ]
+                      }
+                    }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
               }
             }
           },
@@ -194,14 +236,25 @@
                   "missingEmail": {
                     "summary": "email field missing from request body",
                     "value": {
-                      "timestamp": "2026-07-27T12:51:23.593986185Z",
-                      "path": "/v2.0/email-validation/single",
+                      "timestamp": "2026-09-02T11:56:23.462Z",
+                      "path": "/v2/email-validation/single",
                       "status": 400,
-                      "error": "External API Error",
+                      "error": "Missing or Invalid Parameters",
                       "message": "Please pass valid value for 'email' in body."
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
               }
             }
           },
@@ -224,6 +277,49 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found – The requested resource could not be found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "Resource Not Found": {
+                    "value": {
+                      "timestamp": "2026-09-02T11:56:23.937Z",
+                      "path": "/v1.0/email-validation/singlex",
+                      "status": 404,
+                      "error": "Resource Not Found",
+                      "message": "The requested resource could not be found. Please verify the URL and try again."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "429": {
@@ -244,6 +340,17 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
               }
             }
           }
@@ -270,7 +377,13 @@
     "schemas": {
       "SingleEmailValidationResponse": {
         "type": "object",
-        "required": ["success", "email", "validEmail", "validSyntax", "domain"],
+        "required": [
+          "success",
+          "email",
+          "validEmail",
+          "validSyntax",
+          "domain"
+        ],
         "properties": {
           "success": {
             "type": "boolean",
@@ -291,8 +404,15 @@
           },
           "validEmail": {
             "type": "string",
-            "enum": ["valid", "invalid", "INVALID_EMAIL", "unknown", "risky"],
-            "description": "Comprehensive deliverability assessment. Casing is inconsistent in the live API: syntactically invalid addresses return INVALID_EMAIL, while semantically invalid (undeliverable) addresses return lowercase invalid. unknown/risky are documented possibilities not observed during testing."
+            "enum": [
+              "valid",
+              "invalid",
+              "INVALID_EMAIL",
+              "unknown",
+              "risky",
+              "app_server_blocked"
+            ],
+            "description": "Comprehensive deliverability assessment. Casing is inconsistent in the live API: syntactically invalid addresses return INVALID_EMAIL, while semantically invalid (undeliverable) addresses return lowercase invalid. risky is a documented possibility not observed during testing. app_server_blocked is returned when the recipient mail server blocked the live verification attempt (reason explains that retrying later may succeed)."
           },
           "validSyntax": {
             "type": "boolean",
@@ -320,7 +440,10 @@
       },
       "DomainObject": {
         "type": "object",
-        "required": ["name", "validDomain"],
+        "required": [
+          "name",
+          "validDomain"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -351,7 +474,9 @@
       },
       "AccountObject": {
         "type": "object",
-        "required": ["role"],
+        "required": [
+          "role"
+        ],
         "properties": {
           "role": {
             "type": "boolean",
@@ -366,16 +491,18 @@
       },
       "DnsObject": {
         "type": "object",
-        "required": ["mxRecords"],
+        "required": [
+          "mxRecord"
+        ],
         "properties": {
-          "mxRecords": {
+          "mxRecord": {
             "type": "array",
             "items": {
               "type": "string"
             },
             "description": "Collection of MX (Mail Exchange) hostname records from DNS queries."
           },
-          "aRecords": {
+          "aRecord": {
             "type": "array",
             "items": {
               "type": "string"
@@ -527,7 +654,9 @@
       "EmailCheckRequest": {
         "type": "object",
         "description": "Request body for email validation.",
-        "required": ["email"],
+        "required": [
+          "email"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -548,7 +677,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -571,6 +702,26 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads": {
+        "description": "Specifies the maximum number of concurrent requests allowed.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads-Active": {
+        "description": "Indicates the number of active concurrent requests being processed.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

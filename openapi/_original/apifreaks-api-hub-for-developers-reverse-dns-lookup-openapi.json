@@ -19,7 +19,9 @@
   "paths": {
     "/domain/dns/reverse": {
       "get": {
-        "tags": ["DNS APIs"],
+        "tags": [
+          "DNS APIs"
+        ],
         "summary": "Retrieve all hostnames associated with any A, AAAA, MX, NS, SOA, SPF, TXT, or CNAME DNS record",
         "description": "Perform a reverse DNS lookup by providing an IP or CIDR for A/AAAA lookups, or a hostname selector for MX, NS, SOA, SPF, TXT, and CNAME queries. Returns paginated results with dated DNS snapshots for each matched domain.",
         "operationId": "reverseDnsLookup",
@@ -31,7 +33,10 @@
             "description": "Format of the response.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -42,7 +47,16 @@
             "description": "The type of reverse DNS lookup to perform. Determines how the value parameter is interpreted:\n- A: IPv4 CIDR block\n- AAAA: IPv6 CIDR block\n- MX: Mail provider domain\n- NS: Name server provider hostname\n- SOA: SOA record admin domain\n- SPF/TXT: Target verification strings\n- CNAME: Target hostname",
             "schema": {
               "type": "string",
-              "enum": ["A", "AAAA", "MX", "NS", "SOA", "SPF", "TXT", "CNAME"]
+              "enum": [
+                "A",
+                "AAAA",
+                "MX",
+                "NS",
+                "SOA",
+                "SPF",
+                "TXT",
+                "CNAME"
+              ]
             }
           },
           {
@@ -151,6 +165,17 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "400": {
@@ -183,6 +208,17 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "404": {
@@ -204,6 +240,17 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
               }
             }
           }
@@ -229,7 +276,13 @@
     "schemas": {
       "ErrorResponse": {
         "type": "object",
-        "required": ["timestamp", "path", "status", "error", "message"],
+        "required": [
+          "timestamp",
+          "path",
+          "status",
+          "error",
+          "message"
+        ],
         "description": "Standard error response returned by the API when a request fails.",
         "properties": {
           "timestamp": {
@@ -289,7 +342,12 @@
       "ReverseDnsRecord": {
         "type": "object",
         "description": "A single domain record matched by the reverse DNS query, with its DNS snapshot data.",
-        "required": ["queryTime", "domainName", "dnsTypes", "dnsRecords"],
+        "required": [
+          "queryTime",
+          "domainName",
+          "dnsTypes",
+          "dnsRecords"
+        ],
         "properties": {
           "queryTime": {
             "type": "string",
@@ -328,7 +386,14 @@
       "DnsRecord": {
         "type": "object",
         "description": "A single DNS resource record. name, type, dnsType, ttl, rawText, and rRsetType are always present; every other field is populated only for the dnsType(s) noted in its description.",
-        "required": ["name", "type", "dnsType", "ttl", "rawText", "rRsetType"],
+        "required": [
+          "name",
+          "type",
+          "dnsType",
+          "ttl",
+          "rawText",
+          "rRsetType"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -340,7 +405,16 @@
           },
           "dnsType": {
             "type": "string",
-            "enum": ["A", "AAAA", "CNAME", "MX", "NS", "SOA", "TXT", "SPF"],
+            "enum": [
+              "A",
+              "AAAA",
+              "CNAME",
+              "MX",
+              "NS",
+              "SOA",
+              "TXT",
+              "SPF"
+            ],
             "description": "DNS record type as a string."
           },
           "ttl": {
@@ -408,7 +482,34 @@
           }
         }
       }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads": {
+        "description": "Specifies the maximum number of concurrent requests allowed.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads-Active": {
+        "description": "Indicates the number of active concurrent requests being processed.",
+        "schema": {
+          "type": "integer"
+        }
+      }
     }
   },
-  "security": [{ "ApiKeyAuthHeader": [] }, { "ApiKeyAuthQuery": [] }]
+  "security": [
+    {
+      "ApiKeyAuthHeader": []
+    },
+    {
+      "ApiKeyAuthQuery": []
+    }
+  ]
 }

@@ -19,7 +19,9 @@
   "paths": {
     "/geolocation/lookup": {
       "post": {
-        "tags": ["IP Geolocation APIs"],
+        "tags": [
+          "IP Geolocation APIs"
+        ],
         "summary": "Retrieve geolocation and threat intelligence data for multiple IP addresses in a single request",
         "description": "Get detailed IP geolocation data for multiple IP addresses including country, city, timezone, currency, and optional threat intelligence information. Supports up to 50,000 IP addresses per request.",
         "operationId": "bulkIpLookup",
@@ -31,7 +33,10 @@
             "description": "Format of the response.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -98,7 +103,10 @@
                 "typicalRequest": {
                   "summary": "Typical bulk lookup request",
                   "value": {
-                    "ips": ["8.8.8.8", "1.1.1.1"]
+                    "ips": [
+                      "8.8.8.8",
+                      "1.1.1.1"
+                    ]
                   }
                 }
               }
@@ -142,7 +150,12 @@
                         "country_metadata": {
                           "calling_code": "+1",
                           "tld": ".us",
-                          "languages": ["en-US", "es-US", "haw", "fr"]
+                          "languages": [
+                            "en-US",
+                            "es-US",
+                            "haw",
+                            "fr"
+                          ]
                         },
                         "network": {
                           "connection_type": "",
@@ -226,7 +239,9 @@
                         "country_metadata": {
                           "calling_code": "+61",
                           "tld": ".au",
-                          "languages": ["en-AU"]
+                          "languages": [
+                            "en-AU"
+                          ]
                         },
                         "network": {
                           "connection_type": "",
@@ -304,7 +319,12 @@
                         "country_metadata": {
                           "calling_code": "+1",
                           "tld": ".us",
-                          "languages": ["en-US", "es-US", "haw", "fr"]
+                          "languages": [
+                            "en-US",
+                            "es-US",
+                            "haw",
+                            "fr"
+                          ]
                         },
                         "network": {
                           "connection_type": "",
@@ -375,6 +395,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -407,6 +432,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "413": {
@@ -428,6 +458,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -453,7 +488,9 @@
     "schemas": {
       "BulkIpLookupRequest": {
         "type": "object",
-        "required": ["ips"],
+        "required": [
+          "ips"
+        ],
         "description": "Request body for bulk IP geolocation lookup.",
         "properties": {
           "ips": {
@@ -468,7 +505,9 @@
       },
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -496,7 +535,9 @@
       "BulkIpLookupItemError": {
         "type": "object",
         "description": "Per-item error, returned in place of a location result when an individual IP is invalid, bogon/reserved, or not found in the database.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "message": {
             "type": "string",
@@ -507,7 +548,9 @@
       "BulkIpLookupResultItem": {
         "type": "object",
         "description": "Geolocation and threat intelligence result for one successfully resolved IP address.",
-        "required": ["ip"],
+        "required": [
+          "ip"
+        ],
         "properties": {
           "ip": {
             "type": "string",
@@ -641,7 +684,10 @@
             "description": "Confidence level of the location match (e.g., low, medium, high)."
           },
           "dma_code": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Designated Market Area (DMA) code used in the United States for media marketing."
           },
           "zipcode": {
@@ -678,7 +724,11 @@
       "CountryMetadata": {
         "type": "object",
         "description": "Country-specific metadata.",
-        "required": ["calling_code", "tld", "languages"],
+        "required": [
+          "calling_code",
+          "tld",
+          "languages"
+        ],
         "properties": {
           "calling_code": {
             "type": "string",
@@ -1147,6 +1197,14 @@
           "operating_system": {
             "$ref": "#/components/schemas/OperatingSystem"
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

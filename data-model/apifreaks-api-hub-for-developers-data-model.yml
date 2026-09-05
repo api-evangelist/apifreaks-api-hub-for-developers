@@ -1,0 +1,142 @@
+generated: '2026-09-04'
+method: derived
+source: openapi/ (27 refined OpenAPI 3.2 documents, 108 operations) + openapi/_original/ (104 publisher specs)
+summary: 'APIFreaks is overwhelmingly a stateless lookup platform: 104 of its 108 published operations take a query
+  and return a computed answer, holding nothing server-side and referencing nothing by identifier. There is exactly
+  ONE persistent entity graph in the whole catalog — the asynchronous PDF pipeline — and it is small: a stored File
+  and an async Task, joined by opaque string ids. Deriving relationships anywhere else would be inventing them: the
+  274 component schemas outside the PDF family contain no id-reference field pointing at another entity, only value
+  objects (a DNS record, a WHOIS contact, a weather reading) nested inside a single response.'
+shape: two-entity task pipeline plus 104 stateless lookups
+id_scheme:
+  style: opaque strings
+  prefixes_published: false
+  note: No typed id prefixes (no `file_`/`task_` convention). fileId and taskId are undecorated strings, so an agent
+    cannot tell one kind of id from another by inspection.
+entities:
+- name: File
+  description: A PDF uploaded to, or produced by, the platform and held server-side so later operations can reference
+    it without re-uploading bytes.
+  identifier: fileId
+  schemas:
+  - ResourceUploadResponse
+  - BinaryResourceUploadResponse
+  - FileStatusResponse
+  - PdfFileItem
+  - DeleteFileResponse
+  operations:
+    create:
+    - uploadResource
+    - uploadResourceBinary
+    read:
+    - getFileStatus
+    - getFiles
+    - downloadResource
+    delete:
+    - deleteFile
+  lifecycle_note: No retention period is published anywhere in the 104 specs or the platform docs, so how long a stored
+    file survives is unknown to a caller.
+- name: Task
+  description: An asynchronous PDF job. Every transform operation returns one instead of a document.
+  identifier: taskId
+  schemas:
+  - PDFResponse
+  - PdfTaskResponse
+  - TaskStatusResponse
+  operations:
+    create:
+    - mergePdf
+    - splitPdf
+    - extractPdfPages
+    - deletePdfPage
+    - rotatePdfPages
+    - compressPdf
+    - linearizePdf
+    - encryptPdf
+    - decryptPdf
+    - restrictPdf
+    - unrestrictPdf
+    - pdfToImage
+    read:
+    - getTaskStatus
+  states:
+  - queued
+  - processing
+  - completed
+  - failed
+  lifecycle_note: Polled via getTaskStatus, or pushed to a webhook_url — see asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml.
+- name: GeneratedDocument
+  description: A PDF rendered synchronously from a saved template plus a JSON payload (or one per CSV row). Unlike
+    every other PDF operation this returns a hosted URL directly, with no Task.
+  identifier: pdf_url (hosted URL, not an id)
+  schemas: []
+  operations:
+    create:
+    - generatePdfFromTemplate
+    - generatePdfsFromCsv
+  lifecycle_note: New in the 2026-07-21 Template Builder release; the templates themselves are authored in the browser
+    and are NOT exposed as an API resource — there is no template CRUD operation in any published spec.
+relationships:
+- from: Task
+  to: File
+  type: has_many
+  via: inputIds
+  description: The stored files a job consumed. Present on PDFResponse, PdfTaskResponse and TaskStatusResponse.
+- from: Task
+  to: File
+  type: has_many
+  via: outputIds
+  description: The stored files a completed job produced. Present only on TaskStatusResponse — an in-flight task does
+    not yet name its outputs.
+- from: File
+  to: Task
+  type: belongs_to
+  via: taskId
+  description: A produced file traces back to the job that made it.
+stateless_surface:
+  operations: 104
+  families:
+  - ip-intelligence
+  - whois
+  - dns
+  - ssl
+  - domain
+  - geocoding
+  - geodb
+  - zipcode
+  - timezone
+  - weather
+  - currency
+  - commodity
+  - financial
+  - email-validation
+  - phone-validation
+  - user-agent
+  - screenshot
+  - scraping
+  note: These take an address, hostname, IP, coordinate, code or string and return a computed result. Nothing is created,
+    nothing is addressable afterwards, and no response carries an identifier a later call could use. This is why the
+    platform has no meaningful ER graph and why an agent needs no object model to use 96% of it.
+metering_edge:
+  operation: getCreditsUsage
+  path: /v1.0/usage-credits
+  note: The one account-scoped read in the catalog. It is not part of any entity graph and is NOT exposed as an MCP
+    tool, so an agent calling the credit-consuming write surface cannot first check the balance it is spending.
+gaps:
+- No id prefixes, so fileId and taskId are indistinguishable from each other and from an arbitrary string.
+- No published retention window for stored Files.
+- PDF templates are a first-class product concept (Template Builder, version history per template) with no API resource
+  — an agent can render a template but cannot list, create or version one.
+- Four operations in the PDF-to-image family (/pdf/jpg, /pdf/tif, /pdf/bmp, /pdf/gif) carry NO operationId upstream,
+  so they cannot be referenced by name from a skill, an SDK generator or a crosswalk.
+render: null
+x-evidence:
+  fetched: '2026-09-04'
+  method: Component-schema graph walked across all 27 refined documents; $ref closure and id-reference fields extracted
+    programmatically.
+  schemas_examined: 274
+  id_reference_fields_found:
+  - taskId
+  - inputIds
+  - outputIds
+  - fileId

@@ -19,7 +19,9 @@
   "paths": {
     "/zipcode/distance": {
       "post": {
-        "tags": ["ZIP Code APIs"],
+        "tags": [
+          "ZIP Code APIs"
+        ],
         "summary": "Get distance between postal codes",
         "operationId": "getZipcodeDistance",
         "description": "Calculates the distance from a base ZIP/postal code or coordinate pair to up to 100 comparison postal codes.",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response. Possible values: json, xml."
@@ -50,7 +55,10 @@
                   "value": {
                     "code": "90210",
                     "country": "US",
-                    "compare": ["10001", "94103"]
+                    "compare": [
+                      "10001",
+                      "94103"
+                    ]
                   }
                 }
               }
@@ -83,6 +91,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -146,6 +159,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -167,6 +185,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -193,7 +216,10 @@
       "ZipcodeDistanceResponse": {
         "type": "object",
         "description": "Distance calculation results for each comparison code that matched.",
-        "required": ["result_count", "results"],
+        "required": [
+          "result_count",
+          "results"
+        ],
         "properties": {
           "result_count": {
             "type": "integer",
@@ -211,7 +237,10 @@
       "ZipcodeDistanceItem": {
         "type": "object",
         "description": "Distance from the base point to one matched comparison code.",
-        "required": ["code", "distance"],
+        "required": [
+          "code",
+          "distance"
+        ],
         "properties": {
           "code": {
             "type": "string",
@@ -227,7 +256,10 @@
       "DistanceRequest": {
         "type": "object",
         "description": "Request body specifying the base point, country, and comparison codes for distance calculation.",
-        "required": ["country", "compare"],
+        "required": [
+          "country",
+          "compare"
+        ],
         "properties": {
           "compare": {
             "type": "array",
@@ -256,7 +288,14 @@
           },
           "unit": {
             "type": "string",
-            "enum": ["km", "mi", "yd", "m", "ft", "in"],
+            "enum": [
+              "km",
+              "mi",
+              "yd",
+              "m",
+              "ft",
+              "in"
+            ],
             "default": "km",
             "description": "Distance unit for the returned values. Default: km."
           }
@@ -269,7 +308,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -292,6 +333,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

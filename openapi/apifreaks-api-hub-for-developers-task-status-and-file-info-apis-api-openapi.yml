@@ -17,9 +17,6 @@ tags:
 - name: Task Status and File Info APIs
 paths:
   /pdf/file:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: PDF Delete File API Server
     delete:
       tags:
       - Task Status and File Info APIs
@@ -56,6 +53,9 @@ paths:
                     fileId: abc123
                     success: true
                     message: File deleted successfully.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing required file_id parameter
           content:
@@ -71,6 +71,9 @@ paths:
                     timestamp: '2026-07-27T10:45:56.656Z'
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: File ID Not Found
           content:
@@ -86,11 +89,14 @@ paths:
                     message: Please provide a valid file ID.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: deleteFile
-  /pdf/file-status:
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: PDF File Status API Server
+      description: PDF Delete File API Server
+  /pdf/file-status:
     get:
       tags:
       - Task Status and File Info APIs
@@ -129,6 +135,9 @@ paths:
                     fileType: pdf
                     fileCreationTime: '2026-07-27T10:46:36'
                     fileDeletionTime: '2026-08-26'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing required file_id parameter
           content:
@@ -144,6 +153,9 @@ paths:
                     timestamp: '2026-07-27T10:46:38.333Z'
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: File ID Not Found
           content:
@@ -159,11 +171,14 @@ paths:
                     message: Please provide a valid file ID.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: getFileStatus
-  /pdf/files:
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: PDF Files API Server
+      description: PDF File Status API Server
+  /pdf/files:
     get:
       tags:
       - Task Status and File Info APIs
@@ -196,11 +211,14 @@ paths:
                       fileName: document.pdf
                     - fileId: def456
                       fileName: report.pdf
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: getFiles
-  /pdf/task-status:
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: PDF Task Status API Server
+      description: PDF Files API Server
+  /pdf/task-status:
     get:
       tags:
       - Task Status and File Info APIs
@@ -256,6 +274,9 @@ paths:
                     error: Invalid Page Range
                     message: One or more specified page numbers exceed the total number of pages in the PDF document.
                     expiresAt: '2026-08-03 10:52:12'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing required task_id parameter
           content:
@@ -271,6 +292,9 @@ paths:
                     timestamp: '2026-07-27T10:49:06.412Z'
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Task ID Not Found
           content:
@@ -286,9 +310,54 @@ paths:
                     message: Please provide a valid task ID.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: getTaskStatus
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: PDF Task Status API Server
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    DeleteFileResponse:
+      type: object
+      required:
+      - fileId
+      - success
+      - message
+      properties:
+        fileId:
+          type: string
+          description: The unique identifier of the file.
+        success:
+          type: boolean
+          description: Indicates whether the file deletion request was successful.
+        message:
+          type: string
+          description: A message indicating the result of the file deletion request.
+      description: File deletion response containing the result of the delete operation.
     FileStatusResponse:
       type: object
       required:
@@ -316,45 +385,6 @@ components:
           format: date
           description: Date on which the file is scheduled to be deleted, in UTC.
       description: File status response containing metadata about the PDF file.
-    DeleteFileResponse:
-      type: object
-      required:
-      - fileId
-      - success
-      - message
-      properties:
-        fileId:
-          type: string
-          description: The unique identifier of the file.
-        success:
-          type: boolean
-          description: Indicates whether the file deletion request was successful.
-        message:
-          type: string
-          description: A message indicating the result of the file deletion request.
-      description: File deletion response containing the result of the delete operation.
-    ErrorResponse:
-      type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
     PdfFileListResponse:
       type: object
       description: PDF file list response containing an array of file objects.
@@ -426,6 +456,11 @@ components:
           type: string
           description: The URL to download all output files as a single ZIP archive. Present only when the task status is completed.
       description: Task status response containing the current state of a PDF processing task.
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

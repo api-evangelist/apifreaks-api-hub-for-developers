@@ -19,7 +19,9 @@
   "paths": {
     "/geo/regions": {
       "get": {
-        "tags": ["GeoDB APIs"],
+        "tags": [
+          "GeoDB APIs"
+        ],
         "summary": "Retrieve all geographical regions",
         "description": "Returns all geographical regions supported by the service, such as Africa, Americas, Asia, Europe, Oceania, and Polar.",
         "operationId": "getRegions",
@@ -31,7 +33,10 @@
             "description": "Format of the response. Possible values: json, xml.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           }
@@ -60,6 +65,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -85,7 +95,9 @@
       "RegionsResponse": {
         "type": "object",
         "description": "Response containing the flat list of geographical regions supported by the GeoDB service.",
-        "required": ["regions"],
+        "required": [
+          "regions"
+        ],
         "properties": {
           "regions": {
             "type": "array",
@@ -94,6 +106,14 @@
               "type": "string"
             }
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

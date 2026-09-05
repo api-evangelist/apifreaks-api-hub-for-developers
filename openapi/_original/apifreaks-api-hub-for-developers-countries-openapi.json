@@ -19,7 +19,9 @@
   "paths": {
     "/geo/countries": {
       "get": {
-        "tags": ["GeoDB APIs"],
+        "tags": [
+          "GeoDB APIs"
+        ],
         "summary": "Retrieve a list of countries with optional region or subregion filtering",
         "description": "Returns all countries with their ISO codes, capital cities, regions, and subregions. Optional region and subregion parameters narrow results.",
         "operationId": "getCountries",
@@ -31,7 +33,10 @@
             "description": "Format of the response. Possible values: json, xml.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -124,6 +129,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -156,6 +166,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           }
         }
@@ -181,7 +196,9 @@
       "CountriesResponse": {
         "type": "object",
         "description": "Response containing the list of countries matching the applied region/subregion filters (or all 250 when unfiltered).",
-        "required": ["countries"],
+        "required": [
+          "countries"
+        ],
         "properties": {
           "countries": {
             "type": "array",
@@ -238,7 +255,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -261,6 +280,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

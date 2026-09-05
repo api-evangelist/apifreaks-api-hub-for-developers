@@ -19,7 +19,9 @@
   "paths": {
     "/phone/validation": {
       "post": {
-        "tags": ["Phone Validation APIs"],
+        "tags": [
+          "Phone Validation APIs"
+        ],
         "summary": "Validate a single phone number",
         "description": "Validates a single phone number and returns detailed metadata including carrier, line type, geolocation, time zones, and standardized formats.",
         "parameters": [
@@ -29,7 +31,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object. If not provided, the API defaults to JSON format."
@@ -89,7 +94,9 @@
                       "national_number": 4155552671,
                       "country_code": "US",
                       "location": "San Francisco, CA",
-                      "time_zones": ["America/Los_Angeles"],
+                      "time_zones": [
+                        "America/Los_Angeles"
+                      ],
                       "line_type": "FIXED_LINE_OR_MOBILE",
                       "formats": {
                         "E164": "+14155552671",
@@ -114,6 +121,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -187,6 +199,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -208,6 +225,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -231,6 +253,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "429": {
@@ -252,6 +279,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -352,7 +384,11 @@
           }
         },
         "description": "Phone validation response containing validation status and metadata.",
-        "required": ["raw_input", "possible", "valid"]
+        "required": [
+          "raw_input",
+          "possible",
+          "valid"
+        ]
       },
       "PhoneRawInput": {
         "type": "object",
@@ -371,7 +407,9 @@
             "description": "ISO-2 country code of the dialing origin. Present when provided in the request."
           }
         },
-        "required": ["number"]
+        "required": [
+          "number"
+        ]
       },
       "PhoneFormats": {
         "type": "object",
@@ -399,7 +437,9 @@
       "PhoneValidationRequest": {
         "type": "object",
         "description": "Request body for phone validation.",
-        "required": ["number"],
+        "required": [
+          "number"
+        ],
         "properties": {
           "number": {
             "type": "string",
@@ -441,7 +481,17 @@
           }
         },
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"]
+        "required": [
+          "message"
+        ]
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
       }
     }
   },

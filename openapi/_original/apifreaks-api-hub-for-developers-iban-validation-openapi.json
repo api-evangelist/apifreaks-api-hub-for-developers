@@ -19,7 +19,9 @@
   "paths": {
     "/iban/validation": {
       "get": {
-        "tags": ["Financial APIs"],
+        "tags": [
+          "Financial APIs"
+        ],
         "summary": "Validate IBAN",
         "description": "Checks an IBAN for structural validity, checksum accuracy, and bank metadata.",
         "parameters": [
@@ -29,7 +31,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Specify the desired response format. Options: 'json' (default) or 'xml'."
@@ -136,6 +141,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -157,6 +167,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -199,7 +214,12 @@
             "$ref": "#/components/schemas/IbanBankData"
           }
         },
-        "required": ["valid", "iban", "validation", "bank_data"],
+        "required": [
+          "valid",
+          "iban",
+          "validation",
+          "bank_data"
+        ],
         "description": "IBAN validation response containing validation results and bank data."
       },
       "IbanValidationResult": {
@@ -235,7 +255,11 @@
           },
           "bban": {
             "type": "string",
-            "enum": ["valid", "invalid", "unknown"],
+            "enum": [
+              "valid",
+              "invalid",
+              "unknown"
+            ],
             "description": "BBAN checksum status. \"unknown\" means BBAN checksum validation isn't supported for this country."
           }
         }
@@ -243,18 +267,29 @@
       "IbanBankData": {
         "type": "object",
         "description": "Object contains Bank and BIC details. Most fields are null when the IBAN is structurally invalid or the country's bank data isn't resolvable.",
-        "required": ["country_iso2"],
+        "required": [
+          "country_iso2"
+        ],
         "properties": {
           "bic": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "SWIFT/BIC code extracted from the IBAN. Null when not available for this country or IBAN."
           },
           "bank": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Bank name extracted from the IBAN. Null when not resolvable."
           },
           "bank_code": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Bank code extracted from the IBAN. Null when not resolvable."
           },
           "branch_code": {
@@ -262,7 +297,10 @@
             "description": "Branch code extracted from the IBAN. Can be an empty string when not available."
           },
           "country": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Country name extracted from the IBAN. Null when the country prefix isn't a supported IBAN country."
           },
           "country_iso2": {
@@ -270,26 +308,40 @@
             "description": "ISO 3166-1 alpha-2 country code extracted from the IBAN's prefix."
           },
           "city": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "City or branch name for the bank. Null when not resolvable."
           },
           "address": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Bank branch address. Null when not resolvable."
           },
           "account": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Account number extracted from the IBAN. Null when the country prefix isn't a supported IBAN country."
           },
           "sepa": {
-            "type": ["boolean", "null"],
+            "type": [
+              "boolean",
+              "null"
+            ],
             "description": "Whether the country supports Single Euro Payments Area (SEPA). Null when the country prefix isn't a supported IBAN country."
           }
         }
       },
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -314,6 +366,14 @@
           }
         },
         "description": "Standard error envelope returned by the API on failed requests."
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
       }
     }
   },

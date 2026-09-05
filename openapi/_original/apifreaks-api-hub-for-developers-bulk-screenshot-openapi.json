@@ -19,7 +19,9 @@
   "paths": {
     "/screenshot": {
       "post": {
-        "tags": ["Screenshot APIs"],
+        "tags": [
+          "Screenshot APIs"
+        ],
         "summary": "Capture screenshots of multiple websites in a single request.",
         "description": "Our Bulk Screenshot API allows you to capture screenshots of multiple webpages simultaneously, saving you time and effort. Instead of manually capturing each page one by one, you can batch process URLs and receive high-quality screenshots in the format you choose.\n Maximum `50 URLs` per request.",
         "operationId": "bulkScreenshot",
@@ -30,7 +32,9 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "default": "json"
             }
           }
@@ -111,6 +115,17 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "400": {
@@ -133,6 +148,17 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
+              }
             }
           },
           "413": {
@@ -154,6 +180,17 @@
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              },
+              "X-Concurrent-Threads": {
+                "$ref": "#/components/headers/X-Concurrent-Threads"
+              },
+              "X-Concurrent-Threads-Active": {
+                "$ref": "#/components/headers/X-Concurrent-Threads-Active"
               }
             }
           }
@@ -180,7 +217,10 @@
       "BulkScreenshotSuccessItem": {
         "type": "object",
         "description": "Per-URL result entry. The `url` field holds either the screenshot metadata or an error object, depending on whether that specific URL was captured successfully.",
-        "required": ["status", "url"],
+        "required": [
+          "status",
+          "url"
+        ],
         "properties": {
           "status": {
             "type": "string",
@@ -200,7 +240,10 @@
             ]
           },
           "error_message": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Observed to always be null; per-item error details are returned inside `url` instead."
           }
         }
@@ -208,7 +251,11 @@
       "BulkScreenshotUrlData": {
         "type": "object",
         "description": "Screenshot result data for a single URL. Contains the same fields as the single Website Screenshot API response.",
-        "required": ["screenshot", "url", "created_at"],
+        "required": [
+          "screenshot",
+          "url",
+          "created_at"
+        ],
         "properties": {
           "screenshot": {
             "type": "string",
@@ -518,7 +565,12 @@
       "ClipRect": {
         "type": "object",
         "description": "Clipping rectangle dimensions for the captured area.",
-        "required": ["x", "y", "width", "height"],
+        "required": [
+          "x",
+          "y",
+          "width",
+          "height"
+        ],
         "properties": {
           "x": {
             "type": "integer",
@@ -541,7 +593,9 @@
       "BulkScreenshotRequest": {
         "type": "object",
         "description": "Request body for bulk screenshot capture.",
-        "required": ["urls"],
+        "required": [
+          "urls"
+        ],
         "properties": {
           "urls": {
             "type": "array",
@@ -556,7 +610,9 @@
       "BulkScreenshotUrlItem": {
         "type": "object",
         "description": "A single URL entry in a bulk screenshot request with per-URL options.",
-        "required": ["url"],
+        "required": [
+          "url"
+        ],
         "properties": {
           "url": {
             "type": "string",
@@ -565,7 +621,15 @@
           },
           "file_type": {
             "type": "string",
-            "enum": ["PNG", "JPEG", "WEBP", "PDF", "mp4", "gif", "webm"],
+            "enum": [
+              "PNG",
+              "JPEG",
+              "WEBP",
+              "PDF",
+              "mp4",
+              "gif",
+              "webm"
+            ],
             "description": "Output format for this URL."
           },
           "width": {
@@ -658,7 +722,11 @@
           },
           "wait_for_event": {
             "type": "string",
-            "enum": ["load", "domcontentloaded", "networkidle"],
+            "enum": [
+              "load",
+              "domcontentloaded",
+              "networkidle"
+            ],
             "description": "Wait for event."
           },
           "grayscale": {
@@ -833,7 +901,11 @@
           },
           "scroll_speed": {
             "type": "string",
-            "enum": ["normal", "fast", "slow"],
+            "enum": [
+              "normal",
+              "fast",
+              "slow"
+            ],
             "description": "Scroll speed."
           },
           "duration": {
@@ -868,7 +940,11 @@
       "BulkScreenshotMetaData": {
         "type": "object",
         "description": "Metadata about the bulk screenshot request results.",
-        "required": ["total_urls", "successful_urls", "failed_urls"],
+        "required": [
+          "total_urls",
+          "successful_urls",
+          "failed_urls"
+        ],
         "properties": {
           "total_urls": {
             "type": "integer",
@@ -887,7 +963,11 @@
       "BulkScreenshotResponse": {
         "type": "object",
         "description": "Bulk screenshot response containing status, metadata, and per-URL results.",
-        "required": ["status", "meta_data", "results"],
+        "required": [
+          "status",
+          "meta_data",
+          "results"
+        ],
         "properties": {
           "status": {
             "type": "string",
@@ -911,7 +991,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -934,6 +1016,26 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads": {
+        "description": "Specifies the maximum number of concurrent requests allowed.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Concurrent-Threads-Active": {
+        "description": "Indicates the number of active concurrent requests being processed.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

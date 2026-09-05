@@ -19,7 +19,9 @@
   "paths": {
     "/ip/security": {
       "get": {
-        "tags": ["IP Geolocation APIs"],
+        "tags": [
+          "IP Geolocation APIs"
+        ],
         "summary": "Retrieve real-time threat intelligence and security signals for an IPv4 or IPv6 address",
         "description": "Get a threat score along with VPN, proxy, Tor, relay, bot, spam, known-attacker, and cloud-provider detection flags for an IP address.",
         "operationId": "ipSecurityLookup",
@@ -31,7 +33,10 @@
             "description": "Format of the response.",
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             }
           },
@@ -101,6 +106,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -119,6 +129,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "423": {
@@ -136,6 +151,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -161,7 +181,9 @@
     "schemas": {
       "ErrorResponse": {
         "type": "object",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -189,7 +211,9 @@
       "IpSecurityResponse": {
         "type": "object",
         "description": "Threat intelligence result for an IP address.",
-        "required": ["ip"],
+        "required": [
+          "ip"
+        ],
         "properties": {
           "ip": {
             "type": "string",
@@ -301,6 +325,14 @@
             "type": "string",
             "description": "Cloud provider name."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

@@ -19,7 +19,9 @@
   "paths": {
     "/domain/availability": {
       "post": {
-        "tags": ["Domain APIs"],
+        "tags": [
+          "Domain APIs"
+        ],
         "summary": "Check the availability of multiple domains in a single request.",
         "description": "Perform Bulk Domain Availability checks using a list of domains. Supports upto `100 Domains Per Request`.",
         "operationId": "checkBulkDomainAvailability",
@@ -30,7 +32,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Format of the response."
@@ -41,7 +46,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["dns", "whois"],
+              "enum": [
+                "dns",
+                "whois"
+              ],
               "default": "dns"
             },
             "description": "Specify the data source for domain availability checks. Use \"dns\" for DNS-based lookups or \"whois\" for WHOIS-based lookups. By default, \"dns\" is used."
@@ -97,6 +105,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "206": {
@@ -129,6 +142,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "400": {
@@ -151,6 +169,11 @@
                   }
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "413": {
@@ -172,6 +195,11 @@
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -198,7 +226,9 @@
       "BulkDomainCheckRequest": {
         "type": "object",
         "description": "Request body for bulk domain availability check.",
-        "required": ["domainNames"],
+        "required": [
+          "domainNames"
+        ],
         "properties": {
           "domainNames": {
             "type": "array",
@@ -213,7 +243,9 @@
       "BulkDomainCheckResponse": {
         "type": "object",
         "description": "Wrapper containing the per-domain results array.",
-        "required": ["bulk_domain_availability_response"],
+        "required": [
+          "bulk_domain_availability_response"
+        ],
         "properties": {
           "bulk_domain_availability_response": {
             "type": "array",
@@ -227,7 +259,10 @@
       "BulkDomainCheckItem": {
         "type": "object",
         "description": "Result for a single domain in a bulk check. domainAvailability is present only when status is true.",
-        "required": ["domain", "status"],
+        "required": [
+          "domain",
+          "status"
+        ],
         "properties": {
           "domain": {
             "type": "string",
@@ -246,7 +281,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -269,6 +306,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

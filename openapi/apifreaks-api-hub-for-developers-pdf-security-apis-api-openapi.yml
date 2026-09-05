@@ -17,9 +17,6 @@ tags:
 - name: PDF Security APIs
 paths:
   /pdf/decrypt:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: PDF Decrypt API Server
     post:
       tags:
       - PDF Security APIs
@@ -99,6 +96,9 @@ paths:
                     taskId: f91ec747-1dc6-4be5-be4b-4d6ff66ed386
                     inputIds:
                     - a5f8aca9-d19a-4ee0-90e3-d15f62df1e06
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing/invalid parameters or file ID
           content:
@@ -130,6 +130,9 @@ paths:
                     message: Please provide a valid file ID
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '415':
           description: Unsupported Media Type — File type not supported
           content:
@@ -145,11 +148,14 @@ paths:
                     status: 415
                     error: Unsupported File Type
                     message: The provided file type is not supported. Refer to the documentation for valid file types.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: decryptPdf
-  /pdf/encrypt:
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: PDF Encrypt API Server
+      description: PDF Decrypt API Server
+  /pdf/encrypt:
     post:
       tags:
       - PDF Security APIs
@@ -241,6 +247,9 @@ paths:
                     taskId: c11f7d84-33f5-46da-a64c-e70b3704284e
                     inputIds:
                     - 2d11e722-85cc-4105-b345-f395d48b326e
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing/invalid parameters, file ID, or password
           content:
@@ -272,6 +281,9 @@ paths:
                     message: Please provide a valid file ID
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '415':
           description: Unsupported Media Type — File type not supported
           content:
@@ -287,11 +299,14 @@ paths:
                     message: The provided file type is not supported. Refer to the documentation for valid file types.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: encryptPdf
-  /pdf/restrict:
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: PDF Restrict API Server
+      description: PDF Encrypt API Server
+  /pdf/restrict:
     post:
       tags:
       - PDF Security APIs
@@ -407,6 +422,9 @@ paths:
                     taskId: 42839406-7e1b-4f64-96bb-d94bb054e8d3
                     inputIds:
                     - 2c682ade-eccc-4ab5-9c06-d16e415cbecb
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing/invalid parameters, file ID, or password
           content:
@@ -454,6 +472,9 @@ paths:
                     message: Please provide valid PDF restrictions. Refer to the documentation for valid PDF restrictions.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '415':
           description: Unsupported Media Type — File type not supported
           content:
@@ -469,11 +490,14 @@ paths:
                     status: 415
                     error: Unsupported File Type
                     message: The provided file type is not supported. Refer to the documentation for valid file types.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: restrictPdf
-  /pdf/unrestrict:
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: PDF Unrestrict API Server
+      description: PDF Restrict API Server
+  /pdf/unrestrict:
     post:
       tags:
       - PDF Security APIs
@@ -565,6 +589,9 @@ paths:
                     taskId: 16cc979a-55b9-476c-bfef-0977314478ec
                     inputIds:
                     - 9c809ef8-583a-40f1-afe2-424d1d953b69
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Missing/invalid parameters, file ID, or password
           content:
@@ -604,6 +631,9 @@ paths:
                     message: Please provide a strong password. Refer to the documentation for password requirements.
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '415':
           description: Unsupported Media Type — File type not supported
           content:
@@ -619,32 +649,15 @@ paths:
                     status: 415
                     error: Unsupported File Type
                     message: The provided file type is not supported. Refer to the documentation for valid file types.
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
       operationId: unrestrictPdf
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: PDF Unrestrict API Server
 components:
   schemas:
-    PDFResponse_2:
-      type: object
-      description: Response containing the task ID and input file IDs for a PDF processing task.
-      required:
-      - taskId
-      properties:
-        taskId:
-          type: string
-          description: Task ID of the requested task, used to check the task status.
-        inputIds:
-          type: array
-          items:
-            type: string
-          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
-    PdfFileUploadRequest:
-      type: object
-      description: Multipart form-data request body containing the PDF file to process.
-      required: []
-      properties:
-        file:
-          type: string
-          format: binary
-          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -682,7 +695,16 @@ components:
             type: string
           description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
       description: Response containing the task ID and input file IDs for a PDF processing task.
-    PDFResponse_4:
+    PdfFileUploadRequest:
+      type: object
+      description: Multipart form-data request body containing the PDF file to process.
+      required: []
+      properties:
+        file:
+          type: string
+          format: binary
+          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
+    PDFResponse_2:
       type: object
       description: Response containing the task ID and input file IDs for a PDF processing task.
       required:
@@ -710,6 +732,25 @@ components:
           items:
             type: string
           description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
+    PDFResponse_4:
+      type: object
+      description: Response containing the task ID and input file IDs for a PDF processing task.
+      required:
+      - taskId
+      properties:
+        taskId:
+          type: string
+          description: Task ID of the requested task, used to check the task status.
+        inputIds:
+          type: array
+          items:
+            type: string
+          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

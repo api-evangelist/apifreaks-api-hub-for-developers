@@ -9,6 +9,9 @@ artifacts:
   authentication/apifreaks-api-hub-for-developers-authentication.yml:
     method: searched
     evidence: declared in the artifact
+  capabilities/apifreaks-api-hub-for-developers-capability-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
   changelog/apifreaks-api-hub-for-developers-changelog.yml:
     method: searched
     evidence: declared in the artifact
@@ -177,10 +180,13 @@ artifacts:
   conventions/apifreaks-api-hub-for-developers-conventions.yml:
     method: searched
     evidence: declared in the artifact
+  data-model/apifreaks-api-hub-for-developers-data-model.yml:
+    method: derived
+    evidence: declared in the artifact
   errors/apifreaks-api-hub-for-developers-problem-types.yml:
     method: searched
     evidence: declared in the artifact
-  kin/checks-2026-08-28T221322.yml:
+  kin/checks-2026-09-05T072335.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-08-10T093022.yml:
@@ -258,6 +264,57 @@ artifacts:
   kin/score-2026-08-28T221322.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-29T213958.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-29T230545.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-30T203505.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-30T220315.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-31T223420.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-01T063623.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-01T210448.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-01T222808.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-02T211804.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-02T224043.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-03T161828.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-03T174231.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-04T062714.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-04T212454.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-04T224856.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T055819.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T072335.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/apifreaks-api-hub-for-developers-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -270,84 +327,399 @@ artifacts:
   mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml:
     method: derived
     evidence: declared in the artifact
+  openapi/_original/apifreaks-api-hub-for-developers-administrative-units-details-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-administrative-units-levels-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-administrative-units-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-air-quality-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-asn-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-astronomy-data-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-dns-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-email-validation-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-ip-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-ip-threat-intelligence-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-live-weather-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-phone-number-validation-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-screenshot-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-user-agent-parser-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-vat-rates-country-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-whois-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-bulk-zip-code-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-cities-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-commodity-prices-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-commodity-symbols-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-commodity-time-series-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-countries-details-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-countries-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-currency-converter-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-currency-historical-data-limit-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-currency-rate-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-currency-supported-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-currency-symbols-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-currency-time-series-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-delete-pdf-page-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-dns-history-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-dns-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-domain-search-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-email-checker-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-financial-apis-supported-countries-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-flags-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-flags-supported-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-flood-forecast-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-forward-geocoding-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-historical-weather-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-iban-validation-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-ip-locator-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-ip-threat-intelligence-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-linearize-pdf-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-live-weather-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-marine-weather-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-merge-pdf-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-compress-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-decrypt-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-encrypt-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-extract-pages-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-file-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-file-status-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-files-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-generator-bulk-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-generator-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-resource-download-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-resource-upload-binary-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-resource-upload-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-restrict-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-task-status-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-to-image-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-pdf-unrestrict-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-phone-validation-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-regions-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-reverse-dns-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-reverse-geocoding-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-reverse-whois-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-rotate-pdf-pages-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-split-pdf-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-ssl-certificate-chain-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-ssl-certificate-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-subdomain-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-subregions-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-swift-code-finder-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-swift-code-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-time-series-weather-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-timezone-converter-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-timezone-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-usage-credits-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-user-agent-parser-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-vat-number-validation-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-vat-rates-by-ip-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-vat-rates-country-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-weather-forecast-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-web-scraper-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-website-screenshot-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-whois-ip-lookup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-zip-code-api-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-zip-code-distance-match-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-zip-code-distance-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-zip-codes-by-city-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-zip-codes-by-region-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apifreaks-api-hub-for-developers-zip-codes-radius-search-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
   openapi/apifreaks-api-hub-for-developers-commodity-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-currency-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-dns-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-domain-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-email-validation-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-financial-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-flags-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-general-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-geocoder-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-geodb-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-ip-geolocation-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-other-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-pdf-operations-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-pdf-security-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/apifreaks-api-hub-for-developers-pdf-template-apis-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-pdf-to-image-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-pdf-upload-and-download-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-phone-validation-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-scraping-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-screenshot-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-ssl-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-task-status-and-file-info-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-timezone-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-user-agent-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-weather-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-whois-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apifreaks-api-hub-for-developers-zip-code-apis-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   overlays/apifreaks-api-hub-for-developers-auth-errors-overlay.yaml:
     method: generated
     evidence: declared in the artifact
@@ -379,6 +751,9 @@ artifacts:
     method: generated
     evidence: declared in the artifact
   skills/apifreaks-api-hub-for-developers-ip-enrichment.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/apifreaks-api-hub-for-developers-pdf-template-render.md:
     method: generated
     evidence: declared in the artifact
   well-known/apifreaks-api-hub-for-developers-well-known.yml:

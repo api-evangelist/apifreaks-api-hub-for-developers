@@ -19,7 +19,9 @@
   "paths": {
     "/pdf/task-status": {
       "get": {
-        "tags": ["Task Status and File Info APIs"],
+        "tags": [
+          "Task Status and File Info APIs"
+        ],
         "summary": "Check PDF task status",
         "description": "This API checks the status of a previously initiated PDF processing task using its unique task ID.",
         "parameters": [
@@ -29,7 +31,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["json", "xml"],
+              "enum": [
+                "json",
+                "xml"
+              ],
               "default": "json"
             },
             "description": "Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure."
@@ -62,7 +67,9 @@
                       "outputUrls": [
                         "https://api.apifreaks.com/v1.0/pdf/resource/download?resource_id=21e3bb30-f98e-47ca-9d52-b221857d1f48"
                       ],
-                      "outputIds": ["21e3bb30-f98e-47ca-9d52-b221857d1f48"],
+                      "outputIds": [
+                        "21e3bb30-f98e-47ca-9d52-b221857d1f48"
+                      ],
                       "inputIds": [
                         "0deab2f6-927c-451e-81e2-e8565206690e",
                         "5b6a4836-8c4c-4379-8b3c-0867be35db71"
@@ -76,13 +83,20 @@
                       "taskId": "9d8d803b-e23a-4431-901b-98b1f337355c",
                       "status": "failed",
                       "createdAt": "2026-07-27 10:52:12",
-                      "inputIds": ["63ea4110-b007-475b-9211-2fa7138b8ba1"],
+                      "inputIds": [
+                        "63ea4110-b007-475b-9211-2fa7138b8ba1"
+                      ],
                       "error": "Invalid Page Range",
                       "message": "One or more specified page numbers exceed the total number of pages in the PDF document.",
                       "expiresAt": "2026-08-03 10:52:12"
                     }
                   }
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           },
@@ -106,6 +120,11 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
+              }
             }
           },
           "404": {
@@ -127,6 +146,11 @@
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
+              }
+            },
+            "headers": {
+              "X-AF-Credits-Cost": {
+                "$ref": "#/components/headers/X-AF-Credits-Cost"
               }
             }
           }
@@ -153,7 +177,13 @@
     "schemas": {
       "TaskStatusResponse": {
         "type": "object",
-        "required": ["taskId", "status", "createdAt", "inputIds", "expiresAt"],
+        "required": [
+          "taskId",
+          "status",
+          "createdAt",
+          "inputIds",
+          "expiresAt"
+        ],
         "properties": {
           "taskId": {
             "type": "string",
@@ -214,7 +244,9 @@
       "ErrorResponse": {
         "type": "object",
         "description": "Standard error envelope returned by the API on failed requests.",
-        "required": ["message"],
+        "required": [
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "string",
@@ -237,6 +269,14 @@
             "format": "date-time",
             "description": "Timestamp when the error occurred (ISO 8601)."
           }
+        }
+      }
+    },
+    "headers": {
+      "X-AF-Credits-Cost": {
+        "description": "Specifies the number of credits consumed by the current request.",
+        "schema": {
+          "type": "integer"
         }
       }
     }

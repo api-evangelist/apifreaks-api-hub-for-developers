@@ -17,9 +17,6 @@ tags:
 - name: Geocoder APIs
 paths:
   /geocoder/search:
-    servers:
-    - url: https://api.apifreaks.com/v1.0
-      description: Forward Geocoding API Server
     get:
       tags:
       - Geocoder APIs
@@ -118,6 +115,9 @@ paths:
                     - '51.5573402'
                     - '-0.2817245'
                     - '-0.2774831'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Invalid or missing parameters
           content:
@@ -157,6 +157,9 @@ paths:
                     path: /v1.0/geocoder/search
                     status: 400
                     timestamp: '2026-07-22T14:30:11.104Z'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '404':
           description: Not Found — No results matched the query
           content:
@@ -172,10 +175,13 @@ paths:
                     path: /v1.0/geocoder/search
                     status: 404
                     timestamp: '2026-07-22T14:29:58.349Z'
-  /geocoder/reverse:
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
     servers:
     - url: https://api.apifreaks.com/v1.0
-      description: Reverse Geocoding API Server
+      description: Forward Geocoding API Server
+  /geocoder/reverse:
     get:
       tags:
       - Geocoder APIs
@@ -240,6 +246,9 @@ paths:
                     - '40.7490169'
                     - '-73.9854490'
                     - '-73.9853490'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
         '400':
           description: Bad Request — Invalid or missing parameters
           content:
@@ -279,8 +288,48 @@ paths:
                     path: /v1.0/geocoder/reverse
                     status: 400
                     timestamp: '2026-07-22T14:29:46.809Z'
+          headers:
+            X-AF-Credits-Cost:
+              $ref: '#/components/headers/X-AF-Credits-Cost'
+    servers:
+    - url: https://api.apifreaks.com/v1.0
+      description: Reverse Geocoding API Server
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    PointOfInterest:
+      type: object
+      description: A point of interest located at or near a geocoded result.
+      properties:
+        name:
+          type: string
+          description: Name of the point of interest.
+        category:
+          type: string
+          description: High-level category of the point of interest, e.g. amenity, place, natural, building, highway.
+        type:
+          type: string
+          description: Specific kind within the category, e.g. fast_food, city, park, residential, house_number.
     ForwardGeocodeResponse:
       type: array
       title: Forward Geocoding Results
@@ -357,40 +406,6 @@ components:
             type: string
           minItems: 4
           maxItems: 4
-    ErrorResponse:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
-    PointOfInterest:
-      type: object
-      description: A point of interest located at or near a geocoded result.
-      properties:
-        name:
-          type: string
-          description: Name of the point of interest.
-        category:
-          type: string
-          description: High-level category of the point of interest, e.g. amenity, place, natural, building, highway.
-        type:
-          type: string
-          description: Specific kind within the category, e.g. fast_food, city, park, residential, house_number.
     GeocodeResponse_2:
       type: object
       description: The nearest geocoded location to the given coordinates, with structured address components.
@@ -461,6 +476,11 @@ components:
             type: string
           minItems: 4
           maxItems: 4
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey
