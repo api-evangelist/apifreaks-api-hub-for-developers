@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Apifreaks Api Hub For Developers Task Status and File Info APIs API
+  title: Apifreaks Api Hub For Developers Task Status and File Info…
   version: 1.0.0
   contact:
     name: APIFreaks Support
@@ -318,6 +318,11 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: PDF Task Status API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
     ErrorResponse:
       type: object
@@ -385,17 +390,6 @@ components:
           format: date
           description: Date on which the file is scheduled to be deleted, in UTC.
       description: File status response containing metadata about the PDF file.
-    PdfFileListResponse:
-      type: object
-      description: PDF file list response containing an array of file objects.
-      required:
-      - files
-      properties:
-        files:
-          type: array
-          description: List of files available on the server.
-          items:
-            $ref: '#/components/schemas/PdfFileItem'
     PdfFileItem:
       type: object
       description: A single PDF file in the file list.
@@ -407,6 +401,17 @@ components:
           type: string
           description: Original name of the uploaded file.
       required: []
+    PdfFileListResponse:
+      type: object
+      description: PDF file list response containing an array of file objects.
+      required:
+      - files
+      properties:
+        files:
+          type: array
+          description: List of files available on the server.
+          items:
+            $ref: '#/components/schemas/PdfFileItem'
     TaskStatusResponse:
       type: object
       required:
@@ -456,11 +461,6 @@ components:
           type: string
           description: The URL to download all output files as a single ZIP archive. Present only when the task status is completed.
       description: Task status response containing the current state of a PDF processing task.
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

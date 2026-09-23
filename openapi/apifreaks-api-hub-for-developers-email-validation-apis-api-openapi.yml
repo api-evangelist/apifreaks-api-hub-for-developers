@@ -428,6 +428,165 @@ paths:
       description: Email Checker API Server
 components:
   schemas:
+    SingleEmailValidationResponse:
+      type: object
+      required:
+      - success
+      - email
+      - validEmail
+      - validSyntax
+      - domain
+      properties:
+        success:
+          type: boolean
+          description: 'Indicates the processing status of the validation request. true: completed successfully.'
+        email:
+          type: string
+          format: email
+          description: The email address submitted for validation.
+        name:
+          type: string
+          description: Optional identifier or label provided in the request for record tracking.
+        reason:
+          type: string
+          description: Detailed explanation returned when validEmail is not valid.
+        validEmail:
+          type: string
+          enum:
+          - valid
+          - invalid
+          - INVALID_EMAIL
+          - unknown
+          - risky
+          - app_server_blocked
+          description: 'Comprehensive deliverability assessment. Casing is inconsistent in the live API: syntactically invalid addresses return INVALID_EMAIL, while semantically invalid (undeliverable) addresses return lowercase invalid. risky is a documented possibility not observed during testing. app_server_blocked is returned when the recipient mail server blocked the live verification attempt (reason explains that retrying later may succeed).'
+        validSyntax:
+          type: boolean
+          description: Validates email address format compliance with RFC 5322 standards.
+        domain:
+          $ref: '#/components/schemas/DomainObject'
+        account:
+          $ref: '#/components/schemas/AccountObject'
+        dns:
+          $ref: '#/components/schemas/DnsObject'
+        address:
+          $ref: '#/components/schemas/AddressObject'
+        ip:
+          type: string
+          format: ip
+          description: IP address provided for geolocation and security enrichment.
+      description: Email validation response containing deliverability assessment and metadata.
+    BulkEmailRequest:
+      type: object
+      description: Request body for bulk email validation.
+      required:
+      - emailData
+      properties:
+        emailData:
+          type: array
+          description: Array of email objects to validate. Maximum 10 per request.
+          maxItems: 10
+          items:
+            $ref: '#/components/schemas/BulkEmailRequestItem'
+    BulkEmailRequestItem:
+      type: object
+      description: A single email entry in a bulk validation request.
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address to validate.
+        name:
+          type: string
+          description: Optional name or label.
+        ip:
+          type: string
+          format: ip
+          description: Optional IP address for enrichment.
+    BulkEmailValidationResponse:
+      type: object
+      description: Wrapper containing the per-email results array.
+      required:
+      - emailResponse
+      properties:
+        emailResponse:
+          type: array
+          description: Array of per-email results, one entry per requested email, in the same order as the request. Invalid emails are reflected via validEmail/validSyntax, not a separate error shape.
+          items:
+            $ref: '#/components/schemas/SingleEmailValidationResponse'
+    DomainObject:
+      type: object
+      required:
+      - name
+      - validDomain
+      properties:
+        name:
+          type: string
+          description: Extracted domain component from the email address.
+        validDomain:
+          type: boolean
+          description: Domain validation status confirming DNS resolution capability.
+        disposable:
+          type: boolean
+          description: Classification flag identifying domains from temporary email service providers.
+        spam:
+          type: boolean
+          description: Reputation indicator flagging domains on spam databases.
+        free:
+          type: boolean
+          description: Classification indicating free or consumer-grade email service providers.
+        catchAll:
+          type: boolean
+          description: Detection flag for domains configured to accept mail for any recipient address.
+      description: Domain validation details for the email address.
+    AccountObject:
+      type: object
+      required:
+      - role
+      properties:
+        role:
+          type: boolean
+          description: Detection flag identifying role-based email addresses (e.g., admin@, support@).
+        fullMailBox:
+          type: boolean
+          description: Storage capacity status indicator for the recipient mailbox.
+      description: Account-level validation details.
+    AddressObject:
+      type: object
+      properties:
+        validIpAddress:
+          type: boolean
+          description: IP recognized/reachable by the geolocation provider.
+        location:
+          $ref: '#/components/schemas/EmailLocation'
+        security:
+          $ref: '#/components/schemas/EmailSecurity'
+      description: Geolocation and security enrichment data for the IP address.
+      required: []
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
     EmailSecurity:
       type: object
       description: Threat and anonymity profile for the IP address.
@@ -477,125 +636,6 @@ components:
         cloud_provider:
           type: string
           description: Identified cloud infrastructure or hosting service provider name.
-    SingleEmailValidationResponse:
-      type: object
-      required:
-      - success
-      - email
-      - validEmail
-      - validSyntax
-      - domain
-      properties:
-        success:
-          type: boolean
-          description: 'Indicates the processing status of the validation request. true: completed successfully.'
-        email:
-          type: string
-          format: email
-          description: The email address submitted for validation.
-        name:
-          type: string
-          description: Optional identifier or label provided in the request for record tracking.
-        reason:
-          type: string
-          description: Detailed explanation returned when validEmail is not valid.
-        validEmail:
-          type: string
-          enum:
-          - valid
-          - invalid
-          - INVALID_EMAIL
-          - unknown
-          - risky
-          - app_server_blocked
-          description: 'Comprehensive deliverability assessment. Casing is inconsistent in the live API: syntactically invalid addresses return INVALID_EMAIL, while semantically invalid (undeliverable) addresses return lowercase invalid. risky is a documented possibility not observed during testing. app_server_blocked is returned when the recipient mail server blocked the live verification attempt (reason explains that retrying later may succeed).'
-        validSyntax:
-          type: boolean
-          description: Validates email address format compliance with RFC 5322 standards.
-        domain:
-          $ref: '#/components/schemas/DomainObject'
-        account:
-          $ref: '#/components/schemas/AccountObject'
-        dns:
-          $ref: '#/components/schemas/DnsObject'
-        address:
-          $ref: '#/components/schemas/AddressObject'
-        ip:
-          type: string
-          format: ip
-          description: IP address provided for geolocation and security enrichment.
-      description: Email validation response containing deliverability assessment and metadata.
-    DomainObject:
-      type: object
-      required:
-      - name
-      - validDomain
-      properties:
-        name:
-          type: string
-          description: Extracted domain component from the email address.
-        validDomain:
-          type: boolean
-          description: Domain validation status confirming DNS resolution capability.
-        disposable:
-          type: boolean
-          description: Classification flag identifying domains from temporary email service providers.
-        spam:
-          type: boolean
-          description: Reputation indicator flagging domains on spam databases.
-        free:
-          type: boolean
-          description: Classification indicating free or consumer-grade email service providers.
-        catchAll:
-          type: boolean
-          description: Detection flag for domains configured to accept mail for any recipient address.
-      description: Domain validation details for the email address.
-    ErrorResponse:
-      type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
-    AddressObject:
-      type: object
-      properties:
-        validIpAddress:
-          type: boolean
-          description: IP recognized/reachable by the geolocation provider.
-        location:
-          $ref: '#/components/schemas/EmailLocation'
-        security:
-          $ref: '#/components/schemas/EmailSecurity'
-      description: Geolocation and security enrichment data for the IP address.
-      required: []
-    BulkEmailRequest:
-      type: object
-      description: Request body for bulk email validation.
-      required:
-      - emailData
-      properties:
-        emailData:
-          type: array
-          description: Array of email objects to validate. Maximum 10 per request.
-          maxItems: 10
-          items:
-            $ref: '#/components/schemas/BulkEmailRequestItem'
     EmailLocation:
       type: object
       description: Geolocation data derived from the IP address.
@@ -640,17 +680,6 @@ components:
           type: boolean
           description: European Union membership status.
       required: []
-    BulkEmailValidationResponse:
-      type: object
-      description: Wrapper containing the per-email results array.
-      required:
-      - emailResponse
-      properties:
-        emailResponse:
-          type: array
-          description: Array of per-email results, one entry per requested email, in the same order as the request. Invalid emails are reflected via validEmail/validSyntax, not a separate error shape.
-          items:
-            $ref: '#/components/schemas/SingleEmailValidationResponse'
     DnsObject:
       type: object
       required:
@@ -667,35 +696,6 @@ components:
             type: string
           description: Collection of A (Address) records for the domain. Not observed in testing — may be rarely or never populated.
       description: DNS records for the email domain.
-    AccountObject:
-      type: object
-      required:
-      - role
-      properties:
-        role:
-          type: boolean
-          description: Detection flag identifying role-based email addresses (e.g., admin@, support@).
-        fullMailBox:
-          type: boolean
-          description: Storage capacity status indicator for the recipient mailbox.
-      description: Account-level validation details.
-    BulkEmailRequestItem:
-      type: object
-      description: A single email entry in a bulk validation request.
-      required:
-      - email
-      properties:
-        email:
-          type: string
-          format: email
-          description: Email address to validate.
-        name:
-          type: string
-          description: Optional name or label.
-        ip:
-          type: string
-          format: ip
-          description: Optional IP address for enrichment.
     EmailCheckRequest:
       type: object
       description: Request body for email validation.
@@ -714,12 +714,12 @@ components:
           format: ip
           description: Optional IP address for geolocation and security enrichment.
   headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
     X-Concurrent-Threads-Active:
       description: Indicates the number of active concurrent requests being processed.
+      schema:
+        type: integer
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
       schema:
         type: integer
     X-Concurrent-Threads:

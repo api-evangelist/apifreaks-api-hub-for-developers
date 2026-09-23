@@ -20,7 +20,7 @@ paths:
     post:
       tags:
       - Domain APIs
-      summary: Check the availability of multiple domains in a single request.
+      summary: Check the availability of multiple domains in a single request
       description: Perform Bulk Domain Availability checks using a list of domains. Supports upto `100 Domains Per Request`.
       operationId: checkBulkDomainAvailability
       parameters:
@@ -139,7 +139,7 @@ paths:
     get:
       tags:
       - Domain APIs
-      summary: Check whether a domain is available for registration or not.
+      summary: Check whether a domain is available for registration or not
       description: The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).
       parameters:
       - name: format
@@ -236,7 +236,7 @@ paths:
     get:
       tags:
       - Domain APIs
-      summary: Check domain availability and receive suggestions for related domains.
+      summary: Check domain availability and receive suggestions for related domains
       description: The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).
       parameters:
       - name: format
@@ -356,7 +356,7 @@ paths:
     get:
       tags:
       - Domain APIs
-      summary: Get subdomains related to the given domain name.
+      summary: Get subdomains related to the given domain name
       description: The Subdomain Lookup API is designed to retrieve subdomains related to the given domain name. It helps you explore subdomains that are available for registration or usage.
       parameters:
       - name: format
@@ -547,17 +547,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    BulkDomainCheckResponse:
-      type: object
-      description: Wrapper containing the per-domain results array.
-      required:
-      - bulk_domain_availability_response
-      properties:
-        bulk_domain_availability_response:
-          type: array
-          description: Array of per-domain results. Order is not guaranteed to match the request order. Domains that fail to resolve appear with status false and no domainAvailability field.
-          items:
-            $ref: '#/components/schemas/BulkDomainCheckItem'
     BulkDomainCheckRequest:
       type: object
       description: Request body for bulk domain availability check.
@@ -570,6 +559,17 @@ components:
           maxItems: 100
           items:
             type: string
+    BulkDomainCheckResponse:
+      type: object
+      description: Wrapper containing the per-domain results array.
+      required:
+      - bulk_domain_availability_response
+      properties:
+        bulk_domain_availability_response:
+          type: array
+          description: Array of per-domain results. Order is not guaranteed to match the request order. Domains that fail to resolve appear with status false and no domainAvailability field.
+          items:
+            $ref: '#/components/schemas/BulkDomainCheckItem'
     DomainAvailabilityResponse:
       type: object
       required:

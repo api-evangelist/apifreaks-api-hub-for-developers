@@ -6,7 +6,7 @@ info:
     name: APIFreaks Support
     url: https://apifreaks.com/contact
     email: support@apifreaks.com
-  description: 'Operations tagged WHOIS APIs across 6 of this provider''s published API definitions: apifreaks-api-hub-for-developers-asn-lookup-openapi.json, apifreaks-api-hub-for-developers-bulk-whois-lookup-openapi.json, apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json, apifreaks-api-hub-for-developers-reverse-whois-openapi.json, apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json, apifreaks-api-hub-for-developers-whois-ip-lookup-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged WHOIS APIs across 6 of this provider''s published API definitions: apifreaks-api-hub-for-developers-asn-lookup-openapi.json, apifreaks-api-hub-for-developers-bulk-whois-lookup-openapi.json, apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json, apifreaks-api-hub-for-developers-reverse-whois-openapi.json, apifreaks-api-hub-for-developers-whois-domain-lookup-openapi.json, apifreaks-api-hub-for-developers-whois-ip-lookup-openapi.json.'
 servers:
 - url: https://api.apifreaks.com/v1.0
   description: ASN Lookup API Server
@@ -22,7 +22,7 @@ paths:
     get:
       tags:
       - WHOIS APIs
-      summary: Retrieve WHOIS registration data, CIDR block inventory, and BGP peer relationships for an Autonomous System Number
+      summary: Retrieve WHOIS registration data, CIDR block inventory, and BGP peer…
       description: Returns the WHOIS record for the specified ASN, including organization details, IPv4/IPv6 route objects, upstream/downstream/peer relationships, and both parsed and raw WHOIS text. Accepts the ASN with or without the 'AS' prefix.
       operationId: asnLookup
       parameters:
@@ -163,7 +163,7 @@ paths:
     post:
       tags:
       - WHOIS APIs
-      summary: Retrieve real-time WHOIS registration and ownership data for up to 100 domain names in a single request
+      summary: Retrieve real-time WHOIS registration and ownership data for up to 100 domain…
       description: Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch.
       operationId: bulkWhoisLookup
       parameters:
@@ -1064,6 +1064,65 @@ paths:
       description: IP WHOIS Lookup API Server
 components:
   schemas:
+    AsnRelation:
+      type: object
+      description: A related Autonomous System (upstream provider, downstream customer, or BGP peer).
+      required:
+      - asNumber
+      properties:
+        asNumber:
+          type: string
+          description: ASN of the related Autonomous System, without the 'AS' prefix.
+        description:
+          type: string
+          description: Free-text description of the related Autonomous System, when published.
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code of the related Autonomous System, when published.
+    ParsedWhoisResponse:
+      type: object
+      description: Structured breakdown of the raw WHOIS response into individual records and contacts.
+      required:
+      - status
+      - whois_server
+      - aut_nums
+      - organization
+      - technical_contacts
+      - abuse_contacts
+      properties:
+        status:
+          type: boolean
+          description: true if the WHOIS response was parsed successfully.
+        whois_server:
+          type: string
+          description: WHOIS server that returned the raw response (e.g. whois.arin.net).
+        aut_nums:
+          type: array
+          description: Parsed autnum object(s) for the requested ASN.
+          items:
+            $ref: '#/components/schemas/AutNum'
+        organization:
+          $ref: '#/components/schemas/Organization'
+        technical_contacts:
+          type: array
+          description: Parsed technical contact records for the ASN.
+          items:
+            $ref: '#/components/schemas/WhoisContact'
+        abuse_contacts:
+          type: array
+          description: Parsed abuse contact records for the ASN.
+          items:
+            $ref: '#/components/schemas/WhoisContact'
+        whois_raw_response:
+          type: string
+          description: Unparsed raw WHOIS text, when returned separately from whoisResponse.
+        r_whois_raw_response:
+          type: string
+          description: Raw referral WHOIS (rwhois) text, when the registry delegates to a referral server.
+        query_time:
+          type: string
+          format: date-time
+          description: Timestamp when the WHOIS query was executed.
     ASNLookupResponse:
       type: object
       description: WHOIS registration record for the requested Autonomous System Number.
@@ -1161,27 +1220,31 @@ components:
           description: Legacy (pre-RIR) route objects associated with this ASN, in CIDR notation.
           items:
             type: string
-    ErrorResponse:
+    RouteObject:
       type: object
+      description: A single IPv4 or IPv6 route object (CIDR block) advertised by the ASN.
       required:
-      - message
+      - route
+      - origin
+      - originName
+      - isp
+      - numberOfIps
       properties:
-        error:
+        route:
           type: string
-          description: Short error category or exception type.
-        message:
+          description: Route prefix in CIDR notation.
+        origin:
           type: string
-          description: Human-readable error message describing the failure.
-        path:
+          description: Originating ASN for this route, in AS<number> format.
+        originName:
           type: string
-          description: API endpoint path that produced the error.
-        status:
+          description: Organization name for the originating ASN.
+        isp:
+          type: string
+          description: ISP or organization name associated with this route.
+        numberOfIps:
           type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
+          description: Total number of IP addresses contained in this route's prefix.
     Organization:
       type: object
       description: Parsed organization (org) registry object that holds the ASN.
@@ -1354,21 +1417,27 @@ components:
           description: Abuse-reporting contact email addresses for the ASN.
           items:
             type: string
-    AsnRelation:
+    ErrorResponse:
       type: object
-      description: A related Autonomous System (upstream provider, downstream customer, or BGP peer).
       required:
-      - asNumber
+      - message
       properties:
-        asNumber:
+        error:
           type: string
-          description: ASN of the related Autonomous System, without the 'AS' prefix.
-        description:
+          description: Short error category or exception type.
+        message:
           type: string
-          description: Free-text description of the related Autonomous System, when published.
-        country:
+          description: Human-readable error message describing the failure.
+        path:
           type: string
-          description: ISO 3166-1 alpha-2 country code of the related Autonomous System, when published.
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
     WhoisContact:
       type: object
       description: A parsed technical or abuse contact record from the registry.
@@ -1396,100 +1465,6 @@ components:
         source:
           type: string
           description: URL of the registry record this contact was parsed from.
-    ParsedWhoisResponse:
-      type: object
-      description: Structured breakdown of the raw WHOIS response into individual records and contacts.
-      required:
-      - status
-      - whois_server
-      - aut_nums
-      - organization
-      - technical_contacts
-      - abuse_contacts
-      properties:
-        status:
-          type: boolean
-          description: true if the WHOIS response was parsed successfully.
-        whois_server:
-          type: string
-          description: WHOIS server that returned the raw response (e.g. whois.arin.net).
-        aut_nums:
-          type: array
-          description: Parsed autnum object(s) for the requested ASN.
-          items:
-            $ref: '#/components/schemas/AutNum'
-        organization:
-          $ref: '#/components/schemas/Organization'
-        technical_contacts:
-          type: array
-          description: Parsed technical contact records for the ASN.
-          items:
-            $ref: '#/components/schemas/WhoisContact'
-        abuse_contacts:
-          type: array
-          description: Parsed abuse contact records for the ASN.
-          items:
-            $ref: '#/components/schemas/WhoisContact'
-        whois_raw_response:
-          type: string
-          description: Unparsed raw WHOIS text, when returned separately from whoisResponse.
-        r_whois_raw_response:
-          type: string
-          description: Raw referral WHOIS (rwhois) text, when the registry delegates to a referral server.
-        query_time:
-          type: string
-          format: date-time
-          description: Timestamp when the WHOIS query was executed.
-    RouteObject:
-      type: object
-      description: A single IPv4 or IPv6 route object (CIDR block) advertised by the ASN.
-      required:
-      - route
-      - origin
-      - originName
-      - isp
-      - numberOfIps
-      properties:
-        route:
-          type: string
-          description: Route prefix in CIDR notation.
-        origin:
-          type: string
-          description: Originating ASN for this route, in AS<number> format.
-        originName:
-          type: string
-          description: Organization name for the originating ASN.
-        isp:
-          type: string
-          description: ISP or organization name associated with this route.
-        numberOfIps:
-          type: integer
-          description: Total number of IP addresses contained in this route's prefix.
-    BulkWhoisLookupResponse:
-      type: object
-      description: Wrapper object containing one WHOIS result or error per requested domain, in request order.
-      required:
-      - bulk_whois_response
-      properties:
-        bulk_whois_response:
-          type: array
-          description: Array of per-domain results, one entry per requested domain. Each entry is either a full WHOIS result or, if that domain could not be resolved, an error object.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/DomainWhoisLookupResponse'
-            - $ref: '#/components/schemas/BulkWhoisLookupItemError'
-    BulkWhoisLookupRequest:
-      type: object
-      description: Request body for bulk domain WHOIS lookup.
-      required:
-      - domainNames
-      properties:
-        domainNames:
-          type: array
-          description: List of domain names to retrieve WHOIS data for.
-          maxItems: 100
-          items:
-            type: string
     WhoisContactDetail:
       type: object
       description: A contact record (registrant, administrative, technical, billing, or reseller) published in the domain's WHOIS record.
@@ -1604,63 +1579,6 @@ components:
           description: Raw WHOIS text as returned by the registrar's WHOIS server.
         registry_data:
           $ref: '#/components/schemas/DomainWhoisRegistryData'
-    BulkWhoisLookupItemError:
-      type: object
-      description: Per-item error, returned in place of a WHOIS result when an individual domain's extension is unsupported or its lookup otherwise fails.
-      required:
-      - status
-      - domain_name
-      - status_code
-      - message
-      properties:
-        status:
-          type: boolean
-          enum:
-          - false
-          description: Always false for a per-item error.
-        domain_name:
-          type: string
-          description: Domain name that this error applies to.
-        status_code:
-          type: integer
-          description: HTTP-equivalent status code for this item's failure (e.g. 403 for an unsupported extension).
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable reason this domain could not be resolved.
-    DomainRegistrar:
-      type: object
-      description: Registrar of record for a domain, as published by either the registrar or the registry.
-      properties:
-        iana_id:
-          type: string
-          description: IANA registrar ID.
-        status:
-          type: string
-          description: Registrar's ICANN accreditation status (e.g. accredited), when published at the registrar level.
-        registrar_name:
-          type: string
-          description: Registered name of the registrar.
-        normalized_name:
-          type: string
-          description: Lowercased, normalized form of the registrar name, when published at the registrar level.
-        whois_server:
-          type: string
-          description: WHOIS server operated by the registrar.
-        rdap_server:
-          type: string
-          description: RDAP server URL operated by the registrar, when published at the registrar level.
-        website_url:
-          type: string
-          description: Registrar's website URL.
-        email_address:
-          type: string
-          description: Registrar abuse or contact email address.
-        phone_number:
-          type: string
-          description: Registrar contact phone number.
     DomainWhoisRegistryData:
       type: object
       description: Registry-level (as opposed to registrar-level) WHOIS data, sourced directly from the TLD registry.
@@ -1710,87 +1628,88 @@ components:
         domain_registrar:
           $ref: '#/components/schemas/DomainRegistrar'
           description: Registrar of record as recorded directly by the registry.
-    DomainWhoisHistoryRecord:
+    DomainRegistrar:
       type: object
-      description: A single historical WHOIS snapshot captured at a point in time. Early snapshots may omit fields the registry did not publish at that time.
+      description: Registrar of record for a domain, as published by either the registrar or the registry.
+      properties:
+        iana_id:
+          type: string
+          description: IANA registrar ID.
+        status:
+          type: string
+          description: Registrar's ICANN accreditation status (e.g. accredited), when published at the registrar level.
+        registrar_name:
+          type: string
+          description: Registered name of the registrar.
+        normalized_name:
+          type: string
+          description: Lowercased, normalized form of the registrar name, when published at the registrar level.
+        whois_server:
+          type: string
+          description: WHOIS server operated by the registrar.
+        rdap_server:
+          type: string
+          description: RDAP server URL operated by the registrar, when published at the registrar level.
+        website_url:
+          type: string
+          description: Registrar's website URL.
+        email_address:
+          type: string
+          description: Registrar abuse or contact email address.
+        phone_number:
+          type: string
+          description: Registrar contact phone number.
+    BulkWhoisLookupRequest:
+      type: object
+      description: Request body for bulk domain WHOIS lookup.
       required:
-      - num
+      - domainNames
+      properties:
+        domainNames:
+          type: array
+          description: List of domain names to retrieve WHOIS data for.
+          maxItems: 100
+          items:
+            type: string
+    BulkWhoisLookupResponse:
+      type: object
+      description: Wrapper object containing one WHOIS result or error per requested domain, in request order.
+      required:
+      - bulk_whois_response
+      properties:
+        bulk_whois_response:
+          type: array
+          description: Array of per-domain results, one entry per requested domain. Each entry is either a full WHOIS result or, if that domain could not be resolved, an error object.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/DomainWhoisLookupResponse'
+            - $ref: '#/components/schemas/BulkWhoisLookupItemError'
+    BulkWhoisLookupItemError:
+      type: object
+      description: Per-item error, returned in place of a WHOIS result when an individual domain's extension is unsupported or its lookup otherwise fails.
+      required:
       - status
       - domain_name
-      - query_time
-      - create_date
-      - update_date
-      - expiry_date
+      - status_code
+      - message
       properties:
-        num:
-          type: integer
-          description: 1-based sequence number of this record within the historical timeline.
         status:
           type: boolean
           enum:
-          - true
-          description: Always true for a returned historical record.
+          - false
+          description: Always false for a per-item error.
         domain_name:
           type: string
-          description: Domain name this snapshot was recorded for.
-        query_time:
+          description: Domain name that this error applies to.
+        status_code:
+          type: integer
+          description: HTTP-equivalent status code for this item's failure (e.g. 403 for an unsupported extension).
+        error:
           type: string
-          description: Timestamp when this historical snapshot was captured.
-        whois_server:
+          description: Short error category or exception type.
+        message:
           type: string
-          description: WHOIS server that provided this snapshot's domain-level data, when recorded.
-        domain_registered:
-          type: string
-          enum:
-          - 'yes'
-          - 'no'
-          - restricted
-          description: Domain registration status at the time of this snapshot, when recorded.
-        create_date:
-          type: string
-          format: date
-          description: Date the domain was originally registered, as known at the time of this snapshot.
-        update_date:
-          type: string
-          format: date
-          description: Date the domain registration was last updated, as of this snapshot.
-        expiry_date:
-          type: string
-          format: date
-          description: Date the domain registration was set to expire, as of this snapshot.
-        domain_registrar:
-          $ref: '#/components/schemas/DomainRegistrar_2'
-          description: Registrar of record for the domain as of this snapshot.
-        reseller_contact:
-          $ref: '#/components/schemas/WhoisContactDetail_2'
-          description: Reseller contact details, when the domain was registered through a reseller, as published in this snapshot.
-        registrant_contact:
-          $ref: '#/components/schemas/WhoisContactDetail_2'
-          description: Domain registrant (owner) contact details as published in this snapshot.
-        administrative_contact:
-          $ref: '#/components/schemas/WhoisContactDetail_2'
-          description: Administrative contact details as published in this snapshot.
-        technical_contact:
-          $ref: '#/components/schemas/WhoisContactDetail_2'
-          description: Technical contact details as published in this snapshot.
-        billing_contact:
-          $ref: '#/components/schemas/WhoisContactDetail_2'
-          description: Billing contact details as published in this snapshot.
-        name_servers:
-          type: array
-          description: Name servers recorded for the domain as of this snapshot.
-          items:
-            type: string
-        domain_status:
-          type: array
-          description: EPP domain status codes recorded as of this snapshot.
-          items:
-            type: string
-        whois_raw_domain:
-          type: string
-          description: Raw WHOIS text for the domain as of this snapshot.
-        registry_data:
-          $ref: '#/components/schemas/DomainWhoisHistoryRegistryData'
+          description: Human-readable reason this domain could not be resolved.
     DomainWhoisHistoryRegistryData:
       type: object
       description: Registry-level (as opposed to registrar-level) WHOIS data for this snapshot, sourced directly from the TLD registry.
@@ -1927,6 +1846,155 @@ components:
         phone_number:
           type: string
           description: Registrar contact phone number.
+    DomainWhoisHistoryRecord:
+      type: object
+      description: A single historical WHOIS snapshot captured at a point in time. Early snapshots may omit fields the registry did not publish at that time.
+      required:
+      - num
+      - status
+      - domain_name
+      - query_time
+      - create_date
+      - update_date
+      - expiry_date
+      properties:
+        num:
+          type: integer
+          description: 1-based sequence number of this record within the historical timeline.
+        status:
+          type: boolean
+          enum:
+          - true
+          description: Always true for a returned historical record.
+        domain_name:
+          type: string
+          description: Domain name this snapshot was recorded for.
+        query_time:
+          type: string
+          description: Timestamp when this historical snapshot was captured.
+        whois_server:
+          type: string
+          description: WHOIS server that provided this snapshot's domain-level data, when recorded.
+        domain_registered:
+          type: string
+          enum:
+          - 'yes'
+          - 'no'
+          - restricted
+          description: Domain registration status at the time of this snapshot, when recorded.
+        create_date:
+          type: string
+          format: date
+          description: Date the domain was originally registered, as known at the time of this snapshot.
+        update_date:
+          type: string
+          format: date
+          description: Date the domain registration was last updated, as of this snapshot.
+        expiry_date:
+          type: string
+          format: date
+          description: Date the domain registration was set to expire, as of this snapshot.
+        domain_registrar:
+          $ref: '#/components/schemas/DomainRegistrar_2'
+          description: Registrar of record for the domain as of this snapshot.
+        reseller_contact:
+          $ref: '#/components/schemas/WhoisContactDetail_2'
+          description: Reseller contact details, when the domain was registered through a reseller, as published in this snapshot.
+        registrant_contact:
+          $ref: '#/components/schemas/WhoisContactDetail_2'
+          description: Domain registrant (owner) contact details as published in this snapshot.
+        administrative_contact:
+          $ref: '#/components/schemas/WhoisContactDetail_2'
+          description: Administrative contact details as published in this snapshot.
+        technical_contact:
+          $ref: '#/components/schemas/WhoisContactDetail_2'
+          description: Technical contact details as published in this snapshot.
+        billing_contact:
+          $ref: '#/components/schemas/WhoisContactDetail_2'
+          description: Billing contact details as published in this snapshot.
+        name_servers:
+          type: array
+          description: Name servers recorded for the domain as of this snapshot.
+          items:
+            type: string
+        domain_status:
+          type: array
+          description: EPP domain status codes recorded as of this snapshot.
+          items:
+            type: string
+        whois_raw_domain:
+          type: string
+          description: Raw WHOIS text for the domain as of this snapshot.
+        registry_data:
+          $ref: '#/components/schemas/DomainWhoisHistoryRegistryData'
+    RegistryData:
+      type: object
+      description: Normalized registry-level WHOIS data. Contains the same structure as the top-level response but reflects data from the registry's own WHOIS server rather than the registrar's.
+      required: []
+      properties:
+        domain_name:
+          type:
+          - string
+          - 'null'
+          description: Domain name as recorded by the registry.
+        query_time:
+          type:
+          - string
+          - 'null'
+          description: Timestamp of the registry WHOIS query (YYYY-MM-DD HH:mm:ss).
+        whois_server:
+          type:
+          - string
+          - 'null'
+          description: Registry WHOIS server that provided this data.
+        domain_registered:
+          type:
+          - string
+          - 'null'
+          enum:
+          - 'yes'
+          - 'no'
+          - restricted
+          description: Registration status from the registry.
+        create_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Domain creation date as recorded by the registry (YYYY-MM-DD).
+        update_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Last update date as recorded by the registry (YYYY-MM-DD).
+        expiry_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Domain expiry date as recorded by the registry (YYYY-MM-DD).
+        domain_registrar:
+          $ref: '#/components/schemas/DomainRegistrar_3'
+        name_servers:
+          type:
+          - array
+          - 'null'
+          description: List of name servers as recorded by the registry.
+          items:
+            type: string
+        domain_status:
+          type:
+          - array
+          - 'null'
+          description: List of domain status codes from the registry.
+          items:
+            type: string
+        whois_raw_registery:
+          type:
+          - string
+          - 'null'
+          description: Raw WHOIS output from the registry server.
     ReverseWhoisDomainDefault:
       type: object
       description: Full WHOIS record for a matching domain in default mode, including registrar, contacts, name servers, status, and registry data.
@@ -2039,52 +2107,58 @@ components:
             oneOf:
             - $ref: '#/components/schemas/ReverseWhoisDomainDefault'
             - $ref: '#/components/schemas/ReverseWhoisDomainMini'
-    ReverseWhoisDomainMini:
+    DomainRegistrar_3:
       type: object
-      description: Condensed WHOIS record for a matching domain in mini mode, containing only key registration fields.
-      required:
-      - num
-      - domain_name
+      description: Registrar information for the domain, including IANA ID, name, WHOIS/RDAP servers, website, and contact details.
+      required: []
       properties:
-        num:
-          type: integer
-          description: Sequential result number.
-        domain_name:
-          type: string
-          description: The matched domain name.
-        create_date:
+        iana_id:
           type:
           - string
           - 'null'
-          format: date
-          description: Date when the domain was initially registered (YYYY-MM-DD).
-        update_date:
+          description: IANA (Internet Assigned Numbers Authority) ID of the registrar.
+        status:
           type:
           - string
           - 'null'
-          format: date
-          description: Date of the most recent update to the domain registration (YYYY-MM-DD).
-        expiry_date:
+          description: Accreditation status of the registrar (e.g., 'accredited').
+        registrar_name:
           type:
           - string
           - 'null'
-          format: date
-          description: Date when the domain registration expires if not renewed (YYYY-MM-DD).
-        name:
+          description: Name of the registrar managing the domain.
+        normalized_name:
           type:
           - string
           - 'null'
-          description: Registrant or owner name.
-        email:
+          description: Normalized (lowercase, stripped) registrar name.
+        whois_server:
           type:
           - string
           - 'null'
-          description: Registrant email address.
-        company_name:
+          description: WHOIS server of the registrar.
+        rdap_server:
           type:
           - string
           - 'null'
-          description: Registrant company or organization name.
+          format: uri
+          description: RDAP (Registration Data Access Protocol) server URL of the registrar.
+        website_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Website URL of the registrar.
+        email_address:
+          type:
+          - string
+          - 'null'
+          description: Contact or abuse email address of the registrar.
+        phone_number:
+          type:
+          - string
+          - 'null'
+          description: Contact phone number of the registrar.
     WhoisContact_2:
       type: object
       description: Contact information for a domain stakeholder (registrant, administrative, technical, billing, or reseller). All fields are optional and depend on the contact type and privacy settings.
@@ -2155,126 +2229,52 @@ components:
           - string
           - 'null'
           description: Full mailing address as a single string.
-    RegistryData:
+    ReverseWhoisDomainMini:
       type: object
-      description: Normalized registry-level WHOIS data. Contains the same structure as the top-level response but reflects data from the registry's own WHOIS server rather than the registrar's.
-      required: []
+      description: Condensed WHOIS record for a matching domain in mini mode, containing only key registration fields.
+      required:
+      - num
+      - domain_name
       properties:
+        num:
+          type: integer
+          description: Sequential result number.
         domain_name:
-          type:
-          - string
-          - 'null'
-          description: Domain name as recorded by the registry.
-        query_time:
-          type:
-          - string
-          - 'null'
-          description: Timestamp of the registry WHOIS query (YYYY-MM-DD HH:mm:ss).
-        whois_server:
-          type:
-          - string
-          - 'null'
-          description: Registry WHOIS server that provided this data.
-        domain_registered:
-          type:
-          - string
-          - 'null'
-          enum:
-          - 'yes'
-          - 'no'
-          - restricted
-          description: Registration status from the registry.
+          type: string
+          description: The matched domain name.
         create_date:
           type:
           - string
           - 'null'
           format: date
-          description: Domain creation date as recorded by the registry (YYYY-MM-DD).
+          description: Date when the domain was initially registered (YYYY-MM-DD).
         update_date:
           type:
           - string
           - 'null'
           format: date
-          description: Last update date as recorded by the registry (YYYY-MM-DD).
+          description: Date of the most recent update to the domain registration (YYYY-MM-DD).
         expiry_date:
           type:
           - string
           - 'null'
           format: date
-          description: Domain expiry date as recorded by the registry (YYYY-MM-DD).
-        domain_registrar:
-          $ref: '#/components/schemas/DomainRegistrar_3'
-        name_servers:
-          type:
-          - array
-          - 'null'
-          description: List of name servers as recorded by the registry.
-          items:
-            type: string
-        domain_status:
-          type:
-          - array
-          - 'null'
-          description: List of domain status codes from the registry.
-          items:
-            type: string
-        whois_raw_registery:
+          description: Date when the domain registration expires if not renewed (YYYY-MM-DD).
+        name:
           type:
           - string
           - 'null'
-          description: Raw WHOIS output from the registry server.
-    DomainRegistrar_3:
-      type: object
-      description: Registrar information for the domain, including IANA ID, name, WHOIS/RDAP servers, website, and contact details.
-      required: []
-      properties:
-        iana_id:
+          description: Registrant or owner name.
+        email:
           type:
           - string
           - 'null'
-          description: IANA (Internet Assigned Numbers Authority) ID of the registrar.
-        status:
+          description: Registrant email address.
+        company_name:
           type:
           - string
           - 'null'
-          description: Accreditation status of the registrar (e.g., 'accredited').
-        registrar_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the registrar managing the domain.
-        normalized_name:
-          type:
-          - string
-          - 'null'
-          description: Normalized (lowercase, stripped) registrar name.
-        whois_server:
-          type:
-          - string
-          - 'null'
-          description: WHOIS server of the registrar.
-        rdap_server:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: RDAP (Registration Data Access Protocol) server URL of the registrar.
-        website_url:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Website URL of the registrar.
-        email_address:
-          type:
-          - string
-          - 'null'
-          description: Contact or abuse email address of the registrar.
-        phone_number:
-          type:
-          - string
-          - 'null'
-          description: Contact phone number of the registrar.
+          description: Registrant company or organization name.
     DomainWhoisLookupResponse_2:
       type: object
       description: Current WHOIS registration record for the requested domain.
@@ -2349,6 +2349,190 @@ components:
           description: Raw WHOIS text as returned by the registrar's WHOIS server.
         registry_data:
           $ref: '#/components/schemas/DomainWhoisRegistryData'
+    InetNum:
+      type: object
+      description: IP range allocation record (inetnum object) containing the allocated block, network name, status, and organizational linkage.
+      required:
+      - start_ip
+      - end_ip
+      - cidr
+      - net_name
+      - source
+      properties:
+        start_ip:
+          type: string
+          description: Starting IP address of the allocated range.
+        end_ip:
+          type: string
+          description: Ending IP address of the allocated range.
+        cidr:
+          type: array
+          description: IP range in CIDR notation.
+          items:
+            type: string
+        net_name:
+          type: string
+          description: Network name (unique identifier) of this inetnum in WHOIS data.
+        net_handle:
+          type:
+          - string
+          - 'null'
+          description: Net-Handle (unique ID) of this inetnum, primarily from ARIN responses.
+        description:
+          type:
+          - array
+          - 'null'
+          description: Description values from the inetnum object.
+          items:
+            type: string
+        countries:
+          type:
+          - array
+          - 'null'
+          description: ISO 3166-1 alpha-2 country codes where the IP block is allocated.
+          items:
+            type: string
+        geofeed:
+          type:
+          - string
+          - 'null'
+          description: URL to the geofeed (RFC 8805) for this prefix.
+        latitude:
+          type:
+          - number
+          - 'null'
+          format: float
+          description: Latitude parsed from the geoloc field.
+        longitude:
+          type:
+          - number
+          - 'null'
+          format: float
+          description: Longitude parsed from the geoloc field.
+        city:
+          type:
+          - string
+          - 'null'
+          description: City of allocation, primarily from LACNIC responses.
+        languages:
+          type:
+          - array
+          - 'null'
+          description: Regional languages in countries of allocation.
+          items:
+            type: string
+        status:
+          type:
+          - string
+          - 'null'
+          description: Allocation or assignment status (e.g., 'Direct Allocation').
+        organization:
+          type:
+          - string
+          - 'null'
+          description: Handle (unique ID) of the organization managing this inetnum.
+        sponsoring_organization:
+          type:
+          - string
+          - 'null'
+          description: Handle of the sponsoring organization for this inetnum.
+        admin_contacts:
+          type:
+          - array
+          - 'null'
+          description: Handles of admin persons or roles in WHOIS data.
+          items:
+            type: string
+        tech_contacts:
+          type:
+          - array
+          - 'null'
+          description: Handles of technical persons or roles in WHOIS data.
+          items:
+            type: string
+        abuse_contacts:
+          type:
+          - array
+          - 'null'
+          description: Handles of abuse persons or roles in WHOIS data.
+          items:
+            type: string
+        remarks:
+          type:
+          - array
+          - 'null'
+          description: Remarks from the inetnum object.
+          items:
+            type: string
+        assignment_size:
+          type:
+          - string
+          - 'null'
+          description: Allocation or assignment size of the IP network or block.
+        notify:
+          type:
+          - array
+          - 'null'
+          description: Notify email addresses from the inetnum object.
+          items:
+            type: string
+        mnt_by:
+          type:
+          - array
+          - 'null'
+          description: Maintainer handles from the inetnum object.
+          items:
+            type: string
+        mnt_lower:
+          type:
+          - array
+          - 'null'
+          description: Lower-level maintainer handles from the inetnum object.
+          items:
+            type: string
+        mnt_domains:
+          type:
+          - array
+          - 'null'
+          description: Domain maintainer handles from the inetnum object.
+          items:
+            type: string
+        mnt_routes:
+          type:
+          - array
+          - 'null'
+          description: Route maintainer handles from the inetnum object.
+          items:
+            type: string
+        mnt_irt:
+          type:
+          - array
+          - 'null'
+          description: IRT maintainer handles from the inetnum object.
+          items:
+            type: string
+        date_created:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Registration date of this inetnum object (YYYY-MM-DD).
+        date_updated:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Last update date of this inetnum object (YYYY-MM-DD).
+        source:
+          type: string
+          description: WHOIS data source (RIR registry URL) for this object.
+        parents:
+          type:
+          - array
+          - 'null'
+          description: Parent allocation or assignment blocks of this inetnum.
+          items:
+            type: string
     IpWhoisOrganization:
       type: object
       description: Organization object containing the registrant's handle, name, address, contact details, and linked admin/tech/abuse contacts.
@@ -2710,334 +2894,6 @@ components:
           description: Abuse contacts linked to this IRT.
           items:
             $ref: '#/components/schemas/WhoisContactRef'
-    WhoisContactRef:
-      type: object
-      description: Contact person or role object with handle, name, email, phone, and source reference.
-      required:
-      - handle
-      - source
-      properties:
-        handle:
-          type: string
-          description: Handle or unique identifier of this contact in WHOIS data.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the contact person or role.
-        address:
-          type:
-          - array
-          - 'null'
-          description: Address lines for this contact.
-          items:
-            type: string
-        street:
-          type:
-          - string
-          - 'null'
-          description: Parsed street address from the address field.
-        city:
-          type:
-          - string
-          - 'null'
-          description: Parsed city from the address field.
-        district:
-          type:
-          - string
-          - 'null'
-          description: Parsed district from the address field.
-        state:
-          type:
-          - string
-          - 'null'
-          description: Parsed state from the address field.
-        zip_code:
-          type:
-          - string
-          - 'null'
-          description: Parsed ZIP code from the address field.
-        country:
-          type:
-          - string
-          - 'null'
-          description: Parsed country from the address field.
-        email:
-          type:
-          - array
-          - 'null'
-          description: Email addresses for this contact.
-          items:
-            type: string
-        abuse_mailbox:
-          type:
-          - array
-          - 'null'
-          description: Abuse mailbox email addresses for this contact.
-          items:
-            type: string
-        phone:
-          type:
-          - array
-          - 'null'
-          description: Phone numbers for this contact.
-          items:
-            type: string
-        fax_no:
-          type:
-          - array
-          - 'null'
-          description: Fax numbers for this contact.
-          items:
-            type: string
-        organizations:
-          type:
-          - array
-          - 'null'
-          description: Handles of organization objects managing this contact.
-          items:
-            type: string
-        admin_contacts:
-          type:
-          - array
-          - 'null'
-          description: Handles of admin persons or roles linked to this contact.
-          items:
-            type: string
-        tech_contacts:
-          type:
-          - array
-          - 'null'
-          description: Handles of technical persons or roles linked to this contact.
-          items:
-            type: string
-        remarks:
-          type:
-          - array
-          - 'null'
-          description: Remarks for this contact object.
-          items:
-            type: string
-        notify:
-          type:
-          - array
-          - 'null'
-          description: Notify email addresses for this contact object.
-          items:
-            type: string
-        mnt_by:
-          type:
-          - array
-          - 'null'
-          description: Maintainer handles for this contact object.
-          items:
-            type: string
-        mnt_ref:
-          type:
-          - array
-          - 'null'
-          description: Referenced maintainer handles for this contact object.
-          items:
-            type: string
-        date_created:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: Registration date of this contact object (YYYY-MM-DD).
-        date_updated:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: Last update date of this contact object (YYYY-MM-DD).
-        source:
-          type: string
-          description: WHOIS data source (RIR registry URL) for this object.
-    InetNum:
-      type: object
-      description: IP range allocation record (inetnum object) containing the allocated block, network name, status, and organizational linkage.
-      required:
-      - start_ip
-      - end_ip
-      - cidr
-      - net_name
-      - source
-      properties:
-        start_ip:
-          type: string
-          description: Starting IP address of the allocated range.
-        end_ip:
-          type: string
-          description: Ending IP address of the allocated range.
-        cidr:
-          type: array
-          description: IP range in CIDR notation.
-          items:
-            type: string
-        net_name:
-          type: string
-          description: Network name (unique identifier) of this inetnum in WHOIS data.
-        net_handle:
-          type:
-          - string
-          - 'null'
-          description: Net-Handle (unique ID) of this inetnum, primarily from ARIN responses.
-        description:
-          type:
-          - array
-          - 'null'
-          description: Description values from the inetnum object.
-          items:
-            type: string
-        countries:
-          type:
-          - array
-          - 'null'
-          description: ISO 3166-1 alpha-2 country codes where the IP block is allocated.
-          items:
-            type: string
-        geofeed:
-          type:
-          - string
-          - 'null'
-          description: URL to the geofeed (RFC 8805) for this prefix.
-        latitude:
-          type:
-          - number
-          - 'null'
-          format: float
-          description: Latitude parsed from the geoloc field.
-        longitude:
-          type:
-          - number
-          - 'null'
-          format: float
-          description: Longitude parsed from the geoloc field.
-        city:
-          type:
-          - string
-          - 'null'
-          description: City of allocation, primarily from LACNIC responses.
-        languages:
-          type:
-          - array
-          - 'null'
-          description: Regional languages in countries of allocation.
-          items:
-            type: string
-        status:
-          type:
-          - string
-          - 'null'
-          description: Allocation or assignment status (e.g., 'Direct Allocation').
-        organization:
-          type:
-          - string
-          - 'null'
-          description: Handle (unique ID) of the organization managing this inetnum.
-        sponsoring_organization:
-          type:
-          - string
-          - 'null'
-          description: Handle of the sponsoring organization for this inetnum.
-        admin_contacts:
-          type:
-          - array
-          - 'null'
-          description: Handles of admin persons or roles in WHOIS data.
-          items:
-            type: string
-        tech_contacts:
-          type:
-          - array
-          - 'null'
-          description: Handles of technical persons or roles in WHOIS data.
-          items:
-            type: string
-        abuse_contacts:
-          type:
-          - array
-          - 'null'
-          description: Handles of abuse persons or roles in WHOIS data.
-          items:
-            type: string
-        remarks:
-          type:
-          - array
-          - 'null'
-          description: Remarks from the inetnum object.
-          items:
-            type: string
-        assignment_size:
-          type:
-          - string
-          - 'null'
-          description: Allocation or assignment size of the IP network or block.
-        notify:
-          type:
-          - array
-          - 'null'
-          description: Notify email addresses from the inetnum object.
-          items:
-            type: string
-        mnt_by:
-          type:
-          - array
-          - 'null'
-          description: Maintainer handles from the inetnum object.
-          items:
-            type: string
-        mnt_lower:
-          type:
-          - array
-          - 'null'
-          description: Lower-level maintainer handles from the inetnum object.
-          items:
-            type: string
-        mnt_domains:
-          type:
-          - array
-          - 'null'
-          description: Domain maintainer handles from the inetnum object.
-          items:
-            type: string
-        mnt_routes:
-          type:
-          - array
-          - 'null'
-          description: Route maintainer handles from the inetnum object.
-          items:
-            type: string
-        mnt_irt:
-          type:
-          - array
-          - 'null'
-          description: IRT maintainer handles from the inetnum object.
-          items:
-            type: string
-        date_created:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: Registration date of this inetnum object (YYYY-MM-DD).
-        date_updated:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: Last update date of this inetnum object (YYYY-MM-DD).
-        source:
-          type: string
-          description: WHOIS data source (RIR registry URL) for this object.
-        parents:
-          type:
-          - array
-          - 'null'
-          description: Parent allocation or assignment blocks of this inetnum.
-          items:
-            type: string
     IpWhoisResponse:
       type: object
       description: WHOIS lookup response containing IP registration data, organization, contacts, routes, and raw WHOIS output.
@@ -3226,6 +3082,150 @@ components:
           - string
           - 'null'
           description: WHOIS data source for this route object.
+    WhoisContactRef:
+      type: object
+      description: Contact person or role object with handle, name, email, phone, and source reference.
+      required:
+      - handle
+      - source
+      properties:
+        handle:
+          type: string
+          description: Handle or unique identifier of this contact in WHOIS data.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the contact person or role.
+        address:
+          type:
+          - array
+          - 'null'
+          description: Address lines for this contact.
+          items:
+            type: string
+        street:
+          type:
+          - string
+          - 'null'
+          description: Parsed street address from the address field.
+        city:
+          type:
+          - string
+          - 'null'
+          description: Parsed city from the address field.
+        district:
+          type:
+          - string
+          - 'null'
+          description: Parsed district from the address field.
+        state:
+          type:
+          - string
+          - 'null'
+          description: Parsed state from the address field.
+        zip_code:
+          type:
+          - string
+          - 'null'
+          description: Parsed ZIP code from the address field.
+        country:
+          type:
+          - string
+          - 'null'
+          description: Parsed country from the address field.
+        email:
+          type:
+          - array
+          - 'null'
+          description: Email addresses for this contact.
+          items:
+            type: string
+        abuse_mailbox:
+          type:
+          - array
+          - 'null'
+          description: Abuse mailbox email addresses for this contact.
+          items:
+            type: string
+        phone:
+          type:
+          - array
+          - 'null'
+          description: Phone numbers for this contact.
+          items:
+            type: string
+        fax_no:
+          type:
+          - array
+          - 'null'
+          description: Fax numbers for this contact.
+          items:
+            type: string
+        organizations:
+          type:
+          - array
+          - 'null'
+          description: Handles of organization objects managing this contact.
+          items:
+            type: string
+        admin_contacts:
+          type:
+          - array
+          - 'null'
+          description: Handles of admin persons or roles linked to this contact.
+          items:
+            type: string
+        tech_contacts:
+          type:
+          - array
+          - 'null'
+          description: Handles of technical persons or roles linked to this contact.
+          items:
+            type: string
+        remarks:
+          type:
+          - array
+          - 'null'
+          description: Remarks for this contact object.
+          items:
+            type: string
+        notify:
+          type:
+          - array
+          - 'null'
+          description: Notify email addresses for this contact object.
+          items:
+            type: string
+        mnt_by:
+          type:
+          - array
+          - 'null'
+          description: Maintainer handles for this contact object.
+          items:
+            type: string
+        mnt_ref:
+          type:
+          - array
+          - 'null'
+          description: Referenced maintainer handles for this contact object.
+          items:
+            type: string
+        date_created:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Registration date of this contact object (YYYY-MM-DD).
+        date_updated:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Last update date of this contact object (YYYY-MM-DD).
+        source:
+          type: string
+          description: WHOIS data source (RIR registry URL) for this object.
   headers:
     X-AF-Credits-Cost:
       description: Specifies the number of credits consumed by the current request.

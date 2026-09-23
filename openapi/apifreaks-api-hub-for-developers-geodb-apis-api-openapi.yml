@@ -6,7 +6,7 @@ info:
     name: APIFreaks Support
     url: https://apifreaks.com/contact
     email: support@apifreaks.com
-  description: 'Operations tagged GeoDB APIs across 8 of this provider''s published API definitions: apifreaks-api-hub-for-developers-administrative-units-details-openapi.json, apifreaks-api-hub-for-developers-administrative-units-levels-openapi.json, apifreaks-api-hub-for-developers-administrative-units-openapi.json, apifreaks-api-hub-for-developers-cities-openapi.json, apifreaks-api-hub-for-developers-countries-details-openapi.json, apifreaks-api-hub-for-developers-countries-openapi.json, apifreaks-api-hub-for-developers-regions-openapi.json, apifreaks-api-hub-for-developers-subregions-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged GeoDB APIs across 8 of this provider''s published API definitions: apifreaks-api-hub-for-developers-administrative-units-details-openapi.json, apifreaks-api-hub-for-developers-administrative-units-levels-openapi.json, apifreaks-api-hub-for-developers-administrative-units-openapi.json, apifreaks-api-hub-for-developers-cities-openapi.json, apifreaks-api-hub-for-developers-countries-details-openapi.json, apifreaks-api-hub-for-developers-countries-openapi.json…'
 servers:
 - url: https://api.apifreaks.com/v1.0
   description: Admin Unit Details API Server
@@ -801,28 +801,6 @@ paths:
       description: Subregions API Server
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
     AdminUnitDetailsResponse:
       type: object
       description: Detailed information for a single administrative unit resolved from a country code and admin unit code.
@@ -851,6 +829,28 @@ components:
         country_name:
           type: string
           description: Name of the country.
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
     AdminLevelsResponse:
       type: object
       description: Response containing the distinct administrative level types defined for the requested country.
@@ -916,17 +916,6 @@ components:
           description: The ISO 3166-1 alpha-2 country code the city belongs to.
         admin_unit:
           $ref: '#/components/schemas/AdminUnit_2'
-    CitiesResponse:
-      type: object
-      description: Response containing every city for the requested country (optionally filtered by admin_unit), returned unpaginated in a single array.
-      required:
-      - cities
-      properties:
-        cities:
-          type: array
-          description: An array of city objects for the specified country, optionally filtered by admin unit.
-          items:
-            $ref: '#/components/schemas/CityItem'
     AdminUnit_2:
       type: object
       description: An object describing the administrative unit the city belongs to.
@@ -944,6 +933,17 @@ components:
         admin_level:
           type: string
           description: The administrative level type of the unit (e.g., province, council area).
+    CitiesResponse:
+      type: object
+      description: Response containing every city for the requested country (optionally filtered by admin_unit), returned unpaginated in a single array.
+      required:
+      - cities
+      properties:
+        cities:
+          type: array
+          description: An array of city objects for the specified country, optionally filtered by admin unit.
+          items:
+            $ref: '#/components/schemas/CityItem'
     CountryDetailsResponse:
       type: object
       description: Comprehensive metadata for a single country resolved from an ISO 3166-1 alpha-2 code.
@@ -1009,17 +1009,6 @@ components:
         currency_symbol:
           type: string
           description: The symbol of the currency used in the country.
-    CountriesResponse:
-      type: object
-      description: Response containing the list of countries matching the applied region/subregion filters (or all 250 when unfiltered).
-      required:
-      - countries
-      properties:
-        countries:
-          type: array
-          description: An array of country objects matching the applied filters.
-          items:
-            $ref: '#/components/schemas/CountryItem'
     CountryItem:
       type: object
       description: A country object containing ISO codes, capital, and region information.
@@ -1053,6 +1042,17 @@ components:
         subregion:
           type: string
           description: The more specific subregion the country belongs to. Empty string for a small number of territories with no assigned subregion.
+    CountriesResponse:
+      type: object
+      description: Response containing the list of countries matching the applied region/subregion filters (or all 250 when unfiltered).
+      required:
+      - countries
+      properties:
+        countries:
+          type: array
+          description: An array of country objects matching the applied filters.
+          items:
+            $ref: '#/components/schemas/CountryItem'
     RegionsResponse:
       type: object
       description: Response containing the flat list of geographical regions supported by the GeoDB service.

@@ -296,6 +296,25 @@ paths:
       description: Reverse Geocoding API Server
 components:
   schemas:
+    PointOfInterest:
+      type: object
+      description: A point of interest located at or near a geocoded result.
+      properties:
+        name:
+          type: string
+          description: Name of the point of interest.
+        category:
+          type: string
+          description: High-level category of the point of interest, e.g. amenity, place, natural, building, highway.
+        type:
+          type: string
+          description: Specific kind within the category, e.g. fast_food, city, park, residential, house_number.
+    ForwardGeocodeResponse:
+      type: array
+      title: Forward Geocoding Results
+      description: List of locations matching the search query, one entry per match, up to the number requested via `limit`.
+      items:
+        $ref: '#/components/schemas/GeocodeResponse'
     ErrorResponse:
       type: object
       required:
@@ -317,25 +336,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    PointOfInterest:
-      type: object
-      description: A point of interest located at or near a geocoded result.
-      properties:
-        name:
-          type: string
-          description: Name of the point of interest.
-        category:
-          type: string
-          description: High-level category of the point of interest, e.g. amenity, place, natural, building, highway.
-        type:
-          type: string
-          description: Specific kind within the category, e.g. fast_food, city, park, residential, house_number.
-    ForwardGeocodeResponse:
-      type: array
-      title: Forward Geocoding Results
-      description: List of locations matching the search query, one entry per match, up to the number requested via `limit`.
-      items:
-        $ref: '#/components/schemas/GeocodeResponse'
     GeocodeResponse:
       type: object
       description: A single geocoded location with coordinates and structured address components.

@@ -434,77 +434,6 @@ paths:
       description: Phone Validation API Server
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
-    BulkPhoneValidationResponse:
-      type: array
-      description: Array of per-number results, one entry per requested phone number that had a number field, in the same order as the request. Items missing number are silently omitted rather than erroring.
-      items:
-        $ref: '#/components/schemas/PhoneValidationResponse'
-    BulkPhoneNumberItem:
-      type: object
-      description: A single phone number entry in a bulk validation request.
-      required:
-      - number
-      properties:
-        number:
-          type: string
-          description: Phone number to validate.
-        region:
-          type: string
-          description: Two-letter ISO country code. Required for local format numbers.
-        dialer_region:
-          type: string
-          description: Two-letter ISO country code of the dialing origin. Required for IDD format numbers.
-    PhoneFormats:
-      type: object
-      description: Four standardized representations of the phone number.
-      properties:
-        E164:
-          type: string
-          description: Number in E.164 format.
-        International:
-          type: string
-          description: Human-readable international format.
-        National:
-          type: string
-          description: Local format as dialed within the country.
-        RFC3966:
-          type: string
-          description: URI format following RFC 3966.
-      required: []
-    BulkPhoneValidationRequest:
-      type: object
-      description: Request body for bulk phone validation.
-      required:
-      - numbers
-      properties:
-        numbers:
-          type: array
-          description: Array of phone number objects. Maximum 100 per request.
-          maxItems: 100
-          items:
-            $ref: '#/components/schemas/BulkPhoneNumberItem'
     PhoneRawInput:
       type: object
       description: Original request payload sent by the caller.
@@ -589,37 +518,76 @@ components:
       - raw_input
       - possible
       - valid
-    PhoneValidationRequest:
+    BulkPhoneValidationResponse:
+      type: array
+      description: Array of per-number results, one entry per requested phone number that had a number field, in the same order as the request. Items missing number are silently omitted rather than erroring.
+      items:
+        $ref: '#/components/schemas/PhoneValidationResponse'
+    BulkPhoneNumberItem:
       type: object
-      description: Request body for phone validation.
+      description: A single phone number entry in a bulk validation request.
       required:
       - number
       properties:
         number:
           type: string
-          description: Phone number to validate. Accepts international format (+14155552671), local format (4155552671) with region, or IDD format (0014155552671) with dialer_region.
+          description: Phone number to validate.
         region:
           type: string
-          description: Two-letter ISO country code (e.g., US, GB). Required when number is in local format without + prefix. Cannot be used together with dialer_region.
+          description: Two-letter ISO country code. Required for local format numbers.
         dialer_region:
           type: string
-          description: Two-letter ISO country code indicating the country the number is being dialed from. Required when number uses IDD exit code. Cannot be used together with region.
-    PhoneFormats_2:
+          description: Two-letter ISO country code of the dialing origin. Required for IDD format numbers.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+    BulkPhoneValidationRequest:
+      type: object
+      description: Request body for bulk phone validation.
+      required:
+      - numbers
+      properties:
+        numbers:
+          type: array
+          description: Array of phone number objects. Maximum 100 per request.
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/BulkPhoneNumberItem'
+    PhoneFormats:
       type: object
       description: Four standardized representations of the phone number.
       properties:
         E164:
           type: string
-          description: Number in E.164 format, the standard machine-readable format.
+          description: Number in E.164 format.
         International:
           type: string
-          description: Human-readable international format with country code.
+          description: Human-readable international format.
         National:
           type: string
           description: Local format as dialed within the country.
         RFC3966:
           type: string
-          description: 'URI format following RFC 3966 for tel: links.'
+          description: URI format following RFC 3966.
       required: []
     PhoneRawInput_2:
       type: object
@@ -636,6 +604,21 @@ components:
           description: ISO-2 country code of the dialing origin. Present when provided in the request.
       required:
       - number
+    PhoneValidationRequest:
+      type: object
+      description: Request body for phone validation.
+      required:
+      - number
+      properties:
+        number:
+          type: string
+          description: Phone number to validate. Accepts international format (+14155552671), local format (4155552671) with region, or IDD format (0014155552671) with dialer_region.
+        region:
+          type: string
+          description: Two-letter ISO country code (e.g., US, GB). Required when number is in local format without + prefix. Cannot be used together with dialer_region.
+        dialer_region:
+          type: string
+          description: Two-letter ISO country code indicating the country the number is being dialed from. Required when number uses IDD exit code. Cannot be used together with region.
     PhoneValidationResponse_2:
       type: object
       properties:
@@ -699,6 +682,23 @@ components:
       - raw_input
       - possible
       - valid
+    PhoneFormats_2:
+      type: object
+      description: Four standardized representations of the phone number.
+      properties:
+        E164:
+          type: string
+          description: Number in E.164 format, the standard machine-readable format.
+        International:
+          type: string
+          description: Human-readable international format with country code.
+        National:
+          type: string
+          description: Local format as dialed within the country.
+        RFC3966:
+          type: string
+          description: 'URI format following RFC 3966 for tel: links.'
+      required: []
   headers:
     X-AF-Credits-Cost:
       description: Specifies the number of credits consumed by the current request.

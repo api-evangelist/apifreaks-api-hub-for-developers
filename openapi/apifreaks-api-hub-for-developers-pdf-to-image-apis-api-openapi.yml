@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Convert PDF to JPG, PNG, TIFF, BMP & GIF PDF To Image APIs API
+  title: Convert PDF to JPG, PNG, TIFF, BMP & GIF PDF To Image APIs…
   version: 1.0.0
   description: Convert PDF pages to image format. Supports PNG, JPEG, and WebP output formats. Returns a task ID for tracking the conversion progress.
   contact:
@@ -344,11 +344,13 @@ paths:
           headers:
             X-AF-Credits-Cost:
               $ref: '#/components/headers/X-AF-Credits-Cost'
+      operationId: postPdfJpg
+      x-operation-id-source: derived
   /pdf/tif:
     post:
       tags:
       - PDF To Image APIs
-      summary: Convert a PDF file into a sequence of TIFF images.
+      summary: Convert a PDF file into a sequence of TIFF images
       description: This API converts a given PDF file into a sequence of TIFF images. The output images can be saved as a single TIFF file, or as a sequence of TIFF files.
       parameters:
       - name: format
@@ -501,6 +503,8 @@ paths:
           headers:
             X-AF-Credits-Cost:
               $ref: '#/components/headers/X-AF-Credits-Cost'
+      operationId: postPdfTif
+      x-operation-id-source: derived
   /pdf/bmp:
     post:
       tags:
@@ -658,6 +662,8 @@ paths:
           headers:
             X-AF-Credits-Cost:
               $ref: '#/components/headers/X-AF-Credits-Cost'
+      operationId: postPdfBmp
+      x-operation-id-source: derived
   /pdf/gif:
     post:
       tags:
@@ -816,8 +822,33 @@ paths:
           headers:
             X-AF-Credits-Cost:
               $ref: '#/components/headers/X-AF-Credits-Cost'
+      operationId: postPdfGif
+      x-operation-id-source: derived
 components:
   schemas:
+    PdfFileUploadRequest:
+      type: object
+      description: Multipart form-data request body containing the PDF file to process.
+      required: []
+      properties:
+        file:
+          type: string
+          format: binary
+          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
+    PDFResponse:
+      type: object
+      description: Response containing the task ID and input file IDs for a PDF processing task.
+      required:
+      - taskId
+      properties:
+        taskId:
+          type: string
+          description: Task ID of the requested task, used to check the task status.
+        inputIds:
+          type: array
+          items:
+            type: string
+          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -840,29 +871,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    PDFResponse:
-      type: object
-      description: Response containing the task ID and input file IDs for a PDF processing task.
-      required:
-      - taskId
-      properties:
-        taskId:
-          type: string
-          description: Task ID of the requested task, used to check the task status.
-        inputIds:
-          type: array
-          items:
-            type: string
-          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
-    PdfFileUploadRequest:
-      type: object
-      description: Multipart form-data request body containing the PDF file to process.
-      required: []
-      properties:
-        file:
-          type: string
-          format: binary
-          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
   headers:
     X-AF-Credits-Cost:
       description: Specifies the number of credits consumed by the current request.

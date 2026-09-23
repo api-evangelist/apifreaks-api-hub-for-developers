@@ -501,7 +501,7 @@ paths:
     post:
       tags:
       - PDF Security APIs
-      summary: Remove permission restrictions from a PDF while keeping it encrypted.
+      summary: Remove permission restrictions from a PDF while keeping it encrypted
       description: This API removes permission restrictions from a PDF while keeping it encrypted. If you want to remove all security (including encryption), use the `/pdf/decrypt` endpoint instead.
       parameters:
       - name: format
@@ -658,6 +658,30 @@ paths:
       description: PDF Unrestrict API Server
 components:
   schemas:
+    PdfFileUploadRequest:
+      type: object
+      description: Multipart form-data request body containing the PDF file to process.
+      required: []
+      properties:
+        file:
+          type: string
+          format: binary
+          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
+    PDFResponse:
+      type: object
+      required:
+      - taskId
+      - inputIds
+      properties:
+        taskId:
+          type: string
+          description: Task ID of the requested task, used to check the task status.
+        inputIds:
+          type: array
+          items:
+            type: string
+          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
+      description: Response containing the task ID and input file IDs for a PDF processing task.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -680,30 +704,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    PDFResponse:
-      type: object
-      required:
-      - taskId
-      - inputIds
-      properties:
-        taskId:
-          type: string
-          description: Task ID of the requested task, used to check the task status.
-        inputIds:
-          type: array
-          items:
-            type: string
-          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
-      description: Response containing the task ID and input file IDs for a PDF processing task.
-    PdfFileUploadRequest:
-      type: object
-      description: Multipart form-data request body containing the PDF file to process.
-      required: []
-      properties:
-        file:
-          type: string
-          format: binary
-          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
     PDFResponse_2:
       type: object
       description: Response containing the task ID and input file IDs for a PDF processing task.

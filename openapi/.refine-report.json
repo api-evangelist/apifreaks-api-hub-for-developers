@@ -370,7 +370,8 @@
     "tag 'PDF Template APIs' spans 2 source specs (apifreaks-api-hub-for-developers-pdf-generator-bulk-openapi.json, apifreaks-api-hub-for-developers-pdf-generator-openapi.json): per-path servers applied",
     "tag 'PDF Upload and Download APIs' spans 3 source specs (apifreaks-api-hub-for-developers-pdf-resource-download-openapi.json, apifreaks-api-hub-for-developers-pdf-resource-upload-binary-openapi.json, apifreaks-api-hub-for-developers-pdf-resource-upload-openapi.json): per-path servers applied",
     "tag 'SSL APIs' spans 2 source specs (apifreaks-api-hub-for-developers-ssl-certificate-chain-lookup-openapi.json, apifreaks-api-hub-for-developers-ssl-certificate-lookup-openapi.json): per-path servers applied",
-    "tag 'Timezone APIs' spans 2 source specs (apifreaks-api-hub-for-developers-timezone-converter-openapi.json, apifreaks-api-hub-for-developers-timezone-lookup-openapi.json): per-path servers applied"
+    "tag 'Timezone APIs' spans 2 source specs (apifreaks-api-hub-for-developers-timezone-converter-openapi.json, apifreaks-api-hub-for-developers-timezone-lookup-openapi.json): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "apifreaks-api-hub-for-developers-commodity-apis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -387,6 +388,7 @@
     "apifreaks-api-hub-for-developers-other-apis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "apifreaks-api-hub-for-developers-pdf-operations-apis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "apifreaks-api-hub-for-developers-pdf-security-apis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apifreaks-api-hub-for-developers-pdf-template-apis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "apifreaks-api-hub-for-developers-pdf-to-image-apis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "apifreaks-api-hub-for-developers-pdf-upload-and-download-apis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "apifreaks-api-hub-for-developers-phone-validation-apis-api-openapi.yml: previously refined output, superseded by openapi/_original/",

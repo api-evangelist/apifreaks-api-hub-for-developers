@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Astronomy API - Location Based Astronomy Data Other APIs API
   version: 1.0.0
-  description: 'Retrieve sunrise and sunset times, current position of the moon, and other astronomical data for any location and date. Supports lookup by city name or address (location), GPS coordinates (lat/long), an explicit IP address (ip), or the requester''s own client IP when none of those are provided. Returns comprehensive astronomy data including twilight times, blue hour, golden hour, sun and moon positions, distances, azimuths, and moon phase. The location object''s field set varies by lookup mode: address lookups return a location_string plus basic fields, coordinate lookups return the same basic fields without location_string, and IP-based lookups (explicit ip or client-IP fallback) return a richer geo-IP field set (continent, country codes, EU membership, state code, district, zip code) plus a top-level ip field, but never location_string. Pass time_zone to convert all time fields into a specific IANA time zone.'
+  description: Retrieve sunrise and sunset times, current position of the moon, and other astronomical data for any location and date.
   contact:
     name: APIFreaks Support
     url: https://apifreaks.com/contact
@@ -20,7 +20,7 @@ paths:
     get:
       tags:
       - Other APIs
-      summary: Returns sunrise, sunset, moon phase, and celestial positions for a given location and date.
+      summary: Returns sunrise, sunset, moon phase, and celestial positions for a given…
       description: Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
       operationId: getAstronomyData
       parameters:
@@ -333,28 +333,64 @@ paths:
               $ref: '#/components/headers/X-AF-Credits-Cost'
 components:
   schemas:
-    ErrorResponse:
+    AstronomyMorning:
       type: object
-      description: Standard error envelope returned by the API on failed requests.
+      description: Morning astronomical data including twilight, blue hour, and golden hour times.
       required:
-      - message
+      - astronomical_twilight_begin
+      - astronomical_twilight_end
+      - nautical_twilight_begin
+      - nautical_twilight_end
+      - civil_twilight_begin
+      - civil_twilight_end
+      - blue_hour_begin
+      - blue_hour_end
+      - golden_hour_begin
+      - golden_hour_end
       properties:
-        error:
+        astronomical_twilight_begin:
           type: string
-          description: Short error category or exception type.
-        message:
+          description: The start time of astronomical twilight in the morning
+        astronomical_twilight_end:
           type: string
-          description: Human-readable error message describing the failure.
-        path:
+          description: The end time of astronomical twilight in the morning
+        nautical_twilight_begin:
           type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
+          description: The start time of nautical twilight in the morning
+        nautical_twilight_end:
           type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
+          description: The end time of nautical twilight in the morning
+        civil_twilight_begin:
+          type: string
+          description: The start time of civil twilight in the morning
+        civil_twilight_end:
+          type: string
+          description: The end time of civil twilight in the morning
+        blue_hour_begin:
+          type: string
+          description: The beginning of the blue hour in the morning
+        blue_hour_end:
+          type: string
+          description: The end of the blue hour in the morning
+        golden_hour_begin:
+          type: string
+          description: The beginning of the golden hour in the morning
+        golden_hour_end:
+          type: string
+          description: The end of the golden hour in the morning
+    AstronomyResponse:
+      type: object
+      required:
+      - astronomy
+      properties:
+        ip:
+          type: string
+          description: IPv4 or IPv6 address used for the geo-IP lookup. Present when the ip parameter is passed explicitly, or when no location, lat/long, or ip parameter is supplied at all (the API falls back to the requesting client's IP address). Absent when location or lat/long is used.
+        location:
+          $ref: '#/components/schemas/AstronomyLocation'
+        astronomy:
+          $ref: '#/components/schemas/AstronomyData'
+      description: Astronomy data response containing location information and astronomical data.
     AstronomyEvening:
       type: object
       description: Evening astronomical data including golden hour, blue hour, and twilight times.
@@ -400,19 +436,6 @@ components:
         astronomical_twilight_end:
           type: string
           description: The end of astronomical twilight in the evening
-    AstronomyResponse:
-      type: object
-      required:
-      - astronomy
-      properties:
-        ip:
-          type: string
-          description: IPv4 or IPv6 address used for the geo-IP lookup. Present when the ip parameter is passed explicitly, or when no location, lat/long, or ip parameter is supplied at all (the API falls back to the requesting client's IP address). Absent when location or lat/long is used.
-        location:
-          $ref: '#/components/schemas/AstronomyLocation'
-        astronomy:
-          $ref: '#/components/schemas/AstronomyData'
-      description: Astronomy data response containing location information and astronomical data.
     AstronomyLocation:
       type: object
       description: 'Geographic location information for the astronomy calculation. The set of populated fields depends on which lookup mode the request used: (1) location param (geocode-by-address) returns location_string plus a basic field set (country_name, state_prov, city, locality, latitude, longitude, elevation); (2) lat + long params (geocode-by-coordinates) returns the same basic field set minus location_string, and locality may be an empty string when the coordinates don''t resolve to a named sub-area; (3) ip param, or no location/lat/long/ip param at all (falls back to geo-IP lookup of the client''s IP), returns the full geo-IP field set — continent_code, continent_name, country_code2, country_code3, country_name_official, is_eu, state_code, district, zipcode — in addition to the basic fields, but never location_string. elevation can be an empty string when elevation data is unavailable for the resolved location.'
@@ -471,51 +494,6 @@ components:
       required:
       - latitude
       - longitude
-    AstronomyMorning:
-      type: object
-      description: Morning astronomical data including twilight, blue hour, and golden hour times.
-      required:
-      - astronomical_twilight_begin
-      - astronomical_twilight_end
-      - nautical_twilight_begin
-      - nautical_twilight_end
-      - civil_twilight_begin
-      - civil_twilight_end
-      - blue_hour_begin
-      - blue_hour_end
-      - golden_hour_begin
-      - golden_hour_end
-      properties:
-        astronomical_twilight_begin:
-          type: string
-          description: The start time of astronomical twilight in the morning
-        astronomical_twilight_end:
-          type: string
-          description: The end time of astronomical twilight in the morning
-        nautical_twilight_begin:
-          type: string
-          description: The start time of nautical twilight in the morning
-        nautical_twilight_end:
-          type: string
-          description: The end time of nautical twilight in the morning
-        civil_twilight_begin:
-          type: string
-          description: The start time of civil twilight in the morning
-        civil_twilight_end:
-          type: string
-          description: The end time of civil twilight in the morning
-        blue_hour_begin:
-          type: string
-          description: The beginning of the blue hour in the morning
-        blue_hour_end:
-          type: string
-          description: The end of the blue hour in the morning
-        golden_hour_begin:
-          type: string
-          description: The beginning of the golden hour in the morning
-        golden_hour_end:
-          type: string
-          description: The end of the golden hour in the morning
     AstronomyData:
       type: object
       description: Complete astronomical data for the specified location and date.
@@ -630,6 +608,28 @@ components:
           type: number
           format: float
           description: The geometric angle of the moon relative to the observer
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
   headers:
     X-AF-Credits-Cost:
       description: Specifies the number of credits consumed by the current request.

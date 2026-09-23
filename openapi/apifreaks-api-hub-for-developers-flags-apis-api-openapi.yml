@@ -206,6 +206,11 @@ paths:
       description: Supported Flags API Server
 components:
   schemas:
+    ApiResponseSchemas:
+      type: string
+      format: binary
+      title: Flag Image Response
+      description: The flag image returned as raw binary data in the requested format (not JSON). Content-Type is one of image/png, image/webp, or image/svg+xml depending on the format parameter.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests. path and timestamp formatting differ between the missing-parameter case (versioned path, Z-suffixed timestamp) and the invalid-value/not-found cases (unversioned path, offset timestamp with microseconds), since this endpoint is served by a different backend than most of the API.
@@ -228,11 +233,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    ApiResponseSchemas:
-      type: string
-      format: binary
-      title: Flag Image Response
-      description: The flag image returned as raw binary data in the requested format (not JSON). Content-Type is one of image/png, image/webp, or image/svg+xml depending on the format parameter.
     SupportedFlagsResponse:
       type: object
       description: The full list of country and organization flag identifiers supported by the Flags API.

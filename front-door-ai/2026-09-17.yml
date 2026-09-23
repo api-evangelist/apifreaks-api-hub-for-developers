@@ -1,0 +1,31 @@
+# Front Door AI Index — apifreaks-api-hub-for-developers — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: apifreaks-api-hub-for-developers
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: apifreaks.com
+  final_host: apifreaks.com
+  ownership: own
+  owner: apifreaks-api-hub-for-developers
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 6
+  host_score: 6
+  density: 3.6
+  words: 1666
+  tiers:
+    agentic: 3
+    core: 0
+    model: 3
+  ambiguous: 14
+  top_terms:
+    agent: 8
+    intelligence: 6
+    MCP: 2
+    ChatGPT: 1
+    Claude: 1
+    OpenAI: 1
+    llms.txt: 1

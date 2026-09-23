@@ -6,7 +6,7 @@ info:
     name: APIFreaks Support
     url: https://apifreaks.com/contact
     email: support@apifreaks.com
-  description: 'Operations tagged Weather APIs across 8 of this provider''s published API definitions: apifreaks-api-hub-for-developers-air-quality-openapi.json, apifreaks-api-hub-for-developers-bulk-live-weather-openapi.json, apifreaks-api-hub-for-developers-flood-forecast-openapi.json, apifreaks-api-hub-for-developers-historical-weather-openapi.json, apifreaks-api-hub-for-developers-live-weather-openapi.json, apifreaks-api-hub-for-developers-marine-weather-openapi.json, apifreaks-api-hub-for-developers-time-series-weather-openapi.json, apifreaks-api-hub-for-developers-weather-forecast-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Weather APIs across 8 of this provider''s published API definitions: apifreaks-api-hub-for-developers-air-quality-openapi.json, apifreaks-api-hub-for-developers-bulk-live-weather-openapi.json, apifreaks-api-hub-for-developers-flood-forecast-openapi.json, apifreaks-api-hub-for-developers-historical-weather-openapi.json, apifreaks-api-hub-for-developers-live-weather-openapi.json, apifreaks-api-hub-for-developers-marine-weather-openapi.json…'
 servers:
 - url: https://api.apifreaks.com/v1.0/weather
   description: Air Quality API Server
@@ -829,7 +829,7 @@ paths:
     get:
       tags:
       - Weather APIs
-      summary: Retrieve historical weather conditions for a specific past date and location, coordinates, or IP address
+      summary: Retrieve historical weather conditions for a specific past date and location…
       description: Return daily aggregate or hourly weather readings plus astronomy data for a single past date going back to 1940, resolved by city/address, GPS coordinates, or IP address.
       operationId: getHistoricalData
       parameters:
@@ -1982,6 +1982,85 @@ paths:
       description: Weather Forecast API Server
 components:
   schemas:
+    AirQualityForecast:
+      type: object
+      description: Forecast data object keyed by date (YYYY-MM-DD), one key per day in the requested startDate/endDate range. The key names are dynamic dates, not a fixed schema property.
+      additionalProperties:
+        $ref: '#/components/schemas/AirQualityForecastDay'
+    AirQualityForecastDay:
+      type: object
+      description: Air quality forecast data for a single day, containing hourly readings.
+      required:
+      - hourly
+      properties:
+        hourly:
+          type: array
+          description: Array of hourly air quality readings for this day.
+          items:
+            $ref: '#/components/schemas/AirQualityHourly'
+    LocationByCoordinates:
+      type: object
+      required:
+      - latitude
+      - longitude
+      - country_name
+      - state_prov
+      - city
+      - timezone
+      - timezone_abbreviation
+      properties:
+        latitude:
+          type: string
+          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
+        longitude:
+          type: string
+          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
+        country_name:
+          type: string
+          description: Full name of the country corresponding to the provided coordinates.
+        state_prov:
+          type: string
+          description: State, province, or primary administrative division name for the location.
+        city:
+          type: string
+          description: City or municipal area name associated with the coordinate location.
+        locality:
+          type: string
+          description: Specific locality, neighborhood, district, or village name within the broader area.
+        elevation:
+          type: string
+          description: Height above mean sea level in meters for the specified coordinates. Returned as a string, not a number, and can be an empty string when unavailable.
+        timezone:
+          type: string
+          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
+        timezone_abbreviation:
+          type: string
+          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
+      description: Location data when the target is specified by GPS coordinates (lat/long).
+    WeatherLocation:
+      type: object
+      description: Location information
+      oneOf:
+      - description: Location data when the target is specified by GPS coordinates (lat/long).
+        $ref: '#/components/schemas/LocationByCoordinates'
+      - description: Location data when the target is inferred from an IP address.
+        $ref: '#/components/schemas/LocationByIP'
+      - description: Location data when the target is specified by a city name or address string.
+        $ref: '#/components/schemas/LocationByAddress'
+    AirQualityResponse:
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/WeatherLocation'
+        current:
+          $ref: '#/components/schemas/AirQuality'
+          description: Current air quality data, present when the request omits startDate/endDate.
+        forecast:
+          $ref: '#/components/schemas/AirQualityForecast'
+          description: Date-keyed forecast data, present when the request includes startDate/endDate.
+      required:
+      - location
+      description: Air quality response containing location data plus either current observations or date-keyed forecast data. current and forecast are mutually exclusive — a single request never returns both.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -2004,60 +2083,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    AirQualityHourly:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: ISO 8601 formatted timestamp
-        pm10:
-          type: number
-          description: Concentration of particulate matter ≤10 micrometers (μg/m³)
-        carbon_monoxide:
-          type: number
-          description: Concentration of carbon monoxide (μg/m³)
-        pm2_5:
-          type: number
-          description: Concentration of particulate matter ≤2.5 micrometers (μg/m³)
-        carbon_dioxide:
-          type: number
-          description: Concentration of carbon dioxide (ppm)
-        nitrogen_dioxide:
-          type: number
-          description: Concentration of nitrogen dioxide (μg/m³)
-        sulphur_dioxide:
-          type: number
-          description: Concentration of sulphur dioxide (μg/m³)
-        ozone:
-          type: number
-          description: Concentration of ozone (μg/m³)
-        dust:
-          type: number
-          description: Concentration of dust particles (μg/m³)
-        uv_index:
-          type: number
-          description: Ultraviolet radiation index
-        aerosol_optical_depth:
-          type: number
-          description: Aerosol optical depth
-        uv_index_clear_sky:
-          type: number
-          description: Ultraviolet radiation index under clear sky conditions
-      required:
-      - timestamp
-      - pm10
-      - carbon_monoxide
-      - pm2_5
-      - carbon_dioxide
-      - nitrogen_dioxide
-      - sulphur_dioxide
-      - ozone
-      - dust
-      - uv_index
-      - aerosol_optical_depth
-      - uv_index_clear_sky
-      description: Hourly air quality forecast reading with pollutant concentrations and UV index.
     AirQuality:
       type: object
       required:
@@ -2126,16 +2151,6 @@ components:
           format: float
           description: Ultraviolet radiation intensity index assuming cloud-free conditions.
       description: Air quality metrics including European and US AQI indices plus individual pollutant concentrations.
-    WeatherLocation:
-      type: object
-      description: Location information
-      oneOf:
-      - description: Location data when the target is specified by GPS coordinates (lat/long).
-        $ref: '#/components/schemas/LocationByCoordinates'
-      - description: Location data when the target is inferred from an IP address.
-        $ref: '#/components/schemas/LocationByIP'
-      - description: Location data when the target is specified by a city name or address string.
-        $ref: '#/components/schemas/LocationByAddress'
     LocationByAddress:
       type: object
       required:
@@ -2179,59 +2194,6 @@ components:
           type: string
           description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
       description: Location data when the target is specified by a city name or address string.
-    AirQualityResponse:
-      type: object
-      properties:
-        location:
-          $ref: '#/components/schemas/WeatherLocation'
-        current:
-          $ref: '#/components/schemas/AirQuality'
-          description: Current air quality data, present when the request omits startDate/endDate.
-        forecast:
-          $ref: '#/components/schemas/AirQualityForecast'
-          description: Date-keyed forecast data, present when the request includes startDate/endDate.
-      required:
-      - location
-      description: Air quality response containing location data plus either current observations or date-keyed forecast data. current and forecast are mutually exclusive — a single request never returns both.
-    LocationByCoordinates:
-      type: object
-      required:
-      - latitude
-      - longitude
-      - country_name
-      - state_prov
-      - city
-      - timezone
-      - timezone_abbreviation
-      properties:
-        latitude:
-          type: string
-          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
-        longitude:
-          type: string
-          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
-        country_name:
-          type: string
-          description: Full name of the country corresponding to the provided coordinates.
-        state_prov:
-          type: string
-          description: State, province, or primary administrative division name for the location.
-        city:
-          type: string
-          description: City or municipal area name associated with the coordinate location.
-        locality:
-          type: string
-          description: Specific locality, neighborhood, district, or village name within the broader area.
-        elevation:
-          type: string
-          description: Height above mean sea level in meters for the specified coordinates. Returned as a string, not a number, and can be an empty string when unavailable.
-        timezone:
-          type: string
-          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
-        timezone_abbreviation:
-          type: string
-          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
-      description: Location data when the target is specified by GPS coordinates (lat/long).
     LocationByIP:
       type: object
       required:
@@ -2303,34 +2265,207 @@ components:
           type: string
           description: Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
       description: Location data when the target is inferred from an IP address.
-    AirQualityForecastDay:
+    AirQualityHourly:
       type: object
-      description: Air quality forecast data for a single day, containing hourly readings.
-      required:
-      - hourly
       properties:
-        hourly:
-          type: array
-          description: Array of hourly air quality readings for this day.
-          items:
-            $ref: '#/components/schemas/AirQualityHourly'
-    AirQualityForecast:
-      type: object
-      description: Forecast data object keyed by date (YYYY-MM-DD), one key per day in the requested startDate/endDate range. The key names are dynamic dates, not a fixed schema property.
-      additionalProperties:
-        $ref: '#/components/schemas/AirQualityForecastDay'
-    CurrentWeatherResponse:
-      type: object
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 formatted timestamp
+        pm10:
+          type: number
+          description: Concentration of particulate matter ≤10 micrometers (μg/m³)
+        carbon_monoxide:
+          type: number
+          description: Concentration of carbon monoxide (μg/m³)
+        pm2_5:
+          type: number
+          description: Concentration of particulate matter ≤2.5 micrometers (μg/m³)
+        carbon_dioxide:
+          type: number
+          description: Concentration of carbon dioxide (ppm)
+        nitrogen_dioxide:
+          type: number
+          description: Concentration of nitrogen dioxide (μg/m³)
+        sulphur_dioxide:
+          type: number
+          description: Concentration of sulphur dioxide (μg/m³)
+        ozone:
+          type: number
+          description: Concentration of ozone (μg/m³)
+        dust:
+          type: number
+          description: Concentration of dust particles (μg/m³)
+        uv_index:
+          type: number
+          description: Ultraviolet radiation index
+        aerosol_optical_depth:
+          type: number
+          description: Aerosol optical depth
+        uv_index_clear_sky:
+          type: number
+          description: Ultraviolet radiation index under clear sky conditions
       required:
-      - location
-      - current
+      - timestamp
+      - pm10
+      - carbon_monoxide
+      - pm2_5
+      - carbon_dioxide
+      - nitrogen_dioxide
+      - sulphur_dioxide
+      - ozone
+      - dust
+      - uv_index
+      - aerosol_optical_depth
+      - uv_index_clear_sky
+      description: Hourly air quality forecast reading with pollutant concentrations and UV index.
+    BulkLocationItem:
+      type: object
+      description: 'Each object specifies one location using exactly one of the supported lookup methods: location alone, lat+long together, or ip alone. None of these fields is required at the schema level — an item missing all of them is still accepted by the request, but resolves to a per-item error object in the response (see BulkCurrentResponse) rather than failing the whole request.'
       properties:
         location:
-          $ref: '#/components/schemas/WeatherLocation_2'
-        current:
-          $ref: '#/components/schemas/CurrentWeather'
-          description: Current weather data
-      description: Current weather response containing location data and current weather conditions.
+          type: string
+          description: City name, place name, or full address
+        lat:
+          type: number
+          description: Latitude
+        long:
+          type: number
+          description: Longitude
+        ip:
+          type: string
+          description: IP address
+    LocationByCoordinates_2:
+      type: object
+      required:
+      - latitude
+      - longitude
+      - country_name
+      - state_prov
+      - city
+      - timezone
+      - timezone_abbreviation
+      properties:
+        latitude:
+          type: string
+          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
+        longitude:
+          type: string
+          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
+        country_name:
+          type: string
+          description: Full name of the country corresponding to the provided coordinates.
+        state_prov:
+          type: string
+          description: State, province, or primary administrative division name for the location.
+        city:
+          type: string
+          description: City or municipal area name associated with the coordinate location.
+        locality:
+          type: string
+          description: Specific locality, neighborhood, district, or village name within the broader area.
+        elevation:
+          type: string
+          description: Height above mean sea level in meters for the specified coordinates. Returned as a string, not a number; can be an empty string when unavailable.
+        timezone:
+          type: string
+          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
+        timezone_abbreviation:
+          type: string
+          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
+      description: Location data when the target is specified by GPS coordinates (lat/long).
+    BulkCurrentResponse:
+      type: object
+      required:
+      - bulk
+      properties:
+        bulk:
+          type: array
+          items:
+            oneOf:
+            - description: A successfully resolved location's weather result.
+              $ref: '#/components/schemas/CurrentWeatherResponse'
+            - description: Returned in place of a weather result when that location could not be resolved (missing fields, unrecognized address, etc). Does not fail the request, even when every item in the batch errors.
+              $ref: '#/components/schemas/BulkWeatherItemError'
+          description: Array of per-location results, one entry per requested location, in the same order as the request. Each entry is either a full weather result or a per-item error object.
+      description: Bulk weather response containing an array of per-location current weather results.
+    Astronomy:
+      type: object
+      required:
+      - date
+      - mid_night
+      - night_end
+      - sunrise
+      - solar_noon
+      - sunset
+      - night_begin
+      - day_length
+      - sun_status
+      - moon_phase
+      - moonrise
+      - moonset
+      - moon_status
+      properties:
+        date:
+          type: string
+          format: date
+          description: Calendar date in YYYY-MM-DD format for the astronomical data.
+        mid_night:
+          type: string
+          description: Time of true solar midnight in HH:MM format.
+        night_end:
+          type: string
+          description: Time when astronomical twilight ends and dawn begins in HH:MM format.
+        sunrise:
+          type: string
+          description: Time when the Sun becomes visible above the horizon in HH:MM format.
+        solar_noon:
+          type: string
+          description: Time when the Sun reaches its highest point in the sky in HH:MM format.
+        sunset:
+          type: string
+          description: Time when the Sun disappears below the horizon in HH:MM format.
+        night_begin:
+          type: string
+          description: Time when astronomical twilight begins and night starts in HH:MM format.
+        day_length:
+          type: string
+          description: Total duration of daylight in HH:MM format.
+        sun_status:
+          type: string
+          description: Current position of the Sun relative to the horizon (above_horizon, below_horizon, or -).
+        moon_phase:
+          type: string
+          description: Current lunar phase (NEW_MOON, WAXING_CRESCENT, FULL_MOON, WANING_GIBBOUS, etc.).
+        moonrise:
+          type: string
+          description: Time when the Moon becomes visible above the horizon in HH:MM format.
+        moonset:
+          type: string
+          description: Time when the Moon disappears below the horizon in HH:MM format.
+        moon_status:
+          type: string
+          description: Current visibility status of the Moon (visible, not_visible, or -).
+      description: Astronomical data including sunrise, sunset, solar noon, day length, moon phase, and moon times.
+    BulkWeatherItemError:
+      type: object
+      description: Per-item error, returned in place of a weather result when an individual location could not be resolved.
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: Human-readable reason this location could not be resolved (e.g. "Location not found", "Missing required location parameters").
+    WeatherLocation_2:
+      type: object
+      description: Location information. The shape of this object varies by lookup method.
+      oneOf:
+      - description: Location data when the target is specified by GPS coordinates (lat/long).
+        $ref: '#/components/schemas/LocationByCoordinates_2'
+      - description: Location data when the target is inferred from an IP address.
+        $ref: '#/components/schemas/LocationByIP_2'
+      - description: Location data when the target is specified by a city name or address string.
+        $ref: '#/components/schemas/LocationByAddress_2'
     BulkCurrentRequest:
       type: object
       properties:
@@ -2343,16 +2478,132 @@ components:
       required:
       - locations
       description: Request body for bulk live weather lookup, containing an array of location specifications.
-    WeatherLocation_2:
+    CurrentWeatherResponse:
       type: object
-      description: Location information. The shape of this object varies by lookup method.
-      oneOf:
-      - description: Location data when the target is specified by GPS coordinates (lat/long).
-        $ref: '#/components/schemas/LocationByCoordinates_2'
-      - description: Location data when the target is inferred from an IP address.
-        $ref: '#/components/schemas/LocationByIP_2'
-      - description: Location data when the target is specified by a city name or address string.
-        $ref: '#/components/schemas/LocationByAddress_2'
+      required:
+      - location
+      - current
+      properties:
+        location:
+          $ref: '#/components/schemas/WeatherLocation_2'
+        current:
+          $ref: '#/components/schemas/CurrentWeather'
+          description: Current weather data
+      description: Current weather response containing location data and current weather conditions.
+    LocationByAddress_2:
+      type: object
+      required:
+      - location_string
+      - country_name
+      - state_prov
+      - city
+      - latitude
+      - longitude
+      - timezone
+      - timezone_abbreviation
+      properties:
+        location_string:
+          type: string
+          description: Original location query string as submitted, including full address or place name.
+        country_name:
+          type: string
+          description: Resolved country name derived from the geocoded location query.
+        state_prov:
+          type: string
+          description: State, province, or primary administrative division identified from the location.
+        city:
+          type: string
+          description: City or municipal area name extracted from the geocoded location.
+        locality:
+          type: string
+          description: Specific locality, neighborhood, suburb, or village within the geocoded area.
+        latitude:
+          type: string
+          description: Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90. Returned as a string, not a number.
+        longitude:
+          type: string
+          description: Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180. Returned as a string, not a number.
+        elevation:
+          type: string
+          description: Elevation above mean sea level in meters at the geocoded coordinates. Returned as a string, not a number; can be an empty string when unavailable.
+        timezone:
+          type: string
+          description: IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
+        timezone_abbreviation:
+          type: string
+          description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
+      description: Location data when the target is specified by a city name or address string.
+    LocationByIP_2:
+      type: object
+      required:
+      - continent_code
+      - continent_name
+      - country_code2
+      - country_code3
+      - country_name
+      - country_name_official
+      - state_prov
+      - city
+      - latitude
+      - longitude
+      - timezone
+      - timezone_abbreviation
+      properties:
+        continent_code:
+          type: string
+          description: Two-letter continent code (e.g., NA for North America, EU for Europe, AS for Asia).
+        continent_name:
+          type: string
+          description: Full name of the continent where the IP address is registered.
+        country_code2:
+          type: string
+          description: ISO 3166-1 alpha-2 two-letter country code (e.g., US, GB, FR).
+        country_code3:
+          type: string
+          description: ISO 3166-1 alpha-3 three-letter country code (e.g., USA, GBR, FRA).
+        country_name:
+          type: string
+          description: Common name of the country associated with the IP address.
+        country_name_official:
+          type: string
+          description: Official long-form country name as recognized internationally (e.g., United States of America).
+        is_eu:
+          type: boolean
+          description: Boolean flag indicating whether the country is a member state of the European Union.
+        state_prov:
+          type: string
+          description: State, province, or primary administrative division associated with the IP location.
+        state_code:
+          type: string
+          description: ISO 3166-2 subdivision code for the state or province (e.g., CA for California).
+        district:
+          type: string
+          description: District, county, or secondary administrative division within the region.
+        city:
+          type: string
+          description: City or urban area name where the IP address is geographically registered.
+        zipcode:
+          type: string
+          description: Postal code or ZIP code for the approximate location of the IP address.
+        latitude:
+          type: string
+          description: Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90. Returned as a string, not a number.
+        longitude:
+          type: string
+          description: Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180. Returned as a string, not a number.
+        locality:
+          type: string
+          description: Specific locality, neighborhood, or small area designation within the city.
+        elevation:
+          type: string
+          description: Elevation above mean sea level in meters for the IP geolocation. Returned as a string, not a number; can be an empty string when unavailable.
+        timezone:
+          type: string
+          description: IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
+        timezone_abbreviation:
+          type: string
+          description: Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
+      description: Location data when the target is inferred from an IP address.
     CurrentWeather:
       type: object
       required:
@@ -2468,139 +2719,7 @@ components:
           $ref: '#/components/schemas/AirQuality'
           description: Air quality metrics including pollutant concentrations and AQI values.
       description: Current weather conditions including temperature, humidity, precipitation, wind, pressure, astronomy, and air quality.
-    LocationByAddress_2:
-      type: object
-      required:
-      - location_string
-      - country_name
-      - state_prov
-      - city
-      - latitude
-      - longitude
-      - timezone
-      - timezone_abbreviation
-      properties:
-        location_string:
-          type: string
-          description: Original location query string as submitted, including full address or place name.
-        country_name:
-          type: string
-          description: Resolved country name derived from the geocoded location query.
-        state_prov:
-          type: string
-          description: State, province, or primary administrative division identified from the location.
-        city:
-          type: string
-          description: City or municipal area name extracted from the geocoded location.
-        locality:
-          type: string
-          description: Specific locality, neighborhood, suburb, or village within the geocoded area.
-        latitude:
-          type: string
-          description: Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90. Returned as a string, not a number.
-        longitude:
-          type: string
-          description: Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180. Returned as a string, not a number.
-        elevation:
-          type: string
-          description: Elevation above mean sea level in meters at the geocoded coordinates. Returned as a string, not a number; can be an empty string when unavailable.
-        timezone:
-          type: string
-          description: IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
-        timezone_abbreviation:
-          type: string
-          description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
-      description: Location data when the target is specified by a city name or address string.
-    Astronomy:
-      type: object
-      required:
-      - date
-      - mid_night
-      - night_end
-      - sunrise
-      - solar_noon
-      - sunset
-      - night_begin
-      - day_length
-      - sun_status
-      - moon_phase
-      - moonrise
-      - moonset
-      - moon_status
-      properties:
-        date:
-          type: string
-          format: date
-          description: Calendar date in YYYY-MM-DD format for the astronomical data.
-        mid_night:
-          type: string
-          description: Time of true solar midnight in HH:MM format.
-        night_end:
-          type: string
-          description: Time when astronomical twilight ends and dawn begins in HH:MM format.
-        sunrise:
-          type: string
-          description: Time when the Sun becomes visible above the horizon in HH:MM format.
-        solar_noon:
-          type: string
-          description: Time when the Sun reaches its highest point in the sky in HH:MM format.
-        sunset:
-          type: string
-          description: Time when the Sun disappears below the horizon in HH:MM format.
-        night_begin:
-          type: string
-          description: Time when astronomical twilight begins and night starts in HH:MM format.
-        day_length:
-          type: string
-          description: Total duration of daylight in HH:MM format.
-        sun_status:
-          type: string
-          description: Current position of the Sun relative to the horizon (above_horizon, below_horizon, or -).
-        moon_phase:
-          type: string
-          description: Current lunar phase (NEW_MOON, WAXING_CRESCENT, FULL_MOON, WANING_GIBBOUS, etc.).
-        moonrise:
-          type: string
-          description: Time when the Moon becomes visible above the horizon in HH:MM format.
-        moonset:
-          type: string
-          description: Time when the Moon disappears below the horizon in HH:MM format.
-        moon_status:
-          type: string
-          description: Current visibility status of the Moon (visible, not_visible, or -).
-      description: Astronomical data including sunrise, sunset, solar noon, day length, moon phase, and moon times.
-    BulkLocationItem:
-      type: object
-      description: 'Each object specifies one location using exactly one of the supported lookup methods: location alone, lat+long together, or ip alone. None of these fields is required at the schema level — an item missing all of them is still accepted by the request, but resolves to a per-item error object in the response (see BulkCurrentResponse) rather than failing the whole request.'
-      properties:
-        location:
-          type: string
-          description: City name, place name, or full address
-        lat:
-          type: number
-          description: Latitude
-        long:
-          type: number
-          description: Longitude
-        ip:
-          type: string
-          description: IP address
-    BulkCurrentResponse:
-      type: object
-      required:
-      - bulk
-      properties:
-        bulk:
-          type: array
-          items:
-            oneOf:
-            - description: A successfully resolved location's weather result.
-              $ref: '#/components/schemas/CurrentWeatherResponse'
-            - description: Returned in place of a weather result when that location could not be resolved (missing fields, unrecognized address, etc). Does not fail the request, even when every item in the batch errors.
-              $ref: '#/components/schemas/BulkWeatherItemError'
-          description: Array of per-location results, one entry per requested location, in the same order as the request. Each entry is either a full weather result or a per-item error object.
-      description: Bulk weather response containing an array of per-location current weather results.
-    LocationByCoordinates_2:
+    LocationByCoordinates_3:
       type: object
       required:
       - latitude
@@ -2631,7 +2750,7 @@ components:
           description: Specific locality, neighborhood, district, or village name within the broader area.
         elevation:
           type: string
-          description: Height above mean sea level in meters for the specified coordinates. Returned as a string, not a number; can be an empty string when unavailable.
+          description: Height above mean sea level in meters for the specified coordinates, returned as a string. Can be an empty string when elevation data is unavailable.
         timezone:
           type: string
           description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
@@ -2639,97 +2758,49 @@ components:
           type: string
           description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
       description: Location data when the target is specified by GPS coordinates (lat/long).
-    BulkWeatherItemError:
+    FloodForecastData:
       type: object
-      description: Per-item error, returned in place of a weather result when an individual location could not be resolved.
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          description: Human-readable reason this location could not be resolved (e.g. "Location not found", "Missing required location parameters").
-    LocationByIP_2:
-      type: object
-      required:
-      - continent_code
-      - continent_name
-      - country_code2
-      - country_code3
-      - country_name
-      - country_name_official
-      - state_prov
-      - city
-      - latitude
-      - longitude
-      - timezone
-      - timezone_abbreviation
-      properties:
-        continent_code:
-          type: string
-          description: Two-letter continent code (e.g., NA for North America, EU for Europe, AS for Asia).
-        continent_name:
-          type: string
-          description: Full name of the continent where the IP address is registered.
-        country_code2:
-          type: string
-          description: ISO 3166-1 alpha-2 two-letter country code (e.g., US, GB, FR).
-        country_code3:
-          type: string
-          description: ISO 3166-1 alpha-3 three-letter country code (e.g., USA, GBR, FRA).
-        country_name:
-          type: string
-          description: Common name of the country associated with the IP address.
-        country_name_official:
-          type: string
-          description: Official long-form country name as recognized internationally (e.g., United States of America).
-        is_eu:
-          type: boolean
-          description: Boolean flag indicating whether the country is a member state of the European Union.
-        state_prov:
-          type: string
-          description: State, province, or primary administrative division associated with the IP location.
-        state_code:
-          type: string
-          description: ISO 3166-2 subdivision code for the state or province (e.g., CA for California).
-        district:
-          type: string
-          description: District, county, or secondary administrative division within the region.
-        city:
-          type: string
-          description: City or urban area name where the IP address is geographically registered.
-        zipcode:
-          type: string
-          description: Postal code or ZIP code for the approximate location of the IP address.
-        latitude:
-          type: string
-          description: Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90. Returned as a string, not a number.
-        longitude:
-          type: string
-          description: Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180. Returned as a string, not a number.
-        locality:
-          type: string
-          description: Specific locality, neighborhood, or small area designation within the city.
-        elevation:
-          type: string
-          description: Elevation above mean sea level in meters for the IP geolocation. Returned as a string, not a number; can be an empty string when unavailable.
-        timezone:
-          type: string
-          description: IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
-        timezone_abbreviation:
-          type: string
-          description: Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
-      description: Location data when the target is inferred from an IP address.
-    FloodResponse:
+      description: Flood forecast data object keyed by date (YYYY-MM-DD); each key's value is a FloodForecastDay object.
+      additionalProperties:
+        $ref: '#/components/schemas/FloodForecastDay'
+    FloodDaily:
       type: object
       properties:
-        location:
-          $ref: '#/components/schemas/WeatherLocation'
-        forecast:
-          $ref: '#/components/schemas/FloodForecastData'
+        timestamp:
+          type: string
+          format: date
+          description: Forecast date in YYYY-MM-DD format. Returned as a date only, with no time component despite the parent object being keyed by the same date.
+        river_discharge:
+          type: number
+          description: The observed river discharge value (m³/s)
+        river_discharge_mean:
+          type: number
+          description: The mean river discharge (m³/s)
+        river_discharge_median:
+          type: number
+          description: The median river discharge (m³/s)
+        river_discharge_max:
+          type: number
+          description: The maximum river discharge (m³/s)
+        river_discharge_min:
+          type: number
+          description: The minimum river discharge (m³/s)
+        river_discharge_p25:
+          type: number
+          description: The 25th percentile of river discharge (m³/s)
+        river_discharge_p75:
+          type: number
+          description: The 75th percentile of river discharge (m³/s)
       required:
-      - location
-      - forecast
-      description: Flood forecast response containing location data and date-keyed river discharge forecasts.
+      - timestamp
+      - river_discharge
+      - river_discharge_mean
+      - river_discharge_median
+      - river_discharge_max
+      - river_discharge_min
+      - river_discharge_p25
+      - river_discharge_p75
+      description: Daily river discharge forecast data with discharge statistics and percentiles.
     LocationByAddress_3:
       type: object
       required:
@@ -2773,11 +2844,6 @@ components:
           type: string
           description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
       description: Location data when the target is specified by a city name or address string.
-    FloodForecastData:
-      type: object
-      description: Flood forecast data object keyed by date (YYYY-MM-DD); each key's value is a FloodForecastDay object.
-      additionalProperties:
-        $ref: '#/components/schemas/FloodForecastDay'
     FloodForecastDay:
       type: object
       description: Flood forecast data for a single day, containing river discharge metrics.
@@ -2786,45 +2852,17 @@ components:
       properties:
         daily:
           $ref: '#/components/schemas/FloodDaily'
-    LocationByCoordinates_3:
+    FloodResponse:
       type: object
-      required:
-      - latitude
-      - longitude
-      - country_name
-      - state_prov
-      - city
-      - timezone
-      - timezone_abbreviation
       properties:
-        latitude:
-          type: string
-          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
-        longitude:
-          type: string
-          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
-        country_name:
-          type: string
-          description: Full name of the country corresponding to the provided coordinates.
-        state_prov:
-          type: string
-          description: State, province, or primary administrative division name for the location.
-        city:
-          type: string
-          description: City or municipal area name associated with the coordinate location.
-        locality:
-          type: string
-          description: Specific locality, neighborhood, district, or village name within the broader area.
-        elevation:
-          type: string
-          description: Height above mean sea level in meters for the specified coordinates, returned as a string. Can be an empty string when elevation data is unavailable.
-        timezone:
-          type: string
-          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
-        timezone_abbreviation:
-          type: string
-          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
-      description: Location data when the target is specified by GPS coordinates (lat/long).
+        location:
+          $ref: '#/components/schemas/WeatherLocation'
+        forecast:
+          $ref: '#/components/schemas/FloodForecastData'
+      required:
+      - location
+      - forecast
+      description: Flood forecast response containing location data and date-keyed river discharge forecasts.
     LocationByIP_3:
       type: object
       required:
@@ -2896,97 +2934,42 @@ components:
           type: string
           description: Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
       description: Location data when the target is inferred from an IP address.
-    FloodDaily:
+    LocationByCoordinates_4:
       type: object
-      properties:
-        timestamp:
-          type: string
-          format: date
-          description: Forecast date in YYYY-MM-DD format. Returned as a date only, with no time component despite the parent object being keyed by the same date.
-        river_discharge:
-          type: number
-          description: The observed river discharge value (m³/s)
-        river_discharge_mean:
-          type: number
-          description: The mean river discharge (m³/s)
-        river_discharge_median:
-          type: number
-          description: The median river discharge (m³/s)
-        river_discharge_max:
-          type: number
-          description: The maximum river discharge (m³/s)
-        river_discharge_min:
-          type: number
-          description: The minimum river discharge (m³/s)
-        river_discharge_p25:
-          type: number
-          description: The 25th percentile of river discharge (m³/s)
-        river_discharge_p75:
-          type: number
-          description: The 75th percentile of river discharge (m³/s)
+      description: Location data when the target is specified by GPS coordinates (lat/long). country_name, state_prov, and city are omitted when the coordinates do not resolve to any political boundary (e.g. open ocean).
       required:
-      - timestamp
-      - river_discharge
-      - river_discharge_mean
-      - river_discharge_median
-      - river_discharge_max
-      - river_discharge_min
-      - river_discharge_p25
-      - river_discharge_p75
-      description: Daily river discharge forecast data with discharge statistics and percentiles.
-    WeatherLocation_3:
-      type: object
-      description: Location information. The shape of this object varies by lookup method.
-      oneOf:
-      - description: Location data when the target is specified by GPS coordinates (lat/long).
-        $ref: '#/components/schemas/LocationByCoordinates_4'
-      - description: Location data when the target is inferred from an IP address.
-        $ref: '#/components/schemas/LocationByIP_4'
-      - description: Location data when the target is specified by a city name or address string.
-        $ref: '#/components/schemas/LocationByAddress_4'
-    LocationByAddress_4:
-      type: object
-      description: Location data when the target is specified by a city name or address string.
-      required:
-      - location_string
-      - country_name
-      - state_prov
-      - city
       - latitude
       - longitude
       - timezone
       - timezone_abbreviation
       properties:
-        location_string:
-          type: string
-          description: Original location query string as submitted, including full address or place name.
-        country_name:
-          type: string
-          description: Resolved country name derived from the geocoded location query.
-        state_prov:
-          type: string
-          description: State, province, or primary administrative division identified from the location.
-        city:
-          type: string
-          description: City or municipal area name extracted from the geocoded location.
-        locality:
-          type: string
-          description: Specific locality, neighborhood, suburb, or village within the geocoded area.
         latitude:
           type: string
-          description: Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90. Returned as a string, not a number.
+          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
         longitude:
           type: string
-          description: Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180. Returned as a string, not a number.
+          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
+        country_name:
+          type: string
+          description: Full name of the country corresponding to the provided coordinates.
+        state_prov:
+          type: string
+          description: State, province, or primary administrative division name for the location.
+        city:
+          type: string
+          description: City or municipal area name associated with the coordinate location.
+        locality:
+          type: string
+          description: Specific locality, neighborhood, district, or village name within the broader area.
         elevation:
           type: string
-          description: Elevation above mean sea level in meters at the geocoded coordinates. Returned as a string, not a number; can be an empty string when unavailable.
+          description: Height above mean sea level in meters for the specified coordinates. Returned as a string, not a number; can be an empty string when unavailable.
         timezone:
           type: string
-          description: IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
+          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
         timezone_abbreviation:
           type: string
-          description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
+          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
     HistoricalData:
       type: object
       description: Historical weather data for the requested date, containing an astronomy block plus one of daily or hourly readings depending on the precision parameter. It is not keyed by date --- each request covers exactly one date.
@@ -3004,6 +2987,152 @@ components:
         astronomy:
           $ref: '#/components/schemas/Astronomy_2'
           description: Astronomical data for the requested day. Always present regardless of precision.
+    HistoricalHourly:
+      type: object
+      description: Hourly historical weather reading with temperature, precipitation, and wind data.
+      required:
+      - timestamp
+      - temperature_2m
+      - relative_humidity_2m
+      - dew_point_2m
+      - apparent_temperature
+      - precipitation
+      - rain
+      - snowfall
+      - weather_code
+      - pressure_msl
+      - surface_pressure
+      - cloud_cover
+      - et0_fao_evapotranspiration
+      - wind_speed_10m
+      - wind_direction_10m
+      - wind_gusts_10m
+      - albedo
+      - shortwave_radiation
+      - direct_radiation
+      - diffuse_radiation
+      - direct_normal_irradiance
+      - global_tilted_irradiance
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: Local timestamp for this hourly reading (YYYY-MM-DDTHH:MM).
+        temperature_2m:
+          type: number
+          description: Air temperature at 2 meters (°C).
+        relative_humidity_2m:
+          type: number
+          description: Relative humidity at 2 meters (%).
+        dew_point_2m:
+          type: number
+          description: Dew point temperature at 2 meters (°C).
+        apparent_temperature:
+          type: number
+          description: Perceived temperature (°C).
+        precipitation:
+          type: number
+          description: Total precipitation in this hour (mm).
+        rain:
+          type: number
+          description: Rainfall in this hour (mm).
+        snowfall:
+          type: number
+          description: Snowfall in this hour (cm).
+        weather_code:
+          type: integer
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 45
+          - 48
+          - 51
+          - 53
+          - 55
+          - 56
+          - 57
+          - 61
+          - 63
+          - 65
+          - 66
+          - 67
+          - 71
+          - 73
+          - 75
+          - 77
+          - 80
+          - 81
+          - 82
+          - 85
+          - 86
+          - 95
+          - 96
+          - 99
+          description: 'WMO weather condition code representing conditions during this hour. Supported codes: 0 clear sky; 1, 2, 3 varying cloud cover; 45, 48 fog; 51, 53, 55 drizzle; 56, 57 freezing drizzle; 61, 63, 65 rain; 66, 67 freezing rain; 71, 73, 75 snowfall; 77 snow grains; 80, 81, 82 rain showers; 85, 86 snow showers; 95 thunderstorm; 96, 99 thunderstorm with hail.'
+        pressure_msl:
+          type: number
+          description: Atmospheric pressure at mean sea level (hPa).
+        surface_pressure:
+          type: number
+          description: Atmospheric pressure at ground level (hPa).
+        cloud_cover:
+          type: number
+          description: Cloud cover percentage (%).
+        et0_fao_evapotranspiration:
+          type: number
+          description: Hourly reference evapotranspiration (mm).
+        wind_speed_10m:
+          type: number
+          description: Wind speed at 10 meters (km/h).
+        wind_direction_10m:
+          type: integer
+          description: Wind direction at 10 meters (°).
+        wind_gusts_10m:
+          type: number
+          description: Wind gusts at 10 meters (km/h).
+        albedo:
+          type:
+          - number
+          - 'null'
+          description: Reflectivity of the Earth's surface. Currently always returned as null.
+        shortwave_radiation:
+          type: number
+          description: Incoming shortwave solar radiation (W/m²).
+        direct_radiation:
+          type: number
+          description: Direct solar radiation (W/m²).
+        diffuse_radiation:
+          type: number
+          description: Diffuse solar radiation (W/m²).
+        direct_normal_irradiance:
+          type: number
+          description: Direct solar irradiance (W/m²).
+        global_tilted_irradiance:
+          type: number
+          description: Total solar irradiance on a tilted surface (W/m²).
+    HistoricalResponse:
+      type: object
+      description: Historical weather response containing location data and historical weather data for the requested date.
+      required:
+      - location
+      - historical
+      properties:
+        location:
+          $ref: '#/components/schemas/WeatherLocation_3'
+        historical:
+          $ref: '#/components/schemas/HistoricalData'
+    WeatherLocation_3:
+      type: object
+      description: Location information. The shape of this object varies by lookup method.
+      oneOf:
+      - description: Location data when the target is specified by GPS coordinates (lat/long).
+        $ref: '#/components/schemas/LocationByCoordinates_4'
+      - description: Location data when the target is inferred from an IP address.
+        $ref: '#/components/schemas/LocationByIP_4'
+      - description: Location data when the target is specified by a city name or address string.
+        $ref: '#/components/schemas/LocationByAddress_4'
     HistoricalDaily:
       type: object
       description: Daily historical weather summary with temperature, precipitation, wind, and radiation statistics.
@@ -3155,6 +3284,49 @@ components:
         surface_pressure_mean:
           type: number
           description: Daily mean surface pressure at ground level (hPa).
+    LocationByAddress_4:
+      type: object
+      description: Location data when the target is specified by a city name or address string.
+      required:
+      - location_string
+      - country_name
+      - state_prov
+      - city
+      - latitude
+      - longitude
+      - timezone
+      - timezone_abbreviation
+      properties:
+        location_string:
+          type: string
+          description: Original location query string as submitted, including full address or place name.
+        country_name:
+          type: string
+          description: Resolved country name derived from the geocoded location query.
+        state_prov:
+          type: string
+          description: State, province, or primary administrative division identified from the location.
+        city:
+          type: string
+          description: City or municipal area name extracted from the geocoded location.
+        locality:
+          type: string
+          description: Specific locality, neighborhood, suburb, or village within the geocoded area.
+        latitude:
+          type: string
+          description: Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90. Returned as a string, not a number.
+        longitude:
+          type: string
+          description: Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180. Returned as a string, not a number.
+        elevation:
+          type: string
+          description: Elevation above mean sea level in meters at the geocoded coordinates. Returned as a string, not a number; can be an empty string when unavailable.
+        timezone:
+          type: string
+          description: IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
+        timezone_abbreviation:
+          type: string
+          description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
     Astronomy_2:
       type: object
       description: Astronomical data including sunrise, sunset, solar noon, day length, moon phase, and moon times. Time fields are HH:MM by default; when the timezone query parameter is set, they include the date as well (YYYY-MM-DD HH:MM).
@@ -3213,167 +3385,6 @@ components:
         moon_status:
           type: string
           description: Current visibility status of the Moon (visible, not_visible, or -).
-    LocationByCoordinates_4:
-      type: object
-      description: Location data when the target is specified by GPS coordinates (lat/long). country_name, state_prov, and city are omitted when the coordinates do not resolve to any political boundary (e.g. open ocean).
-      required:
-      - latitude
-      - longitude
-      - timezone
-      - timezone_abbreviation
-      properties:
-        latitude:
-          type: string
-          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
-        longitude:
-          type: string
-          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
-        country_name:
-          type: string
-          description: Full name of the country corresponding to the provided coordinates.
-        state_prov:
-          type: string
-          description: State, province, or primary administrative division name for the location.
-        city:
-          type: string
-          description: City or municipal area name associated with the coordinate location.
-        locality:
-          type: string
-          description: Specific locality, neighborhood, district, or village name within the broader area.
-        elevation:
-          type: string
-          description: Height above mean sea level in meters for the specified coordinates. Returned as a string, not a number; can be an empty string when unavailable.
-        timezone:
-          type: string
-          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
-        timezone_abbreviation:
-          type: string
-          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
-    HistoricalHourly:
-      type: object
-      description: Hourly historical weather reading with temperature, precipitation, and wind data.
-      required:
-      - timestamp
-      - temperature_2m
-      - relative_humidity_2m
-      - dew_point_2m
-      - apparent_temperature
-      - precipitation
-      - rain
-      - snowfall
-      - weather_code
-      - pressure_msl
-      - surface_pressure
-      - cloud_cover
-      - et0_fao_evapotranspiration
-      - wind_speed_10m
-      - wind_direction_10m
-      - wind_gusts_10m
-      - albedo
-      - shortwave_radiation
-      - direct_radiation
-      - diffuse_radiation
-      - direct_normal_irradiance
-      - global_tilted_irradiance
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: Local timestamp for this hourly reading (YYYY-MM-DDTHH:MM).
-        temperature_2m:
-          type: number
-          description: Air temperature at 2 meters (°C).
-        relative_humidity_2m:
-          type: number
-          description: Relative humidity at 2 meters (%).
-        dew_point_2m:
-          type: number
-          description: Dew point temperature at 2 meters (°C).
-        apparent_temperature:
-          type: number
-          description: Perceived temperature (°C).
-        precipitation:
-          type: number
-          description: Total precipitation in this hour (mm).
-        rain:
-          type: number
-          description: Rainfall in this hour (mm).
-        snowfall:
-          type: number
-          description: Snowfall in this hour (cm).
-        weather_code:
-          type: integer
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          - 45
-          - 48
-          - 51
-          - 53
-          - 55
-          - 56
-          - 57
-          - 61
-          - 63
-          - 65
-          - 66
-          - 67
-          - 71
-          - 73
-          - 75
-          - 77
-          - 80
-          - 81
-          - 82
-          - 85
-          - 86
-          - 95
-          - 96
-          - 99
-          description: 'WMO weather condition code representing conditions during this hour. Supported codes: 0 clear sky; 1, 2, 3 varying cloud cover; 45, 48 fog; 51, 53, 55 drizzle; 56, 57 freezing drizzle; 61, 63, 65 rain; 66, 67 freezing rain; 71, 73, 75 snowfall; 77 snow grains; 80, 81, 82 rain showers; 85, 86 snow showers; 95 thunderstorm; 96, 99 thunderstorm with hail.'
-        pressure_msl:
-          type: number
-          description: Atmospheric pressure at mean sea level (hPa).
-        surface_pressure:
-          type: number
-          description: Atmospheric pressure at ground level (hPa).
-        cloud_cover:
-          type: number
-          description: Cloud cover percentage (%).
-        et0_fao_evapotranspiration:
-          type: number
-          description: Hourly reference evapotranspiration (mm).
-        wind_speed_10m:
-          type: number
-          description: Wind speed at 10 meters (km/h).
-        wind_direction_10m:
-          type: integer
-          description: Wind direction at 10 meters (°).
-        wind_gusts_10m:
-          type: number
-          description: Wind gusts at 10 meters (km/h).
-        albedo:
-          type:
-          - number
-          - 'null'
-          description: Reflectivity of the Earth's surface. Currently always returned as null.
-        shortwave_radiation:
-          type: number
-          description: Incoming shortwave solar radiation (W/m²).
-        direct_radiation:
-          type: number
-          description: Direct solar radiation (W/m²).
-        diffuse_radiation:
-          type: number
-          description: Diffuse solar radiation (W/m²).
-        direct_normal_irradiance:
-          type: number
-          description: Direct solar irradiance (W/m²).
-        global_tilted_irradiance:
-          type: number
-          description: Total solar irradiance on a tilted surface (W/m²).
     LocationByIP_4:
       type: object
       description: Location data when the target is inferred from an IP address.
@@ -3445,17 +3456,6 @@ components:
         timezone_abbreviation:
           type: string
           description: Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
-    HistoricalResponse:
-      type: object
-      description: Historical weather response containing location data and historical weather data for the requested date.
-      required:
-      - location
-      - historical
-      properties:
-        location:
-          $ref: '#/components/schemas/WeatherLocation_3'
-        historical:
-          $ref: '#/components/schemas/HistoricalData'
     CurrentWeatherResponse_2:
       type: object
       required:
@@ -3468,6 +3468,45 @@ components:
           $ref: '#/components/schemas/CurrentWeather'
           description: Current weather data
       description: Current weather response containing location data and current weather conditions.
+    LocationByCoordinates_5:
+      type: object
+      required:
+      - latitude
+      - longitude
+      - country_name
+      - state_prov
+      - city
+      - timezone
+      - timezone_abbreviation
+      properties:
+        latitude:
+          type: string
+          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
+        longitude:
+          type: string
+          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
+        country_name:
+          type: string
+          description: Full name of the country corresponding to the provided coordinates.
+        state_prov:
+          type: string
+          description: State, province, or primary administrative division name for the location.
+        city:
+          type: string
+          description: City or municipal area name associated with the coordinate location.
+        locality:
+          type: string
+          description: Specific locality, neighborhood, district, or village name within the broader area.
+        elevation:
+          type: string
+          description: Height above mean sea level in meters for the specified coordinates. Returned as a string, not a number; can be an empty string when unavailable.
+        timezone:
+          type: string
+          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
+        timezone_abbreviation:
+          type: string
+          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
+      description: Location data when the target is specified by GPS coordinates (lat/long).
     WeatherLocation_4:
       type: object
       description: Location information. The shape of this object varies by lookup method.
@@ -3521,45 +3560,6 @@ components:
           type: string
           description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
       description: Location data when the target is specified by a city name or address string.
-    LocationByCoordinates_5:
-      type: object
-      required:
-      - latitude
-      - longitude
-      - country_name
-      - state_prov
-      - city
-      - timezone
-      - timezone_abbreviation
-      properties:
-        latitude:
-          type: string
-          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
-        longitude:
-          type: string
-          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
-        country_name:
-          type: string
-          description: Full name of the country corresponding to the provided coordinates.
-        state_prov:
-          type: string
-          description: State, province, or primary administrative division name for the location.
-        city:
-          type: string
-          description: City or municipal area name associated with the coordinate location.
-        locality:
-          type: string
-          description: Specific locality, neighborhood, district, or village name within the broader area.
-        elevation:
-          type: string
-          description: Height above mean sea level in meters for the specified coordinates. Returned as a string, not a number; can be an empty string when unavailable.
-        timezone:
-          type: string
-          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
-        timezone_abbreviation:
-          type: string
-          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
-      description: Location data when the target is specified by GPS coordinates (lat/long).
     LocationByIP_5:
       type: object
       required:
@@ -3631,106 +3631,6 @@ components:
           type: string
           description: Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
       description: Location data when the target is inferred from an IP address.
-    MarineResponse:
-      type: object
-      description: 'Marine weather response. current and forecast are mutually exclusive: current is returned when startDate/endDate are omitted, forecast is returned when both are supplied. location is always present.'
-      required:
-      - location
-      properties:
-        location:
-          $ref: '#/components/schemas/WeatherLocation_5'
-        current:
-          $ref: '#/components/schemas/CurrentMarine'
-          description: Current marine conditions. Present only when startDate/endDate are not supplied.
-        forecast:
-          $ref: '#/components/schemas/MarineForecastData'
-          description: Date-keyed forecast data. Present only when startDate and endDate are both supplied.
-    MarineDaily:
-      type: object
-      description: Daily marine forecast summary with wave, wind-wave, and swell statistics for one day.
-      required:
-      - timestamp
-      - wave_height_max
-      - wave_direction_dominant
-      - wave_period_max
-      - wind_wave_height_max
-      - wind_wave_direction_dominant
-      - wind_wave_period_max
-      - wind_wave_peak_period_max
-      - swell_wave_height_max
-      - swell_wave_direction_dominant
-      - swell_wave_period_max
-      - swell_wave_peak_period_max
-      properties:
-        timestamp:
-          type: string
-          format: date
-          description: Date of this forecast entry in YYYY-MM-DD format.
-        wave_height_max:
-          type:
-          - number
-          - 'null'
-          description: Maximum significant wave height for the day, in meters.
-        wave_direction_dominant:
-          type:
-          - integer
-          - 'null'
-          description: Dominant direction of waves for the day, in degrees.
-        wave_period_max:
-          type:
-          - number
-          - 'null'
-          description: Maximum wave period for the day, in seconds.
-        wind_wave_height_max:
-          type:
-          - number
-          - 'null'
-          description: Maximum wind-driven wave height for the day, in meters.
-        wind_wave_direction_dominant:
-          type:
-          - integer
-          - 'null'
-          description: Dominant wind-wave direction for the day, in degrees.
-        wind_wave_period_max:
-          type:
-          - number
-          - 'null'
-          description: Maximum wind-wave period for the day, in seconds.
-        wind_wave_peak_period_max:
-          type:
-          - number
-          - 'null'
-          description: Maximum peak period of wind-driven waves for the day, in seconds. Frequently null.
-        swell_wave_height_max:
-          type:
-          - number
-          - 'null'
-          description: Maximum swell wave height for the day, in meters.
-        swell_wave_direction_dominant:
-          type:
-          - integer
-          - 'null'
-          description: Dominant swell wave direction for the day, in degrees.
-        swell_wave_period_max:
-          type:
-          - number
-          - 'null'
-          description: Maximum swell wave period for the day, in seconds.
-        swell_wave_peak_period_max:
-          type:
-          - number
-          - 'null'
-          description: Maximum peak period of swell waves for the day, in seconds. Frequently null.
-    WeatherLocation_5:
-      type: object
-      description: Location information. Shape depends on how the location was resolved (coordinates, IP, or address/city name).
-      oneOf:
-      - description: Location data when the target is specified by GPS coordinates (lat/long).
-        $ref: '#/components/schemas/LocationByCoordinates_6'
-      - description: Location data when the target is inferred from an IP address.
-        $ref: '#/components/schemas/LocationByIP_6'
-      - description: Location data when the target is specified by a city name or address string.
-        $ref: '#/components/schemas/LocationByAddress_6'
     MarineHourly:
       type: object
       description: Hourly marine weather reading with wave, swell, and sea surface data for a single hour.
@@ -3831,49 +3731,6 @@ components:
           - integer
           - 'null'
           description: Direction of ocean current at the given hour, in degrees.
-    LocationByAddress_6:
-      type: object
-      description: Location data when the target is specified by a city name or address string.
-      required:
-      - location_string
-      - country_name
-      - state_prov
-      - city
-      - latitude
-      - longitude
-      - timezone
-      - timezone_abbreviation
-      properties:
-        location_string:
-          type: string
-          description: Original location query string as submitted, including full address or place name.
-        country_name:
-          type: string
-          description: Resolved country name derived from the geocoded location query.
-        state_prov:
-          type: string
-          description: State, province, or primary administrative division identified from the location.
-        city:
-          type: string
-          description: City or municipal area name extracted from the geocoded location.
-        locality:
-          type: string
-          description: Specific locality, neighborhood, suburb, or village within the geocoded area. Can be an empty string.
-        latitude:
-          type: string
-          description: Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90. Returned as a string, not a number.
-        longitude:
-          type: string
-          description: Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180. Returned as a string, not a number.
-        elevation:
-          type: string
-          description: Elevation above mean sea level in meters at the geocoded coordinates. Returned as a string, not a number.
-        timezone:
-          type: string
-          description: IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
-        timezone_abbreviation:
-          type: string
-          description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
     CurrentMarine:
       type: object
       description: Current marine weather conditions including wave, swell, sea level, and current data. For locations with no nearby ocean data (inland/landlocked), every field below timestamp is returned as null instead of an error.
@@ -3974,56 +3831,6 @@ components:
           - number
           - 'null'
           description: Direction of the ocean current, in degrees. Null where no ocean data is available for this location.
-    MarineMinutely:
-      type: object
-      description: Minute-by-minute marine data point for ocean current and sea level measurements.
-      required:
-      - timestamp
-      - ocean_current_velocity
-      - ocean_current_direction
-      - sea_level_height_msl
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: ISO 8601 formatted timestamp of this minute-level entry.
-        ocean_current_velocity:
-          type:
-          - number
-          - 'null'
-          description: Speed of ocean current at this minute, in km/h.
-        ocean_current_direction:
-          type:
-          - integer
-          - 'null'
-          description: Direction of ocean current at this minute, in degrees.
-        sea_level_height_msl:
-          type:
-          - number
-          - 'null'
-          description: Sea level height relative to mean sea level at this minute, in meters.
-    MarineForecastDay:
-      type: object
-      description: Marine forecast for a single day. Exactly one of daily, hourly, or minutely is present, matching whichever precision value was requested (default daily) — the other two are omitted, not just empty.
-      properties:
-        daily:
-          $ref: '#/components/schemas/MarineDaily'
-          description: Daily marine forecast summary. Present when precision=daily (the default).
-        hourly:
-          type: array
-          description: Array of hourly marine readings for the day. Present when precision=hourly.
-          items:
-            $ref: '#/components/schemas/MarineHourly'
-        minutely:
-          type: array
-          description: Array of minute-by-minute marine data points for the day. Present when precision=minutely.
-          items:
-            $ref: '#/components/schemas/MarineMinutely'
-    MarineForecastData:
-      type: object
-      description: Forecast data keyed by date (YYYY-MM-DD). Each key is a forecast date and its value is a MarineForecastDay.
-      additionalProperties:
-        $ref: '#/components/schemas/MarineForecastDay'
     LocationByCoordinates_6:
       type: object
       description: Location data when the target is specified by GPS coordinates (lat/long).
@@ -4063,6 +3870,199 @@ components:
         timezone_abbreviation:
           type: string
           description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
+    MarineForecastData:
+      type: object
+      description: Forecast data keyed by date (YYYY-MM-DD). Each key is a forecast date and its value is a MarineForecastDay.
+      additionalProperties:
+        $ref: '#/components/schemas/MarineForecastDay'
+    MarineMinutely:
+      type: object
+      description: Minute-by-minute marine data point for ocean current and sea level measurements.
+      required:
+      - timestamp
+      - ocean_current_velocity
+      - ocean_current_direction
+      - sea_level_height_msl
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 formatted timestamp of this minute-level entry.
+        ocean_current_velocity:
+          type:
+          - number
+          - 'null'
+          description: Speed of ocean current at this minute, in km/h.
+        ocean_current_direction:
+          type:
+          - integer
+          - 'null'
+          description: Direction of ocean current at this minute, in degrees.
+        sea_level_height_msl:
+          type:
+          - number
+          - 'null'
+          description: Sea level height relative to mean sea level at this minute, in meters.
+    MarineResponse:
+      type: object
+      description: 'Marine weather response. current and forecast are mutually exclusive: current is returned when startDate/endDate are omitted, forecast is returned when both are supplied. location is always present.'
+      required:
+      - location
+      properties:
+        location:
+          $ref: '#/components/schemas/WeatherLocation_5'
+        current:
+          $ref: '#/components/schemas/CurrentMarine'
+          description: Current marine conditions. Present only when startDate/endDate are not supplied.
+        forecast:
+          $ref: '#/components/schemas/MarineForecastData'
+          description: Date-keyed forecast data. Present only when startDate and endDate are both supplied.
+    WeatherLocation_5:
+      type: object
+      description: Location information. Shape depends on how the location was resolved (coordinates, IP, or address/city name).
+      oneOf:
+      - description: Location data when the target is specified by GPS coordinates (lat/long).
+        $ref: '#/components/schemas/LocationByCoordinates_6'
+      - description: Location data when the target is inferred from an IP address.
+        $ref: '#/components/schemas/LocationByIP_6'
+      - description: Location data when the target is specified by a city name or address string.
+        $ref: '#/components/schemas/LocationByAddress_6'
+    LocationByAddress_6:
+      type: object
+      description: Location data when the target is specified by a city name or address string.
+      required:
+      - location_string
+      - country_name
+      - state_prov
+      - city
+      - latitude
+      - longitude
+      - timezone
+      - timezone_abbreviation
+      properties:
+        location_string:
+          type: string
+          description: Original location query string as submitted, including full address or place name.
+        country_name:
+          type: string
+          description: Resolved country name derived from the geocoded location query.
+        state_prov:
+          type: string
+          description: State, province, or primary administrative division identified from the location.
+        city:
+          type: string
+          description: City or municipal area name extracted from the geocoded location.
+        locality:
+          type: string
+          description: Specific locality, neighborhood, suburb, or village within the geocoded area. Can be an empty string.
+        latitude:
+          type: string
+          description: Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90. Returned as a string, not a number.
+        longitude:
+          type: string
+          description: Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180. Returned as a string, not a number.
+        elevation:
+          type: string
+          description: Elevation above mean sea level in meters at the geocoded coordinates. Returned as a string, not a number.
+        timezone:
+          type: string
+          description: IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
+        timezone_abbreviation:
+          type: string
+          description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
+    MarineDaily:
+      type: object
+      description: Daily marine forecast summary with wave, wind-wave, and swell statistics for one day.
+      required:
+      - timestamp
+      - wave_height_max
+      - wave_direction_dominant
+      - wave_period_max
+      - wind_wave_height_max
+      - wind_wave_direction_dominant
+      - wind_wave_period_max
+      - wind_wave_peak_period_max
+      - swell_wave_height_max
+      - swell_wave_direction_dominant
+      - swell_wave_period_max
+      - swell_wave_peak_period_max
+      properties:
+        timestamp:
+          type: string
+          format: date
+          description: Date of this forecast entry in YYYY-MM-DD format.
+        wave_height_max:
+          type:
+          - number
+          - 'null'
+          description: Maximum significant wave height for the day, in meters.
+        wave_direction_dominant:
+          type:
+          - integer
+          - 'null'
+          description: Dominant direction of waves for the day, in degrees.
+        wave_period_max:
+          type:
+          - number
+          - 'null'
+          description: Maximum wave period for the day, in seconds.
+        wind_wave_height_max:
+          type:
+          - number
+          - 'null'
+          description: Maximum wind-driven wave height for the day, in meters.
+        wind_wave_direction_dominant:
+          type:
+          - integer
+          - 'null'
+          description: Dominant wind-wave direction for the day, in degrees.
+        wind_wave_period_max:
+          type:
+          - number
+          - 'null'
+          description: Maximum wind-wave period for the day, in seconds.
+        wind_wave_peak_period_max:
+          type:
+          - number
+          - 'null'
+          description: Maximum peak period of wind-driven waves for the day, in seconds. Frequently null.
+        swell_wave_height_max:
+          type:
+          - number
+          - 'null'
+          description: Maximum swell wave height for the day, in meters.
+        swell_wave_direction_dominant:
+          type:
+          - integer
+          - 'null'
+          description: Dominant swell wave direction for the day, in degrees.
+        swell_wave_period_max:
+          type:
+          - number
+          - 'null'
+          description: Maximum swell wave period for the day, in seconds.
+        swell_wave_peak_period_max:
+          type:
+          - number
+          - 'null'
+          description: Maximum peak period of swell waves for the day, in seconds. Frequently null.
+    MarineForecastDay:
+      type: object
+      description: Marine forecast for a single day. Exactly one of daily, hourly, or minutely is present, matching whichever precision value was requested (default daily) — the other two are omitted, not just empty.
+      properties:
+        daily:
+          $ref: '#/components/schemas/MarineDaily'
+          description: Daily marine forecast summary. Present when precision=daily (the default).
+        hourly:
+          type: array
+          description: Array of hourly marine readings for the day. Present when precision=hourly.
+          items:
+            $ref: '#/components/schemas/MarineHourly'
+        minutely:
+          type: array
+          description: Array of minute-by-minute marine data points for the day. Present when precision=minutely.
+          items:
+            $ref: '#/components/schemas/MarineMinutely'
     LocationByIP_6:
       type: object
       description: Location data when the target is inferred from an IP address.
@@ -4134,6 +4134,158 @@ components:
         timezone_abbreviation:
           type: string
           description: Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
+    TimeSeriesDay:
+      type: object
+      description: Time-series weather data for a single day. Contains astronomy data plus exactly one of daily or hourly, depending on the request's precision parameter — the other key is absent, not empty, in the actual response.
+      required:
+      - astronomy
+      properties:
+        daily:
+          $ref: '#/components/schemas/HistoricalDaily_2'
+          description: Daily aggregate weather data for the specified day. Present only when precision=daily (the default); absent entirely when precision=hourly.
+        hourly:
+          type: array
+          description: Array of hourly weather readings for this day. Present only when precision=hourly; absent entirely when precision=daily.
+          items:
+            $ref: '#/components/schemas/HistoricalHourly_2'
+        astronomy:
+          $ref: '#/components/schemas/Astronomy'
+          description: Astronomical data including sunrise, sunset, and moon phases. Present regardless of precision.
+    LocationByCoordinates_7:
+      type: object
+      required:
+      - latitude
+      - longitude
+      - country_name
+      - state_prov
+      - city
+      - timezone
+      - timezone_abbreviation
+      properties:
+        latitude:
+          type: string
+          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
+        longitude:
+          type: string
+          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
+        country_name:
+          type: string
+          description: Full name of the country corresponding to the provided coordinates. Empty string when the coordinates could not be reverse-geocoded (e.g. open ocean).
+        state_prov:
+          type: string
+          description: State, province, or primary administrative division name for the location. Empty string when the coordinates could not be reverse-geocoded.
+        city:
+          type: string
+          description: City or municipal area name associated with the coordinate location. Empty string when the coordinates could not be reverse-geocoded.
+        locality:
+          type: string
+          description: Specific locality, neighborhood, district, or village name within the broader area.
+        elevation:
+          type: string
+          description: Height above mean sea level in meters for the specified coordinates. Returned as a string, not a number; can be an empty string when unavailable.
+        timezone:
+          type: string
+          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
+        timezone_abbreviation:
+          type: string
+          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
+      description: Location data when the target is specified by GPS coordinates (lat/long).
+    HistoricalHourly_2:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 formatted timestamp
+        temperature_2m:
+          type: number
+          description: Air temperature at 2 meters (°C)
+        relative_humidity_2m:
+          type: number
+          description: Relative humidity at 2 meters (%)
+        dew_point_2m:
+          type: number
+          description: Dew point temperature at 2 meters (°C)
+        apparent_temperature:
+          type: number
+          description: Perceived temperature (°C)
+        precipitation:
+          type: number
+          description: Total precipitation in this hour (mm)
+        rain:
+          type: number
+          description: Rainfall in this hour (mm)
+        snowfall:
+          type: number
+          description: Snowfall in this hour (cm)
+        weather_code:
+          type: integer
+          description: Weather condition code
+        pressure_msl:
+          type: number
+          description: Atmospheric pressure at mean sea level (hPa)
+        surface_pressure:
+          type: number
+          description: Atmospheric pressure at ground level (hPa)
+        cloud_cover:
+          type: number
+          description: Cloud cover percentage (%)
+        et0_fao_evapotranspiration:
+          type: number
+          description: Hourly reference evapotranspiration (mm)
+        wind_speed_10m:
+          type: number
+          description: Wind speed at 10 meters (km/h)
+        wind_direction_10m:
+          type: integer
+          description: Wind direction at 10 meters (°)
+        wind_gusts_10m:
+          type: number
+          description: Wind gusts at 10 meters (km/h)
+        albedo:
+          type:
+          - number
+          - 'null'
+          description: Reflectivity of the Earth's surface. Observed as null in every sampled response; this field is not currently populated by the upstream data source.
+        shortwave_radiation:
+          type: number
+          description: Incoming shortwave solar radiation (W/m²)
+        direct_radiation:
+          type: number
+          description: Direct solar radiation (W/m²)
+        diffuse_radiation:
+          type: number
+          description: Diffuse solar radiation (W/m²)
+        direct_normal_irradiance:
+          type: number
+          description: Direct solar irradiance (W/m²)
+        global_tilted_irradiance:
+          type: number
+          description: Total solar irradiance on a tilted surface (W/m²)
+      required:
+      - timestamp
+      - temperature_2m
+      - relative_humidity_2m
+      - dew_point_2m
+      - apparent_temperature
+      - precipitation
+      - rain
+      - snowfall
+      - weather_code
+      - pressure_msl
+      - surface_pressure
+      - cloud_cover
+      - et0_fao_evapotranspiration
+      - wind_speed_10m
+      - wind_direction_10m
+      - wind_gusts_10m
+      - albedo
+      - shortwave_radiation
+      - direct_radiation
+      - diffuse_radiation
+      - direct_normal_irradiance
+      - global_tilted_irradiance
+      description: Hourly historical weather reading with temperature, precipitation, and wind data.
     TimeSeriesResponse:
       type: object
       properties:
@@ -4188,6 +4340,85 @@ components:
           type: string
           description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
       description: Location data when the target is specified by a city name or address string.
+    LocationByIP_7:
+      type: object
+      required:
+      - continent_code
+      - continent_name
+      - country_code2
+      - country_code3
+      - country_name
+      - country_name_official
+      - state_prov
+      - city
+      - latitude
+      - longitude
+      - timezone
+      - timezone_abbreviation
+      properties:
+        continent_code:
+          type: string
+          description: Two-letter continent code (e.g., NA for North America, EU for Europe, AS for Asia).
+        continent_name:
+          type: string
+          description: Full name of the continent where the IP address is registered.
+        country_code2:
+          type: string
+          description: ISO 3166-1 alpha-2 two-letter country code (e.g., US, GB, FR).
+        country_code3:
+          type: string
+          description: ISO 3166-1 alpha-3 three-letter country code (e.g., USA, GBR, FRA).
+        country_name:
+          type: string
+          description: Common name of the country associated with the IP address.
+        country_name_official:
+          type: string
+          description: Official long-form country name as recognized internationally (e.g., United States of America).
+        is_eu:
+          type: boolean
+          description: Boolean flag indicating whether the country is a member state of the European Union.
+        state_prov:
+          type: string
+          description: State, province, or primary administrative division associated with the IP location.
+        state_code:
+          type: string
+          description: ISO 3166-2 subdivision code for the state or province (e.g., CA for California).
+        district:
+          type: string
+          description: District, county, or secondary administrative division within the region.
+        city:
+          type: string
+          description: City or urban area name where the IP address is geographically registered.
+        zipcode:
+          type: string
+          description: Postal code or ZIP code for the approximate location of the IP address.
+        latitude:
+          type: string
+          description: Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90. Returned as a string, not a number.
+        longitude:
+          type: string
+          description: Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180. Returned as a string, not a number.
+        locality:
+          type: string
+          description: Specific locality, neighborhood, or small area designation within the city.
+        elevation:
+          type: string
+          description: Elevation above mean sea level in meters for the IP geolocation. Returned as a string, not a number; can be an empty string when unavailable.
+        timezone:
+          type: string
+          description: IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
+        timezone_abbreviation:
+          type: string
+          description: Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
+      description: Location data when the target is inferred from an IP address.
+    TimeSeriesData:
+      type: object
+      description: Time-series data object keyed by date (YYYY-MM-DD). Each key is a date and the value is a TimeSeriesDay containing daily aggregates, hourly readings, and astronomy data.
+      properties:
+        date:
+          $ref: '#/components/schemas/TimeSeriesDay'
+      required:
+      - date
     HistoricalDaily_2:
       type: object
       properties:
@@ -4310,328 +4541,6 @@ components:
       - pressure_msl_mean
       - surface_pressure_mean
       description: Daily historical weather summary with temperature, precipitation, wind, and radiation statistics.
-    TimeSeriesDay:
-      type: object
-      description: Time-series weather data for a single day. Contains astronomy data plus exactly one of daily or hourly, depending on the request's precision parameter — the other key is absent, not empty, in the actual response.
-      required:
-      - astronomy
-      properties:
-        daily:
-          $ref: '#/components/schemas/HistoricalDaily_2'
-          description: Daily aggregate weather data for the specified day. Present only when precision=daily (the default); absent entirely when precision=hourly.
-        hourly:
-          type: array
-          description: Array of hourly weather readings for this day. Present only when precision=hourly; absent entirely when precision=daily.
-          items:
-            $ref: '#/components/schemas/HistoricalHourly_2'
-        astronomy:
-          $ref: '#/components/schemas/Astronomy'
-          description: Astronomical data including sunrise, sunset, and moon phases. Present regardless of precision.
-    TimeSeriesData:
-      type: object
-      description: Time-series data object keyed by date (YYYY-MM-DD). Each key is a date and the value is a TimeSeriesDay containing daily aggregates, hourly readings, and astronomy data.
-      properties:
-        date:
-          $ref: '#/components/schemas/TimeSeriesDay'
-      required:
-      - date
-    HistoricalHourly_2:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: ISO 8601 formatted timestamp
-        temperature_2m:
-          type: number
-          description: Air temperature at 2 meters (°C)
-        relative_humidity_2m:
-          type: number
-          description: Relative humidity at 2 meters (%)
-        dew_point_2m:
-          type: number
-          description: Dew point temperature at 2 meters (°C)
-        apparent_temperature:
-          type: number
-          description: Perceived temperature (°C)
-        precipitation:
-          type: number
-          description: Total precipitation in this hour (mm)
-        rain:
-          type: number
-          description: Rainfall in this hour (mm)
-        snowfall:
-          type: number
-          description: Snowfall in this hour (cm)
-        weather_code:
-          type: integer
-          description: Weather condition code
-        pressure_msl:
-          type: number
-          description: Atmospheric pressure at mean sea level (hPa)
-        surface_pressure:
-          type: number
-          description: Atmospheric pressure at ground level (hPa)
-        cloud_cover:
-          type: number
-          description: Cloud cover percentage (%)
-        et0_fao_evapotranspiration:
-          type: number
-          description: Hourly reference evapotranspiration (mm)
-        wind_speed_10m:
-          type: number
-          description: Wind speed at 10 meters (km/h)
-        wind_direction_10m:
-          type: integer
-          description: Wind direction at 10 meters (°)
-        wind_gusts_10m:
-          type: number
-          description: Wind gusts at 10 meters (km/h)
-        albedo:
-          type:
-          - number
-          - 'null'
-          description: Reflectivity of the Earth's surface. Observed as null in every sampled response; this field is not currently populated by the upstream data source.
-        shortwave_radiation:
-          type: number
-          description: Incoming shortwave solar radiation (W/m²)
-        direct_radiation:
-          type: number
-          description: Direct solar radiation (W/m²)
-        diffuse_radiation:
-          type: number
-          description: Diffuse solar radiation (W/m²)
-        direct_normal_irradiance:
-          type: number
-          description: Direct solar irradiance (W/m²)
-        global_tilted_irradiance:
-          type: number
-          description: Total solar irradiance on a tilted surface (W/m²)
-      required:
-      - timestamp
-      - temperature_2m
-      - relative_humidity_2m
-      - dew_point_2m
-      - apparent_temperature
-      - precipitation
-      - rain
-      - snowfall
-      - weather_code
-      - pressure_msl
-      - surface_pressure
-      - cloud_cover
-      - et0_fao_evapotranspiration
-      - wind_speed_10m
-      - wind_direction_10m
-      - wind_gusts_10m
-      - albedo
-      - shortwave_radiation
-      - direct_radiation
-      - diffuse_radiation
-      - direct_normal_irradiance
-      - global_tilted_irradiance
-      description: Hourly historical weather reading with temperature, precipitation, and wind data.
-    LocationByCoordinates_7:
-      type: object
-      required:
-      - latitude
-      - longitude
-      - country_name
-      - state_prov
-      - city
-      - timezone
-      - timezone_abbreviation
-      properties:
-        latitude:
-          type: string
-          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
-        longitude:
-          type: string
-          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
-        country_name:
-          type: string
-          description: Full name of the country corresponding to the provided coordinates. Empty string when the coordinates could not be reverse-geocoded (e.g. open ocean).
-        state_prov:
-          type: string
-          description: State, province, or primary administrative division name for the location. Empty string when the coordinates could not be reverse-geocoded.
-        city:
-          type: string
-          description: City or municipal area name associated with the coordinate location. Empty string when the coordinates could not be reverse-geocoded.
-        locality:
-          type: string
-          description: Specific locality, neighborhood, district, or village name within the broader area.
-        elevation:
-          type: string
-          description: Height above mean sea level in meters for the specified coordinates. Returned as a string, not a number; can be an empty string when unavailable.
-        timezone:
-          type: string
-          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
-        timezone_abbreviation:
-          type: string
-          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
-      description: Location data when the target is specified by GPS coordinates (lat/long).
-    LocationByIP_7:
-      type: object
-      required:
-      - continent_code
-      - continent_name
-      - country_code2
-      - country_code3
-      - country_name
-      - country_name_official
-      - state_prov
-      - city
-      - latitude
-      - longitude
-      - timezone
-      - timezone_abbreviation
-      properties:
-        continent_code:
-          type: string
-          description: Two-letter continent code (e.g., NA for North America, EU for Europe, AS for Asia).
-        continent_name:
-          type: string
-          description: Full name of the continent where the IP address is registered.
-        country_code2:
-          type: string
-          description: ISO 3166-1 alpha-2 two-letter country code (e.g., US, GB, FR).
-        country_code3:
-          type: string
-          description: ISO 3166-1 alpha-3 three-letter country code (e.g., USA, GBR, FRA).
-        country_name:
-          type: string
-          description: Common name of the country associated with the IP address.
-        country_name_official:
-          type: string
-          description: Official long-form country name as recognized internationally (e.g., United States of America).
-        is_eu:
-          type: boolean
-          description: Boolean flag indicating whether the country is a member state of the European Union.
-        state_prov:
-          type: string
-          description: State, province, or primary administrative division associated with the IP location.
-        state_code:
-          type: string
-          description: ISO 3166-2 subdivision code for the state or province (e.g., CA for California).
-        district:
-          type: string
-          description: District, county, or secondary administrative division within the region.
-        city:
-          type: string
-          description: City or urban area name where the IP address is geographically registered.
-        zipcode:
-          type: string
-          description: Postal code or ZIP code for the approximate location of the IP address.
-        latitude:
-          type: string
-          description: Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90. Returned as a string, not a number.
-        longitude:
-          type: string
-          description: Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180. Returned as a string, not a number.
-        locality:
-          type: string
-          description: Specific locality, neighborhood, or small area designation within the city.
-        elevation:
-          type: string
-          description: Elevation above mean sea level in meters for the IP geolocation. Returned as a string, not a number; can be an empty string when unavailable.
-        timezone:
-          type: string
-          description: IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
-        timezone_abbreviation:
-          type: string
-          description: Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
-      description: Location data when the target is inferred from an IP address.
-    ForecastData:
-      type: object
-      description: Forecast data keyed by calendar date (YYYY-MM-DD). Each key is a date string and the value is a ForecastDay object.
-      additionalProperties:
-        $ref: '#/components/schemas/ForecastDay'
-    WeatherLocation_6:
-      type: object
-      description: Location information. The shape of this object varies by lookup method.
-      oneOf:
-      - description: Location data when the target is specified by GPS coordinates (lat/long).
-        $ref: '#/components/schemas/LocationByCoordinates_8'
-      - description: Location data when the target is inferred from an IP address.
-        $ref: '#/components/schemas/LocationByIP_8'
-      - description: Location data when the target is specified by a city name or address string.
-        $ref: '#/components/schemas/LocationByAddress_8'
-    ForecastResponse:
-      type: object
-      description: Weather forecast response containing location and forecast data for the requested date range.
-      required:
-      - location
-      - forecast
-      properties:
-        location:
-          $ref: '#/components/schemas/WeatherLocation_6'
-        forecast:
-          $ref: '#/components/schemas/ForecastData'
-    LocationByAddress_8:
-      type: object
-      description: Location data when the target is specified by a city name or address string.
-      required:
-      - location_string
-      - country_name
-      - state_prov
-      - city
-      - latitude
-      - longitude
-      - timezone
-      - timezone_abbreviation
-      properties:
-        location_string:
-          type: string
-          description: Original location query string as submitted, including full address or place name.
-        country_name:
-          type: string
-          description: Resolved country name derived from the geocoded location query.
-        state_prov:
-          type: string
-          description: State, province, or primary administrative division identified from the location.
-        city:
-          type: string
-          description: City or municipal area name extracted from the geocoded location.
-        locality:
-          type: string
-          description: Specific locality, neighborhood, suburb, or village within the geocoded area.
-        latitude:
-          type: string
-          description: Geocoded latitude coordinate in decimal degrees, ranging from -90 to 90. Returned as a string, not a number.
-        longitude:
-          type: string
-          description: Geocoded longitude coordinate in decimal degrees, ranging from -180 to 180. Returned as a string, not a number.
-        elevation:
-          type: string
-          description: Elevation above mean sea level in meters, returned as a string. May be an empty string when elevation data is unavailable.
-        timezone:
-          type: string
-          description: IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
-        timezone_abbreviation:
-          type: string
-          description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
-    ForecastDay:
-      type: object
-      description: Forecast data for a single day. Contains an astronomy block plus exactly one of daily/hourly/minutely, chosen by the precision parameter.
-      required:
-      - astronomy
-      properties:
-        daily:
-          $ref: '#/components/schemas/ForecastDaily'
-          description: Daily forecast summary. Present when precision is daily (the default).
-        hourly:
-          type: array
-          description: Hourly forecast readings for the day. Present when precision is hourly.
-          items:
-            $ref: '#/components/schemas/ForecastHourly'
-        minutely:
-          type: array
-          description: Minute-by-minute forecast readings for the day. Present when precision is minutely.
-          items:
-            $ref: '#/components/schemas/ForecastMinutely'
-        astronomy:
-          $ref: '#/components/schemas/Astronomy_3'
-          description: Astronomy data for the day. Always present regardless of precision.
     ForecastDaily:
       type: object
       description: Daily forecast summary with temperature, precipitation, wind, UV, and radiation statistics. Present only when precision is daily (the default).
@@ -4774,141 +4683,45 @@ components:
         et0_fao_evapotranspiration_sum:
           type: number
           description: ET₀ Reference Evapotranspiration (mm)
-    ForecastMinutely:
+    LocationByCoordinates_8:
       type: object
-      description: Minute-by-minute forecast reading with temperature, precipitation, wind, and radiation data. Present only when precision is minutely.
+      description: Location data when the target is specified by GPS coordinates (lat/long).
       required:
-      - timestamp
-      - temperature_2m
-      - relative_humidity_2m
-      - dew_point_2m
-      - apparent_temperature
-      - precipitation
-      - rain
-      - snowfall
-      - weather_code
-      - wind_speed_10m
-      - wind_direction_10m
-      - wind_gusts_10m
-      - visibility
-      - shortwave_radiation
-      - direct_radiation
-      - diffuse_radiation
-      - direct_normal_irradiance
-      - global_tilted_irradiance
+      - latitude
+      - longitude
+      - country_name
+      - state_prov
+      - city
+      - timezone
+      - timezone_abbreviation
       properties:
-        timestamp:
+        latitude:
           type: string
-          description: Local date and minute this reading covers, e.g. 2026-07-24T00:00. Not a full RFC 3339 date-time — no seconds or UTC offset are included.
-        temperature_2m:
-          type: number
-          description: Air temperature at 2m (°C)
-        relative_humidity_2m:
-          type: integer
-          description: Relative humidity at 2m (%)
-        dew_point_2m:
-          type: number
-          description: Dew point at 2m (°C)
-        apparent_temperature:
-          type: number
-          description: Feels-like temperature (°C)
-        precipitation:
-          type: number
-          description: Precipitation at this minute (mm)
-        rain:
-          type: number
-          description: Rainfall (mm)
-        snowfall:
-          type: number
-          description: Snowfall (cm)
-        weather_code:
-          type: integer
-          description: Weather condition code
-        wind_speed_10m:
-          type: number
-          description: Wind speed at 10m (km/h)
-        wind_direction_10m:
-          type: integer
-          description: Wind direction at 10m (°)
-        wind_gusts_10m:
-          type: number
-          description: Wind gusts at 10m (km/h)
-        visibility:
-          type: number
-          description: Visibility distance (m)
-        shortwave_radiation:
-          type: number
-          description: Shortwave radiation (W/m²)
-        direct_radiation:
-          type: number
-          description: Direct solar radiation (W/m²)
-        diffuse_radiation:
-          type: number
-          description: Diffuse solar radiation (W/m²)
-        direct_normal_irradiance:
-          type: number
-          description: Direct normal irradiance (W/m²)
-        global_tilted_irradiance:
-          type: number
-          description: Global tilted irradiance (W/m²)
-    Astronomy_3:
-      type: object
-      description: Astronomical data including sunrise, sunset, solar noon, day length, moon phase, and moon times. Always present for every requested day, regardless of precision. Time fields switch from HH:MM to "YYYY-MM-DD HH:MM" when the timezone parameter shifts the date relative to the location's local day.
-      required:
-      - date
-      - mid_night
-      - night_end
-      - sunrise
-      - solar_noon
-      - sunset
-      - night_begin
-      - day_length
-      - sun_status
-      - moon_phase
-      - moonrise
-      - moonset
-      - moon_status
-      properties:
-        date:
+          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
+        longitude:
           type: string
-          format: date
-          description: Calendar date in YYYY-MM-DD format for the astronomical data.
-        mid_night:
+          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
+        country_name:
           type: string
-          description: Time of true solar midnight in HH:MM format.
-        night_end:
+          description: Full name of the country corresponding to the provided coordinates.
+        state_prov:
           type: string
-          description: Time when astronomical twilight ends and dawn begins in HH:MM format.
-        sunrise:
+          description: State, province, or primary administrative division name for the location.
+        city:
           type: string
-          description: Time when the Sun becomes visible above the horizon in HH:MM format.
-        solar_noon:
+          description: City or municipal area name associated with the coordinate location.
+        locality:
           type: string
-          description: Time when the Sun reaches its highest point in the sky in HH:MM format.
-        sunset:
+          description: Specific locality, neighborhood, district, or village name within the broader area.
+        elevation:
           type: string
-          description: Time when the Sun disappears below the horizon in HH:MM format.
-        night_begin:
+          description: Height above mean sea level in meters, returned as a string. May be an empty string when elevation data is unavailable.
+        timezone:
           type: string
-          description: Time when astronomical twilight begins and night starts in HH:MM format.
-        day_length:
+          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
+        timezone_abbreviation:
           type: string
-          description: Total duration of daylight in HH:MM format.
-        sun_status:
-          type: string
-          description: Current position of the Sun relative to the horizon (above_horizon, below_horizon, or -).
-        moon_phase:
-          type: string
-          description: Current lunar phase (NEW_MOON, WAXING_CRESCENT, FULL_MOON, WANING_GIBBOUS, etc.).
-        moonrise:
-          type: string
-          description: Time when the Moon becomes visible above the horizon in HH:MM format.
-        moonset:
-          type: string
-          description: Time when the Moon disappears below the horizon in HH:MM format.
-        moon_status:
-          type: string
-          description: Current visibility status of the Moon (visible, not_visible, or -).
+          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
     ForecastHourly:
       type: object
       description: Hourly forecast reading with temperature, precipitation, wind, and radiation data. Present only when precision is hourly.
@@ -5018,45 +4831,232 @@ components:
         global_tilted_irradiance:
           type: number
           description: Global tilted irradiance (W/m²)
-    LocationByCoordinates_8:
+    ForecastDay:
       type: object
-      description: Location data when the target is specified by GPS coordinates (lat/long).
+      description: Forecast data for a single day. Contains an astronomy block plus exactly one of daily/hourly/minutely, chosen by the precision parameter.
       required:
-      - latitude
-      - longitude
+      - astronomy
+      properties:
+        daily:
+          $ref: '#/components/schemas/ForecastDaily'
+          description: Daily forecast summary. Present when precision is daily (the default).
+        hourly:
+          type: array
+          description: Hourly forecast readings for the day. Present when precision is hourly.
+          items:
+            $ref: '#/components/schemas/ForecastHourly'
+        minutely:
+          type: array
+          description: Minute-by-minute forecast readings for the day. Present when precision is minutely.
+          items:
+            $ref: '#/components/schemas/ForecastMinutely'
+        astronomy:
+          $ref: '#/components/schemas/Astronomy_3'
+          description: Astronomy data for the day. Always present regardless of precision.
+    ForecastMinutely:
+      type: object
+      description: Minute-by-minute forecast reading with temperature, precipitation, wind, and radiation data. Present only when precision is minutely.
+      required:
+      - timestamp
+      - temperature_2m
+      - relative_humidity_2m
+      - dew_point_2m
+      - apparent_temperature
+      - precipitation
+      - rain
+      - snowfall
+      - weather_code
+      - wind_speed_10m
+      - wind_direction_10m
+      - wind_gusts_10m
+      - visibility
+      - shortwave_radiation
+      - direct_radiation
+      - diffuse_radiation
+      - direct_normal_irradiance
+      - global_tilted_irradiance
+      properties:
+        timestamp:
+          type: string
+          description: Local date and minute this reading covers, e.g. 2026-07-24T00:00. Not a full RFC 3339 date-time — no seconds or UTC offset are included.
+        temperature_2m:
+          type: number
+          description: Air temperature at 2m (°C)
+        relative_humidity_2m:
+          type: integer
+          description: Relative humidity at 2m (%)
+        dew_point_2m:
+          type: number
+          description: Dew point at 2m (°C)
+        apparent_temperature:
+          type: number
+          description: Feels-like temperature (°C)
+        precipitation:
+          type: number
+          description: Precipitation at this minute (mm)
+        rain:
+          type: number
+          description: Rainfall (mm)
+        snowfall:
+          type: number
+          description: Snowfall (cm)
+        weather_code:
+          type: integer
+          description: Weather condition code
+        wind_speed_10m:
+          type: number
+          description: Wind speed at 10m (km/h)
+        wind_direction_10m:
+          type: integer
+          description: Wind direction at 10m (°)
+        wind_gusts_10m:
+          type: number
+          description: Wind gusts at 10m (km/h)
+        visibility:
+          type: number
+          description: Visibility distance (m)
+        shortwave_radiation:
+          type: number
+          description: Shortwave radiation (W/m²)
+        direct_radiation:
+          type: number
+          description: Direct solar radiation (W/m²)
+        diffuse_radiation:
+          type: number
+          description: Diffuse solar radiation (W/m²)
+        direct_normal_irradiance:
+          type: number
+          description: Direct normal irradiance (W/m²)
+        global_tilted_irradiance:
+          type: number
+          description: Global tilted irradiance (W/m²)
+    WeatherLocation_6:
+      type: object
+      description: Location information. The shape of this object varies by lookup method.
+      oneOf:
+      - description: Location data when the target is specified by GPS coordinates (lat/long).
+        $ref: '#/components/schemas/LocationByCoordinates_8'
+      - description: Location data when the target is inferred from an IP address.
+        $ref: '#/components/schemas/LocationByIP_8'
+      - description: Location data when the target is specified by a city name or address string.
+        $ref: '#/components/schemas/LocationByAddress_8'
+    LocationByAddress_8:
+      type: object
+      description: Location data when the target is specified by a city name or address string.
+      required:
+      - location_string
       - country_name
       - state_prov
       - city
+      - latitude
+      - longitude
       - timezone
       - timezone_abbreviation
       properties:
-        latitude:
+        location_string:
           type: string
-          description: Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole). Returned as a string, not a number.
-        longitude:
-          type: string
-          description: Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East). Returned as a string, not a number.
+          description: Original location query string as submitted, including full address or place name.
         country_name:
           type: string
-          description: Full name of the country corresponding to the provided coordinates.
+          description: Resolved country name derived from the geocoded location query.
         state_prov:
           type: string
-          description: State, province, or primary administrative division name for the location.
+          description: State, province, or primary administrative division identified from the location.
         city:
           type: string
-          description: City or municipal area name associated with the coordinate location.
+          description: City or municipal area name extracted from the geocoded location.
         locality:
           type: string
-          description: Specific locality, neighborhood, district, or village name within the broader area.
+          description: Specific locality, neighborhood, suburb, or village within the geocoded area.
+        latitude:
+          type: string
+          description: Geocoded latitude coordinate in decimal degrees, ranging from -90 to 90. Returned as a string, not a number.
+        longitude:
+          type: string
+          description: Geocoded longitude coordinate in decimal degrees, ranging from -180 to 180. Returned as a string, not a number.
         elevation:
           type: string
-          description: Height above mean sea level in meters, returned as a string. May be an empty string when elevation data is unavailable.
+          description: Elevation above mean sea level in meters, returned as a string. May be an empty string when elevation data is unavailable.
         timezone:
           type: string
-          description: IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
+          description: IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
         timezone_abbreviation:
           type: string
-          description: Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
+          description: Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
+    Astronomy_3:
+      type: object
+      description: Astronomical data including sunrise, sunset, solar noon, day length, moon phase, and moon times. Always present for every requested day, regardless of precision. Time fields switch from HH:MM to "YYYY-MM-DD HH:MM" when the timezone parameter shifts the date relative to the location's local day.
+      required:
+      - date
+      - mid_night
+      - night_end
+      - sunrise
+      - solar_noon
+      - sunset
+      - night_begin
+      - day_length
+      - sun_status
+      - moon_phase
+      - moonrise
+      - moonset
+      - moon_status
+      properties:
+        date:
+          type: string
+          format: date
+          description: Calendar date in YYYY-MM-DD format for the astronomical data.
+        mid_night:
+          type: string
+          description: Time of true solar midnight in HH:MM format.
+        night_end:
+          type: string
+          description: Time when astronomical twilight ends and dawn begins in HH:MM format.
+        sunrise:
+          type: string
+          description: Time when the Sun becomes visible above the horizon in HH:MM format.
+        solar_noon:
+          type: string
+          description: Time when the Sun reaches its highest point in the sky in HH:MM format.
+        sunset:
+          type: string
+          description: Time when the Sun disappears below the horizon in HH:MM format.
+        night_begin:
+          type: string
+          description: Time when astronomical twilight begins and night starts in HH:MM format.
+        day_length:
+          type: string
+          description: Total duration of daylight in HH:MM format.
+        sun_status:
+          type: string
+          description: Current position of the Sun relative to the horizon (above_horizon, below_horizon, or -).
+        moon_phase:
+          type: string
+          description: Current lunar phase (NEW_MOON, WAXING_CRESCENT, FULL_MOON, WANING_GIBBOUS, etc.).
+        moonrise:
+          type: string
+          description: Time when the Moon becomes visible above the horizon in HH:MM format.
+        moonset:
+          type: string
+          description: Time when the Moon disappears below the horizon in HH:MM format.
+        moon_status:
+          type: string
+          description: Current visibility status of the Moon (visible, not_visible, or -).
+    ForecastResponse:
+      type: object
+      description: Weather forecast response containing location and forecast data for the requested date range.
+      required:
+      - location
+      - forecast
+      properties:
+        location:
+          $ref: '#/components/schemas/WeatherLocation_6'
+        forecast:
+          $ref: '#/components/schemas/ForecastData'
+    ForecastData:
+      type: object
+      description: Forecast data keyed by calendar date (YYYY-MM-DD). Each key is a date string and the value is a ForecastDay object.
+      additionalProperties:
+        $ref: '#/components/schemas/ForecastDay'
     LocationByIP_8:
       type: object
       description: Location data when the target is inferred from an IP address. Private/reserved IPs resolve to placeholder "ZZ"/empty values instead of an error.
