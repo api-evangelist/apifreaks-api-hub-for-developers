@@ -324,6 +324,23 @@ components:
       schema:
         type: integer
   schemas:
+    DeleteFileResponse:
+      type: object
+      required:
+      - fileId
+      - success
+      - message
+      properties:
+        fileId:
+          type: string
+          description: The unique identifier of the file.
+        success:
+          type: boolean
+          description: Indicates whether the file deletion request was successful.
+        message:
+          type: string
+          description: A message indicating the result of the file deletion request.
+      description: File deletion response containing the result of the delete operation.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -346,23 +363,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    DeleteFileResponse:
-      type: object
-      required:
-      - fileId
-      - success
-      - message
-      properties:
-        fileId:
-          type: string
-          description: The unique identifier of the file.
-        success:
-          type: boolean
-          description: Indicates whether the file deletion request was successful.
-        message:
-          type: string
-          description: A message indicating the result of the file deletion request.
-      description: File deletion response containing the result of the delete operation.
     FileStatusResponse:
       type: object
       required:

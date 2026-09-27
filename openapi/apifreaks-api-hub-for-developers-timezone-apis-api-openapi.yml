@@ -612,28 +612,6 @@ components:
       schema:
         type: integer
   schemas:
-    ErrorResponse:
-      type: object
-      description: 'Standard error envelope returned by the API on failed requests. '
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
     TimezoneConversionResponse:
       type: object
       description: Timezone conversion result containing original and converted timestamps with the difference.
@@ -656,58 +634,28 @@ components:
         diff_min:
           type: integer
           description: The absolute difference between the source and target timezones expressed in total minutes (not a remainder — always diff_hour * 60), always non-negative regardless of conversion direction.
-    LoCodeDetail:
+    ErrorResponse:
       type: object
-      description: UN/LOCODE location details, present when queried by LO code.
+      description: 'Standard error envelope returned by the API on failed requests. '
+      required:
+      - message
       properties:
-        lo_code:
+        error:
           type: string
-          description: A unique identifier for the location, often used in logistics and shipping (e.g., USNYC).
-        city:
+          description: Short error category or exception type.
+        message:
           type: string
-          description: The name of the city or location associated with the LO code.
-        state_code:
+          description: Human-readable error message describing the failure.
+        path:
           type: string
-          description: The code for the state, province or region.
-        country_code:
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
           type: string
-          description: The ISO 3166-1 alpha-2 country code (e.g., US).
-        country_name:
-          type: string
-          description: The name of the country in an administrative context.
-        location_type:
-          type: string
-          description: The type of location as comma-separated list of facilities (e.g., Port, Rail Terminal, Road Terminal, Airport).
-        latitude:
-          type: number
-          format: float
-          description: The latitude coordinate of the location.
-        longitude:
-          type: number
-          format: float
-          description: The longitude coordinate of the location.
-    DstTransition:
-      type: object
-      description: DST transition details (used for both the DST start and DST end transitions). Always present as a key on the parent TimeZone object; returned as an empty object {} when dst_exists is false, so none of its properties are required.
-      properties:
-        utc_time:
-          type: string
-          description: DST transition moment in UTC.
-        duration:
-          type: string
-          description: Clock change at the DST transition, in hours.
-        gap:
-          type: boolean
-          description: true if local time jumps forward (some times do not exist).
-        date_time_after:
-          type: string
-          description: Local date/time immediately after the DST transition.
-        date_time_before:
-          type: string
-          description: Local date/time immediately before the DST transition.
-        overlap:
-          type: boolean
-          description: true if local times repeat around the DST transition.
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
     AirportDetail:
       type: object
       description: Airport information, present when queried by IATA or ICAO code.
@@ -750,28 +698,75 @@ components:
         faa_code:
           type: string
           description: The FAA location identifier, used primarily in the United States.
-    ErrorResponse_2:
+    DstTransition:
       type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
+      description: DST transition details (used for both the DST start and DST end transitions). Always present as a key on the parent TimeZone object; returned as an empty object {} when dst_exists is false, so none of its properties are required.
       properties:
-        error:
+        utc_time:
           type: string
-          description: Short error category or exception type.
-        message:
+          description: DST transition moment in UTC.
+        duration:
           type: string
-          description: Human-readable error message describing the failure.
-        path:
+          description: Clock change at the DST transition, in hours.
+        gap:
+          type: boolean
+          description: true if local time jumps forward (some times do not exist).
+        date_time_after:
           type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
+          description: Local date/time immediately after the DST transition.
+        date_time_before:
           type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
+          description: Local date/time immediately before the DST transition.
+        overlap:
+          type: boolean
+          description: true if local times repeat around the DST transition.
+    TimezoneResponse:
+      type: object
+      required:
+      - time_zone
+      properties:
+        ip:
+          type: string
+          description: The IP address used for the timezone lookup. Present when queried using the ip parameter, or with no location-identifying parameter at all (client-IP fallback). Absent for every other lookup mode.
+        time_zone:
+          $ref: '#/components/schemas/TimeZone'
+        location:
+          $ref: '#/components/schemas/TimezoneLocation'
+        airport_details:
+          $ref: '#/components/schemas/AirportDetail'
+        lo_code_details:
+          $ref: '#/components/schemas/LoCodeDetail'
+      description: 'Timezone lookup result. time_zone is always present. Exactly which other object accompanies it depends on the lookup mode: tz name and lat/long coordinates return time_zone only (no location, no ip); location address returns a basic location object; ip param or client-IP fallback returns a rich location object plus top-level ip; iata_code/icao_code returns airport_details instead of location; lo_code returns lo_code_details instead of location.'
+    LoCodeDetail:
+      type: object
+      description: UN/LOCODE location details, present when queried by LO code.
+      properties:
+        lo_code:
+          type: string
+          description: A unique identifier for the location, often used in logistics and shipping (e.g., USNYC).
+        city:
+          type: string
+          description: The name of the city or location associated with the LO code.
+        state_code:
+          type: string
+          description: The code for the state, province or region.
+        country_code:
+          type: string
+          description: The ISO 3166-1 alpha-2 country code (e.g., US).
+        country_name:
+          type: string
+          description: The name of the country in an administrative context.
+        location_type:
+          type: string
+          description: The type of location as comma-separated list of facilities (e.g., Port, Rail Terminal, Road Terminal, Airport).
+        latitude:
+          type: number
+          format: float
+          description: The latitude coordinate of the location.
+        longitude:
+          type: number
+          format: float
+          description: The longitude coordinate of the location.
     TimeZone:
       type: object
       description: Timezone and date/time information for the location.
@@ -935,23 +930,28 @@ components:
         longitude:
           type: string
           description: The geographic longitude of the location. Present for both location and ip lookups.
-    TimezoneResponse:
+    ErrorResponse_2:
       type: object
+      description: Standard error envelope returned by the API on failed requests.
       required:
-      - time_zone
+      - message
       properties:
-        ip:
+        error:
           type: string
-          description: The IP address used for the timezone lookup. Present when queried using the ip parameter, or with no location-identifying parameter at all (client-IP fallback). Absent for every other lookup mode.
-        time_zone:
-          $ref: '#/components/schemas/TimeZone'
-        location:
-          $ref: '#/components/schemas/TimezoneLocation'
-        airport_details:
-          $ref: '#/components/schemas/AirportDetail'
-        lo_code_details:
-          $ref: '#/components/schemas/LoCodeDetail'
-      description: 'Timezone lookup result. time_zone is always present. Exactly which other object accompanies it depends on the lookup mode: tz name and lat/long coordinates return time_zone only (no location, no ip); location address returns a basic location object; ip param or client-IP fallback returns a rich location object plus top-level ip; iata_code/icao_code returns airport_details instead of location; lo_code returns lo_code_details instead of location.'
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

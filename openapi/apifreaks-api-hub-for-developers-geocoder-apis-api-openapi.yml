@@ -295,6 +295,11 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: Reverse Geocoding API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
     PointOfInterest:
       type: object
@@ -309,12 +314,6 @@ components:
         type:
           type: string
           description: Specific kind within the category, e.g. fast_food, city, park, residential, house_number.
-    ForwardGeocodeResponse:
-      type: array
-      title: Forward Geocoding Results
-      description: List of locations matching the search query, one entry per match, up to the number requested via `limit`.
-      items:
-        $ref: '#/components/schemas/GeocodeResponse'
     ErrorResponse:
       type: object
       required:
@@ -336,6 +335,12 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
+    ForwardGeocodeResponse:
+      type: array
+      title: Forward Geocoding Results
+      description: List of locations matching the search query, one entry per match, up to the number requested via `limit`.
+      items:
+        $ref: '#/components/schemas/GeocodeResponse'
     GeocodeResponse:
       type: object
       description: A single geocoded location with coordinates and structured address components.
@@ -476,11 +481,6 @@ components:
             type: string
           minItems: 4
           maxItems: 4
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

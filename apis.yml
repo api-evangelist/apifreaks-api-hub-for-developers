@@ -52,7 +52,7 @@ tags:
 - Domain Intelligence
 - DNS
 - Geocoding
-- Email Validation
+- Email Verification
 - Phone Validation
 - SSL
 - Web Scraping
@@ -99,6 +99,7 @@ tags_raw:
 - MCP
 - agent-ready
 - OCR
+- Email Validation
 apis:
 - name: APIFreaks MCP Server
   description: Official first-party Model Context Protocol server (Apache-2.0) exposing 59 read-only tools across

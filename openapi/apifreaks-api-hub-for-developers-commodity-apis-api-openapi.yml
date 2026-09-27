@@ -597,6 +597,11 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: Historical Commodity Prices API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
     CommodityFluctuationResponse:
       type: object
@@ -672,6 +677,32 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
+    LiveCommodityPricesResponse:
+      type: object
+      required:
+      - success
+      - timestamp
+      - rates
+      - metadata
+      properties:
+        success:
+          type: boolean
+          description: '`true` for successful requests.'
+        timestamp:
+          type: integer
+          description: Unix timestamp (seconds) indicating when the response was generated.
+        rates:
+          $ref: '#/components/schemas/CommodityRates'
+        metadata:
+          $ref: '#/components/schemas/CommodityMetadata'
+      description: Live commodity prices response containing success status, timestamp, rates, and metadata.
+    CommodityRates:
+      type: object
+      description: Map of requested commodity symbols to their current live price. Each key is a commodity symbol (e.g. XAU); the value is the current price.
+      additionalProperties:
+        title: CommodityPrice
+        type: number
+        description: Current live price for this commodity symbol.
     CommodityMetadata:
       type: object
       description: Map of requested commodity symbols to their unit and quote currency metadata. Each key is a commodity symbol (e.g. XAU).
@@ -712,32 +743,6 @@ components:
         message:
           type: string
           description: Human-readable error message describing the failure.
-    LiveCommodityPricesResponse:
-      type: object
-      required:
-      - success
-      - timestamp
-      - rates
-      - metadata
-      properties:
-        success:
-          type: boolean
-          description: '`true` for successful requests.'
-        timestamp:
-          type: integer
-          description: Unix timestamp (seconds) indicating when the response was generated.
-        rates:
-          $ref: '#/components/schemas/CommodityRates'
-        metadata:
-          $ref: '#/components/schemas/CommodityMetadata'
-      description: Live commodity prices response containing success status, timestamp, rates, and metadata.
-    CommodityRates:
-      type: object
-      description: Map of requested commodity symbols to their current live price. Each key is a commodity symbol (e.g. XAU); the value is the current price.
-      additionalProperties:
-        title: CommodityPrice
-        type: number
-        description: Current live price for this commodity symbol.
     ErrorResponse_2:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -760,6 +765,38 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
+    CommoditySymbolsResponse:
+      type: object
+      required:
+      - success
+      - symbols
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the API request was successful.
+        symbols:
+          type: array
+          description: Array of commodity symbol objects with metadata.
+          items:
+            $ref: '#/components/schemas/CommoditySymbolItem'
+      description: Commodity symbols response containing an array of supported commodity symbol objects.
+    CommodityCurrency:
+      type: object
+      description: Currency information for a commodity.
+      required:
+      - code
+      - name
+      - symbol
+      properties:
+        code:
+          type: string
+          description: ISO 4217 currency code.
+        name:
+          type: string
+          description: Full name of the currency.
+        symbol:
+          type: string
+          description: Symbol of the currency (e.g., $).
     CommoditySymbolItem:
       type: object
       description: A single commodity symbol with metadata.
@@ -804,63 +841,6 @@ components:
         name:
           type: string
           description: Full name of the unit of measurement (e.g., Troy Ounce).
-    CommoditySymbolsResponse:
-      type: object
-      required:
-      - success
-      - symbols
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the API request was successful.
-        symbols:
-          type: array
-          description: Array of commodity symbol objects with metadata.
-          items:
-            $ref: '#/components/schemas/CommoditySymbolItem'
-      description: Commodity symbols response containing an array of supported commodity symbol objects.
-    CommodityCurrency:
-      type: object
-      description: Currency information for a commodity.
-      required:
-      - code
-      - name
-      - symbol
-      properties:
-        code:
-          type: string
-          description: ISO 4217 currency code.
-        name:
-          type: string
-          description: Full name of the currency.
-        symbol:
-          type: string
-          description: Symbol of the currency (e.g., $).
-    CommodityOhlc:
-      type: object
-      description: OHLC price data for a single commodity on a single trading day.
-      required:
-      - open
-      - high
-      - low
-      - close
-      properties:
-        open:
-          type: number
-          format: float
-          description: Opening price on the given date.
-        high:
-          type: number
-          format: float
-          description: Highest price on the given date.
-        low:
-          type: number
-          format: float
-          description: Lowest price on the given date.
-        close:
-          type: number
-          format: float
-          description: Closing price on the given date.
     CommodityTimeSeriesRates:
       type: object
       description: Map of trading dates to per-symbol OHLC data. Each key is a trading date (YYYY-MM-DD); non-trading days are excluded.
@@ -890,14 +870,47 @@ components:
         rates:
           $ref: '#/components/schemas/CommodityTimeSeriesRates'
       description: Commodity time series response containing date-indexed OHLC data per symbol.
-    HistoricalCommodityRates:
+    CommodityOhlc:
       type: object
-      description: Object of commodity symbols to their OHLC price data. Each key is a commodity symbol and the value contains date, open, high, low, and close prices.
-      properties:
-        symbol:
-          $ref: '#/components/schemas/HistoricalCommodityRate'
+      description: OHLC price data for a single commodity on a single trading day.
       required:
-      - symbol
+      - open
+      - high
+      - low
+      - close
+      properties:
+        open:
+          type: number
+          format: float
+          description: Opening price on the given date.
+        high:
+          type: number
+          format: float
+          description: Highest price on the given date.
+        low:
+          type: number
+          format: float
+          description: Lowest price on the given date.
+        close:
+          type: number
+          format: float
+          description: Closing price on the given date.
+    HistoricalCommodityPricesResponse:
+      type: object
+      required:
+      - success
+      - date
+      - rates
+      properties:
+        success:
+          type: boolean
+          description: '`true` for successful requests.'
+        date:
+          type: string
+          description: Date for which prices were fetched (YYYY-MM-DD).
+        rates:
+          $ref: '#/components/schemas/HistoricalCommodityRates'
+      description: Historical commodity prices response containing success status, date, and OHLC rate data.
     HistoricalCommodityRate:
       type: object
       description: OHLC price data for a single commodity on a specific date.
@@ -927,6 +940,14 @@ components:
           type: number
           format: float
           description: Closing price on the given date.
+    HistoricalCommodityRates:
+      type: object
+      description: Object of commodity symbols to their OHLC price data. Each key is a commodity symbol and the value contains date, open, high, low, and close prices.
+      properties:
+        symbol:
+          $ref: '#/components/schemas/HistoricalCommodityRate'
+      required:
+      - symbol
     ErrorResponse_3:
       type: object
       required:
@@ -952,27 +973,6 @@ components:
           type: string
           description: API endpoint path that produced the error.
       description: Standard error envelope returned by the API on failed requests.
-    HistoricalCommodityPricesResponse:
-      type: object
-      required:
-      - success
-      - date
-      - rates
-      properties:
-        success:
-          type: boolean
-          description: '`true` for successful requests.'
-        date:
-          type: string
-          description: Date for which prices were fetched (YYYY-MM-DD).
-        rates:
-          $ref: '#/components/schemas/HistoricalCommodityRates'
-      description: Historical commodity prices response containing success status, date, and OHLC rate data.
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

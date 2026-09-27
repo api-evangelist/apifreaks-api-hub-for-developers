@@ -458,129 +458,12 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: SSL Certificate Lookup API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
-    SSLPolicyQualifier:
-      type: object
-      description: Policy qualifier for a certificate policy.
-      properties:
-        oid:
-          type: string
-          description: OID of the policy qualifier.
-        cpsUri:
-          type: string
-          format: uri
-          description: CPS URI for the policy qualifier.
-        userNotice:
-          $ref: '#/components/schemas/SSLUserNotice'
-      required: []
-    SSLAuthorityInfoAccess:
-      type: object
-      description: Authority information access details.
-      properties:
-        issuers:
-          type: array
-          items:
-            type: string
-          description: Issuer certificate URLs.
-        ocsp:
-          type: array
-          items:
-            type: string
-          description: OCSP responder URLs.
-      required: []
-    SSLUserNoticeRef:
-      type: object
-      description: Notice reference for a user notice.
-      properties:
-        organization:
-          type: string
-          description: Organization for the notice reference.
-        noticeNumbers:
-          type: string
-          description: Notice numbers.
-      required: []
-    SSLPublicKey:
-      type: object
-      description: Public key details of the SSL certificate.
-      required:
-      - keySize
-      - keyAlgorithm
-      - pemRaw
-      properties:
-        keySize:
-          type: string
-          description: Public key size (e.g., 256 bit).
-        keyAlgorithm:
-          type: string
-          description: Public key algorithm (e.g., ECDSA, RSA).
-        pemRaw:
-          type: string
-          description: Raw PEM-encoded public key.
-    SSLSubject:
-      type: object
-      description: Subject information of the SSL certificate.
-      required:
-      - commonName
-      properties:
-        commonName:
-          type: string
-          description: Common name of the subject.
-        organization:
-          type: string
-          description: Organization of the subject.
-        organizationalUnit:
-          type: string
-          description: Organizational unit of the subject.
-        locality:
-          type: string
-          description: Locality of the subject.
-        state:
-          type: string
-          description: State of the subject.
-        country:
-          type: string
-          description: Country of the subject.
-        incCountry:
-          type: string
-          description: Incorporation country of the subject.
-        incState:
-          type: string
-          description: Incorporation state of the subject.
-        businessCategory:
-          type: string
-          description: Business category of the subject.
-        street:
-          type: string
-          description: Street address of the subject.
-        postalCode:
-          type: string
-          description: Postal code of the subject.
-        serialNumber:
-          type: string
-          description: Serial number of the subject.
-    SSLLookupResponse:
-      type: object
-      required:
-      - domainName
-      - queryTime
-      - sslCertificates
-      properties:
-        domainName:
-          type: string
-          description: Domain name or URL that was queried.
-        queryTime:
-          type: string
-          format: date-time
-          description: Timestamp when the query was executed.
-        sslCertificates:
-          type: array
-          items:
-            $ref: '#/components/schemas/SSLCertificateItem'
-          description: Array of SSL certificate objects forming the complete certificate chain.
-        sslRaw:
-          type: string
-          description: Raw OpenSSL response text if sslRaw was set to true.
-      description: SSL certificate chain lookup response containing certificate details and extensions for each certificate in the chain.
     SSLCertificateItem:
       type: object
       description: A single SSL certificate in the certificate chain.
@@ -653,6 +536,32 @@ components:
             type: string
           description: URIs on the certificate.
       required: []
+    SSLAuthorityInfoAccess:
+      type: object
+      description: Authority information access details.
+      properties:
+        issuers:
+          type: array
+          items:
+            type: string
+          description: Issuer certificate URLs.
+        ocsp:
+          type: array
+          items:
+            type: string
+          description: OCSP responder URLs.
+      required: []
+    SSLUserNoticeRef:
+      type: object
+      description: Notice reference for a user notice.
+      properties:
+        organization:
+          type: string
+          description: Organization for the notice reference.
+        noticeNumbers:
+          type: string
+          description: Notice numbers.
+      required: []
     SSLExtensions:
       type: object
       description: X.509 certificate extensions.
@@ -689,6 +598,33 @@ components:
           items:
             $ref: '#/components/schemas/SSLCertificatePolicy'
           description: Certificate policy objects.
+    SSLUserNotice:
+      type: object
+      description: User notice for a policy qualifier.
+      properties:
+        explicitText:
+          type: string
+          description: Explicit text of the user notice.
+        noticeRef:
+          $ref: '#/components/schemas/SSLUserNoticeRef'
+      required: []
+    SSLPublicKey:
+      type: object
+      description: Public key details of the SSL certificate.
+      required:
+      - keySize
+      - keyAlgorithm
+      - pemRaw
+      properties:
+        keySize:
+          type: string
+          description: Public key size (e.g., 256 bit).
+        keyAlgorithm:
+          type: string
+          description: Public key algorithm (e.g., ECDSA, RSA).
+        pemRaw:
+          type: string
+          description: Raw PEM-encoded public key.
     SSLIssuer:
       type: object
       description: Issuer information of the SSL certificate.
@@ -733,6 +669,95 @@ components:
         serialNumber:
           type: string
           description: Serial number of the issuer.
+    SSLPolicyQualifier:
+      type: object
+      description: Policy qualifier for a certificate policy.
+      properties:
+        oid:
+          type: string
+          description: OID of the policy qualifier.
+        cpsUri:
+          type: string
+          format: uri
+          description: CPS URI for the policy qualifier.
+        userNotice:
+          $ref: '#/components/schemas/SSLUserNotice'
+      required: []
+    SSLSubject:
+      type: object
+      description: Subject information of the SSL certificate.
+      required:
+      - commonName
+      properties:
+        commonName:
+          type: string
+          description: Common name of the subject.
+        organization:
+          type: string
+          description: Organization of the subject.
+        organizationalUnit:
+          type: string
+          description: Organizational unit of the subject.
+        locality:
+          type: string
+          description: Locality of the subject.
+        state:
+          type: string
+          description: State of the subject.
+        country:
+          type: string
+          description: Country of the subject.
+        incCountry:
+          type: string
+          description: Incorporation country of the subject.
+        incState:
+          type: string
+          description: Incorporation state of the subject.
+        businessCategory:
+          type: string
+          description: Business category of the subject.
+        street:
+          type: string
+          description: Street address of the subject.
+        postalCode:
+          type: string
+          description: Postal code of the subject.
+        serialNumber:
+          type: string
+          description: Serial number of the subject.
+    SSLCertificatePolicy:
+      type: object
+      description: A certificate policy object.
+      properties:
+        policyId:
+          type: string
+          description: Policy OID identifier.
+        policyQualifier:
+          $ref: '#/components/schemas/SSLPolicyQualifier'
+      required: []
+    SSLLookupResponse:
+      type: object
+      required:
+      - domainName
+      - queryTime
+      - sslCertificates
+      properties:
+        domainName:
+          type: string
+          description: Domain name or URL that was queried.
+        queryTime:
+          type: string
+          format: date-time
+          description: Timestamp when the query was executed.
+        sslCertificates:
+          type: array
+          items:
+            $ref: '#/components/schemas/SSLCertificateItem'
+          description: Array of SSL certificate objects forming the complete certificate chain.
+        sslRaw:
+          type: string
+          description: Raw OpenSSL response text if sslRaw was set to true.
+      description: SSL certificate chain lookup response containing certificate details and extensions for each certificate in the chain.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -755,26 +780,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    SSLCertificatePolicy:
-      type: object
-      description: A certificate policy object.
-      properties:
-        policyId:
-          type: string
-          description: Policy OID identifier.
-        policyQualifier:
-          $ref: '#/components/schemas/SSLPolicyQualifier'
-      required: []
-    SSLUserNotice:
-      type: object
-      description: User notice for a policy qualifier.
-      properties:
-        explicitText:
-          type: string
-          description: Explicit text of the user notice.
-        noticeRef:
-          $ref: '#/components/schemas/SSLUserNoticeRef'
-      required: []
     SSLLookupResponse_2:
       type: object
       required:
@@ -798,11 +803,6 @@ components:
           type: string
           description: Raw OpenSSL response text if sslRaw was set to true.
       description: SSL certificate lookup response containing certificate details and extensions.
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

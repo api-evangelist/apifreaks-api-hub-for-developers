@@ -320,7 +320,37 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: Bulk User Agent Parser API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
+    OperatingSystem:
+      type: object
+      description: Operating system information extracted from the User-Agent string.
+      required:
+      - name
+      - type
+      - version
+      - version_major
+      - build
+      properties:
+        name:
+          type: string
+          description: Name of the operating system (e.g., Windows, Android, Ubuntu).
+        type:
+          type: string
+          description: 'Operating system category. Possible values: Desktop, Mobile, Game Console, Embedded, Cloud, Hacker, Anonymized, Unknown.'
+        version:
+          type: string
+          description: Full version string of the operating system. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
+        version_major:
+          type: string
+          description: Major version number of the operating system. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
+        build:
+          type: string
+          description: Build number or identifier of the operating system. "??" when unknown.
     UserAgentParserResponse:
       type: object
       description: Parsed User-Agent result containing browser, device, engine, and operating system information. When the User-Agent string is malformed or cannot be parsed, every field across this object and its nested device/engine/operating_system objects is set to the literal string "Hacker" instead of the request failing.
@@ -376,24 +406,6 @@ components:
         version_major:
           type: string
           description: Major version number of the layout engine. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
-    BulkUserAgentParserResponse:
-      title: UserAgentParserResponse
-      type: array
-      description: 'Array of per-string parsed User-Agent results, one entry per input string, in the same order as the request. Unlike the bulk IP lookup endpoint, there is no per-item error variant here: a malformed (non-empty) string still parses to a full result with every field set to "Hacker" (see UserAgentParserResponse). An empty string or null anywhere in the request array fails the entire request with a 400 instead of producing a per-item error entry --- see the 400 response.'
-      items:
-        $ref: '#/components/schemas/UserAgentParserResponse'
-    BulkUserAgentRequest:
-      type: object
-      description: Request body containing an array of User-Agent strings to parse.
-      required:
-      - uaStrings
-      properties:
-        uaStrings:
-          type: array
-          description: Array of User-Agent strings to parse. Maximum 50,000 strings per request.
-          maxItems: 50000
-          items:
-            type: string
     Device:
       type: object
       description: Hardware device information extracted from the User-Agent string.
@@ -437,31 +449,24 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    OperatingSystem:
+    BulkUserAgentRequest:
       type: object
-      description: Operating system information extracted from the User-Agent string.
+      description: Request body containing an array of User-Agent strings to parse.
       required:
-      - name
-      - type
-      - version
-      - version_major
-      - build
+      - uaStrings
       properties:
-        name:
-          type: string
-          description: Name of the operating system (e.g., Windows, Android, Ubuntu).
-        type:
-          type: string
-          description: 'Operating system category. Possible values: Desktop, Mobile, Game Console, Embedded, Cloud, Hacker, Anonymized, Unknown.'
-        version:
-          type: string
-          description: Full version string of the operating system. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
-        version_major:
-          type: string
-          description: Major version number of the operating system. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
-        build:
-          type: string
-          description: Build number or identifier of the operating system. "??" when unknown.
+        uaStrings:
+          type: array
+          description: Array of User-Agent strings to parse. Maximum 50,000 strings per request.
+          maxItems: 50000
+          items:
+            type: string
+    BulkUserAgentParserResponse:
+      title: UserAgentParserResponse
+      type: array
+      description: 'Array of per-string parsed User-Agent results, one entry per input string, in the same order as the request. Unlike the bulk IP lookup endpoint, there is no per-item error variant here: a malformed (non-empty) string still parses to a full result with every field set to "Hacker" (see UserAgentParserResponse). An empty string or null anywhere in the request array fails the entire request with a 400 instead of producing a per-item error entry --- see the 400 response.'
+      items:
+        $ref: '#/components/schemas/UserAgentParserResponse'
     ErrorResponse_2:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -484,11 +489,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

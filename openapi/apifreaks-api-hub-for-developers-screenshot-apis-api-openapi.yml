@@ -708,7 +708,92 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: Bulk Screenshot API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
+    X-Concurrent-Threads:
+      description: Specifies the maximum number of concurrent requests allowed.
+      schema:
+        type: integer
+    X-Concurrent-Threads-Active:
+      description: Indicates the number of active concurrent requests being processed.
+      schema:
+        type: integer
   schemas:
+    BulkScreenshotRequest:
+      type: object
+      description: Request body for bulk screenshot capture.
+      required:
+      - urls
+      properties:
+        urls:
+          type: array
+          description: Array of URL objects to capture. Maximum 50 items per request.
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/BulkScreenshotUrlItem'
+    BulkScreenshotSuccessItem:
+      type: object
+      description: Per-URL result entry. The `url` field holds either the screenshot metadata or an error object, depending on whether that specific URL was captured successfully.
+      required:
+      - status
+      - url
+      properties:
+        status:
+          type: string
+          description: Processing status for this item (fulfilled).
+        url:
+          description: Screenshot metadata for this URL, or an error object if this specific URL could not be captured.
+          oneOf:
+          - description: Screenshot metadata with the same structure as the single Website Screenshot API response.
+            $ref: '#/components/schemas/BulkScreenshotUrlData'
+          - description: Per-item error returned when this specific URL cannot be captured.
+            $ref: '#/components/schemas/ErrorResponse'
+        error_message:
+          type:
+          - string
+          - 'null'
+          description: Observed to always be null; per-item error details are returned inside `url` instead.
+    ClipRect:
+      type: object
+      description: Clipping rectangle dimensions for the captured area.
+      required:
+      - x
+      - y
+      - width
+      - height
+      properties:
+        x:
+          type: integer
+          description: X position of the clip rectangle in pixels.
+        y:
+          type: integer
+          description: Y position of the clip rectangle in pixels.
+        width:
+          type: integer
+          description: Width of the clip rectangle in pixels.
+        height:
+          type: integer
+          description: Height of the clip rectangle in pixels.
+    BulkScreenshotMetaData:
+      type: object
+      description: Metadata about the bulk screenshot request results.
+      required:
+      - total_urls
+      - successful_urls
+      - failed_urls
+      properties:
+        total_urls:
+          type: integer
+          description: Total number of URLs processed.
+        successful_urls:
+          type: integer
+          description: Number of URLs successfully processed.
+        failed_urls:
+          type: integer
+          description: Number of URLs that failed to process.
     BulkScreenshotUrlItem:
       type: object
       description: A single URL entry in a bulk screenshot request with per-URL options.
@@ -958,27 +1043,11 @@ components:
         video:
           type: boolean
           description: Video recording.
-    ClipRect:
-      type: object
-      description: Clipping rectangle dimensions for the captured area.
-      required:
-      - x
-      - y
-      - width
-      - height
-      properties:
-        x:
-          type: integer
-          description: X position of the clip rectangle in pixels.
-        y:
-          type: integer
-          description: Y position of the clip rectangle in pixels.
-        width:
-          type: integer
-          description: Width of the clip rectangle in pixels.
-        height:
-          type: integer
-          description: Height of the clip rectangle in pixels.
+    BulkScreenshotResults:
+      type: array
+      description: Array of per-URL results, one entry per requested URL, in the same order as the request. Each entry's `url` field holds either screenshot data or an error object.
+      items:
+        $ref: '#/components/schemas/BulkScreenshotSuccessItem'
     BulkScreenshotResponse:
       type: object
       description: Bulk screenshot response containing status, metadata, and per-URL results.
@@ -994,45 +1063,6 @@ components:
           $ref: '#/components/schemas/BulkScreenshotMetaData'
         results:
           $ref: '#/components/schemas/BulkScreenshotResults'
-    BulkScreenshotResults:
-      type: array
-      description: Array of per-URL results, one entry per requested URL, in the same order as the request. Each entry's `url` field holds either screenshot data or an error object.
-      items:
-        $ref: '#/components/schemas/BulkScreenshotSuccessItem'
-    BulkScreenshotRequest:
-      type: object
-      description: Request body for bulk screenshot capture.
-      required:
-      - urls
-      properties:
-        urls:
-          type: array
-          description: Array of URL objects to capture. Maximum 50 items per request.
-          maxItems: 50
-          items:
-            $ref: '#/components/schemas/BulkScreenshotUrlItem'
-    BulkScreenshotSuccessItem:
-      type: object
-      description: Per-URL result entry. The `url` field holds either the screenshot metadata or an error object, depending on whether that specific URL was captured successfully.
-      required:
-      - status
-      - url
-      properties:
-        status:
-          type: string
-          description: Processing status for this item (fulfilled).
-        url:
-          description: Screenshot metadata for this URL, or an error object if this specific URL could not be captured.
-          oneOf:
-          - description: Screenshot metadata with the same structure as the single Website Screenshot API response.
-            $ref: '#/components/schemas/BulkScreenshotUrlData'
-          - description: Per-item error returned when this specific URL cannot be captured.
-            $ref: '#/components/schemas/ErrorResponse'
-        error_message:
-          type:
-          - string
-          - 'null'
-          description: Observed to always be null; per-item error details are returned inside `url` instead.
     BulkScreenshotUrlData:
       type: object
       description: Screenshot result data for a single URL. Contains the same fields as the single Website Screenshot API response.
@@ -1270,23 +1300,6 @@ components:
         video:
           type: boolean
           description: Whether viewport recording mode was enabled.
-    BulkScreenshotMetaData:
-      type: object
-      description: Metadata about the bulk screenshot request results.
-      required:
-      - total_urls
-      - successful_urls
-      - failed_urls
-      properties:
-        total_urls:
-          type: integer
-          description: Total number of URLs processed.
-        successful_urls:
-          type: integer
-          description: Number of URLs successfully processed.
-        failed_urls:
-          type: integer
-          description: Number of URLs that failed to process.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -1532,19 +1545,6 @@ components:
         enable_incognito:
           type: boolean
           description: Whether incognito mode was enabled.
-  headers:
-    X-Concurrent-Threads-Active:
-      description: Indicates the number of active concurrent requests being processed.
-      schema:
-        type: integer
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
-    X-Concurrent-Threads:
-      description: Specifies the maximum number of concurrent requests allowed.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

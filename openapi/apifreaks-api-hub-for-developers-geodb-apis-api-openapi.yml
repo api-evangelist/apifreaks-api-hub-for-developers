@@ -800,6 +800,11 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: Subregions API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
     AdminUnitDetailsResponse:
       type: object
@@ -862,6 +867,17 @@ components:
           description: An array of unique administrative level types defined for the specified country. Each value represents a category of administrative division, such as state, district, or outlying area.
           items:
             type: string
+    AdminUnitsResponse:
+      type: object
+      description: Response containing the administrative units for the requested country, optionally filtered by admin_level.
+      required:
+      - admin_units
+      properties:
+        admin_units:
+          type: array
+          description: An array of administrative unit objects for the specified country.
+          items:
+            $ref: '#/components/schemas/AdminUnit'
     AdminUnit:
       type: object
       description: An administrative unit object.
@@ -879,17 +895,6 @@ components:
         admin_level:
           type: string
           description: Level or type of the administrative unit (e.g., state, district, province).
-    AdminUnitsResponse:
-      type: object
-      description: Response containing the administrative units for the requested country, optionally filtered by admin_level.
-      required:
-      - admin_units
-      properties:
-        admin_units:
-          type: array
-          description: An array of administrative unit objects for the specified country.
-          items:
-            $ref: '#/components/schemas/AdminUnit'
     CityItem:
       type: object
       description: A city object containing name, coordinates, admin unit, and country code.
@@ -916,6 +921,17 @@ components:
           description: The ISO 3166-1 alpha-2 country code the city belongs to.
         admin_unit:
           $ref: '#/components/schemas/AdminUnit_2'
+    CitiesResponse:
+      type: object
+      description: Response containing every city for the requested country (optionally filtered by admin_unit), returned unpaginated in a single array.
+      required:
+      - cities
+      properties:
+        cities:
+          type: array
+          description: An array of city objects for the specified country, optionally filtered by admin unit.
+          items:
+            $ref: '#/components/schemas/CityItem'
     AdminUnit_2:
       type: object
       description: An object describing the administrative unit the city belongs to.
@@ -933,17 +949,6 @@ components:
         admin_level:
           type: string
           description: The administrative level type of the unit (e.g., province, council area).
-    CitiesResponse:
-      type: object
-      description: Response containing every city for the requested country (optionally filtered by admin_unit), returned unpaginated in a single array.
-      required:
-      - cities
-      properties:
-        cities:
-          type: array
-          description: An array of city objects for the specified country, optionally filtered by admin unit.
-          items:
-            $ref: '#/components/schemas/CityItem'
     CountryDetailsResponse:
       type: object
       description: Comprehensive metadata for a single country resolved from an ISO 3166-1 alpha-2 code.
@@ -1009,6 +1014,17 @@ components:
         currency_symbol:
           type: string
           description: The symbol of the currency used in the country.
+    CountriesResponse:
+      type: object
+      description: Response containing the list of countries matching the applied region/subregion filters (or all 250 when unfiltered).
+      required:
+      - countries
+      properties:
+        countries:
+          type: array
+          description: An array of country objects matching the applied filters.
+          items:
+            $ref: '#/components/schemas/CountryItem'
     CountryItem:
       type: object
       description: A country object containing ISO codes, capital, and region information.
@@ -1042,17 +1058,6 @@ components:
         subregion:
           type: string
           description: The more specific subregion the country belongs to. Empty string for a small number of territories with no assigned subregion.
-    CountriesResponse:
-      type: object
-      description: Response containing the list of countries matching the applied region/subregion filters (or all 250 when unfiltered).
-      required:
-      - countries
-      properties:
-        countries:
-          type: array
-          description: An array of country objects matching the applied filters.
-          items:
-            $ref: '#/components/schemas/CountryItem'
     RegionsResponse:
       type: object
       description: Response containing the flat list of geographical regions supported by the GeoDB service.
@@ -1075,11 +1080,6 @@ components:
           description: An array of subregion names within the specified region.
           items:
             type: string
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

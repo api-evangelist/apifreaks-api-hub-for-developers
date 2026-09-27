@@ -205,6 +205,11 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: Supported Flags API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
     ApiResponseSchemas:
       type: string
@@ -267,11 +272,6 @@ components:
         iso3:
           type: string
           description: ISO 3166-1 alpha-3 code.
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

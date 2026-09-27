@@ -1112,6 +1112,11 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: Historical Exchange Rate API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
     LatestCurrencyConverterResponse:
       type: object
@@ -1189,6 +1194,27 @@ components:
             title: CurrencyFluctuationItem
             $ref: '#/components/schemas/CurrencyFluctuationItem'
       description: Currency fluctuation response containing rate changes per symbol over a date interval.
+    CurrencyFluctuationItem:
+      type: object
+      description: Fluctuation metrics for a single currency over a date interval.
+      required:
+      - startRate
+      - endRate
+      - change
+      - percentChange
+      properties:
+        startRate:
+          type: string
+          description: Rate of the currency at the start of the interval.
+        endRate:
+          type: string
+          description: Rate of the currency at the end of the interval.
+        change:
+          type: string
+          description: Absolute change between start and end rate. Can be positive or negative.
+        percentChange:
+          type: string
+          description: Percentage change between start and end rate. Can be positive or negative.
     ErrorResponse_2:
       type: object
       description: Standard error envelope returned by the API on failed requests. Gateway-level validation errors use an ISO 8601 timestamp and the public endpoint path; currency-service errors use a Unix millisecond timestamp and an internal service path instead.
@@ -1212,27 +1238,6 @@ components:
         path:
           type: string
           description: API endpoint path (gateway errors) or internal service path (currency-service errors) that produced the error.
-    CurrencyFluctuationItem:
-      type: object
-      description: Fluctuation metrics for a single currency over a date interval.
-      required:
-      - startRate
-      - endRate
-      - change
-      - percentChange
-      properties:
-        startRate:
-          type: string
-          description: Rate of the currency at the start of the interval.
-        endRate:
-          type: string
-          description: Rate of the currency at the end of the interval.
-        change:
-          type: string
-          description: Absolute change between start and end rate. Can be positive or negative.
-        percentChange:
-          type: string
-          description: Percentage change between start and end rate. Can be positive or negative.
     HistoricalDataLimitsResponse:
       type: object
       required:
@@ -1315,6 +1320,18 @@ components:
           type: string
           description: API endpoint path that produced the error.
       description: Standard error envelope returned by the API on failed requests.
+    SupportedCurrenciesResponse:
+      type: object
+      required:
+      - supportedCurrenciesMap
+      properties:
+        supportedCurrenciesMap:
+          type: object
+          description: Map of all supported currencies keyed by currency code. Each key is a currency code and the value contains full currency metadata.
+          additionalProperties:
+            title: CurrencySupportedItem
+            $ref: '#/components/schemas/CurrencySupportedItem'
+      description: Currency supported response containing the map of all supported currencies.
     CurrencySupportedItem:
       type: object
       description: Metadata for a single supported currency.
@@ -1356,18 +1373,6 @@ components:
           type: string
           format: uri
           description: URL of the currency icon/flag image.
-    SupportedCurrenciesResponse:
-      type: object
-      required:
-      - supportedCurrenciesMap
-      properties:
-        supportedCurrenciesMap:
-          type: object
-          description: Map of all supported currencies keyed by currency code. Each key is a currency code and the value contains full currency metadata.
-          additionalProperties:
-            title: CurrencySupportedItem
-            $ref: '#/components/schemas/CurrencySupportedItem'
-      description: Currency supported response containing the map of all supported currencies.
     ErrorResponse_5:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -1594,11 +1599,6 @@ components:
           - string
           - integer
           description: Timestamp when the error occurred — ISO 8601 string for gateway errors, Unix milliseconds integer for currency-service errors.
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

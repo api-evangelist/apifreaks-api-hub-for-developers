@@ -80,6 +80,11 @@ paths:
             X-AF-Credits-Cost:
               $ref: '#/components/headers/X-AF-Credits-Cost'
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
     CreditsUsageResponse:
       type: object
@@ -183,11 +188,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

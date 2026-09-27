@@ -285,6 +285,11 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: PDF Resource Upload API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
     ErrorResponse:
       type: object
@@ -321,6 +326,15 @@ components:
           type: string
           description: The unique identifier assigned to the uploaded file.
       description: Binary resource upload response containing file metadata.
+    ResourceUploadRequest:
+      type: object
+      description: Multipart form-data request body containing the file to upload.
+      required: []
+      properties:
+        file:
+          type: string
+          format: binary
+          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Repeat this field to upload multiple files in one request.
     ResourceUploadResponse:
       type: object
       required:
@@ -342,20 +356,6 @@ components:
                 description: Unique ID of the uploaded file, used to reference it in processing operations.
           description: Array of uploaded file metadata objects.
       description: Resource upload response containing file metadata.
-    ResourceUploadRequest:
-      type: object
-      description: Multipart form-data request body containing the file to upload.
-      required: []
-      properties:
-        file:
-          type: string
-          format: binary
-          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Repeat this field to upload multiple files in one request.
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey
