@@ -656,48 +656,23 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    AirportDetail:
+    TimezoneResponse:
       type: object
-      description: Airport information, present when queried by IATA or ICAO code.
+      required:
+      - time_zone
       properties:
-        type:
+        ip:
           type: string
-          description: Classification of the airport based on size and traffic.
-        name:
-          type: string
-          description: The full name of the airport.
-        latitude:
-          type: number
-          format: float
-          description: The latitude coordinate of the airport.
-        longitude:
-          type: number
-          format: float
-          description: The longitude coordinate of the airport.
-        elevation_ft:
-          type: integer
-          description: The elevation of the airport above sea level, measured in feet.
-        continent_code:
-          type: string
-          description: The two-letter code of the continent.
-        country_code:
-          type: string
-          description: The ISO 3166-1 alpha-2 code for the country where the airport is located.
-        state_code:
-          type: string
-          description: Code of the state/province/region where the airport is located.
-        city:
-          type: string
-          description: The city or administrative region that the airport serves.
-        iata_code:
-          type: string
-          description: The three-letter IATA airport code (e.g., LHR).
-        icao_code:
-          type: string
-          description: The four-letter ICAO airport code (e.g., EGLL).
-        faa_code:
-          type: string
-          description: The FAA location identifier, used primarily in the United States.
+          description: The IP address used for the timezone lookup. Present when queried using the ip parameter, or with no location-identifying parameter at all (client-IP fallback). Absent for every other lookup mode.
+        time_zone:
+          $ref: '#/components/schemas/TimeZone'
+        location:
+          $ref: '#/components/schemas/TimezoneLocation'
+        airport_details:
+          $ref: '#/components/schemas/AirportDetail'
+        lo_code_details:
+          $ref: '#/components/schemas/LoCodeDetail'
+      description: 'Timezone lookup result. time_zone is always present. Exactly which other object accompanies it depends on the lookup mode: tz name and lat/long coordinates return time_zone only (no location, no ip); location address returns a basic location object; ip param or client-IP fallback returns a rich location object plus top-level ip; iata_code/icao_code returns airport_details instead of location; lo_code returns lo_code_details instead of location.'
     DstTransition:
       type: object
       description: DST transition details (used for both the DST start and DST end transitions). Always present as a key on the parent TimeZone object; returned as an empty object {} when dst_exists is false, so none of its properties are required.
@@ -720,53 +695,6 @@ components:
         overlap:
           type: boolean
           description: true if local times repeat around the DST transition.
-    TimezoneResponse:
-      type: object
-      required:
-      - time_zone
-      properties:
-        ip:
-          type: string
-          description: The IP address used for the timezone lookup. Present when queried using the ip parameter, or with no location-identifying parameter at all (client-IP fallback). Absent for every other lookup mode.
-        time_zone:
-          $ref: '#/components/schemas/TimeZone'
-        location:
-          $ref: '#/components/schemas/TimezoneLocation'
-        airport_details:
-          $ref: '#/components/schemas/AirportDetail'
-        lo_code_details:
-          $ref: '#/components/schemas/LoCodeDetail'
-      description: 'Timezone lookup result. time_zone is always present. Exactly which other object accompanies it depends on the lookup mode: tz name and lat/long coordinates return time_zone only (no location, no ip); location address returns a basic location object; ip param or client-IP fallback returns a rich location object plus top-level ip; iata_code/icao_code returns airport_details instead of location; lo_code returns lo_code_details instead of location.'
-    LoCodeDetail:
-      type: object
-      description: UN/LOCODE location details, present when queried by LO code.
-      properties:
-        lo_code:
-          type: string
-          description: A unique identifier for the location, often used in logistics and shipping (e.g., USNYC).
-        city:
-          type: string
-          description: The name of the city or location associated with the LO code.
-        state_code:
-          type: string
-          description: The code for the state, province or region.
-        country_code:
-          type: string
-          description: The ISO 3166-1 alpha-2 country code (e.g., US).
-        country_name:
-          type: string
-          description: The name of the country in an administrative context.
-        location_type:
-          type: string
-          description: The type of location as comma-separated list of facilities (e.g., Port, Rail Terminal, Road Terminal, Airport).
-        latitude:
-          type: number
-          format: float
-          description: The latitude coordinate of the location.
-        longitude:
-          type: number
-          format: float
-          description: The longitude coordinate of the location.
     TimeZone:
       type: object
       description: Timezone and date/time information for the location.
@@ -878,6 +806,78 @@ components:
           $ref: '#/components/schemas/DstTransition'
         dst_end:
           $ref: '#/components/schemas/DstTransition'
+    AirportDetail:
+      type: object
+      description: Airport information, present when queried by IATA or ICAO code.
+      properties:
+        type:
+          type: string
+          description: Classification of the airport based on size and traffic.
+        name:
+          type: string
+          description: The full name of the airport.
+        latitude:
+          type: number
+          format: float
+          description: The latitude coordinate of the airport.
+        longitude:
+          type: number
+          format: float
+          description: The longitude coordinate of the airport.
+        elevation_ft:
+          type: integer
+          description: The elevation of the airport above sea level, measured in feet.
+        continent_code:
+          type: string
+          description: The two-letter code of the continent.
+        country_code:
+          type: string
+          description: The ISO 3166-1 alpha-2 code for the country where the airport is located.
+        state_code:
+          type: string
+          description: Code of the state/province/region where the airport is located.
+        city:
+          type: string
+          description: The city or administrative region that the airport serves.
+        iata_code:
+          type: string
+          description: The three-letter IATA airport code (e.g., LHR).
+        icao_code:
+          type: string
+          description: The four-letter ICAO airport code (e.g., EGLL).
+        faa_code:
+          type: string
+          description: The FAA location identifier, used primarily in the United States.
+    LoCodeDetail:
+      type: object
+      description: UN/LOCODE location details, present when queried by LO code.
+      properties:
+        lo_code:
+          type: string
+          description: A unique identifier for the location, often used in logistics and shipping (e.g., USNYC).
+        city:
+          type: string
+          description: The name of the city or location associated with the LO code.
+        state_code:
+          type: string
+          description: The code for the state, province or region.
+        country_code:
+          type: string
+          description: The ISO 3166-1 alpha-2 country code (e.g., US).
+        country_name:
+          type: string
+          description: The name of the country in an administrative context.
+        location_type:
+          type: string
+          description: The type of location as comma-separated list of facilities (e.g., Port, Rail Terminal, Road Terminal, Airport).
+        latitude:
+          type: number
+          format: float
+          description: The latitude coordinate of the location.
+        longitude:
+          type: number
+          format: float
+          description: The longitude coordinate of the location.
     TimezoneLocation:
       type: object
       description: 'Geographic location information. Only present for location (address) and ip (or client-IP fallback) lookups; absent for tz, lat/long, iata_code/icao_code, and lo_code lookups. Field set varies by mode: location returns location_string plus a basic field set (country_name, state_prov, city, locality, latitude, longitude); ip/default returns a richer geo-IP field set (continent_code, continent_name, country_code2, country_code3, country_name_official, is_eu, state_code, district, zipcode) plus the common fields, but never location_string or locality.'

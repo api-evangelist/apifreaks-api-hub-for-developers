@@ -986,29 +986,12 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: PDF Split API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
     PDFResponse:
       type: object
       description: Response containing the task ID and input file IDs for a PDF processing task.
@@ -1032,17 +1015,28 @@ components:
           type: string
           format: binary
           description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
-    PdfMergeUploadRequest:
+    ErrorResponse:
       type: object
-      description: Multipart form-data request body containing multiple PDF files to merge.
-      required: []
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
       properties:
-        file:
-          type: array
-          items:
-            type: string
-            format: binary
-          description: One or more raw PDF file byte streams, each sent as a separate multipart/form-data field named 'file'. Omit this field entirely and pass one or more file_id query parameters instead to merge already-uploaded files.
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
     PDFResponse_2:
       type: object
       required:
@@ -1057,6 +1051,17 @@ components:
             type: string
           description: File IDs for the input files provided for the task.
       description: Response containing the task ID and input file IDs for a PDF processing task.
+    PdfMergeUploadRequest:
+      type: object
+      description: Multipart form-data request body containing multiple PDF files to merge.
+      required: []
+      properties:
+        file:
+          type: array
+          items:
+            type: string
+            format: binary
+          description: One or more raw PDF file byte streams, each sent as a separate multipart/form-data field named 'file'. Omit this field entirely and pass one or more file_id query parameters instead to merge already-uploaded files.
     PdfTaskResponse:
       type: object
       description: Response containing the task ID and input file IDs for a PDF processing task.
@@ -1071,11 +1076,6 @@ components:
           items:
             type: string
           description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

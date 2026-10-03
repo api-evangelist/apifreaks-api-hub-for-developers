@@ -434,29 +434,22 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: PDF Generator API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
-    ErrorResponse:
+    CsvUploadRequest:
       type: object
-      description: Standard error envelope returned by the API on failed requests.
+      description: Multipart form-data request body containing the CSV file to render in bulk.
       required:
-      - message
+      - file
       properties:
-        error:
+        file:
           type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
+          format: binary
+          description: A CSV file uploaded as form-data where each row is one record. One PDF is generated per row.
     TemplateGenerationResponse:
       type: object
       description: Result of a PDF generation request, containing the hosted URL of the generated PDF.
@@ -480,21 +473,28 @@ components:
           type: string
           format: date-time
           description: When the hosted PDF expires (ISO 8601).
-    CsvUploadRequest:
+    ErrorResponse:
       type: object
-      description: Multipart form-data request body containing the CSV file to render in bulk.
+      description: Standard error envelope returned by the API on failed requests.
       required:
-      - file
+      - message
       properties:
-        file:
+        error:
           type: string
-          format: binary
-          description: A CSV file uploaded as form-data where each row is one record. One PDF is generated per row.
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

@@ -320,12 +320,46 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: Bulk User Agent Parser API Server
 components:
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   schemas:
+    BulkUserAgentRequest:
+      type: object
+      description: Request body containing an array of User-Agent strings to parse.
+      required:
+      - uaStrings
+      properties:
+        uaStrings:
+          type: array
+          description: Array of User-Agent strings to parse. Maximum 50,000 strings per request.
+          maxItems: 50000
+          items:
+            type: string
+    BulkUserAgentParserResponse:
+      title: UserAgentParserResponse
+      type: array
+      description: 'Array of per-string parsed User-Agent results, one entry per input string, in the same order as the request. Unlike the bulk IP lookup endpoint, there is no per-item error variant here: a malformed (non-empty) string still parses to a full result with every field set to "Hacker" (see UserAgentParserResponse). An empty string or null anywhere in the request array fails the entire request with a 400 instead of producing a per-item error entry --- see the 400 response.'
+      items:
+        $ref: '#/components/schemas/UserAgentParserResponse'
+    Device:
+      type: object
+      description: Hardware device information extracted from the User-Agent string.
+      required:
+      - name
+      - type
+      - brand
+      - cpu
+      properties:
+        name:
+          type: string
+          description: Device name or model identifier of the hardware used.
+        type:
+          type: string
+          description: 'Device category. Possible values: Desktop, Mobile, Tablet, Phone, Watch, Virtual Reality, eReader, Set-top box, TV, Game Console, Handheld Game Console, Voice, Robot, Robot Mobile, Robot Imitator, Hacker, Anonymized, Unknown.'
+        brand:
+          type: string
+          description: Device manufacturer or brand name.
+        cpu:
+          type: string
+          description: CPU architecture or model identifier of the device.
     OperatingSystem:
       type: object
       description: Operating system information extracted from the User-Agent string.
@@ -406,27 +440,6 @@ components:
         version_major:
           type: string
           description: Major version number of the layout engine. "??" when unknown; "Hacker" when the User-Agent string itself is malformed/unparsable.
-    Device:
-      type: object
-      description: Hardware device information extracted from the User-Agent string.
-      required:
-      - name
-      - type
-      - brand
-      - cpu
-      properties:
-        name:
-          type: string
-          description: Device name or model identifier of the hardware used.
-        type:
-          type: string
-          description: 'Device category. Possible values: Desktop, Mobile, Tablet, Phone, Watch, Virtual Reality, eReader, Set-top box, TV, Game Console, Handheld Game Console, Voice, Robot, Robot Mobile, Robot Imitator, Hacker, Anonymized, Unknown.'
-        brand:
-          type: string
-          description: Device manufacturer or brand name.
-        cpu:
-          type: string
-          description: CPU architecture or model identifier of the device.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests. Request-body-level errors (missing/empty/wrong-type body) include all five fields; per-item validation errors (empty/null string in uaStrings) include only message.
@@ -449,24 +462,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    BulkUserAgentRequest:
-      type: object
-      description: Request body containing an array of User-Agent strings to parse.
-      required:
-      - uaStrings
-      properties:
-        uaStrings:
-          type: array
-          description: Array of User-Agent strings to parse. Maximum 50,000 strings per request.
-          maxItems: 50000
-          items:
-            type: string
-    BulkUserAgentParserResponse:
-      title: UserAgentParserResponse
-      type: array
-      description: 'Array of per-string parsed User-Agent results, one entry per input string, in the same order as the request. Unlike the bulk IP lookup endpoint, there is no per-item error variant here: a malformed (non-empty) string still parses to a full result with every field set to "Hacker" (see UserAgentParserResponse). An empty string or null anywhere in the request array fails the entire request with a 400 instead of producing a per-item error entry --- see the 400 response.'
-      items:
-        $ref: '#/components/schemas/UserAgentParserResponse'
     ErrorResponse_2:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -489,6 +484,11 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

@@ -921,17 +921,6 @@ components:
           description: The ISO 3166-1 alpha-2 country code the city belongs to.
         admin_unit:
           $ref: '#/components/schemas/AdminUnit_2'
-    CitiesResponse:
-      type: object
-      description: Response containing every city for the requested country (optionally filtered by admin_unit), returned unpaginated in a single array.
-      required:
-      - cities
-      properties:
-        cities:
-          type: array
-          description: An array of city objects for the specified country, optionally filtered by admin unit.
-          items:
-            $ref: '#/components/schemas/CityItem'
     AdminUnit_2:
       type: object
       description: An object describing the administrative unit the city belongs to.
@@ -949,6 +938,17 @@ components:
         admin_level:
           type: string
           description: The administrative level type of the unit (e.g., province, council area).
+    CitiesResponse:
+      type: object
+      description: Response containing every city for the requested country (optionally filtered by admin_unit), returned unpaginated in a single array.
+      required:
+      - cities
+      properties:
+        cities:
+          type: array
+          description: An array of city objects for the specified country, optionally filtered by admin unit.
+          items:
+            $ref: '#/components/schemas/CityItem'
     CountryDetailsResponse:
       type: object
       description: Comprehensive metadata for a single country resolved from an ISO 3166-1 alpha-2 code.

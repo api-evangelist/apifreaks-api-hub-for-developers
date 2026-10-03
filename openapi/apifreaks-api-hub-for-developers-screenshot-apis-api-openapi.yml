@@ -709,345 +709,19 @@ paths:
       description: Bulk Screenshot API Server
 components:
   headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
+    X-Concurrent-Threads-Active:
+      description: Indicates the number of active concurrent requests being processed.
       schema:
         type: integer
     X-Concurrent-Threads:
       description: Specifies the maximum number of concurrent requests allowed.
       schema:
         type: integer
-    X-Concurrent-Threads-Active:
-      description: Indicates the number of active concurrent requests being processed.
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
       schema:
         type: integer
   schemas:
-    BulkScreenshotRequest:
-      type: object
-      description: Request body for bulk screenshot capture.
-      required:
-      - urls
-      properties:
-        urls:
-          type: array
-          description: Array of URL objects to capture. Maximum 50 items per request.
-          maxItems: 50
-          items:
-            $ref: '#/components/schemas/BulkScreenshotUrlItem'
-    BulkScreenshotSuccessItem:
-      type: object
-      description: Per-URL result entry. The `url` field holds either the screenshot metadata or an error object, depending on whether that specific URL was captured successfully.
-      required:
-      - status
-      - url
-      properties:
-        status:
-          type: string
-          description: Processing status for this item (fulfilled).
-        url:
-          description: Screenshot metadata for this URL, or an error object if this specific URL could not be captured.
-          oneOf:
-          - description: Screenshot metadata with the same structure as the single Website Screenshot API response.
-            $ref: '#/components/schemas/BulkScreenshotUrlData'
-          - description: Per-item error returned when this specific URL cannot be captured.
-            $ref: '#/components/schemas/ErrorResponse'
-        error_message:
-          type:
-          - string
-          - 'null'
-          description: Observed to always be null; per-item error details are returned inside `url` instead.
-    ClipRect:
-      type: object
-      description: Clipping rectangle dimensions for the captured area.
-      required:
-      - x
-      - y
-      - width
-      - height
-      properties:
-        x:
-          type: integer
-          description: X position of the clip rectangle in pixels.
-        y:
-          type: integer
-          description: Y position of the clip rectangle in pixels.
-        width:
-          type: integer
-          description: Width of the clip rectangle in pixels.
-        height:
-          type: integer
-          description: Height of the clip rectangle in pixels.
-    BulkScreenshotMetaData:
-      type: object
-      description: Metadata about the bulk screenshot request results.
-      required:
-      - total_urls
-      - successful_urls
-      - failed_urls
-      properties:
-        total_urls:
-          type: integer
-          description: Total number of URLs processed.
-        successful_urls:
-          type: integer
-          description: Number of URLs successfully processed.
-        failed_urls:
-          type: integer
-          description: Number of URLs that failed to process.
-    BulkScreenshotUrlItem:
-      type: object
-      description: A single URL entry in a bulk screenshot request with per-URL options.
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-          description: URL of the website to capture.
-        file_type:
-          type: string
-          enum:
-          - PNG
-          - JPEG
-          - WEBP
-          - PDF
-          - mp4
-          - gif
-          - webm
-          description: Output format for this URL.
-        width:
-          type: integer
-          description: Viewport width in pixels.
-        height:
-          type: integer
-          description: Viewport height in pixels.
-        full_page:
-          type: boolean
-          description: Capture a full-page screenshot.
-        fresh:
-          type: boolean
-          description: Bypass cache.
-        no_cookie_banners:
-          type: boolean
-          description: Remove cookie banners.
-        enable_caching:
-          type: boolean
-          description: Enable caching.
-        block_ads:
-          type: boolean
-          description: Block ads.
-        block_chat_widgets:
-          type: boolean
-          description: Block chat widgets.
-        extract_text:
-          type: boolean
-          description: Extract visible text.
-        extract_html:
-          type: boolean
-          description: Extract HTML.
-        extract_markdown:
-          type: boolean
-          description: Extract markdown.
-        get_image_urls:
-          type: boolean
-          description: Extract image URLs.
-        destroy_screenshot:
-          type: boolean
-          description: Auto-destroy after fetch.
-        lazy_load:
-          type: boolean
-          description: Lazy-load content.
-        scroll_delay:
-          type: integer
-          description: Delay in ms between scroll steps.
-        retina:
-          type: boolean
-          description: 2x resolution.
-        dark_mode:
-          type: boolean
-          description: Dark mode.
-        block_tracking:
-          type: boolean
-          description: Block tracking.
-        enable_incognito:
-          type: boolean
-          description: Incognito mode.
-        omit_background:
-          type: boolean
-          description: Transparent background.
-        thumbnail_width:
-          type: integer
-          description: Thumbnail width.
-        adjust_top:
-          type: integer
-          description: Vertical scroll position.
-        wait_for_event:
-          type: string
-          enum:
-          - load
-          - domcontentloaded
-          - networkidle
-          description: Wait for event.
-        grayscale:
-          type: integer
-          description: Grayscale (0-100).
-        delay:
-          type: integer
-          description: Delay in ms.
-        timeout:
-          type: integer
-          description: Timeout in ms.
-        ttl:
-          type: integer
-          description: Cache TTL in seconds.
-        image_quality:
-          type: integer
-          description: JPEG quality (0-100).
-        clip[x]:
-          type: integer
-          description: Clip X.
-        clip[y]:
-          type: integer
-          description: Clip Y.
-        clip[width]:
-          type: integer
-          description: Clip width.
-        clip[height]:
-          type: integer
-          description: Clip height.
-        css_url:
-          type: string
-          description: CSS file URL.
-        css:
-          type: string
-          description: Custom CSS.
-        js_url:
-          type: string
-          description: JS file URL.
-        js:
-          type: string
-          description: Custom JS.
-        block_js:
-          type: boolean
-          description: Block JS.
-        block_stylesheets:
-          type: boolean
-          description: Block stylesheets.
-        block_images:
-          type: boolean
-          description: Block images.
-        block_media:
-          type: boolean
-          description: Block media.
-        block_font:
-          type: boolean
-          description: Block fonts.
-        block_text_track:
-          type: boolean
-          description: Block text tracks.
-        block_xhr:
-          type: boolean
-          description: Block XHR.
-        block_fetch:
-          type: boolean
-          description: Block Fetch.
-        block_event_source:
-          type: boolean
-          description: Block EventSource.
-        block_web_socket:
-          type: boolean
-          description: Block WebSocket.
-        block_manifest:
-          type: boolean
-          description: Block manifest.
-        block_specific_requests:
-          type: string
-          description: Specific requests to block.
-        blur_selector:
-          type: string
-          description: CSS selectors to blur.
-        remove_selector:
-          type: string
-          description: CSS selectors to remove.
-        scroll_to_element:
-          type: string
-          description: Element to scroll to.
-        selector:
-          type: string
-          description: CSS selector to capture.
-        selector_to_click:
-          type: string
-          description: Element to click.
-        click_recursion:
-          type: integer
-          description: Click count.
-        result_file_name:
-          type: string
-          description: Custom filename.
-        user_agent:
-          type: string
-          description: Custom User-Agent.
-        accept_languages:
-          type: string
-          description: Accept-Language.
-        proxy:
-          type: string
-          description: Proxy config.
-        headers:
-          type: string
-          description: Custom headers.
-        cookies:
-          type: string
-          description: Cookies.
-        custom_html:
-          type: string
-          description: Custom HTML.
-        fail_on_error:
-          type: boolean
-          description: Fail on 4xx/5xx.
-        longitude:
-          type: number
-          format: float
-          description: Geolocation longitude.
-        latitude:
-          type: number
-          format: float
-          description: Geolocation latitude.
-        scrolling_screenshot:
-          type: boolean
-          description: Scrolling mode.
-        scroll_speed:
-          type: string
-          enum:
-          - normal
-          - fast
-          - slow
-          description: Scroll speed.
-        duration:
-          type: number
-          description: Duration in seconds.
-        scroll_back:
-          type: boolean
-          description: Scroll back.
-        start_immediately:
-          type: boolean
-          description: Start immediately.
-        multiple_scrolling:
-          type: boolean
-          description: Multiple scrolling.
-        sizes:
-          type: array
-          items:
-            type: string
-          description: Viewport sizes.
-        video:
-          type: boolean
-          description: Video recording.
-    BulkScreenshotResults:
-      type: array
-      description: Array of per-URL results, one entry per requested URL, in the same order as the request. Each entry's `url` field holds either screenshot data or an error object.
-      items:
-        $ref: '#/components/schemas/BulkScreenshotSuccessItem'
     BulkScreenshotResponse:
       type: object
       description: Bulk screenshot response containing status, metadata, and per-URL results.
@@ -1300,6 +974,332 @@ components:
         video:
           type: boolean
           description: Whether viewport recording mode was enabled.
+    ClipRect:
+      type: object
+      description: Clipping rectangle dimensions for the captured area.
+      required:
+      - x
+      - y
+      - width
+      - height
+      properties:
+        x:
+          type: integer
+          description: X position of the clip rectangle in pixels.
+        y:
+          type: integer
+          description: Y position of the clip rectangle in pixels.
+        width:
+          type: integer
+          description: Width of the clip rectangle in pixels.
+        height:
+          type: integer
+          description: Height of the clip rectangle in pixels.
+    BulkScreenshotMetaData:
+      type: object
+      description: Metadata about the bulk screenshot request results.
+      required:
+      - total_urls
+      - successful_urls
+      - failed_urls
+      properties:
+        total_urls:
+          type: integer
+          description: Total number of URLs processed.
+        successful_urls:
+          type: integer
+          description: Number of URLs successfully processed.
+        failed_urls:
+          type: integer
+          description: Number of URLs that failed to process.
+    BulkScreenshotResults:
+      type: array
+      description: Array of per-URL results, one entry per requested URL, in the same order as the request. Each entry's `url` field holds either screenshot data or an error object.
+      items:
+        $ref: '#/components/schemas/BulkScreenshotSuccessItem'
+    BulkScreenshotSuccessItem:
+      type: object
+      description: Per-URL result entry. The `url` field holds either the screenshot metadata or an error object, depending on whether that specific URL was captured successfully.
+      required:
+      - status
+      - url
+      properties:
+        status:
+          type: string
+          description: Processing status for this item (fulfilled).
+        url:
+          description: Screenshot metadata for this URL, or an error object if this specific URL could not be captured.
+          oneOf:
+          - description: Screenshot metadata with the same structure as the single Website Screenshot API response.
+            $ref: '#/components/schemas/BulkScreenshotUrlData'
+          - description: Per-item error returned when this specific URL cannot be captured.
+            $ref: '#/components/schemas/ErrorResponse'
+        error_message:
+          type:
+          - string
+          - 'null'
+          description: Observed to always be null; per-item error details are returned inside `url` instead.
+    BulkScreenshotRequest:
+      type: object
+      description: Request body for bulk screenshot capture.
+      required:
+      - urls
+      properties:
+        urls:
+          type: array
+          description: Array of URL objects to capture. Maximum 50 items per request.
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/BulkScreenshotUrlItem'
+    BulkScreenshotUrlItem:
+      type: object
+      description: A single URL entry in a bulk screenshot request with per-URL options.
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+          description: URL of the website to capture.
+        file_type:
+          type: string
+          enum:
+          - PNG
+          - JPEG
+          - WEBP
+          - PDF
+          - mp4
+          - gif
+          - webm
+          description: Output format for this URL.
+        width:
+          type: integer
+          description: Viewport width in pixels.
+        height:
+          type: integer
+          description: Viewport height in pixels.
+        full_page:
+          type: boolean
+          description: Capture a full-page screenshot.
+        fresh:
+          type: boolean
+          description: Bypass cache.
+        no_cookie_banners:
+          type: boolean
+          description: Remove cookie banners.
+        enable_caching:
+          type: boolean
+          description: Enable caching.
+        block_ads:
+          type: boolean
+          description: Block ads.
+        block_chat_widgets:
+          type: boolean
+          description: Block chat widgets.
+        extract_text:
+          type: boolean
+          description: Extract visible text.
+        extract_html:
+          type: boolean
+          description: Extract HTML.
+        extract_markdown:
+          type: boolean
+          description: Extract markdown.
+        get_image_urls:
+          type: boolean
+          description: Extract image URLs.
+        destroy_screenshot:
+          type: boolean
+          description: Auto-destroy after fetch.
+        lazy_load:
+          type: boolean
+          description: Lazy-load content.
+        scroll_delay:
+          type: integer
+          description: Delay in ms between scroll steps.
+        retina:
+          type: boolean
+          description: 2x resolution.
+        dark_mode:
+          type: boolean
+          description: Dark mode.
+        block_tracking:
+          type: boolean
+          description: Block tracking.
+        enable_incognito:
+          type: boolean
+          description: Incognito mode.
+        omit_background:
+          type: boolean
+          description: Transparent background.
+        thumbnail_width:
+          type: integer
+          description: Thumbnail width.
+        adjust_top:
+          type: integer
+          description: Vertical scroll position.
+        wait_for_event:
+          type: string
+          enum:
+          - load
+          - domcontentloaded
+          - networkidle
+          description: Wait for event.
+        grayscale:
+          type: integer
+          description: Grayscale (0-100).
+        delay:
+          type: integer
+          description: Delay in ms.
+        timeout:
+          type: integer
+          description: Timeout in ms.
+        ttl:
+          type: integer
+          description: Cache TTL in seconds.
+        image_quality:
+          type: integer
+          description: JPEG quality (0-100).
+        clip[x]:
+          type: integer
+          description: Clip X.
+        clip[y]:
+          type: integer
+          description: Clip Y.
+        clip[width]:
+          type: integer
+          description: Clip width.
+        clip[height]:
+          type: integer
+          description: Clip height.
+        css_url:
+          type: string
+          description: CSS file URL.
+        css:
+          type: string
+          description: Custom CSS.
+        js_url:
+          type: string
+          description: JS file URL.
+        js:
+          type: string
+          description: Custom JS.
+        block_js:
+          type: boolean
+          description: Block JS.
+        block_stylesheets:
+          type: boolean
+          description: Block stylesheets.
+        block_images:
+          type: boolean
+          description: Block images.
+        block_media:
+          type: boolean
+          description: Block media.
+        block_font:
+          type: boolean
+          description: Block fonts.
+        block_text_track:
+          type: boolean
+          description: Block text tracks.
+        block_xhr:
+          type: boolean
+          description: Block XHR.
+        block_fetch:
+          type: boolean
+          description: Block Fetch.
+        block_event_source:
+          type: boolean
+          description: Block EventSource.
+        block_web_socket:
+          type: boolean
+          description: Block WebSocket.
+        block_manifest:
+          type: boolean
+          description: Block manifest.
+        block_specific_requests:
+          type: string
+          description: Specific requests to block.
+        blur_selector:
+          type: string
+          description: CSS selectors to blur.
+        remove_selector:
+          type: string
+          description: CSS selectors to remove.
+        scroll_to_element:
+          type: string
+          description: Element to scroll to.
+        selector:
+          type: string
+          description: CSS selector to capture.
+        selector_to_click:
+          type: string
+          description: Element to click.
+        click_recursion:
+          type: integer
+          description: Click count.
+        result_file_name:
+          type: string
+          description: Custom filename.
+        user_agent:
+          type: string
+          description: Custom User-Agent.
+        accept_languages:
+          type: string
+          description: Accept-Language.
+        proxy:
+          type: string
+          description: Proxy config.
+        headers:
+          type: string
+          description: Custom headers.
+        cookies:
+          type: string
+          description: Cookies.
+        custom_html:
+          type: string
+          description: Custom HTML.
+        fail_on_error:
+          type: boolean
+          description: Fail on 4xx/5xx.
+        longitude:
+          type: number
+          format: float
+          description: Geolocation longitude.
+        latitude:
+          type: number
+          format: float
+          description: Geolocation latitude.
+        scrolling_screenshot:
+          type: boolean
+          description: Scrolling mode.
+        scroll_speed:
+          type: string
+          enum:
+          - normal
+          - fast
+          - slow
+          description: Scroll speed.
+        duration:
+          type: number
+          description: Duration in seconds.
+        scroll_back:
+          type: boolean
+          description: Scroll back.
+        start_immediately:
+          type: boolean
+          description: Start immediately.
+        multiple_scrolling:
+          type: boolean
+          description: Multiple scrolling.
+        sizes:
+          type: array
+          items:
+            type: string
+          description: Viewport sizes.
+        video:
+          type: boolean
+          description: Video recording.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.

@@ -508,11 +508,6 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: Subdomain Lookup API Server
 components:
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   schemas:
     BulkDomainCheckRequest:
       type: object
@@ -526,6 +521,17 @@ components:
           maxItems: 100
           items:
             type: string
+    BulkDomainCheckResponse:
+      type: object
+      description: Wrapper containing the per-domain results array.
+      required:
+      - bulk_domain_availability_response
+      properties:
+        bulk_domain_availability_response:
+          type: array
+          description: Array of per-domain results. Order is not guaranteed to match the request order. Domains that fail to resolve appear with status false and no domainAvailability field.
+          items:
+            $ref: '#/components/schemas/BulkDomainCheckItem'
     BulkDomainCheckItem:
       type: object
       description: Result for a single domain in a bulk check. domainAvailability is present only when status is true.
@@ -542,17 +548,6 @@ components:
         status:
           type: boolean
           description: Whether this domain was successfully processed.
-    BulkDomainCheckResponse:
-      type: object
-      description: Wrapper containing the per-domain results array.
-      required:
-      - bulk_domain_availability_response
-      properties:
-        bulk_domain_availability_response:
-          type: array
-          description: Array of per-domain results. Order is not guaranteed to match the request order. Domains that fail to resolve appear with status false and no domainAvailability field.
-          items:
-            $ref: '#/components/schemas/BulkDomainCheckItem'
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -588,17 +583,6 @@ components:
           type: boolean
           description: True if available, false if not available
       description: Domain availability check response containing the domain name and availability status.
-    DomainSuggestionResponse:
-      type: object
-      required:
-      - domain_available_response
-      properties:
-        domain_available_response:
-          type: array
-          description: List of domain availability objects.
-          items:
-            $ref: '#/components/schemas/DomainSuggestionItem'
-      description: Domain suggestion response containing a list of availability-suggestions.
     DomainSuggestionItem:
       type: object
       description: A single domain suggestion with availability status.
@@ -625,28 +609,17 @@ components:
         domainAvailability:
           type: boolean
           description: True if available, false if not available.
-    SubdomainItem:
+    DomainSuggestionResponse:
       type: object
-      description: A single subdomain record with discovery dates.
       required:
-      - subdomain
-      - last_seen
+      - domain_available_response
       properties:
-        subdomain:
-          type: string
-          description: The discovered subdomain associated with the given domain.
-        first_seen:
-          type: string
-          format: date
-          description: The date when the subdomain was first discovered. Can be absent for some records.
-        last_seen:
-          type: string
-          format: date
-          description: The most recent date when the subdomain was observed.
-        inactive_from:
-          type: string
-          format: date
-          description: The date from which the subdomain is considered inactive. Appears only if inactive.
+        domain_available_response:
+          type: array
+          description: List of domain availability objects.
+          items:
+            $ref: '#/components/schemas/DomainSuggestionItem'
+      description: Domain suggestion response containing a list of availability-suggestions.
     SubDomainResponse:
       type: object
       required:
@@ -682,6 +655,33 @@ components:
           items:
             $ref: '#/components/schemas/SubdomainItem'
       description: Subdomain lookup response containing paginated subdomain results.
+    SubdomainItem:
+      type: object
+      description: A single subdomain record with discovery dates.
+      required:
+      - subdomain
+      - last_seen
+      properties:
+        subdomain:
+          type: string
+          description: The discovered subdomain associated with the given domain.
+        first_seen:
+          type: string
+          format: date
+          description: The date when the subdomain was first discovered. Can be absent for some records.
+        last_seen:
+          type: string
+          format: date
+          description: The most recent date when the subdomain was observed.
+        inactive_from:
+          type: string
+          format: date
+          description: The date from which the subdomain is considered inactive. Appears only if inactive.
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

@@ -972,19 +972,6 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: ZIP Code Radius Search API Server
 components:
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
-    X-Concurrent-Threads:
-      description: Specifies the maximum number of concurrent requests allowed.
-      schema:
-        type: integer
-    X-Concurrent-Threads-Active:
-      description: Indicates the number of active concurrent requests being processed.
-      schema:
-        type: integer
   schemas:
     ZipResultItem:
       type: object
@@ -1024,17 +1011,6 @@ components:
           type: number
           format: float
           description: Longitude coordinate of the postal code location.
-    ZipcodeLookupResponse:
-      type: object
-      description: ZIP code lookup result containing an array of matched postal codes with location details.
-      required:
-      - results
-      properties:
-        results:
-          type: array
-          description: Array of matched ZIP code results. Codes with no match are omitted, so this array can be shorter than the requested codes list.
-          items:
-            $ref: '#/components/schemas/ZipResultItem'
     BulkZipRequest:
       type: object
       description: Request body for bulk ZIP/postal code lookup.
@@ -1049,6 +1025,17 @@ components:
         country:
           type: string
           description: ISO 3166-1 alpha-2 country code to limit the search to. Applies to every code in the batch.
+    ZipcodeLookupResponse:
+      type: object
+      description: ZIP code lookup result containing an array of matched postal codes with location details.
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          description: Array of matched ZIP code results. Codes with no match are omitted, so this array can be shorter than the requested codes list.
+          items:
+            $ref: '#/components/schemas/ZipResultItem'
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -1082,24 +1069,6 @@ components:
           description: Array of ZIP code results matching the requested code. When multiple locations worldwide share the same postal code, each appears as a separate entry.
           items:
             $ref: '#/components/schemas/ZipResultItem'
-    DistanceMatchInputCode:
-      type: string
-      description: A ZIP or postal code to find distance matches for.
-    ZipcodeDistanceMatchResponse:
-      type: object
-      description: Matching ZIP/postal code pairs within the requested distance threshold.
-      required:
-      - result_count
-      - results
-      properties:
-        result_count:
-          type: integer
-          description: Number of matching ZIP/postal code pairs returned. Zero when no pairs fall within the threshold.
-        results:
-          type: array
-          description: Array of matching code pairs within the requested distance threshold.
-          items:
-            $ref: '#/components/schemas/ZipcodeDistanceMatchItem'
     DistanceMatchRequest:
       type: object
       description: Request body specifying the codes, country, and distance threshold to match pairs within.
@@ -1130,6 +1099,24 @@ components:
           - in
           default: km
           description: 'Distance unit. Default: km.'
+    ZipcodeDistanceMatchResponse:
+      type: object
+      description: Matching ZIP/postal code pairs within the requested distance threshold.
+      required:
+      - result_count
+      - results
+      properties:
+        result_count:
+          type: integer
+          description: Number of matching ZIP/postal code pairs returned. Zero when no pairs fall within the threshold.
+        results:
+          type: array
+          description: Array of matching code pairs within the requested distance threshold.
+          items:
+            $ref: '#/components/schemas/ZipcodeDistanceMatchItem'
+    DistanceMatchInputCode:
+      type: string
+      description: A ZIP or postal code to find distance matches for.
     ZipcodeDistanceMatchItem:
       type: object
       description: A single matched pair of ZIP/postal codes with the distance between them.
@@ -1148,6 +1135,23 @@ components:
           type: number
           format: float
           description: Distance between the ZIP/postal code pair, in the unit specified by the unit field (default km).
+    ZipcodeDistanceItem:
+      type: object
+      description: Distance from the base point to one matched comparison code.
+      required:
+      - code
+      - distance
+      properties:
+        code:
+          type: string
+          description: The matched comparison ZIP/postal code.
+        distance:
+          type: number
+          format: float
+          description: Distance from the base point to this code, in the unit specified by the unit field (default km).
+    DistanceCompareCode:
+      type: string
+      description: A ZIP or postal code to compare against the base point.
     DistanceRequest:
       type: object
       description: Request body specifying the base point, country, and comparison codes for distance calculation.
@@ -1200,26 +1204,6 @@ components:
           description: Array of distance results, one per matched comparison code. Codes with no match are omitted.
           items:
             $ref: '#/components/schemas/ZipcodeDistanceItem'
-    ZipcodeDistanceItem:
-      type: object
-      description: Distance from the base point to one matched comparison code.
-      required:
-      - code
-      - distance
-      properties:
-        code:
-          type: string
-          description: The matched comparison ZIP/postal code.
-        distance:
-          type: number
-          format: float
-          description: Distance from the base point to this code, in the unit specified by the unit field (default km).
-    DistanceCompareCode:
-      type: string
-      description: A ZIP or postal code to compare against the base point.
-    PostalCode:
-      type: string
-      description: A single ZIP or postal code.
     ZipcodeSearchCityResponse:
       type: object
       description: ZIP/postal codes for the requested city, with pagination metadata.
@@ -1247,6 +1231,9 @@ components:
           description: List of ZIP/postal codes for the current page.
           items:
             $ref: '#/components/schemas/PostalCode'
+    PostalCode:
+      type: string
+      description: A single ZIP or postal code.
     ZipcodeSearchRegionResponse:
       type: object
       description: ZIP/postal codes for the requested region, with pagination metadata.
@@ -1330,6 +1317,19 @@ components:
           type: number
           format: float
           description: Distance from the center point to this postal code, in the unit specified by the unit parameter.
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
+    X-Concurrent-Threads-Active:
+      description: Indicates the number of active concurrent requests being processed.
+      schema:
+        type: integer
+    X-Concurrent-Threads:
+      description: Specifies the maximum number of concurrent requests allowed.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

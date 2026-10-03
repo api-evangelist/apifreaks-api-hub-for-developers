@@ -1170,30 +1170,6 @@ components:
         path:
           type: string
           description: API endpoint path (gateway errors) or internal service path (currency-service errors) that produced the error.
-    CurrencyFluctuationResponse:
-      type: object
-      required:
-      - startDate
-      - endDate
-      - base
-      - rateFluctuations
-      properties:
-        startDate:
-          type: string
-          description: Start date of the interval (YYYY-MM-DD).
-        endDate:
-          type: string
-          description: End date of the interval (YYYY-MM-DD).
-        base:
-          type: string
-          description: Base currency used for all fluctuations.
-        rateFluctuations:
-          type: object
-          description: Map of currency codes to their fluctuation details. Each key is a currency code and the value contains startRate, endRate, change, and percentChange.
-          additionalProperties:
-            title: CurrencyFluctuationItem
-            $ref: '#/components/schemas/CurrencyFluctuationItem'
-      description: Currency fluctuation response containing rate changes per symbol over a date interval.
     CurrencyFluctuationItem:
       type: object
       description: Fluctuation metrics for a single currency over a date interval.
@@ -1238,6 +1214,30 @@ components:
         path:
           type: string
           description: API endpoint path (gateway errors) or internal service path (currency-service errors) that produced the error.
+    CurrencyFluctuationResponse:
+      type: object
+      required:
+      - startDate
+      - endDate
+      - base
+      - rateFluctuations
+      properties:
+        startDate:
+          type: string
+          description: Start date of the interval (YYYY-MM-DD).
+        endDate:
+          type: string
+          description: End date of the interval (YYYY-MM-DD).
+        base:
+          type: string
+          description: Base currency used for all fluctuations.
+        rateFluctuations:
+          type: object
+          description: Map of currency codes to their fluctuation details. Each key is a currency code and the value contains startRate, endRate, change, and percentChange.
+          additionalProperties:
+            title: CurrencyFluctuationItem
+            $ref: '#/components/schemas/CurrencyFluctuationItem'
+      description: Currency fluctuation response containing rate changes per symbol over a date interval.
     HistoricalDataLimitsResponse:
       type: object
       required:
@@ -1320,18 +1320,6 @@ components:
           type: string
           description: API endpoint path that produced the error.
       description: Standard error envelope returned by the API on failed requests.
-    SupportedCurrenciesResponse:
-      type: object
-      required:
-      - supportedCurrenciesMap
-      properties:
-        supportedCurrenciesMap:
-          type: object
-          description: Map of all supported currencies keyed by currency code. Each key is a currency code and the value contains full currency metadata.
-          additionalProperties:
-            title: CurrencySupportedItem
-            $ref: '#/components/schemas/CurrencySupportedItem'
-      description: Currency supported response containing the map of all supported currencies.
     CurrencySupportedItem:
       type: object
       description: Metadata for a single supported currency.
@@ -1395,6 +1383,18 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
+    SupportedCurrenciesResponse:
+      type: object
+      required:
+      - supportedCurrenciesMap
+      properties:
+        supportedCurrenciesMap:
+          type: object
+          description: Map of all supported currencies keyed by currency code. Each key is a currency code and the value contains full currency metadata.
+          additionalProperties:
+            title: CurrencySupportedItem
+            $ref: '#/components/schemas/CurrencySupportedItem'
+      description: Currency supported response containing the map of all supported currencies.
     CurrencySymbolsResponse:
       type: object
       required:
@@ -1430,6 +1430,23 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
+    CurrencyTimeSeriesItem:
+      type: object
+      description: Daily exchange rate data for a specific date.
+      required:
+      - date
+      - rates
+      properties:
+        date:
+          type: string
+          description: Date within the interval (YYYY-MM-DD).
+        rates:
+          type: object
+          description: Map of currency codes to exchange rate strings for that date. Each key is a currency code and the value is an exchange rate string.
+          additionalProperties:
+            title: ExchangeRateString
+            type: string
+            description: Exchange rate value as a string for this currency code.
     CurrencyTimeseriesResponse:
       type: object
       required:
@@ -1453,23 +1470,6 @@ components:
           items:
             $ref: '#/components/schemas/CurrencyTimeSeriesItem'
       description: Currency time series response containing daily exchange rate data over a date range.
-    CurrencyTimeSeriesItem:
-      type: object
-      description: Daily exchange rate data for a specific date.
-      required:
-      - date
-      - rates
-      properties:
-        date:
-          type: string
-          description: Date within the interval (YYYY-MM-DD).
-        rates:
-          type: object
-          description: Map of currency codes to exchange rate strings for that date. Each key is a currency code and the value is an exchange rate string.
-          additionalProperties:
-            title: ExchangeRateString
-            type: string
-            description: Exchange rate value as a string for this currency code.
     ErrorResponse_7:
       type: object
       description: Standard error envelope returned by the API on failed requests. Gateway-level validation errors use an ISO 8601 timestamp and the public endpoint path; currency-service errors use a Unix millisecond timestamp and an internal service path instead.
