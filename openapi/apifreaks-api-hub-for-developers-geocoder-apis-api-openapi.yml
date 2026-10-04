@@ -295,13 +295,12 @@ paths:
     - url: https://api.apifreaks.com/v1.0
       description: Reverse Geocoding API Server
 components:
+  headers:
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   schemas:
-    ForwardGeocodeResponse:
-      type: array
-      title: Forward Geocoding Results
-      description: List of locations matching the search query, one entry per match, up to the number requested via `limit`.
-      items:
-        $ref: '#/components/schemas/GeocodeResponse'
     PointOfInterest:
       type: object
       description: A point of interest located at or near a geocoded result.
@@ -315,6 +314,33 @@ components:
         type:
           type: string
           description: Specific kind within the category, e.g. fast_food, city, park, residential, house_number.
+    ErrorResponse:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    ForwardGeocodeResponse:
+      type: array
+      title: Forward Geocoding Results
+      description: List of locations matching the search query, one entry per match, up to the number requested via `limit`.
+      items:
+        $ref: '#/components/schemas/GeocodeResponse'
     GeocodeResponse:
       type: object
       description: A single geocoded location with coordinates and structured address components.
@@ -385,27 +411,6 @@ components:
             type: string
           minItems: 4
           maxItems: 4
-    ErrorResponse:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
     GeocodeResponse_2:
       type: object
       description: The nearest geocoded location to the given coordinates, with structured address components.
@@ -476,11 +481,6 @@ components:
             type: string
           minItems: 4
           maxItems: 4
-  headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

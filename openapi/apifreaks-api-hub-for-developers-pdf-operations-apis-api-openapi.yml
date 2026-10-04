@@ -992,29 +992,6 @@ components:
       schema:
         type: integer
   schemas:
-    PDFResponse:
-      type: object
-      description: Response containing the task ID and input file IDs for a PDF processing task.
-      required:
-      - taskId
-      properties:
-        taskId:
-          type: string
-          description: Task ID of the requested task, used to check the task status.
-        inputIds:
-          type: array
-          items:
-            type: string
-          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
-    PdfFileUploadRequest:
-      type: object
-      description: Multipart form-data request body containing the PDF file to process.
-      required: []
-      properties:
-        file:
-          type: string
-          format: binary
-          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -1037,6 +1014,40 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
+    PdfFileUploadRequest:
+      type: object
+      description: Multipart form-data request body containing the PDF file to process.
+      required: []
+      properties:
+        file:
+          type: string
+          format: binary
+          description: Raw PDF file bytes sent as a multipart/form-data field named 'file'. Omit this field entirely and pass file_id in the query string instead to use an already-uploaded file.
+    PDFResponse:
+      type: object
+      description: Response containing the task ID and input file IDs for a PDF processing task.
+      required:
+      - taskId
+      properties:
+        taskId:
+          type: string
+          description: Task ID of the requested task, used to check the task status.
+        inputIds:
+          type: array
+          items:
+            type: string
+          description: File IDs for the input files provided for the task. Not returned when destroy parameter is true.
+    PdfMergeUploadRequest:
+      type: object
+      description: Multipart form-data request body containing multiple PDF files to merge.
+      required: []
+      properties:
+        file:
+          type: array
+          items:
+            type: string
+            format: binary
+          description: One or more raw PDF file byte streams, each sent as a separate multipart/form-data field named 'file'. Omit this field entirely and pass one or more file_id query parameters instead to merge already-uploaded files.
     PDFResponse_2:
       type: object
       required:
@@ -1051,17 +1062,6 @@ components:
             type: string
           description: File IDs for the input files provided for the task.
       description: Response containing the task ID and input file IDs for a PDF processing task.
-    PdfMergeUploadRequest:
-      type: object
-      description: Multipart form-data request body containing multiple PDF files to merge.
-      required: []
-      properties:
-        file:
-          type: array
-          items:
-            type: string
-            format: binary
-          description: One or more raw PDF file byte streams, each sent as a separate multipart/form-data field named 'file'. Omit this field entirely and pass one or more file_id query parameters instead to merge already-uploaded files.
     PdfTaskResponse:
       type: object
       description: Response containing the task ID and input file IDs for a PDF processing task.

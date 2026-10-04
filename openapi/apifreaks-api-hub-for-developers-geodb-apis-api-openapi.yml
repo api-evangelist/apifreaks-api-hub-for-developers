@@ -806,6 +806,28 @@ components:
       schema:
         type: integer
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
     AdminUnitDetailsResponse:
       type: object
       description: Detailed information for a single administrative unit resolved from a country code and admin unit code.
@@ -834,28 +856,6 @@ components:
         country_name:
           type: string
           description: Name of the country.
-    ErrorResponse:
-      type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
     AdminLevelsResponse:
       type: object
       description: Response containing the distinct administrative level types defined for the requested country.
@@ -867,17 +867,6 @@ components:
           description: An array of unique administrative level types defined for the specified country. Each value represents a category of administrative division, such as state, district, or outlying area.
           items:
             type: string
-    AdminUnitsResponse:
-      type: object
-      description: Response containing the administrative units for the requested country, optionally filtered by admin_level.
-      required:
-      - admin_units
-      properties:
-        admin_units:
-          type: array
-          description: An array of administrative unit objects for the specified country.
-          items:
-            $ref: '#/components/schemas/AdminUnit'
     AdminUnit:
       type: object
       description: An administrative unit object.
@@ -895,6 +884,34 @@ components:
         admin_level:
           type: string
           description: Level or type of the administrative unit (e.g., state, district, province).
+    AdminUnitsResponse:
+      type: object
+      description: Response containing the administrative units for the requested country, optionally filtered by admin_level.
+      required:
+      - admin_units
+      properties:
+        admin_units:
+          type: array
+          description: An array of administrative unit objects for the specified country.
+          items:
+            $ref: '#/components/schemas/AdminUnit'
+    AdminUnit_2:
+      type: object
+      description: An object describing the administrative unit the city belongs to.
+      required:
+      - name
+      - admin_code
+      - admin_level
+      properties:
+        name:
+          type: string
+          description: The full name of the administrative unit.
+        admin_code:
+          type: string
+          description: The short code of the administrative unit.
+        admin_level:
+          type: string
+          description: The administrative level type of the unit (e.g., province, council area).
     CityItem:
       type: object
       description: A city object containing name, coordinates, admin unit, and country code.
@@ -921,23 +938,6 @@ components:
           description: The ISO 3166-1 alpha-2 country code the city belongs to.
         admin_unit:
           $ref: '#/components/schemas/AdminUnit_2'
-    AdminUnit_2:
-      type: object
-      description: An object describing the administrative unit the city belongs to.
-      required:
-      - name
-      - admin_code
-      - admin_level
-      properties:
-        name:
-          type: string
-          description: The full name of the administrative unit.
-        admin_code:
-          type: string
-          description: The short code of the administrative unit.
-        admin_level:
-          type: string
-          description: The administrative level type of the unit (e.g., province, council area).
     CitiesResponse:
       type: object
       description: Response containing every city for the requested country (optionally filtered by admin_unit), returned unpaginated in a single array.
@@ -1014,17 +1014,6 @@ components:
         currency_symbol:
           type: string
           description: The symbol of the currency used in the country.
-    CountriesResponse:
-      type: object
-      description: Response containing the list of countries matching the applied region/subregion filters (or all 250 when unfiltered).
-      required:
-      - countries
-      properties:
-        countries:
-          type: array
-          description: An array of country objects matching the applied filters.
-          items:
-            $ref: '#/components/schemas/CountryItem'
     CountryItem:
       type: object
       description: A country object containing ISO codes, capital, and region information.
@@ -1058,6 +1047,17 @@ components:
         subregion:
           type: string
           description: The more specific subregion the country belongs to. Empty string for a small number of territories with no assigned subregion.
+    CountriesResponse:
+      type: object
+      description: Response containing the list of countries matching the applied region/subregion filters (or all 250 when unfiltered).
+      required:
+      - countries
+      properties:
+        countries:
+          type: array
+          description: An array of country objects matching the applied filters.
+          items:
+            $ref: '#/components/schemas/CountryItem'
     RegionsResponse:
       type: object
       description: Response containing the flat list of geographical regions supported by the GeoDB service.

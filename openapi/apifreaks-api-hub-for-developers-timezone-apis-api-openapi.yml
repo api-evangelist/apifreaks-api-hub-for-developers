@@ -612,28 +612,6 @@ components:
       schema:
         type: integer
   schemas:
-    TimezoneConversionResponse:
-      type: object
-      description: Timezone conversion result containing original and converted timestamps with the difference.
-      required:
-      - original_time
-      - converted_time
-      - diff_hour
-      - diff_min
-      properties:
-        original_time:
-          type: string
-          description: The original date and time before any conversion, in yyyy-MM-dd HH:mm:ss format.
-        converted_time:
-          type: string
-          description: The date and time after conversion to the target timezone, in yyyy-MM-dd HH:mm:ss format.
-        diff_hour:
-          type: number
-          format: float
-          description: The absolute difference in hours between the source and target timezones, always non-negative regardless of conversion direction. Can be fractional for half-hour/quarter-hour offset timezones (e.g. 9.5 for Asia/Kolkata to America/New_York).
-        diff_min:
-          type: integer
-          description: The absolute difference between the source and target timezones expressed in total minutes (not a remainder — always diff_hour * 60), always non-negative regardless of conversion direction.
     ErrorResponse:
       type: object
       description: 'Standard error envelope returned by the API on failed requests. '
@@ -656,23 +634,102 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    TimezoneResponse:
+    TimezoneConversionResponse:
       type: object
+      description: Timezone conversion result containing original and converted timestamps with the difference.
       required:
-      - time_zone
+      - original_time
+      - converted_time
+      - diff_hour
+      - diff_min
       properties:
-        ip:
+        original_time:
           type: string
-          description: The IP address used for the timezone lookup. Present when queried using the ip parameter, or with no location-identifying parameter at all (client-IP fallback). Absent for every other lookup mode.
-        time_zone:
-          $ref: '#/components/schemas/TimeZone'
-        location:
-          $ref: '#/components/schemas/TimezoneLocation'
-        airport_details:
-          $ref: '#/components/schemas/AirportDetail'
-        lo_code_details:
-          $ref: '#/components/schemas/LoCodeDetail'
-      description: 'Timezone lookup result. time_zone is always present. Exactly which other object accompanies it depends on the lookup mode: tz name and lat/long coordinates return time_zone only (no location, no ip); location address returns a basic location object; ip param or client-IP fallback returns a rich location object plus top-level ip; iata_code/icao_code returns airport_details instead of location; lo_code returns lo_code_details instead of location.'
+          description: The original date and time before any conversion, in yyyy-MM-dd HH:mm:ss format.
+        converted_time:
+          type: string
+          description: The date and time after conversion to the target timezone, in yyyy-MM-dd HH:mm:ss format.
+        diff_hour:
+          type: number
+          format: float
+          description: The absolute difference in hours between the source and target timezones, always non-negative regardless of conversion direction. Can be fractional for half-hour/quarter-hour offset timezones (e.g. 9.5 for Asia/Kolkata to America/New_York).
+        diff_min:
+          type: integer
+          description: The absolute difference between the source and target timezones expressed in total minutes (not a remainder — always diff_hour * 60), always non-negative regardless of conversion direction.
+    ErrorResponse_2:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
+    TimezoneLocation:
+      type: object
+      description: 'Geographic location information. Only present for location (address) and ip (or client-IP fallback) lookups; absent for tz, lat/long, iata_code/icao_code, and lo_code lookups. Field set varies by mode: location returns location_string plus a basic field set (country_name, state_prov, city, locality, latitude, longitude); ip/default returns a richer geo-IP field set (continent_code, continent_name, country_code2, country_code3, country_name_official, is_eu, state_code, district, zipcode) plus the common fields, but never location_string or locality.'
+      properties:
+        location_string:
+          type: string
+          description: The provided location parameter as location. Present only for location (address) lookups; absent for ip lookups.
+        continent_code:
+          type: string
+          description: 'The two-letter code of the continent (e.g., NA). Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
+        continent_name:
+          type: string
+          description: 'The full name of the continent (e.g., North America). Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
+        country_code2:
+          type: string
+          description: 'The ISO 3166-1 alpha-2 two-letter country code (e.g., US). Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
+        country_code3:
+          type: string
+          description: 'The ISO 3166-1 alpha-3 three-letter country code (e.g., USA). Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
+        country_name:
+          type: string
+          description: The common name of the country (e.g., United States). Present for both location and ip lookups.
+        country_name_official:
+          type: string
+          description: 'The official full name of the country (e.g., United States of America). Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
+        is_eu:
+          type: boolean
+          description: 'Whether the country belongs to the European Union. Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
+        state_prov:
+          type: string
+          description: Name of the state/province/region. Present for both location and ip lookups.
+        state_code:
+          type: string
+          description: 'Code of the state/province/region. Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
+        district:
+          type: string
+          description: 'Name of the district or county. Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
+        city:
+          type: string
+          description: Name of the city. Present for both location and ip lookups.
+        locality:
+          type: string
+          description: Smaller area, part or region of a city. Only present for location (address) lookups (may be an empty string); absent for ip lookups.
+        zipcode:
+          type: string
+          description: 'ZIP/Postal code of the place. Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
+        latitude:
+          type: string
+          description: The geographic latitude of the location. Present for both location and ip lookups.
+        longitude:
+          type: string
+          description: The geographic longitude of the location. Present for both location and ip lookups.
     DstTransition:
       type: object
       description: DST transition details (used for both the DST start and DST end transitions). Always present as a key on the parent TimeZone object; returned as an empty object {} when dst_exists is false, so none of its properties are required.
@@ -695,6 +752,95 @@ components:
         overlap:
           type: boolean
           description: true if local times repeat around the DST transition.
+    LoCodeDetail:
+      type: object
+      description: UN/LOCODE location details, present when queried by LO code.
+      properties:
+        lo_code:
+          type: string
+          description: A unique identifier for the location, often used in logistics and shipping (e.g., USNYC).
+        city:
+          type: string
+          description: The name of the city or location associated with the LO code.
+        state_code:
+          type: string
+          description: The code for the state, province or region.
+        country_code:
+          type: string
+          description: The ISO 3166-1 alpha-2 country code (e.g., US).
+        country_name:
+          type: string
+          description: The name of the country in an administrative context.
+        location_type:
+          type: string
+          description: The type of location as comma-separated list of facilities (e.g., Port, Rail Terminal, Road Terminal, Airport).
+        latitude:
+          type: number
+          format: float
+          description: The latitude coordinate of the location.
+        longitude:
+          type: number
+          format: float
+          description: The longitude coordinate of the location.
+    TimezoneResponse:
+      type: object
+      required:
+      - time_zone
+      properties:
+        ip:
+          type: string
+          description: The IP address used for the timezone lookup. Present when queried using the ip parameter, or with no location-identifying parameter at all (client-IP fallback). Absent for every other lookup mode.
+        time_zone:
+          $ref: '#/components/schemas/TimeZone'
+        location:
+          $ref: '#/components/schemas/TimezoneLocation'
+        airport_details:
+          $ref: '#/components/schemas/AirportDetail'
+        lo_code_details:
+          $ref: '#/components/schemas/LoCodeDetail'
+      description: 'Timezone lookup result. time_zone is always present. Exactly which other object accompanies it depends on the lookup mode: tz name and lat/long coordinates return time_zone only (no location, no ip); location address returns a basic location object; ip param or client-IP fallback returns a rich location object plus top-level ip; iata_code/icao_code returns airport_details instead of location; lo_code returns lo_code_details instead of location.'
+    AirportDetail:
+      type: object
+      description: Airport information, present when queried by IATA or ICAO code.
+      properties:
+        type:
+          type: string
+          description: Classification of the airport based on size and traffic.
+        name:
+          type: string
+          description: The full name of the airport.
+        latitude:
+          type: number
+          format: float
+          description: The latitude coordinate of the airport.
+        longitude:
+          type: number
+          format: float
+          description: The longitude coordinate of the airport.
+        elevation_ft:
+          type: integer
+          description: The elevation of the airport above sea level, measured in feet.
+        continent_code:
+          type: string
+          description: The two-letter code of the continent.
+        country_code:
+          type: string
+          description: The ISO 3166-1 alpha-2 code for the country where the airport is located.
+        state_code:
+          type: string
+          description: Code of the state/province/region where the airport is located.
+        city:
+          type: string
+          description: The city or administrative region that the airport serves.
+        iata_code:
+          type: string
+          description: The three-letter IATA airport code (e.g., LHR).
+        icao_code:
+          type: string
+          description: The four-letter ICAO airport code (e.g., EGLL).
+        faa_code:
+          type: string
+          description: The FAA location identifier, used primarily in the United States.
     TimeZone:
       type: object
       description: Timezone and date/time information for the location.
@@ -806,152 +952,6 @@ components:
           $ref: '#/components/schemas/DstTransition'
         dst_end:
           $ref: '#/components/schemas/DstTransition'
-    AirportDetail:
-      type: object
-      description: Airport information, present when queried by IATA or ICAO code.
-      properties:
-        type:
-          type: string
-          description: Classification of the airport based on size and traffic.
-        name:
-          type: string
-          description: The full name of the airport.
-        latitude:
-          type: number
-          format: float
-          description: The latitude coordinate of the airport.
-        longitude:
-          type: number
-          format: float
-          description: The longitude coordinate of the airport.
-        elevation_ft:
-          type: integer
-          description: The elevation of the airport above sea level, measured in feet.
-        continent_code:
-          type: string
-          description: The two-letter code of the continent.
-        country_code:
-          type: string
-          description: The ISO 3166-1 alpha-2 code for the country where the airport is located.
-        state_code:
-          type: string
-          description: Code of the state/province/region where the airport is located.
-        city:
-          type: string
-          description: The city or administrative region that the airport serves.
-        iata_code:
-          type: string
-          description: The three-letter IATA airport code (e.g., LHR).
-        icao_code:
-          type: string
-          description: The four-letter ICAO airport code (e.g., EGLL).
-        faa_code:
-          type: string
-          description: The FAA location identifier, used primarily in the United States.
-    LoCodeDetail:
-      type: object
-      description: UN/LOCODE location details, present when queried by LO code.
-      properties:
-        lo_code:
-          type: string
-          description: A unique identifier for the location, often used in logistics and shipping (e.g., USNYC).
-        city:
-          type: string
-          description: The name of the city or location associated with the LO code.
-        state_code:
-          type: string
-          description: The code for the state, province or region.
-        country_code:
-          type: string
-          description: The ISO 3166-1 alpha-2 country code (e.g., US).
-        country_name:
-          type: string
-          description: The name of the country in an administrative context.
-        location_type:
-          type: string
-          description: The type of location as comma-separated list of facilities (e.g., Port, Rail Terminal, Road Terminal, Airport).
-        latitude:
-          type: number
-          format: float
-          description: The latitude coordinate of the location.
-        longitude:
-          type: number
-          format: float
-          description: The longitude coordinate of the location.
-    TimezoneLocation:
-      type: object
-      description: 'Geographic location information. Only present for location (address) and ip (or client-IP fallback) lookups; absent for tz, lat/long, iata_code/icao_code, and lo_code lookups. Field set varies by mode: location returns location_string plus a basic field set (country_name, state_prov, city, locality, latitude, longitude); ip/default returns a richer geo-IP field set (continent_code, continent_name, country_code2, country_code3, country_name_official, is_eu, state_code, district, zipcode) plus the common fields, but never location_string or locality.'
-      properties:
-        location_string:
-          type: string
-          description: The provided location parameter as location. Present only for location (address) lookups; absent for ip lookups.
-        continent_code:
-          type: string
-          description: 'The two-letter code of the continent (e.g., NA). Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
-        continent_name:
-          type: string
-          description: 'The full name of the continent (e.g., North America). Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
-        country_code2:
-          type: string
-          description: 'The ISO 3166-1 alpha-2 two-letter country code (e.g., US). Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
-        country_code3:
-          type: string
-          description: 'The ISO 3166-1 alpha-3 three-letter country code (e.g., USA). Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
-        country_name:
-          type: string
-          description: The common name of the country (e.g., United States). Present for both location and ip lookups.
-        country_name_official:
-          type: string
-          description: 'The official full name of the country (e.g., United States of America). Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
-        is_eu:
-          type: boolean
-          description: 'Whether the country belongs to the European Union. Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
-        state_prov:
-          type: string
-          description: Name of the state/province/region. Present for both location and ip lookups.
-        state_code:
-          type: string
-          description: 'Code of the state/province/region. Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
-        district:
-          type: string
-          description: 'Name of the district or county. Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
-        city:
-          type: string
-          description: Name of the city. Present for both location and ip lookups.
-        locality:
-          type: string
-          description: Smaller area, part or region of a city. Only present for location (address) lookups (may be an empty string); absent for ip lookups.
-        zipcode:
-          type: string
-          description: 'ZIP/Postal code of the place. Geo-IP field only: present for ip param or default client-IP lookups; absent for location lookups.'
-        latitude:
-          type: string
-          description: The geographic latitude of the location. Present for both location and ip lookups.
-        longitude:
-          type: string
-          description: The geographic longitude of the location. Present for both location and ip lookups.
-    ErrorResponse_2:
-      type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
-      properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

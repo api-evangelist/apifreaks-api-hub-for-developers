@@ -238,23 +238,6 @@ components:
       format: binary
       title: Flag Image Response
       description: The flag image returned as raw binary data in the requested format (not JSON). Content-Type is one of image/png, image/webp, or image/svg+xml depending on the format parameter.
-    SupportedCountry:
-      type: object
-      description: A supported country with ISO codes.
-      required:
-      - name
-      - iso2
-      - iso3
-      properties:
-        name:
-          type: string
-          description: Full name of the country.
-        iso2:
-          type: string
-          description: ISO 3166-1 alpha-2 code.
-        iso3:
-          type: string
-          description: ISO 3166-1 alpha-3 code.
     SupportedFlagsResponse:
       type: object
       description: The full list of country and organization flag identifiers supported by the Flags API.
@@ -272,6 +255,23 @@ components:
           description: List of all supported international organization flag identifiers.
           items:
             type: string
+    SupportedCountry:
+      type: object
+      description: A supported country with ISO codes.
+      required:
+      - name
+      - iso2
+      - iso3
+      properties:
+        name:
+          type: string
+          description: Full name of the country.
+        iso2:
+          type: string
+          description: ISO 3166-1 alpha-2 code.
+        iso3:
+          type: string
+          description: ISO 3166-1 alpha-3 code.
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey
