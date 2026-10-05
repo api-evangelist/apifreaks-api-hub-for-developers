@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/dns/reverse-dns-lookup.json",
+ "requested_url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/dns/reverse-dns-lookup.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 18170,
+ "sha256": "36293e048ce49e9d2de98f4151e6dcf4d6a0d39e8b2fae65b2fe4fd1670f4bb2",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

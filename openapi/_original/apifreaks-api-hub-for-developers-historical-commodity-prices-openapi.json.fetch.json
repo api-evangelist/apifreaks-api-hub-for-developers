@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/commodity/historical-commodity-prices.json",
+ "requested_url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/commodity/historical-commodity-prices.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 16333,
+ "sha256": "9c2a44c48fb2a36dc7d63d5e479263713e22ee222efb511f6cb12fb2b5b74a51",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

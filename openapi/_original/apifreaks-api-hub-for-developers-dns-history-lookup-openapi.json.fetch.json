@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/dns/dns-history-lookup.json",
+ "requested_url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/dns/dns-history-lookup.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 24339,
+ "sha256": "61d3622e26ec258fe5b87af1d3107ce234a59be44c54220d6f1aff9083f747c3",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

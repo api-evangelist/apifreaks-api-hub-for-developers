@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/commodity/commodity-time-series.json",
+ "requested_url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/commodity/commodity-time-series.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 18827,
+ "sha256": "a589d0b7a9d109080b484d47724799354ee23a7d82f15c0aaaf3d18d6efd8351",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

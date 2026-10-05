@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/currency-converter.json",
+ "requested_url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/currency-converter.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 9876,
+ "sha256": "df44156792c4d16792b0728194681d12f60a333ed137cd06f87e26193e0a673c",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/commodity/commodity-fluctuation.json",
+ "requested_url": "https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/commodity/commodity-fluctuation.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 16021,
+ "sha256": "4e8c104fcb7b36278f96e11afb678c4f7f32e814a4c5d13ac868738bfc27d9d8",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
