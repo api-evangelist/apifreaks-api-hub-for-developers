@@ -239,20 +239,48 @@ paths:
             X-Concurrent-Threads-Active:
               $ref: '#/components/headers/X-Concurrent-Threads-Active'
 components:
-  headers:
-    X-Concurrent-Threads-Active:
-      description: Indicates the number of active concurrent requests being processed.
-      schema:
-        type: integer
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
-    X-Concurrent-Threads:
-      description: Specifies the maximum number of concurrent requests allowed.
-      schema:
-        type: integer
   schemas:
+    ImageCaptchaInstruction:
+      type: object
+      description: Instructions for locating and solving a single image CAPTCHA challenge.
+      properties:
+        imagePath:
+          type: string
+          description: Selector for the CAPTCHA image element.
+        textField:
+          type: string
+          description: Selector for the field where the CAPTCHA text is entered.
+        imageUpdatePath:
+          type: string
+          description: Selector to refresh or update the CAPTCHA image.
+        captchaFailedPath:
+          type: string
+          description: Selector indicating a CAPTCHA failure so the solver can retry.
+        model:
+          type: string
+          description: Model used for CAPTCHA solving.
+          enum:
+          - Model_1
+          - Model_2
+          - Model_3
+          - Model_4
+          - Model_5
+          - Model_6
+          - basicTnImageProcessing
+          - basicPhImageProcessing
+    Cookie:
+      type: object
+      description: A single cookie to set in the browser session before running instructions.
+      required:
+      - name
+      - value
+      properties:
+        name:
+          type: string
+          description: Cookie name.
+        value:
+          type: string
+          description: Cookie value.
     StaticInstruction:
       type: object
       description: A single static-HTML scraping step. Exactly one of these action fields is set per instruction; every other field is absent.
@@ -269,25 +297,53 @@ components:
         getPage:
           type: string
           description: 'Get page action: retrieves the full page content. Optionally provide a URL or selector to target a specific page.'
-    JsEnabledTrueBody:
+    JsEnabledFalseBody:
       type: object
-      description: 'Request body for jsEnabled=true: renders the page in a real browser and supports interactive instructions.'
+      description: 'Request body for jsEnabled=false (or omitted): fetches static HTML only, no browser rendering.'
       properties:
-        blockUrl:
-          type: array
-          items:
-            type: string
-          description: List of script or URL patterns to block during network requests.
-        cookies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Cookie'
-          description: List of cookies to be set in the browser session.
         instructions:
           type: array
-          description: An ordered list of step-by-step scraping instructions to be executed in the browser. Each item is one Instruction object, with exactly one action field set.
+          description: A list of sequential instructions to execute against the static HTML response. Each item is one StaticInstruction object, with exactly one action field set.
           items:
-            $ref: '#/components/schemas/Instruction'
+            $ref: '#/components/schemas/StaticInstruction'
+    AudioCaptchaInstruction:
+      type: object
+      description: Selectors for locating and solving a single audio CAPTCHA challenge.
+      properties:
+        audioPath:
+          type: string
+          description: Selector for the audio CAPTCHA element.
+        textField:
+          type: string
+          description: Selector for the field where the resolved audio CAPTCHA text is entered.
+    ExtractedField:
+      type:
+      - string
+      - array
+      title: ExtractedField
+      description: The value scraped for one field of an extract instruction. A string when the selector matched exactly one element (content depends on the text query parameter and, under jsEnabled=true, is always plain text). An array of strings, in document order, when the selector matched more than one element (each entry keeps HTML tags unless text=true is set). A field whose selector matched nothing is omitted from extractedData entirely rather than appearing as an empty value.
+      items:
+        type: string
+    ExtractInstruction:
+      type: object
+      description: Maps arbitrary output field names to CSS or XPath selectors. Each key becomes a field in the response's extractedData object.
+      additionalProperties:
+        title: SelectorForField
+        type: string
+        description: 'CSS selector or XPath identifying the element(s) to extract for this output field. Example: ''h1'' or ''/html/body/div/div[2]''.'
+    PlaceValue:
+      type: object
+      description: A selector/value pair used by fill, select, and clickButtonByValue instructions.
+      required:
+      - place
+      - value
+      properties:
+        place:
+          type: string
+          description: CSS or XPath selector identifying the target element.
+        value:
+          type: string
+          description: Value to fill, select, or match against.
     Instruction:
       type: object
       description: A single browser scraping step. Exactly one of these action fields is set per instruction; every other field is absent.
@@ -364,47 +420,6 @@ components:
         saveimage:
           type: string
           description: 'Save image action: saves an image from the page by CSS selector or element ID.'
-    ImageCaptchaInstruction:
-      type: object
-      description: Instructions for locating and solving a single image CAPTCHA challenge.
-      properties:
-        imagePath:
-          type: string
-          description: Selector for the CAPTCHA image element.
-        textField:
-          type: string
-          description: Selector for the field where the CAPTCHA text is entered.
-        imageUpdatePath:
-          type: string
-          description: Selector to refresh or update the CAPTCHA image.
-        captchaFailedPath:
-          type: string
-          description: Selector indicating a CAPTCHA failure so the solver can retry.
-        model:
-          type: string
-          description: Model used for CAPTCHA solving.
-          enum:
-          - Model_1
-          - Model_2
-          - Model_3
-          - Model_4
-          - Model_5
-          - Model_6
-          - basicTnImageProcessing
-          - basicPhImageProcessing
-    Cookie:
-      type: object
-      description: A single cookie to set in the browser session before running instructions.
-      required:
-      - name
-      - value
-      properties:
-        name:
-          type: string
-          description: Cookie name.
-        value:
-          type: string
-          description: Cookie value.
     ErrorResponse:
       type: object
       description: Standard error response returned when a request fails.
@@ -431,35 +446,25 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    ExtractInstruction:
+    JsEnabledTrueBody:
       type: object
-      description: Maps arbitrary output field names to CSS or XPath selectors. Each key becomes a field in the response's extractedData object.
-      additionalProperties:
-        title: SelectorForField
-        type: string
-        description: 'CSS selector or XPath identifying the element(s) to extract for this output field. Example: ''h1'' or ''/html/body/div/div[2]''.'
-    PlaceValue:
-      type: object
-      description: A selector/value pair used by fill, select, and clickButtonByValue instructions.
-      required:
-      - place
-      - value
+      description: 'Request body for jsEnabled=true: renders the page in a real browser and supports interactive instructions.'
       properties:
-        place:
-          type: string
-          description: CSS or XPath selector identifying the target element.
-        value:
-          type: string
-          description: Value to fill, select, or match against.
-    JsEnabledFalseBody:
-      type: object
-      description: 'Request body for jsEnabled=false (or omitted): fetches static HTML only, no browser rendering.'
-      properties:
+        blockUrl:
+          type: array
+          items:
+            type: string
+          description: List of script or URL patterns to block during network requests.
+        cookies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cookie'
+          description: List of cookies to be set in the browser session.
         instructions:
           type: array
-          description: A list of sequential instructions to execute against the static HTML response. Each item is one StaticInstruction object, with exactly one action field set.
+          description: An ordered list of step-by-step scraping instructions to be executed in the browser. Each item is one Instruction object, with exactly one action field set.
           items:
-            $ref: '#/components/schemas/StaticInstruction'
+            $ref: '#/components/schemas/Instruction'
     ScrapingResponse:
       type: object
       description: Result of running the scraping instructions against the target URL.
@@ -470,24 +475,6 @@ components:
           type: object
           description: Container keyed by the field names used in your extract instructions. A field is present only if its selector matched at least one element on the page.
           $ref: '#/components/schemas/ExtractedField'
-    AudioCaptchaInstruction:
-      type: object
-      description: Selectors for locating and solving a single audio CAPTCHA challenge.
-      properties:
-        audioPath:
-          type: string
-          description: Selector for the audio CAPTCHA element.
-        textField:
-          type: string
-          description: Selector for the field where the resolved audio CAPTCHA text is entered.
-    ExtractedField:
-      type:
-      - string
-      - array
-      title: ExtractedField
-      description: The value scraped for one field of an extract instruction. A string when the selector matched exactly one element (content depends on the text query parameter and, under jsEnabled=true, is always plain text). An array of strings, in document order, when the selector matched more than one element (each entry keeps HTML tags unless text=true is set). A field whose selector matched nothing is omitted from extractedData entirely rather than appearing as an empty value.
-      items:
-        type: string
     FormSubmission:
       type: object
       description: Form selector and field values to submit via postForm or getForm.
@@ -502,6 +489,19 @@ components:
             title: FormFieldValue
             type: string
             description: Value to submit for this form field.
+  headers:
+    X-Concurrent-Threads-Active:
+      description: Indicates the number of active concurrent requests being processed.
+      schema:
+        type: integer
+    X-Concurrent-Threads:
+      description: Specifies the maximum number of concurrent requests allowed.
+      schema:
+        type: integer
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
+      schema:
+        type: integer
   securitySchemes:
     ApiKeyAuthHeader:
       type: apiKey

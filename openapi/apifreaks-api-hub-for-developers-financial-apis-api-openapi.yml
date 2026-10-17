@@ -791,6 +791,26 @@ paths:
       description: VAT Rates by IP API Server
 components:
   schemas:
+    VatCategories:
+      type: object
+      description: Category-specific VAT rates, where defined (EU/UK only). Keys vary by country.
+      properties:
+        books:
+          type: number
+          format: float
+          description: VAT rate for books, as a decimal (e.g., 0.07 = 7%).
+        newspapers:
+          type: number
+          format: float
+          description: VAT rate for newspapers, as a decimal (e.g., 0.07 = 7%).
+        periodicals:
+          type: number
+          format: float
+          description: VAT rate for periodicals, as a decimal (e.g., 0.07 = 7%).
+        broadcasting:
+          type: number
+          format: float
+          description: VAT rate for broadcasting services, as a decimal (e.g., 0.19 = 19%).
     BulkVatRequest:
       type: object
       description: Request body for bulk VAT rate lookup by country.
@@ -802,6 +822,11 @@ components:
           description: Array of country entries to look up. Maximum 100 entries.
           items:
             $ref: '#/components/schemas/BulkVatRequestItem'
+    VatCountryBulkResponse:
+      type: array
+      description: Array of VAT rate results, one entry per country that resolved successfully, in request order. Countries that fail to resolve are omitted, so this array can be shorter than the requested countries list.
+      items:
+        $ref: '#/components/schemas/VatBulkResponseItem'
     ErrorResponse:
       type: object
       description: Standard error envelope returned by the API on failed requests.
@@ -824,31 +849,10 @@ components:
           type: string
           format: date-time
           description: Timestamp when the error occurred (ISO 8601).
-    VatCountryBulkResponse:
-      type: array
-      description: Array of VAT rate results, one entry per country that resolved successfully, in request order. Countries that fail to resolve are omitted, so this array can be shorter than the requested countries list.
-      items:
-        $ref: '#/components/schemas/VatBulkResponseItem'
-    VatCategories:
-      type: object
-      description: Category-specific VAT rates, where defined (EU/UK only). Keys vary by country.
-      properties:
-        books:
-          type: number
-          format: float
-          description: VAT rate for books, as a decimal (e.g., 0.07 = 7%).
-        newspapers:
-          type: number
-          format: float
-          description: VAT rate for newspapers, as a decimal (e.g., 0.07 = 7%).
-        periodicals:
-          type: number
-          format: float
-          description: VAT rate for periodicals, as a decimal (e.g., 0.07 = 7%).
-        broadcasting:
-          type: number
-          format: float
-          description: VAT rate for broadcasting services, as a decimal (e.g., 0.19 = 19%).
+    VatRateDecimal:
+      type: number
+      format: float
+      description: A VAT rate expressed as a decimal (e.g., 0.19 = 19%).
     BulkVatRequestItem:
       type: object
       description: A single country entry in a bulk VAT request.
@@ -861,10 +865,6 @@ components:
         state:
           type: string
           description: Optional state or region for sub-national VAT.
-    VatRateDecimal:
-      type: number
-      format: float
-      description: A VAT rate expressed as a decimal (e.g., 0.19 = 19%).
     VatBulkResponseItem:
       type: object
       description: A VAT rate result for a single country or state in a bulk response.
@@ -920,6 +920,22 @@ components:
         countryCode:
           type: string
           description: ISO 3166-1 alpha-2 country code.
+    VatCountryEntry:
+      type: object
+      description: 'VAT country metadata: an ISO 3166-1 alpha-2 code, plus an optional map of sub-national states/regions for countries with state-level VAT (US, Canada, Spain).'
+      required:
+      - code
+      properties:
+        code:
+          type: string
+          description: ISO 3166-1 alpha-2 country code, lowercase.
+        states:
+          type: object
+          description: Map of state/region name to its combined country:state code. Only present for countries with sub-national VAT rates.
+          additionalProperties:
+            title: StateCode
+            type: string
+            description: Combined country:state identifier (e.g. us:ca).
     IbanCountryEntry:
       type: object
       description: A single country supported by the IBAN Validation API.
@@ -960,73 +976,6 @@ components:
           description: Array of countries supported by the SWIFT/BIC Code Lookup and Finder APIs.
           items:
             $ref: '#/components/schemas/SwiftCountryEntry'
-    VatCountryEntry:
-      type: object
-      description: 'VAT country metadata: an ISO 3166-1 alpha-2 code, plus an optional map of sub-national states/regions for countries with state-level VAT (US, Canada, Spain).'
-      required:
-      - code
-      properties:
-        code:
-          type: string
-          description: ISO 3166-1 alpha-2 country code, lowercase.
-        states:
-          type: object
-          description: Map of state/region name to its combined country:state code. Only present for countries with sub-national VAT rates.
-          additionalProperties:
-            title: StateCode
-            type: string
-            description: Combined country:state identifier (e.g. us:ca).
-    IbanValidationResponse:
-      type: object
-      properties:
-        valid:
-          type: boolean
-          description: True if the IBAN passes all validation checks.
-        iban:
-          type: string
-          description: The IBAN number provided in the request.
-        validation:
-          $ref: '#/components/schemas/IbanValidationResult'
-        bank_data:
-          $ref: '#/components/schemas/IbanBankData'
-      required:
-      - valid
-      - iban
-      - validation
-      - bank_data
-      description: IBAN validation response containing validation results and bank data.
-    IbanValidationResult:
-      type: object
-      description: Object contains IBAN validation details.
-      required:
-      - is_alpha_numeric
-      - is_iban_supported_country
-      - is_valid_length
-      - is_valid_structure
-      - is_iban_check_digit_valid
-      properties:
-        is_alpha_numeric:
-          type: boolean
-          description: Whether the IBAN contains only alphanumeric characters.
-        is_iban_supported_country:
-          type: boolean
-          description: Whether the country extracted from the IBAN supports IBAN standards.
-        is_valid_length:
-          type: boolean
-          description: Whether the IBAN length matches the expected length for its country.
-        is_valid_structure:
-          type: boolean
-          description: Whether the IBAN structure matches the pattern for its country.
-        is_iban_check_digit_valid:
-          type: boolean
-          description: Whether the IBAN check digit is valid.
-        bban:
-          type: string
-          enum:
-          - valid
-          - invalid
-          - unknown
-          description: BBAN checksum status. "unknown" means BBAN checksum validation isn't supported for this country.
     IbanBankData:
       type: object
       description: Object contains Bank and BIC details. Most fields are null when the IBAN is structurally invalid or the country's bank data isn't resolvable.
@@ -1079,14 +1028,65 @@ components:
           - boolean
           - 'null'
           description: Whether the country supports Single Euro Payments Area (SEPA). Null when the country prefix isn't a supported IBAN country.
-    SwiftCodeString:
-      type: string
-      description: A single result value — a country name, bank name, city name, or SWIFT/BIC code depending on the drill-down level.
+    IbanValidationResponse:
+      type: object
+      properties:
+        valid:
+          type: boolean
+          description: True if the IBAN passes all validation checks.
+        iban:
+          type: string
+          description: The IBAN number provided in the request.
+        validation:
+          $ref: '#/components/schemas/IbanValidationResult'
+        bank_data:
+          $ref: '#/components/schemas/IbanBankData'
+      required:
+      - valid
+      - iban
+      - validation
+      - bank_data
+      description: IBAN validation response containing validation results and bank data.
+    IbanValidationResult:
+      type: object
+      description: Object contains IBAN validation details.
+      required:
+      - is_alpha_numeric
+      - is_iban_supported_country
+      - is_valid_length
+      - is_valid_structure
+      - is_iban_check_digit_valid
+      properties:
+        is_alpha_numeric:
+          type: boolean
+          description: Whether the IBAN contains only alphanumeric characters.
+        is_iban_supported_country:
+          type: boolean
+          description: Whether the country extracted from the IBAN supports IBAN standards.
+        is_valid_length:
+          type: boolean
+          description: Whether the IBAN length matches the expected length for its country.
+        is_valid_structure:
+          type: boolean
+          description: Whether the IBAN structure matches the pattern for its country.
+        is_iban_check_digit_valid:
+          type: boolean
+          description: Whether the IBAN check digit is valid.
+        bban:
+          type: string
+          enum:
+          - valid
+          - invalid
+          - unknown
+          description: BBAN checksum status. "unknown" means BBAN checksum validation isn't supported for this country.
     SwiftCodeFinderResponse:
       type: array
       description: 'Array of strings whose meaning depends on the supplied parameters: country names, bank names, city names, or SWIFT/BIC codes.'
       items:
         $ref: '#/components/schemas/SwiftCodeString'
+    SwiftCodeString:
+      type: string
+      description: A single result value — a country name, bank name, city name, or SWIFT/BIC code depending on the drill-down level.
     SwiftCodeLookup:
       type: object
       properties:
@@ -1120,19 +1120,6 @@ components:
       - city
       - country
       description: Bank details returned for a SWIFT/BIC code lookup.
-    VatValidationCompany:
-      type: object
-      description: Company details block.
-      required:
-      - company_name
-      - company_address
-      properties:
-        company_name:
-          type: string
-          description: Company or trader name (may be empty string when unavailable).
-        company_address:
-          type: string
-          description: Formatted company address (may be empty string when unavailable).
     VatValidationResponse:
       type: object
       properties:
@@ -1163,6 +1150,19 @@ components:
       - validation
       - company
       description: VAT number validation response containing registration status and company details.
+    VatValidationCompany:
+      type: object
+      description: Company details block.
+      required:
+      - company_name
+      - company_address
+      properties:
+        company_name:
+          type: string
+          description: Company or trader name (may be empty string when unavailable).
+        company_address:
+          type: string
+          description: Formatted company address (may be empty string when unavailable).
     VatValidationResult:
       type: object
       description: Validation result block.
@@ -1179,6 +1179,32 @@ components:
         consultation_authority:
           type: string
           description: Upstream authority used for validation (VIES for EU, HMRC for UK).
+    VatIpItemArray:
+      type: array
+      description: Array of VAT rate objects for the country resolved from the IP address.
+      items:
+        $ref: '#/components/schemas/VatIpItem'
+    VatCategories_2:
+      type: object
+      description: Category-specific VAT rates, where defined (EU/UK only). Keys vary by country.
+      properties:
+        books:
+          type: number
+          format: float
+          description: VAT rate for books, as a decimal (e.g., 0.07 = 7%).
+        newspapers:
+          type: number
+          format: float
+          description: VAT rate for newspapers, as a decimal (e.g., 0.07 = 7%).
+        periodicals:
+          type: number
+          format: float
+          description: VAT rate for periodicals, as a decimal (e.g., 0.07 = 7%).
+        broadcasting:
+          type: number
+          format: float
+          description: VAT rate for broadcasting services, as a decimal (e.g., 0.19 = 19%).
+      required: []
     VatIpItem:
       type: object
       required:
@@ -1221,32 +1247,11 @@ components:
         categories:
           description: Category-specific VAT rates, where defined (EU/UK only). Keys vary by country.
           $ref: '#/components/schemas/VatCategories_2'
-    VatCategories_2:
-      type: object
-      description: Category-specific VAT rates, where defined (EU/UK only). Keys vary by country.
-      properties:
-        books:
-          type: number
-          format: float
-          description: VAT rate for books, as a decimal (e.g., 0.07 = 7%).
-        newspapers:
-          type: number
-          format: float
-          description: VAT rate for newspapers, as a decimal (e.g., 0.07 = 7%).
-        periodicals:
-          type: number
-          format: float
-          description: VAT rate for periodicals, as a decimal (e.g., 0.07 = 7%).
-        broadcasting:
-          type: number
-          format: float
-          description: VAT rate for broadcasting services, as a decimal (e.g., 0.19 = 19%).
-      required: []
-    VatIpItemArray:
+    VatCountryResponse:
       type: array
-      description: Array of VAT rate objects for the country resolved from the IP address.
+      description: Array of VAT rate objects for the requested country or state.
       items:
-        $ref: '#/components/schemas/VatIpItem'
+        $ref: '#/components/schemas/VatRateItem'
     VatCategories_3:
       type: object
       description: Category-specific VAT rates, where defined (EU/UK only). Keys vary by country.
@@ -1268,11 +1273,6 @@ components:
           format: float
           description: VAT rate for broadcasting services, as a decimal (e.g., 0.19 = 19%).
       required: []
-    VatCountryResponse:
-      type: array
-      description: Array of VAT rate objects for the requested country or state.
-      items:
-        $ref: '#/components/schemas/VatRateItem'
     VatRateItem:
       type: object
       required:

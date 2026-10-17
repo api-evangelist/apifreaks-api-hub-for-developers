@@ -428,50 +428,55 @@ paths:
       description: Email Checker API Server
 components:
   schemas:
-    EmailLocation:
+    EmailSecurity:
       type: object
-      description: Geolocation data derived from the IP address.
+      description: Threat and anonymity profile for the IP address.
+      required:
+      - threat_score
+      - is_tor
+      - is_proxy
+      - proxy_type
+      - proxy_provider
+      - is_anonymous
+      - is_known_attacker
+      - is_spam
+      - is_bot
+      - is_cloud_provider
+      - cloud_provider
       properties:
-        city:
-          type: string
-          description: Municipal or city name.
-        district:
-          type: string
-          description: District or neighborhood.
-        zipcode:
-          type: string
-          description: Postal or ZIP code.
-        state_prov:
-          type: string
-          description: State or province.
-        country_name:
-          type: string
-          description: Common country name.
-        country_name_official:
-          type: string
-          description: Official country name.
-        country_code2:
-          type: string
-          description: Two-character ISO country code.
-        country_code3:
-          type: string
-          description: Three-character ISO country code.
-        continent_name:
-          type: string
-          description: Continental region name.
-        continent_code:
-          type: string
-          description: Continental region identifier.
-        accuracy_radius:
-          type: string
-          description: Geolocation precision radius.
-        confidence:
-          type: string
-          description: Confidence score for geolocation accuracy.
-        is_eu:
+        threat_score:
+          type: integer
+          description: Quantitative risk assessment score. Higher values indicate elevated security risk.
+        is_tor:
           type: boolean
-          description: European Union membership status.
-      required: []
+          description: Detection flag for IP addresses routed through the Tor anonymity network.
+        is_proxy:
+          type: boolean
+          description: Detection flag identifying IP addresses operating as proxy servers.
+        proxy_type:
+          type: string
+          description: Classification of detected proxy infrastructure type (e.g. VPN, HTTP, SOCKS).
+        proxy_provider:
+          type: string
+          description: Identified service provider operating the proxy infrastructure.
+        is_anonymous:
+          type: boolean
+          description: Anonymization detection flag for IP addresses using identity obfuscation techniques.
+        is_known_attacker:
+          type: boolean
+          description: Threat intelligence flag for IP addresses documented as confirmed malicious sources.
+        is_spam:
+          type: boolean
+          description: Reputation flag for IP addresses associated with spam transmission.
+        is_bot:
+          type: boolean
+          description: Automated traffic detection flag for IP addresses from bot networks.
+        is_cloud_provider:
+          type: boolean
+          description: Infrastructure classification flag for IP addresses from cloud computing providers.
+        cloud_provider:
+          type: string
+          description: Identified cloud infrastructure or hosting service provider name.
     DomainObject:
       type: object
       required:
@@ -497,28 +502,18 @@ components:
           type: boolean
           description: Detection flag for domains configured to accept mail for any recipient address.
       description: Domain validation details for the email address.
-    ErrorResponse:
+    AddressObject:
       type: object
-      description: Standard error envelope returned by the API on failed requests.
-      required:
-      - message
       properties:
-        error:
-          type: string
-          description: Short error category or exception type.
-        message:
-          type: string
-          description: Human-readable error message describing the failure.
-        path:
-          type: string
-          description: API endpoint path that produced the error.
-        status:
-          type: integer
-          description: HTTP status code returned with the error.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the error occurred (ISO 8601).
+        validIpAddress:
+          type: boolean
+          description: IP recognized/reachable by the geolocation provider.
+        location:
+          $ref: '#/components/schemas/EmailLocation'
+        security:
+          $ref: '#/components/schemas/EmailSecurity'
+      description: Geolocation and security enrichment data for the IP address.
+      required: []
     BulkEmailRequest:
       type: object
       description: Request body for bulk email validation.
@@ -579,6 +574,39 @@ components:
           format: ip
           description: IP address provided for geolocation and security enrichment.
       description: Email validation response containing deliverability assessment and metadata.
+    BulkEmailValidationResponse:
+      type: object
+      description: Wrapper containing the per-email results array.
+      required:
+      - emailResponse
+      properties:
+        emailResponse:
+          type: array
+          description: Array of per-email results, one entry per requested email, in the same order as the request. Invalid emails are reflected via validEmail/validSyntax, not a separate error shape.
+          items:
+            $ref: '#/components/schemas/SingleEmailValidationResponse'
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned by the API on failed requests.
+      required:
+      - message
+      properties:
+        error:
+          type: string
+          description: Short error category or exception type.
+        message:
+          type: string
+          description: Human-readable error message describing the failure.
+        path:
+          type: string
+          description: API endpoint path that produced the error.
+        status:
+          type: integer
+          description: HTTP status code returned with the error.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred (ISO 8601).
     AccountObject:
       type: object
       required:
@@ -591,94 +619,6 @@ components:
           type: boolean
           description: Storage capacity status indicator for the recipient mailbox.
       description: Account-level validation details.
-    AddressObject:
-      type: object
-      properties:
-        validIpAddress:
-          type: boolean
-          description: IP recognized/reachable by the geolocation provider.
-        location:
-          $ref: '#/components/schemas/EmailLocation'
-        security:
-          $ref: '#/components/schemas/EmailSecurity'
-      description: Geolocation and security enrichment data for the IP address.
-      required: []
-    DnsObject:
-      type: object
-      required:
-      - mxRecord
-      properties:
-        mxRecord:
-          type: array
-          items:
-            type: string
-          description: Collection of MX (Mail Exchange) hostname records from DNS queries.
-        aRecord:
-          type: array
-          items:
-            type: string
-          description: Collection of A (Address) records for the domain. Not observed in testing — may be rarely or never populated.
-      description: DNS records for the email domain.
-    BulkEmailValidationResponse:
-      type: object
-      description: Wrapper containing the per-email results array.
-      required:
-      - emailResponse
-      properties:
-        emailResponse:
-          type: array
-          description: Array of per-email results, one entry per requested email, in the same order as the request. Invalid emails are reflected via validEmail/validSyntax, not a separate error shape.
-          items:
-            $ref: '#/components/schemas/SingleEmailValidationResponse'
-    EmailSecurity:
-      type: object
-      description: Threat and anonymity profile for the IP address.
-      required:
-      - threat_score
-      - is_tor
-      - is_proxy
-      - proxy_type
-      - proxy_provider
-      - is_anonymous
-      - is_known_attacker
-      - is_spam
-      - is_bot
-      - is_cloud_provider
-      - cloud_provider
-      properties:
-        threat_score:
-          type: integer
-          description: Quantitative risk assessment score. Higher values indicate elevated security risk.
-        is_tor:
-          type: boolean
-          description: Detection flag for IP addresses routed through the Tor anonymity network.
-        is_proxy:
-          type: boolean
-          description: Detection flag identifying IP addresses operating as proxy servers.
-        proxy_type:
-          type: string
-          description: Classification of detected proxy infrastructure type (e.g. VPN, HTTP, SOCKS).
-        proxy_provider:
-          type: string
-          description: Identified service provider operating the proxy infrastructure.
-        is_anonymous:
-          type: boolean
-          description: Anonymization detection flag for IP addresses using identity obfuscation techniques.
-        is_known_attacker:
-          type: boolean
-          description: Threat intelligence flag for IP addresses documented as confirmed malicious sources.
-        is_spam:
-          type: boolean
-          description: Reputation flag for IP addresses associated with spam transmission.
-        is_bot:
-          type: boolean
-          description: Automated traffic detection flag for IP addresses from bot networks.
-        is_cloud_provider:
-          type: boolean
-          description: Infrastructure classification flag for IP addresses from cloud computing providers.
-        cloud_provider:
-          type: string
-          description: Identified cloud infrastructure or hosting service provider name.
     BulkEmailRequestItem:
       type: object
       description: A single email entry in a bulk validation request.
@@ -696,6 +636,66 @@ components:
           type: string
           format: ip
           description: Optional IP address for enrichment.
+    EmailLocation:
+      type: object
+      description: Geolocation data derived from the IP address.
+      properties:
+        city:
+          type: string
+          description: Municipal or city name.
+        district:
+          type: string
+          description: District or neighborhood.
+        zipcode:
+          type: string
+          description: Postal or ZIP code.
+        state_prov:
+          type: string
+          description: State or province.
+        country_name:
+          type: string
+          description: Common country name.
+        country_name_official:
+          type: string
+          description: Official country name.
+        country_code2:
+          type: string
+          description: Two-character ISO country code.
+        country_code3:
+          type: string
+          description: Three-character ISO country code.
+        continent_name:
+          type: string
+          description: Continental region name.
+        continent_code:
+          type: string
+          description: Continental region identifier.
+        accuracy_radius:
+          type: string
+          description: Geolocation precision radius.
+        confidence:
+          type: string
+          description: Confidence score for geolocation accuracy.
+        is_eu:
+          type: boolean
+          description: European Union membership status.
+      required: []
+    DnsObject:
+      type: object
+      required:
+      - mxRecord
+      properties:
+        mxRecord:
+          type: array
+          items:
+            type: string
+          description: Collection of MX (Mail Exchange) hostname records from DNS queries.
+        aRecord:
+          type: array
+          items:
+            type: string
+          description: Collection of A (Address) records for the domain. Not observed in testing — may be rarely or never populated.
+      description: DNS records for the email domain.
     EmailCheckRequest:
       type: object
       description: Request body for email validation.
@@ -714,16 +714,16 @@ components:
           format: ip
           description: Optional IP address for geolocation and security enrichment.
   headers:
-    X-AF-Credits-Cost:
-      description: Specifies the number of credits consumed by the current request.
-      schema:
-        type: integer
     X-Concurrent-Threads-Active:
       description: Indicates the number of active concurrent requests being processed.
       schema:
         type: integer
     X-Concurrent-Threads:
       description: Specifies the maximum number of concurrent requests allowed.
+      schema:
+        type: integer
+    X-AF-Credits-Cost:
+      description: Specifies the number of credits consumed by the current request.
       schema:
         type: integer
   securitySchemes:

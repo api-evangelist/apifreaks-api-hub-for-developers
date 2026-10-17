@@ -895,23 +895,6 @@ components:
           description: An array of administrative unit objects for the specified country.
           items:
             $ref: '#/components/schemas/AdminUnit'
-    AdminUnit_2:
-      type: object
-      description: An object describing the administrative unit the city belongs to.
-      required:
-      - name
-      - admin_code
-      - admin_level
-      properties:
-        name:
-          type: string
-          description: The full name of the administrative unit.
-        admin_code:
-          type: string
-          description: The short code of the administrative unit.
-        admin_level:
-          type: string
-          description: The administrative level type of the unit (e.g., province, council area).
     CityItem:
       type: object
       description: A city object containing name, coordinates, admin unit, and country code.
@@ -938,6 +921,23 @@ components:
           description: The ISO 3166-1 alpha-2 country code the city belongs to.
         admin_unit:
           $ref: '#/components/schemas/AdminUnit_2'
+    AdminUnit_2:
+      type: object
+      description: An object describing the administrative unit the city belongs to.
+      required:
+      - name
+      - admin_code
+      - admin_level
+      properties:
+        name:
+          type: string
+          description: The full name of the administrative unit.
+        admin_code:
+          type: string
+          description: The short code of the administrative unit.
+        admin_level:
+          type: string
+          description: The administrative level type of the unit (e.g., province, council area).
     CitiesResponse:
       type: object
       description: Response containing every city for the requested country (optionally filtered by admin_unit), returned unpaginated in a single array.
