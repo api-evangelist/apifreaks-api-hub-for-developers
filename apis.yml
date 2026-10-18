@@ -59,7 +59,7 @@ tags:
 - Screenshots
 - PDF Processing
 - Currency
-- Forex
+- Foreign Exchange
 - Commodities
 - financial validation
 - ZIP Codes
@@ -100,6 +100,7 @@ tags_raw:
 - agent-ready
 - OCR
 - Email Validation
+- Forex
 apis:
 - name: APIFreaks MCP Server
   description: Official first-party Model Context Protocol server (Apache-2.0) exposing 59 read-only tools across
