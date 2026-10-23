@@ -9,6 +9,9 @@ artifacts:
   authentication/apifreaks-api-hub-for-developers-authentication.yml:
     method: searched
     evidence: declared in the artifact
+  capabilities/apifreaks-api-hub-for-developers-capability-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
   changelog/apifreaks-api-hub-for-developers-changelog.yml:
     method: searched
     evidence: declared in the artifact
@@ -186,127 +189,13 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  integrations/_index.yml:
     method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+    evidence: carries an API Evangelist house phrase
+  integrations/apifreaks-api-hub-for-developers-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -390,6 +279,21 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/apifreaks-api-hub-for-developers-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -428,12 +332,12 @@ artifacts:
       to the provider's source is unverified
   openapi/_original/apifreaks-api-hub-for-developers-bulk-dns-lookup-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/dns/bulk-dns-lookup.json
+      (sha256 d46a88fd2dba, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-bulk-domain-checker-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/domain/bulk-domain-checker.json
+      (sha256 416e7f1ad3d9, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-bulk-email-validation-openapi.json:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
@@ -480,20 +384,20 @@ artifacts:
       to the provider's source is unverified
   openapi/_original/apifreaks-api-hub-for-developers-commodity-fluctuation-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/commodity/commodity-fluctuation.json
+      (sha256 4e8c104fcb7b, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-commodity-prices-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/commodity/commodity-prices.json
+      (sha256 66b765591288, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-commodity-symbols-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/commodity/commodity-symbols.json
+      (sha256 48f747aff55e, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-commodity-time-series-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/commodity/commodity-time-series.json
+      (sha256 a589d0b7a9d1, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-countries-details-openapi.json:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
@@ -504,52 +408,52 @@ artifacts:
       to the provider's source is unverified
   openapi/_original/apifreaks-api-hub-for-developers-currency-converter-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/currency-converter.json
+      (sha256 df44156792c4, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-currency-fluctuation-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/currency-fluctuation.json
+      (sha256 ff984f1e7a58, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-currency-historical-data-limit-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/currency-historical-data-limit.json
+      (sha256 6f7d7501b3d8, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-currency-rate-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/currency-rate.json
+      (sha256 562c491f4377, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-currency-supported-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/currency-supported.json
+      (sha256 29c828185966, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-currency-symbols-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/currency-symbols.json
+      (sha256 6cad2c23fc36, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-currency-time-series-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/currency-time-series.json
+      (sha256 280452005c4d, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-delete-pdf-page-openapi.json:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
   openapi/_original/apifreaks-api-hub-for-developers-dns-history-lookup-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/dns/dns-history-lookup.json
+      (sha256 61d3622e26ec, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-dns-lookup-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/dns/dns-lookup.json
+      (sha256 25f48cedcc2a, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-domain-search-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/domain/domain-search.json
+      (sha256 662f0d64f913, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-domain-search-with-suggestions-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/domain/domain-search-with-suggestions.json
+      (sha256 66422805ae16, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-domain-whois-history-lookup-openapi.json:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
@@ -580,20 +484,20 @@ artifacts:
       to the provider's source is unverified
   openapi/_original/apifreaks-api-hub-for-developers-geolocalized-currency-conversion-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/geolocalized-currency-conversion.json
+      (sha256 1f9d92342bcb, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-historical-commodity-prices-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/commodity/historical-commodity-prices.json
+      (sha256 9c2a44c48fb2, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-historical-currency-converter-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/historical-currency-converter.json
+      (sha256 4d4e28b359db, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-historical-currency-rate-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/currency/historical-currency-rate.json
+      (sha256 96539c29605c, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-historical-weather-openapi.json:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
@@ -700,8 +604,8 @@ artifacts:
       to the provider's source is unverified
   openapi/_original/apifreaks-api-hub-for-developers-reverse-dns-lookup-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/dns/reverse-dns-lookup.json
+      (sha256 36293e048ce4, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-reverse-geocoding-openapi.json:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
@@ -756,8 +660,8 @@ artifacts:
       to the provider's source is unverified
   openapi/_original/apifreaks-api-hub-for-developers-usage-credits-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/billing/usage-credits.json
+      (sha256 fb1ecbc01b17, fetched 2026-10-04)
   openapi/_original/apifreaks-api-hub-for-developers-user-agent-parser-openapi.json:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity

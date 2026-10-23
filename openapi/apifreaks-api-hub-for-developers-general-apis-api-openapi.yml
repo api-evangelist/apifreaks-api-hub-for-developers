@@ -199,3 +199,9 @@ components:
       in: query
       name: apiKey
       description: Pass your API key via the apiKey query parameter.
+x-provenance:
+  method: harvested
+  publisher: APIFreaks - API Hub for Developers
+  source: https://raw.githubusercontent.com/api-freaks/af-openapi-specs/HEAD/specs/billing/usage-credits.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
