@@ -1,4 +1,4 @@
-# APIFreaks - API Hub for Developers (apifreaks-api-hub-for-developers)
+# APIFreaks - API Hub for Developers
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,817 +64,186 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-APIFreaks is a first-party REST API hub built by JFreaks Software Solutions (Lahore, Pakistan) that ships more than 100 production endpoints behind a single API key and a single shared credit pool. The catalog spans IP geolocation and threat intelligence, WHOIS (live, historical, reverse, ASN), DNS (live, history, reverse), SSL certificate inspection, domain availability and subdomain discovery, forward and reverse geocoding, email and phone validation, VAT/IBAN/SWIFT financial validation, web scraping, website screenshots, an asynchronous PDF processing pipeline, currency and commodity market data, ZIP code and GeoDB reference data, weather (current, forecast, historical, marine, air quality, flood), timezones, user-agent parsing and astronomy. Credits are charged only on successful 2xx responses and refunded on errors, new accounts get 10,000 free credits with no card, and the whole surface is published as 102 OpenAPI 3.1 specifications plus an official Apache-2.0 MCP server exposing 59 agent tools.
+APIFreaks is a first-party REST API hub built by JFreaks Software Solutions (Lahore, Pakistan) that ships more than 100 production endpoints behind a single API key and a single shared credit pool. The catalog spans IP geolocation and threat intelligence, WHOIS (live, historical, reverse, ASN), DNS (live, history, reverse), SSL certificate inspection, domain availability and subdomain discovery, forward and reverse geocoding, email and phone validation, VAT/IBAN/SWIFT financial validation, web scraping, website screenshots, an asynchronous PDF processing pipeline, browser-designed PDF template rendering, currency and commodity market data, ZIP code and GeoDB reference data, weather (current, forecast, historical, marine, air quality, flood), timezones, user-agent parsing and astronomy. Credits are charged only on successful 2xx responses and refunded on errors, new accounts get 10,000 free credits with no card, and the whole surface is published as 104 OpenAPI 3.1 specifications, 68 markdown reference twins served at text/markdown for agents, and an official Apache-2.0 MCP server exposing 109 tools across 19 opt-in modules.
 
-**APIs.json:** [https://apifreaks-api-hub-for-developers.apievangelist.com/apis.yml](https://apifreaks-api-hub-for-developers.apievangelist.com/apis.yml)
+**Areas:** IP Intelligence · Geolocation · WHOIS · Domain Intelligence · DNS · Geocoding · Email Verification · Phone Validation · SSL · Web Scraping · Screenshots · PDF Processing
 
-## Tags
+## APIFreaks - API Hub for Developers on APIs.io
 
-- IP intelligence
-- geolocation
-- WHOIS
-- domain intelligence
-- DNS
-- geocoding
-- email validation
-- phone validation
-- SSL
-- web scraping
-- screenshots
-- PDF processing
-- currency
-- forex
-- commodities
-- financial validation
-- ZIP codes
-- weather
-- timezone
-- GeoDB
-- user-agent parsing
-- astronomy
-- developer tools
-- MCP
-- agent-ready
-- OCR
+Everything profiled for APIFreaks - API Hub for Developers is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/apifreaks-api-hub-for-developers/](https://apis.io/providers/apifreaks-api-hub-for-developers/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (28)
 
-- **Created:** 2026-07-29
-- **Modified:** 2026-08-09
+- [APIFreaks MCP Server](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-mcp-server/) — Official first-party Model Context Protocol server (Apache-2.0) exposing 59 read-only tools across 13 categories — IP intelligence, WHOIS, DNS, SSL, domain,…
+- [APIFreaks - API Hub for Developers Commodity APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-commodity-apis-api/) — The Commodity APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for commodity apis.
+- [APIFreaks - API Hub for Developers Currency APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-currency-apis-api/) — The Currency APIs API from APIFreaks - API Hub for Developers — 10 operation(s) for currency apis.
+- [APIFreaks - API Hub for Developers DNS APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-dns-apis-api/) — The DNS APIs API from APIFreaks - API Hub for Developers — 3 operation(s) for dns apis.
+- [APIFreaks - API Hub for Developers Domain APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-domain-apis-api/) — The Domain APIs API from APIFreaks - API Hub for Developers — 3 operation(s) for domain apis.
+- [APIFreaks - API Hub for Developers Email Validation APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-email-validation-apis-api/) — The Email Validation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for email validation apis.
+- [APIFreaks - API Hub for Developers Financial APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-financial-apis-api/) — The Financial APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for financial apis.
+- [APIFreaks - API Hub for Developers Flags APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-flags-apis-api/) — The Flags APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for flags apis.
+- [APIFreaks - API Hub for Developers General APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-general-apis-api/) — The General APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for general apis.
+- [APIFreaks - API Hub for Developers Geocoder APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-geocoder-apis-api/) — The Geocoder APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for geocoder apis.
+- [APIFreaks - API Hub for Developers GeoDB APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-geodb-apis-api/) — The GeoDB APIs API from APIFreaks - API Hub for Developers — 8 operation(s) for geodb apis.
+- [APIFreaks - API Hub for Developers IP Geolocation APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-ip-geolocation-apis-api/) — The IP Geolocation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for ip geolocation apis.
+- [APIFreaks - API Hub for Developers Other APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-other-apis-api/) — The Other APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for other apis.
+- [APIFreaks - API Hub for Developers PDF Operations APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-pdf-operations-apis-api/) — The PDF Operations APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for pdf operations apis.
+- [APIFreaks - API Hub for Developers PDF Security APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-pdf-security-apis-api/) — The PDF Security APIs API from APIFreaks - API Hub for Developers — 4 operation(s) for pdf security apis.
+- [APIFreaks - API Hub for Developers PDF To Image APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-pdf-to-image-apis-api/) — The PDF To Image APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for pdf to image apis.
+- [APIFreaks - API Hub for Developers PDF Upload and Download APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-pdf-upload-and-download-apis-api/) — The PDF Upload and Download APIs API from APIFreaks - API Hub for Developers — 3 operation(s) for pdf upload and download apis.
+- [APIFreaks - API Hub for Developers Phone Validation APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-phone-validation-apis-api/) — The Phone Validation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for phone validation apis.
+- [APIFreaks - API Hub for Developers Scraping APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-scraping-apis-api/) — The Scraping APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for scraping apis.
+- [APIFreaks - API Hub for Developers Screenshot APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-screenshot-apis-api/) — The Screenshot APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for screenshot apis.
+- [APIFreaks - API Hub for Developers SSL APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-ssl-apis-api/) — The SSL APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for ssl apis.
+- [APIFreaks - API Hub for Developers Task Status and File Info APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-task-status-and-file-info-apis-api/) — The Task Status and File Info APIs API from APIFreaks - API Hub for Developers — 4 operation(s) for task status and file info apis.
+- [APIFreaks - API Hub for Developers Timezone APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-timezone-apis-api/) — The Timezone APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for timezone apis.
+- [APIFreaks - API Hub for Developers User Agent APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-user-agent-apis-api/) — The User Agent APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for user agent apis.
+- [APIFreaks - API Hub for Developers Weather APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-weather-apis-api/) — The Weather APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for weather apis.
+- [APIFreaks - API Hub for Developers WHOIS APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-whois-apis-api/) — The WHOIS APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for whois apis.
+- [APIFreaks - API Hub for Developers ZIP Code APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-zip-code-apis-api/) — The ZIP Code APIs API from APIFreaks - API Hub for Developers — 6 operation(s) for zip code apis.
+- [APIFreaks - API Hub for Developers PDF Template APIs API](https://apis.io/apis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-pdf-template-apis-api/) — The PDF Template APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for rendering a PDF from a template designed in the browser Template…
 
-## APIs
+### Published properties
 
-### APIFreaks MCP Server
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Official first-party Model Context Protocol server (Apache-2.0) exposing 59 read-only tools across 13 categories — IP intelligence, WHOIS, DNS, SSL, domain, weather, currency, commodity, ZIP code, screenshot, timezone, user-agent and astronomy. Distributed on npm as @apifreaks/mcp and run locally over stdio with `npx -y @apifreaks/mcp`; there is no hosted remote endpoint. Authenticates with the same single APIFREAKS_API_KEY as the REST API.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://apifreaks.com/integrations/mcp-server](https://apifreaks.com/integrations/mcp-server)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Apifreaks Api Hub For Developers Pdf Webhooks](https://apis.io/asyncapis/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-pdf-webhooks/)
 
-- MCP
-- agent-ready
-- developer tools
-- IP intelligence
-- WHOIS
-- DNS
-- weather
-- currency
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [M C P Server](mcp/apifreaks-api-hub-for-developers-mcp.yml)
-- [Tool Crosswalk](mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml)
-- [Documentation](https://apifreaks.com/integrations/mcp-server)
-- [API Reference](https://apifreaks.com/integrations/mcp-server/supported-tools)
-- [Source Code](https://github.com/api-freaks/apifreaks-mcp)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-commodity-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-commodity-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-currency-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-currency-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-dns-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-dns-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-domain-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-domain-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-email-validation-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-email-validation-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-financial-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-financial-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-flags-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-flags-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-general-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-general-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-geocoder-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-geocoder-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-geodb-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-geodb-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-ip-geolocation-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-ip-geolocation-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-other-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-other-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-pdf-operations-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-pdf-operations-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-pdf-security-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-pdf-security-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-pdf-to-image-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-pdf-to-image-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-pdf-upload-and-download-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-pdf-upload-and-download-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-phone-validation-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-phone-validation-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-scraping-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-scraping-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-screenshot-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-screenshot-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-ssl-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-ssl-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-task-status-and-file-info-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-task-status-and-file-info-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-timezone-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-timezone-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-user-agent-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-user-agent-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-weather-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-weather-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-whois-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-whois-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-zip-code-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-zip-code-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [APIFreaks MCP](https://apis.io/servers/apifreaks-api-hub-for-developers/io-github-api-freaks-apifreaks-mcp/)
 
-### APIFreaks - API Hub for Developers Commodity APIs API
+#### Collections (26)
 
-The Commodity APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for commodity apis.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
+- [Apifreaks Api Hub For Developers Commodity APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-commodity-apis-api/)
+- [Apifreaks Api Hub For Developers Currency APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-currency-apis-api/)
+- [Apifreaks Api Hub For Developers DNS APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-dns-apis-api/)
+- [Apifreaks Api Hub For Developers Domain APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-domain-apis-api/)
+- [Apifreaks Api Hub For Developers Email Validation APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-email-validation-apis-api/)
+- [Apifreaks Api Hub For Developers Financial APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-financial-apis-api/)
+- [Apifreaks Api Hub For Developers Flags APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-flags-apis-api/)
+- [Credits Usage General APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-general-apis-api/)
+- [Apifreaks Api Hub For Developers Geocoder APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-geocoder-apis-api/)
+- [Apifreaks Api Hub For Developers GeoDB APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-geodb-apis-api/)
+- [Apifreaks Api Hub For Developers IP Geolocation APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-ip-geolocation-apis-api/)
+- [Astronomy API - Location Based Astronomy Data Other APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-other-apis-api/)
+- [Apifreaks Api Hub For Developers PDF Operations APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-pdf-operations-apis-api/)
+- [Apifreaks Api Hub For Developers PDF Security APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-pdf-security-apis-api/)
+- [Convert PDF to JPG, PNG, TIFF, BMP & GIF PDF To Image APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-pdf-to-image-apis-api/)
+- [Apifreaks Api Hub For Developers PDF Upload and Download APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-pdf-upload-and-download-apis-api/)
+- [Apifreaks Api Hub For Developers Phone Validation APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-phone-validation-apis-api/)
+- [Web Scraper API - JavaScript Rendering, Proxy Rotation & CAPTCHA Solving Scraping APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-scraping-apis-api/)
+- [Apifreaks Api Hub For Developers Screenshot APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-screenshot-apis-api/)
+- [Apifreaks Api Hub For Developers SSL APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-ssl-apis-api/)
+- [Apifreaks Api Hub For Developers Task Status and File Info APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-task-status-and-file-info-apis-api/)
+- [Apifreaks Api Hub For Developers Timezone APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-timezone-apis-api/)
+- [Apifreaks Api Hub For Developers User Agent APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-user-agent-apis-api/)
+- [Apifreaks Api Hub For Developers Weather APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-weather-apis-api/)
+- [Apifreaks Api Hub For Developers WHOIS APIs API](https://apis.io/collections/apifreaks-api-hub-for-developers/open-apifreaks-api-hub-for-developers-whois-apis-api/)
+- …and 1 more published on APIs.io
 
-#### Tags
+#### Overlays (1)
 
-- Commodity APIs
+OpenAPI overlays, including conversational phrasing for each operation.
 
-#### Properties
+- [Apifreaks Api Hub For Developers Auth Errors Overlay](https://apis.io/overlays/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-auth-errors-overlay/)
 
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-commodity-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-commodity-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-commodity-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Apifreaks Api Hub For Developers Authentication](https://apis.io/security/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-authentication/)
+- [Apifreaks Api Hub For Developers Domain Security](https://apis.io/security/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Apifreaks Api Hub For Developers Plans](https://apis.io/plans/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-plans/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Apifreaks Api Hub For Developers Rate Limits](https://apis.io/rate-limits/apifreaks-api-hub-for-developers/apifreaks-api-hub-for-developers-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://apifreaks.com)
 - [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Currency APIs API
-
-The Currency APIs API from APIFreaks - API Hub for Developers — 10 operation(s) for currency apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Currency APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-currency-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-currency-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-currency-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers DNS APIs API
-
-The DNS APIs API from APIFreaks - API Hub for Developers — 3 operation(s) for dns apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- DNS APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-dns-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-dns-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-dns-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Domain APIs API
-
-The Domain APIs API from APIFreaks - API Hub for Developers — 3 operation(s) for domain apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Domain APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-domain-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-domain-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-domain-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Email Validation APIs API
-
-The Email Validation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for email validation apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Email Validation APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-email-validation-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-email-validation-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-email-validation-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Financial APIs API
-
-The Financial APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for financial apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Financial APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-financial-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-financial-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-financial-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Flags APIs API
-
-The Flags APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for flags apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Flags APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-flags-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-flags-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-flags-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers General APIs API
-
-The General APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for general apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- General APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-general-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-general-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-general-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Geocoder APIs API
-
-The Geocoder APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for geocoder apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Geocoder APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-geocoder-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-geocoder-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-geocoder-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers GeoDB APIs API
-
-The GeoDB APIs API from APIFreaks - API Hub for Developers — 8 operation(s) for geodb apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- GeoDB APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-geodb-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-geodb-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-geodb-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers IP Geolocation APIs API
-
-The IP Geolocation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for ip geolocation apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- IP Geolocation APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-ip-geolocation-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-ip-geolocation-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-ip-geolocation-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Other APIs API
-
-The Other APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for other apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Other APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-other-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-other-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-other-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers PDF Operations APIs API
-
-The PDF Operations APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for pdf operations apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- PDF Operations APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-pdf-operations-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-pdf-operations-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-pdf-operations-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers PDF Security APIs API
-
-The PDF Security APIs API from APIFreaks - API Hub for Developers — 4 operation(s) for pdf security apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- PDF Security APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-pdf-security-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-pdf-security-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-pdf-security-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers PDF To Image APIs API
-
-The PDF To Image APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for pdf to image apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- PDF To Image APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-pdf-to-image-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-pdf-to-image-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-pdf-to-image-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers PDF Upload and Download APIs API
-
-The PDF Upload and Download APIs API from APIFreaks - API Hub for Developers — 3 operation(s) for pdf upload and download apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- PDF Upload and Download APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-pdf-upload-and-download-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-pdf-upload-and-download-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-pdf-upload-and-download-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Phone Validation APIs API
-
-The Phone Validation APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for phone validation apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Phone Validation APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-phone-validation-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-phone-validation-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-phone-validation-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Scraping APIs API
-
-The Scraping APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for scraping apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Scraping APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-scraping-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-scraping-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-scraping-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Screenshot APIs API
-
-The Screenshot APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for screenshot apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Screenshot APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-screenshot-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-screenshot-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-screenshot-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers SSL APIs API
-
-The SSL APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for ssl apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- SSL APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-ssl-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-ssl-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-ssl-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Task Status and File Info APIs API
-
-The Task Status and File Info APIs API from APIFreaks - API Hub for Developers — 4 operation(s) for task status and file info apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Task Status and File Info APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-task-status-and-file-info-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-task-status-and-file-info-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-task-status-and-file-info-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Timezone APIs API
-
-The Timezone APIs API from APIFreaks - API Hub for Developers — 2 operation(s) for timezone apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Timezone APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-timezone-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-timezone-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-timezone-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers User Agent APIs API
-
-The User Agent APIs API from APIFreaks - API Hub for Developers — 1 operation(s) for user agent apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- User Agent APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-user-agent-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-user-agent-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-user-agent-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers Weather APIs API
-
-The Weather APIs API from APIFreaks - API Hub for Developers — 7 operation(s) for weather apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- Weather APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-weather-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-weather-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-weather-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers WHOIS APIs API
-
-The WHOIS APIs API from APIFreaks - API Hub for Developers — 5 operation(s) for whois apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- WHOIS APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-whois-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-whois-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-whois-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-### APIFreaks - API Hub for Developers ZIP Code APIs API
-
-The ZIP Code APIs API from APIFreaks - API Hub for Developers — 6 operation(s) for zip code apis.
-
-- **Human URL:** [https://apifreaks.com/api](https://apifreaks.com/api)
-- **Base URL:** `https://api.apifreaks.com/v1.0/`
-
-#### Tags
-
-- ZIP Code APIs
-
-#### Properties
-
-- [OpenAPI](openapi/apifreaks-api-hub-for-developers-zip-code-apis-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/apifreaks-api-hub-for-developers-zip-code-apis-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apifreaks-api-hub-for-developers-zip-code-apis-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Playground](https://apifreaks.com/api/playground)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-
-## Common Properties
-
-- [Issue Tracker](https://github.com/api-freaks/apifreaks-mcp/issues)
-- [Releases](https://github.com/api-freaks/apifreaks-mcp/releases)
-- [License](https://github.com/api-freaks/apifreaks-mcp/blob/main/LICENSE)
-- [Developer Portal](https://apifreaks.com/api)
-- [Documentation](https://apifreaks.com/docs)
-- [API Reference](https://apifreaks.com/api/swagger)
-- [Getting Started](https://apifreaks.com/docs)
-- [Support](https://apifreaks.com/contact)
-- [GitHub Organization](https://github.com/api-freaks)
-- [Blog](https://apifreaks.com/resources/blogs)
+- [Getting started](https://apifreaks.com/docs)
+- [API reference](https://apifreaks.com/api/swagger)
 - [Pricing](https://apifreaks.com/pricing)
-- [Sign Up](https://apifreaks.com/signup)
-- [Login](https://apifreaks.com/login)
-- [Terms of Service](https://apifreaks.com/terms)
-- [Privacy Policy](https://apifreaks.com/privacy-policy)
-- [Status Page](https://status.apifreaks.com/)
+- [Sign up](https://apifreaks.com/signup)
+- [Support](https://apifreaks.com/contact)
 - [Changelog](https://apifreaks.com/announcements)
-- [Postman](https://www.postman.com/apifreaks-official/apifreaks/overview) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Plans](plans/apifreaks-api-hub-for-developers-plans.yml)
-- [Rate Limits](rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml)
-- [L L Ms Txt](llms/apifreaks-api-hub-for-developers-llms.txt)
-- [Well Known](well-known/apifreaks-api-hub-for-developers-well-known.yml)
-- [Packages](packages/apifreaks-api-hub-for-developers-packages.yml)
-- [S D Ks](packages/apifreaks-api-hub-for-developers-packages.yml)
-- [M C P Server](mcp/apifreaks-api-hub-for-developers-mcp.yml)
-- [Tool Crosswalk](mcp/apifreaks-api-hub-for-developers-tool-crosswalk.yml)
-- [Agent Skill](skills/_index.yml)
-- [Authentication](authentication/apifreaks-api-hub-for-developers-authentication.yml)
-- [Conventions](conventions/apifreaks-api-hub-for-developers-conventions.yml)
-- [Error Catalog](errors/apifreaks-api-hub-for-developers-problem-types.yml)
-- [Lifecycle](lifecycle/apifreaks-api-hub-for-developers-lifecycle.yml)
-- [Deprecation](https://apifreaks.com/announcements)
-- [Changelog](changelog/apifreaks-api-hub-for-developers-changelog.yml)
-- [Conformance](conformance/apifreaks-api-hub-for-developers-conformance.yml)
-- [Sandbox](sandbox/apifreaks-api-hub-for-developers-sandbox.yml)
-- [Webhooks](asyncapi/apifreaks-api-hub-for-developers-pdf-webhooks.yml)
-- [Overlay](overlays/apifreaks-api-hub-for-developers-auth-errors-overlay.yaml)
-- [Domain Security](security/apifreaks-api-hub-for-developers-domain-security.yml)
+- [Blog](https://apifreaks.com/resources/blogs)
+- [Terms of service](https://apifreaks.com/terms)
+- [Privacy policy](https://apifreaks.com/privacy-policy)
+- [GitHub](https://github.com/api-freaks)
+- [Status](https://status.apifreaks.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** JFreaks Software Solutions
-**Email:** support@apifreaks.com
-**URL:** https://apifreaks.com
+**Kin Score 58.4** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 76.7 |
+| Contract quality | 60.9 |
+| Contract governance | 4.5 |
+| Operational transparency | 63.2 |
+| Developer ergonomics | 72.0 |
+| Access clarity | 76.3 |
+
+**Agent readiness 36.0** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/apifreaks-api-hub-for-developers/](https://apis.io/providers/apifreaks-api-hub-for-developers/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for APIFreaks - API Hub for Developers: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/apifreaks-api-hub-for-developers/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
