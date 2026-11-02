@@ -191,13 +191,16 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-02.yml:
+    method: unknown
+    evidence: no authorship recorded
   integrations/apifreaks-api-hub-for-developers-integration-edges.yml:
     method: searched
     evidence: declared in the artifact
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-10-31T095417.yml:
+  kin/checks-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -255,6 +258,15 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-10-31T095417.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-01T171331.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-01T200237.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/apifreaks-api-hub-for-developers-lifecycle.yml:
@@ -772,6 +784,9 @@ artifacts:
   packages/apifreaks-api-hub-for-developers-packages.yml:
     method: searched
     evidence: declared in the artifact
+  patterns/apifreaks-api-hub-for-developers-patterns.yml:
+    method: derived
+    evidence: declared in the artifact
   plans/apifreaks-api-hub-for-developers-plans.yml:
     method: searched
     evidence: declared in the artifact
@@ -780,6 +795,9 @@ artifacts:
     evidence: no authorship recorded
   rate-limits/apifreaks-api-hub-for-developers-rate-limits.yml:
     method: searched
+    evidence: declared in the artifact
+  rules/apifreaks-api-hub-for-developers-rules.yml:
+    method: generated
     evidence: declared in the artifact
   sandbox/apifreaks-api-hub-for-developers-sandbox.yml:
     method: searched
@@ -804,6 +822,9 @@ artifacts:
     evidence: declared in the artifact
   skills/apifreaks-api-hub-for-developers-pdf-template-render.md:
     method: generated
+    evidence: declared in the artifact
+  sla/apifreaks-api-hub-for-developers-sla.yml:
+    method: searched
     evidence: declared in the artifact
   well-known/apifreaks-api-hub-for-developers-well-known.yml:
     method: unknown
