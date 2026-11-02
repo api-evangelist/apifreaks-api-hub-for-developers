@@ -1,0 +1,123 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://apifreaks.com/pricing
+sources:
+- https://apifreaks.com/pricing
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T141238
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+published: true
+note: Credit-based API pricing with a slider (10K–17M shown); page text captures the 600K tier prices
+  for one-off, yearly, and monthly. VAT not included.
+plan_count: 6
+currency: USD
+plans:
+- name: One-Off Credits - 600K API Credits
+  price_text: $100
+  price: 100
+  currency: USD
+  period: one-time
+  unit: 600K API Credits
+  included_quota: 600K API Credits; 8 concurrent requests; Surcharge Rate None; Surcharge Limit None
+  overage: None
+- name: Yearly Subscription - 600K API Credits / month
+  price_text: $500
+  price: 500
+  currency: USD
+  period: year
+  unit: 600K API Credits / month
+  included_quota: 600K API Credits / month; 8 concurrent requests
+  overage: Surcharge Rate 30,000 credits per $5; Surcharge Limit 300,000 credits
+- name: Monthly Subscription - 600K API Credits / month
+  price_text: $50
+  price: 50
+  currency: USD
+  period: month
+  unit: 600K API Credits / month
+  included_quota: 600K API Credits / month; 8 concurrent requests
+  overage: Surcharge Rate 30,000 credits per $5; Surcharge Limit 300,000 credits
+- name: Teams & Organizations Lite
+  price_text: $20
+  price: 20
+  currency: USD
+  period: month
+  unit: organization
+  included_quota: 10 free seats included; Multiple Teams
+  overage: $5 per additional user
+- name: Teams & Organizations Enterprise
+  price_text: Contact sales for pricing
+  period: none
+  included_quota: Custom number of seats; Multiple teams; Dedicated Support
+- name: Sign Up free credits
+  price_text: Get 10K free credits on Sign Up
+  period: one-time
+  unit: credits
+  included_quota: 10K free credits
+rate_limit_statements:
+- 8 concurrent requests
+- Surcharge Limit 300,000 credits
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  units:
+  - credit
+  - object
+  plans:
+  - name: One-Off Credits - 600K API Credits
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - one-time
+  - name: Yearly Subscription - 600K API Credits / month
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - year
+  - name: Monthly Subscription - 600K API Credits / month
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Teams & Organizations Lite
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    periods:
+    - month
+  - name: Teams & Organizations Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Sign Up free credits
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - one-time
